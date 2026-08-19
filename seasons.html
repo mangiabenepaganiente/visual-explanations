@@ -901,7 +901,10 @@ input[type="range"]::-moz-range-thumb {
     if (Math.abs(dec) > 8) {
       ctx.fillStyle = nLit ? 'rgba(255, 194, 74, 0.95)' : 'rgba(94, 200, 229, 0.95)';
       var cap = nLit ? 'midnight sun' : 'polar night';
-      ctx.fillText(cap, Math.max(8, Math.min(w - 80, np.x - 28)), Math.max(32, np.y - 14));
+      var capX = nLit ? np.x - 74 : np.x + 10;
+      if (capX < 8) capX = 8;
+      if (capX > w - 78) capX = w - 78;
+      ctx.fillText(cap, capX, Math.max(32, np.y - 12));
     }
 
     var sub = toXY(globePoint(dec, tilt, true));
