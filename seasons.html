@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Earth Has Seasons — Tilt, Not Distance</title>
+<meta name="description" content="Classroom explainer: Earth has seasons because a fixed 23.44° axial tilt aims one hemisphere into the sunlight, then the other — not because we are closer to the Sun in summer. Interactive orbit, terminator, and flashlight views with live solar math.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 12% -8%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.flash-card { grid-column: 1 / -1; }
+.flash-card canvas { height: 280px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .flash-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .flash-card canvas { height: 260px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html" style="color:inherit;text-decoration:none">Visual explanations · seasons</a></p>
+  <h1>Why Earth has seasons — tilt, not distance</h1>
+  <p class="lede">Earth is closest to the Sun in <strong>January</strong>, not July. Seasons happen because a <strong>fixed 23.44° axial tilt</strong> aims one hemisphere into the sunlight, then the other — changing the Sun’s noon angle and the length of the day.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Play</button>
+      <label class="sl grow">
+        <span>Day of year <em id="dayLabel">Jun 21 · day 172</em></span>
+        <input type="range" id="scrub" min="1" max="365" step="0.2" value="172" aria-label="Day of year">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip sun" id="chipDec" aria-pressed="false">Dec 21 solstice</button>
+      <button type="button" class="chip" id="chipMar" aria-pressed="false">Mar 20 equinox</button>
+      <button type="button" class="chip sun on" id="chipJun" aria-pressed="true">Jun 21 solstice</button>
+      <button type="button" class="chip" id="chipSep" aria-pressed="false">Sep 23 equinox</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Latitude <em id="latLabel">42.4°N · Boston</em></span>
+        <input type="range" id="lat" min="-90" max="90" step="0.1" value="42.36" aria-label="Latitude">
+      </label>
+      <button type="button" class="chip" id="citySingapore">Singapore 1.4°N</button>
+      <button type="button" class="chip" id="cityCairo">Cairo 30.0°N</button>
+      <button type="button" class="chip on" id="cityBoston">Boston 42.4°N</button>
+      <button type="button" class="chip" id="cityReykjavik">Reykjavík 64.1°N</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Orbit · fixed axis</b><span>top-down · every axis points at Polaris</span></div>
+      <canvas id="cvOrbit" width="720" height="360" aria-label="Earth orbiting the Sun with a fixed axial tilt toward Polaris"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Sun–Earth slice</b><span id="sliceMeta">noon meridian · terminator</span></div>
+      <canvas id="cvSlice" width="520" height="360" aria-label="Lit hemisphere sliding over the poles and the noon Sun angle"></canvas>
+    </div>
+    <div class="card flash-card">
+      <div class="card-h"><b>Flashlight rule</b><span>identical beam · tilt smears the same light</span></div>
+      <canvas id="cvFlash" width="1200" height="280" aria-label="Flashlight analogy: overhead beam versus tilted noon beam"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Angle / the flashlight rule</h2>
+      <p>The same sunlight spread over a larger patch is weaker per square meter. Winter noon rays hit at a shallower angle, so the ground is dimmer even at midday.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Daylight hours</h2>
+      <p>The tilted hemisphere spends more than 12 hours in the Sun. Longer days deposit more energy. At the Arctic Circle that becomes midnight sun — or polar night.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">The Pivot</div>
+      <h2>One fixed 23.5° tilt</h2>
+      <p>The axis does not nod over the year. It points at Polaris in June and in December. Seasons change because that fixed lean faces the Sun, then away, then toward it again.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>It is not distance</h2>
+      <p>Perihelion is ~January 3 — Northern winter. A 3.4% distance swing is real and small (~7% in flux) and it goes the <em>wrong way</em> for Northern seasons. Tilt is the whole story.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Distance versus tilt">
+    <div class="stat">
+      <div class="k">Perihelion</div>
+      <div class="v">147.1M km</div>
+      <div class="s">~Jan 3 · closest to the Sun</div>
+    </div>
+    <div class="stat">
+      <div class="k">Aphelion</div>
+      <div class="v">152.1M km</div>
+      <div class="s">~Jul 4 · farthest — NH summer</div>
+    </div>
+    <div class="stat">
+      <div class="k">Distance swing</div>
+      <div class="v">~3.4%</div>
+      <div class="s">flux swing ~7% via 1/r² · wrong sign</div>
+    </div>
+    <div class="stat">
+      <div class="k">Axial tilt</div>
+      <div class="v">23.44°</div>
+      <div class="s">the seasons · IAU mean obliquity</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Declination (original one-term cosine).</strong> <code>δ = −23.44° · cos(360° · (N + 10) / 365)</code>, <code>N</code> = day of year (Jan 1 = 1) on a 365-day non-leap calendar. Solstice extremes match. Equinox <em>zero-crossings</em> fall a day or two off the calendar chips: on Mar 20 (N = 79) and Sep 23 (N = 266), <code>δ ≈ −0.9°</code> instead of 0°. That is a cosmetic offset of this simple model, not a seasons error. A Fourier series (Spencer 1971) would hug the calendar equinoxes; we keep the original cosine.</li>
+      <li><strong style="color:var(--text)">Sunrise equation.</strong> Hour angle of sunrise <code>cos H₀ = −tan φ · tan δ</code>. Daylight hours <code>= 2 H₀ / 15°</code> (i.e. <code>24 H₀ / π</code> with <code>H₀</code> in radians). Clamp: <code>H₀</code> undefined when <code>|tan φ tan δ| ≥ 1</code> → polar day (24 h) or polar night (0 h). No refraction, no solar-disk semi-diameter (the usual +0.833° correction is omitted), so the equator is exactly 12 h all year.</li>
+      <li><strong style="color:var(--text)">Noon elevation.</strong> <code>e = 90° − |φ − δ|</code> on the noon meridian. Negative <code>e</code> means the Sun stays below the horizon (polar night). Light concentration relative to overhead is <code>cos z = sin e</code> when <code>e &gt; 0</code>, else 0. This is the geometric / Lambertian factor only — no air mass or atmospheric extinction, which would dim low Sun further.</li>
+      <li><strong style="color:var(--text)">Circular orbit + mean Sun.</strong> The drawn orbit is a circle. Real eccentricity is <code>e ≈ 0.0167</code> (perihelion 147.1 million km ~Jan 3, aphelion 152.1 million km ~Jul 4). Distance is shown only as those two ticks; it does not drive the lighting. The date-to-angle mapping uses a mean Sun (constant angular speed), so Kepler’s equation is not applied. Perihelion and aphelion dates wander by about a day from year to year.</li>
+      <li><strong style="color:var(--text)">Obliquity.</strong> Mean axial tilt 23.44° (IAU 2010 / current epoch, rounded). Arctic / Antarctic Circles at <code>90° − 23.44° = 66.56°</code>; Tropics of Cancer / Capricorn at ±23.44°. The axis is drawn parallel to itself at every orbital post — it does not precess on this page (true precession period ≈ 25,772 years).</li>
+      <li><strong style="color:var(--text)">Drawings are not maps.</strong> Sun and Earth are not to scale. The orbit view is a classroom top-down: the axis is shown in the plane of the page so the fixed lean is readable. The slice is the noon–midnight meridian with horizontal rays; the terminator is the vertical diameter. The flashlight beam is a schematic of equal photon count, not a rendered caustic.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  var OBLIQ = 23.44;
+  var YEAR_DAYS = 365;
+  var YEAR_SEC = 20;
+  var DAY_DEC = 355;
+  var DAY_MAR = 79;
+  var DAY_JUN = 172;
+  var DAY_SEP = 266;
+  var MONTHS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  var MONTH_N = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  function declination(N) {
+    return -OBLIQ * Math.cos(2 * Math.PI * (N + 10) / YEAR_DAYS);
+  }
+
+  function noonElevation(phi, dec) {
+    return 90 - Math.abs(phi - dec);
+  }
+
+  function daylightHours(phi, dec) {
+    if (Math.abs(Math.abs(phi) - 90) < 1e-6) {
+      if (Math.abs(dec) < 1e-9) return 12;
+      return (phi * dec > 0) ? 24 : 0;
+    }
+    var arg = -Math.tan(phi * Math.PI / 180) * Math.tan(dec * Math.PI / 180);
+    if (arg <= -1) return 24;
+    if (arg >= 1) return 0;
+    return 24 * Math.acos(arg) / Math.PI;
+  }
+
+  function lightConcentration(phi, dec) {
+    var el = noonElevation(phi, dec);
+    if (el <= 0) return 0;
+    return Math.sin(el * Math.PI / 180);
+  }
+
+  function wrapDay(N) {
+    var x = N - 1;
+    x = ((x % YEAR_DAYS) + YEAR_DAYS) % YEAR_DAYS;
+    return x + 1;
+  }
+
+  function dateParts(N) {
+    var n = Math.round(wrapDay(N)) - 1;
+    var i;
+    for (i = 0; i < 12; i++) {
+      if (n < MONTHS[i]) return { m: i, d: n + 1, label: MONTH_N[i] + ' ' + (n + 1) };
+      n -= MONTHS[i];
+    }
+    return { m: 11, d: 31, label: 'Dec 31' };
+  }
+
+  function fmtLat(d) {
+    var a = Math.abs(d);
+    return a.toFixed(1) + '°' + (d >= 0 ? 'N' : 'S');
+  }
+
+  function fmtDec(d) {
+    var sign = d >= 0 ? '+' : '−';
+    return sign + Math.abs(d).toFixed(2) + '°';
+  }
+
+  function fmtHours(h) {
+    if (!isFinite(h)) return '—';
+    if (h <= 0) return '0 h 00 m';
+    if (h >= 24) return '24 h 00 m';
+    var m = Math.round(h * 60);
+    var hr = Math.floor(m / 60);
+    m = m - hr * 60;
+    return hr + ' h ' + (m < 10 ? '0' : '') + m + ' m';
+  }
+
+  function seasonName(dec) {
+    if (dec > 10) return 'NH summer · SH winter';
+    if (dec < -10) return 'NH winter · SH summer';
+    if (dec >= 0) return 'near equinox · NH spring';
+    return 'near equinox · NH autumn';
+  }
+
+  var CITIES = {
+    citySingapore: { lat: 1.35, name: 'Singapore' },
+    cityCairo: { lat: 30.04, name: 'Cairo' },
+    cityBoston: { lat: 42.36, name: 'Boston' },
+    cityReykjavik: { lat: 64.15, name: 'Reykjavík' }
+  };
+
+  var state = {
+    N: 172,
+    lat: 42.36,
+    playing: false,
+    lastTs: 0,
+    cityId: 'cityBoston'
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elScrub = $('scrub');
+  var elDay = $('dayLabel');
+  var elLat = $('lat');
+  var elLatL = $('latLabel');
+  var elReadout = $('readout');
+  var elSliceMeta = $('sliceMeta');
+  var cvOrbit = $('cvOrbit');
+  var cvSlice = $('cvSlice');
+  var cvFlash = $('cvFlash');
+
+  var surfaces = {
+    orbit: { canvas: cvOrbit, ctx: null, w: 0, h: 0, cssH: 360 },
+    slice: { canvas: cvSlice, ctx: null, w: 0, h: 0, cssH: 360 },
+    flash: { canvas: cvFlash, ctx: null, w: 0, h: 0, cssH: 280 }
+  };
+
+  var stars = [];
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function rebuildStars(w, h) {
+    stars.length = 0;
+    var n = Math.floor((w * h) / 2600);
+    if (n > 240) n = 240;
+    var i;
+    for (i = 0; i < n; i++) {
+      stars.push(Math.random() * w, Math.random() * h, Math.random() < 0.15 ? 1.2 : 0.55);
+    }
+  }
+
+  function drawStars(ctx) {
+    ctx.fillStyle = 'rgba(215, 222, 242, 0.7)';
+    var i;
+    for (i = 0; i < stars.length; i += 3) {
+      ctx.beginPath();
+      ctx.arc(stars[i], stars[i + 1], stars[i + 2], 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function nearestSeason(N) {
+    var chips = [
+      { id: 'chipDec', n: DAY_DEC },
+      { id: 'chipMar', n: DAY_MAR },
+      { id: 'chipJun', n: DAY_JUN },
+      { id: 'chipSep', n: DAY_SEP }
+    ];
+    var best = null;
+    var bestD = 1e9;
+    var i;
+    for (i = 0; i < chips.length; i++) {
+      var d = Math.abs(N - chips[i].n);
+      var d2 = Math.min(d, YEAR_DAYS - d);
+      if (d2 < bestD) { bestD = d2; best = chips[i]; }
+    }
+    return bestD < 4 ? best.id : '';
+  }
+
+  function syncSeasonChips() {
+    var on = nearestSeason(state.N);
+    setChip($('chipDec'), on === 'chipDec');
+    setChip($('chipMar'), on === 'chipMar');
+    setChip($('chipJun'), on === 'chipJun');
+    setChip($('chipSep'), on === 'chipSep');
+    $('chipDec').classList.toggle('sun', on === 'chipDec');
+    $('chipJun').classList.toggle('sun', on === 'chipJun');
+  }
+
+  function cityMatch() {
+    var id;
+    for (id in CITIES) {
+      if (Object.prototype.hasOwnProperty.call(CITIES, id) && Math.abs(CITIES[id].lat - state.lat) < 0.06) return id;
+    }
+    return '';
+  }
+
+  function setCityHighlight(id) {
+    ['citySingapore', 'cityCairo', 'cityBoston', 'cityReykjavik'].forEach(function (k) {
+      setChip($(k), k === id);
+    });
+  }
+
+  function syncLabels() {
+    var dp = dateParts(state.N);
+    elDay.textContent = dp.label + ' · day ' + Math.round(wrapDay(state.N));
+    elScrub.value = String(wrapDay(state.N));
+    var match = cityMatch();
+    var extra = match ? ' · ' + CITIES[match].name : '';
+    elLatL.textContent = fmtLat(state.lat) + extra;
+    elLat.value = String(state.lat);
+    var dec = declination(state.N);
+    elSliceMeta.textContent = 'noon meridian · δ ' + fmtDec(dec) + ' · ' + seasonName(dec);
+    syncSeasonChips();
+    setCityHighlight(match);
+  }
+
+  function earthPos(N, cx, cy, R) {
+    var ang = 2 * Math.PI * (N + 10) / YEAR_DAYS;
+    return { x: cx + R * Math.cos(ang), y: cy - R * Math.sin(ang), ang: ang };
+  }
+
+  function drawEarthGlobe(ctx, x, y, r, toSunX, toSunY, alpha) {
+    var len = Math.hypot(toSunX, toSunY) || 1;
+    var ux = toSunX / len;
+    var uy = toSunY / len;
+    var g = ctx.createRadialGradient(x + ux * r * 0.28, y + uy * r * 0.28, r * 0.08, x, y, r);
+    g.addColorStop(0, 'rgba(96, 168, 196, ' + (0.95 * alpha) + ')');
+    g.addColorStop(0.45, 'rgba(28, 78, 112, ' + (0.95 * alpha) + ')');
+    g.addColorStop(1, 'rgba(8, 22, 40, ' + (0.98 * alpha) + ')');
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.fillStyle = 'rgba(4, 8, 18, ' + (0.62 * alpha) + ')';
+    ctx.beginPath();
+    ctx.arc(x - ux * r * 0.15, y - uy * r * 0.15, r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.arc(x, y, r + 2, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(94, 200, 229, ' + (0.28 * alpha) + ')';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  }
+
+  function drawAxis(ctx, x, y, r, alpha, labeled) {
+    var tilt = OBLIQ * Math.PI / 180;
+    var nx = Math.sin(tilt);
+    var ny = -Math.cos(tilt);
+    var ext = r * 1.55;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = 'rgba(215, 222, 242, 0.85)';
+    ctx.setLineDash([4, 3]);
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(x - nx * ext, y - ny * ext);
+    ctx.lineTo(x + nx * ext, y + ny * ext);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.arc(x + nx * (r + 7), y + ny * (r + 7), 3.2, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(x - nx * (r + 7), y - ny * (r + 7), 2.6, 0, Math.PI * 2);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fill();
+    if (labeled) {
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('N', x + nx * (r + 16) - 3, y + ny * (r + 16) + 3);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('S', x - nx * (r + 16) - 3, y - ny * (r + 16) + 3);
+    }
+    ctx.restore();
+  }
+
+  function drawOrbit() {
+    var s = surfaces.orbit;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+    drawStars(ctx);
+
+    var cx = w * 0.46;
+    var cy = h * 0.52;
+    var orbitR = Math.min(w * 0.36, h * 0.30);
+    var re = Math.min(22, Math.min(w, h) * 0.062);
+
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.22)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx, cy, orbitR, 0, Math.PI * 2);
+    ctx.stroke();
+
+    var sunR = Math.min(16, re * 0.7);
+    var sg = ctx.createRadialGradient(cx, cy, 2, cx, cy, sunR * 5.2);
+    sg.addColorStop(0, 'rgba(255, 220, 120, 0.95)');
+    sg.addColorStop(0.18, 'rgba(255, 194, 74, 0.55)');
+    sg.addColorStop(1, 'rgba(255, 194, 74, 0)');
+    ctx.fillStyle = sg;
+    ctx.beginPath();
+    ctx.arc(cx, cy, sunR * 5.2, 0, Math.PI * 2);
+    ctx.fill();
+    var sc = ctx.createRadialGradient(cx - 2, cy - 2, 1, cx, cy, sunR);
+    sc.addColorStop(0, '#fff4c8');
+    sc.addColorStop(0.5, '#ffc24a');
+    sc.addColorStop(1, '#e08920');
+    ctx.fillStyle = sc;
+    ctx.beginPath();
+    ctx.arc(cx, cy, sunR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.9)';
+    ctx.fillText('Sun', cx - 10, cy + sunR + 13);
+
+    function stationLabel(st, p) {
+      var pad = re * 1.7 + 6;
+      var lx, ly;
+      if (st.align === 'left') { lx = p.x - pad - 52; ly = p.y - 2; }
+      else if (st.align === 'right') { lx = p.x + pad; ly = p.y - 2; }
+      else if (st.align === 'top') { lx = p.x - 18; ly = p.y - pad - 6; }
+      else { lx = p.x - 18; ly = p.y + pad + 12; }
+      if (lx < 8) lx = 8;
+      if (lx > w - 64) lx = w - 64;
+      if (ly < 32) ly = 32;
+      if (ly > h - 36) ly = h - 36;
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = 'rgba(168, 176, 200, 0.95)';
+      ctx.fillText(st.name, lx, ly);
+      ctx.fillStyle = 'rgba(139, 147, 173, 0.88)';
+      ctx.fillText(st.sub, lx, ly + 12);
+    }
+
+    var stations = [
+      { n: DAY_JUN, name: 'Jun 21', sub: 'NH summer', align: 'left' },
+      { n: DAY_DEC, name: 'Dec 21', sub: 'NH winter', align: 'right' },
+      { n: DAY_MAR, name: 'Mar 20', sub: 'equinox', align: 'top' },
+      { n: DAY_SEP, name: 'Sep 23', sub: 'equinox', align: 'bot' }
+    ];
+    var i;
+    for (i = 0; i < stations.length; i++) {
+      var st = stations[i];
+      var p = earthPos(st.n, cx, cy, orbitR);
+      drawEarthGlobe(ctx, p.x, p.y, re * 0.7, cx - p.x, cy - p.y, 0.36);
+      drawAxis(ctx, p.x, p.y, re * 0.7, 0.38, false);
+      stationLabel(st, p);
+    }
+
+    function tickOnly(N, color) {
+      var q = earthPos(N, cx, cy, orbitR);
+      var ux = (q.x - cx) / orbitR;
+      var uy = (q.y - cy) / orbitR;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(cx + ux * (orbitR - 6), cy + uy * (orbitR - 6));
+      ctx.lineTo(cx + ux * (orbitR + 6), cy + uy * (orbitR + 6));
+      ctx.stroke();
+    }
+    tickOnly(3, 'rgba(255, 126, 95, 0.9)');
+    tickOnly(185, 'rgba(94, 200, 229, 0.9)');
+
+    var now = earthPos(state.N, cx, cy, orbitR);
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.35)';
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(now.x, now.y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    drawEarthGlobe(ctx, now.x, now.y, re, cx - now.x, cy - now.y, 1);
+    drawAxis(ctx, now.x, now.y, re, 1, true);
+
+    var nearChip = nearestSeason(state.N);
+    if (!nearChip) {
+      var dp = dateParts(state.N);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#ffc24a';
+      var dlx = now.x + re + 8;
+      var dly = now.y + 4;
+      if (dlx > w - 50) dlx = now.x - re - 40;
+      if (dly < 30) dly = now.y + re + 14;
+      if (dly > h - 28) dly = now.y - re - 8;
+      ctx.fillText(dp.label, dlx, dly);
+    }
+
+    var tilt = OBLIQ * Math.PI / 180;
+    var ax = Math.sin(tilt);
+    var ay = -Math.cos(tilt);
+    var px0 = w - 132;
+    var py0 = 44;
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.85)';
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(px0, py0);
+    ctx.lineTo(px0 + ax * 34, py0 + ay * 34);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(px0 + ax * 34, py0 + ay * 34);
+    ctx.lineTo(px0 + ax * 34 - ax * 7 - ay * 4, py0 + ay * 34 - ay * 7 + ax * 4);
+    ctx.lineTo(px0 + ax * 34 - ax * 7 + ay * 4, py0 + ay * 34 - ay * 7 - ax * 4);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.85)';
+    ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.95)';
+    ctx.fillText('Polaris', px0 + 16, py0 - 8);
+    ctx.fillStyle = 'rgba(168, 176, 200, 0.85)';
+    ctx.fillText('all axes parallel', px0 - 8, py0 + 18);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.95)';
+    ctx.fillText('Circular orbit · mean Sun · 23.44° lean, fixed in space', 12, 18);
+    ctx.fillStyle = 'rgba(255, 126, 95, 0.9)';
+    ctx.fillText('perihelion Jan 3', 12, h - 24);
+    ctx.fillStyle = 'rgba(94, 200, 229, 0.9)';
+    ctx.fillText('aphelion Jul 4', 118, h - 24);
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.95)';
+    ctx.fillText('— closest in NH winter, so distance is not the engine', 210, h - 24);
+  }
+
+  function globePoint(latDeg, tilt, noonSide) {
+    var lat = latDeg * Math.PI / 180;
+    var x0 = (noonSide ? -1 : 1) * Math.cos(lat);
+    var y0 = Math.sin(lat);
+    var c = Math.cos(tilt), s = Math.sin(tilt);
+    return { x: x0 * c - y0 * s, y: x0 * s + y0 * c };
+  }
+
+  function drawSlice() {
+    var s = surfaces.slice;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var dec = declination(state.N);
+    var tilt = dec * Math.PI / 180;
+    var cx = w * 0.62;
+    var cy = h * 0.52;
+    var Re = Math.min(w * 0.34, h * 0.36);
+
+    var i;
+    for (i = 0; i < 7; i++) {
+      var yy = cy - Re * 1.15 + i * (Re * 2.3 / 6);
+      var grd = ctx.createLinearGradient(8, 0, cx - Re - 8, 0);
+      grd.addColorStop(0, 'rgba(255, 194, 74, 0.0)');
+      grd.addColorStop(0.4, 'rgba(255, 194, 74, 0.45)');
+      grd.addColorStop(1, 'rgba(255, 194, 74, 0.12)');
+      ctx.strokeStyle = grd;
+      ctx.lineWidth = 1.1;
+      ctx.beginPath();
+      ctx.moveTo(10, yy);
+      ctx.lineTo(cx - Re - 6, yy);
+      ctx.stroke();
+    }
+
+    var sunX = 28;
+    var sunY = cy;
+    var sg = ctx.createRadialGradient(sunX, sunY, 1, sunX, sunY, 34);
+    sg.addColorStop(0, 'rgba(255, 230, 150, 0.95)');
+    sg.addColorStop(0.4, 'rgba(255, 194, 74, 0.5)');
+    sg.addColorStop(1, 'rgba(255, 194, 74, 0)');
+    ctx.fillStyle = sg;
+    ctx.beginPath();
+    ctx.arc(sunX, sunY, 34, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath();
+    ctx.arc(sunX, sunY, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('Sun', sunX - 8, sunY + 22);
+
+    var earthG = ctx.createRadialGradient(cx - Re * 0.35, cy - Re * 0.25, Re * 0.1, cx, cy, Re);
+    earthG.addColorStop(0, '#3d8aaa');
+    earthG.addColorStop(0.55, '#18405c');
+    earthG.addColorStop(1, '#0c1c30');
+    ctx.beginPath();
+    ctx.arc(cx, cy, Re, 0, Math.PI * 2);
+    ctx.fillStyle = earthG;
+    ctx.fill();
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, Re, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.fillStyle = 'rgba(4, 8, 18, 0.72)';
+    ctx.fillRect(cx, cy - Re - 2, Re + 4, Re * 2 + 4);
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, Re + 3, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.28)';
+    ctx.lineWidth = 5;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, Re, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.4)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.35)';
+    ctx.setLineDash([3, 3]);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - Re - 6);
+    ctx.lineTo(cx, cy + Re + 6);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.75)';
+    ctx.fillText('terminator', Math.min(w - 70, cx + 8), Math.max(32, cy - Re + 2));
+
+    function toXY(p) { return { x: cx + p.x * Re, y: cy - p.y * Re }; }
+
+    function latTick(lat, label, color) {
+      var a = toXY(globePoint(lat, tilt, true));
+      var b = toXY(globePoint(lat, tilt, false));
+      ctx.strokeStyle = color || 'rgba(215, 222, 242, 0.16)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+      if (label) {
+        ctx.font = FONT_MONO_10;
+        ctx.fillStyle = color || 'rgba(168, 176, 200, 0.85)';
+        var tw = ctx.measureText(label).width;
+        var lx = a.x - tw - 8;
+        if (lx < 6) lx = 6;
+        ctx.fillText(label, lx, a.y + 3);
+      }
+    }
+    latTick(0, 'equator', 'rgba(94, 200, 229, 0.55)');
+    latTick(OBLIQ, 'tropic', 'rgba(255, 194, 74, 0.4)');
+    latTick(-OBLIQ, '', 'rgba(255, 194, 74, 0.28)');
+    latTick(90 - OBLIQ, 'arctic', 'rgba(94, 200, 229, 0.4)');
+    latTick(-(90 - OBLIQ), 'antarctic', 'rgba(94, 200, 229, 0.4)');
+
+    var np = toXY(globePoint(90, tilt, true));
+    var sp = toXY(globePoint(-90, tilt, true));
+    ctx.strokeStyle = 'rgba(215, 222, 242, 0.9)';
+    ctx.setLineDash([4, 3]);
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(np.x + (np.x - cx) * 0.22, np.y + (np.y - cy) * 0.22);
+    ctx.lineTo(sp.x + (sp.x - cx) * 0.22, sp.y + (sp.y - cy) * 0.22);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.arc(np.x, np.y, 3.4, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(sp.x, sp.y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('N', np.x + 8, np.y - 4);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('S', sp.x + 8, sp.y + 12);
+
+    var nLit = np.x < cx;
+    ctx.font = FONT_MONO_10;
+    if (Math.abs(dec) > 8) {
+      ctx.fillStyle = nLit ? 'rgba(255, 194, 74, 0.95)' : 'rgba(94, 200, 229, 0.95)';
+      var cap = nLit ? 'midnight sun' : 'polar night';
+      ctx.fillText(cap, Math.max(8, Math.min(w - 80, np.x - 28)), Math.max(32, np.y - 14));
+    }
+
+    var sub = toXY(globePoint(dec, tilt, true));
+    ctx.beginPath();
+    ctx.arc(sub.x, sub.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+    ctx.strokeStyle = '#fff6d8';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('subsolar', Math.max(8, sub.x - 24), sub.y + 18);
+
+    var obs = toXY(globePoint(state.lat, tilt, true));
+    ctx.beginPath();
+    ctx.arc(obs.x, obs.y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fill();
+    ctx.strokeStyle = '#ffd2c6';
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+
+    var el = noonElevation(state.lat, dec);
+    ctx.strokeStyle = 'rgba(255, 126, 95, 0.85)';
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(obs.x - 70, obs.y);
+    ctx.lineTo(obs.x, obs.y);
+    ctx.stroke();
+
+    var zx = obs.x - cx;
+    var zy = obs.y - cy;
+    var zlen = Math.hypot(zx, zy) || 1;
+    var hx = -zy / zlen;
+    var hy = zx / zlen;
+    if (hx > 0) { hx = -hx; hy = -hy; }
+    ctx.strokeStyle = 'rgba(215, 222, 242, 0.45)';
+    ctx.setLineDash([2, 2]);
+    ctx.beginPath();
+    ctx.moveTo(obs.x - hx * 36, obs.y - hy * 36);
+    ctx.lineTo(obs.x + hx * 36, obs.y + hy * 36);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    var horizonAng = Math.atan2(hy, hx);
+    var rayAng = 0;
+    ctx.strokeStyle = 'rgba(255, 126, 95, 0.7)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(obs.x, obs.y, 22, Math.min(horizonAng, rayAng), Math.max(horizonAng, rayAng));
+    ctx.stroke();
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ff7e5f';
+    var elTxt = 'noon ' + (el >= 0 ? el.toFixed(1) + '°' : el.toFixed(1) + '° below');
+    var olx = obs.x + 10;
+    if (olx + 86 > w - 6) olx = obs.x - 86;
+    var oly = obs.y - 10;
+    if (oly < 32) oly = obs.y + 22;
+    ctx.fillText(elTxt, olx, oly);
+    ctx.fillText('pin ' + fmtLat(state.lat), olx, oly + 12);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.95)';
+    ctx.fillText('Rays from the left · night is the right half · axis tilt in this view = δ', 12, 18);
+  }
+
+  function drawBeamPanel(ctx, x0, y0, bw, bh, zenithDeg, title, subtitle, accent) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x0, y0, bw, bh);
+    ctx.clip();
+
+    var z = zenithDeg;
+    var up = z < 90;
+    var zRad = Math.min(88.5, Math.max(0, z)) * Math.PI / 180;
+    var conc = up ? Math.cos(zRad) : 0;
+    var smear = up ? 1 / Math.max(0.22, conc) : 4.2;
+
+    var gx = x0 + bw * 0.5;
+    var gy = y0 + bh * 0.78;
+    var groundW = bw * 0.86;
+    var groundH = bh * 0.16;
+
+    ctx.fillStyle = '#10162c';
+    ctx.beginPath();
+    ctx.moveTo(gx - groundW * 0.5, gy);
+    ctx.lineTo(gx + groundW * 0.5, gy);
+    ctx.lineTo(gx + groundW * 0.38, gy + groundH);
+    ctx.lineTo(gx - groundW * 0.38, gy + groundH);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.25)';
+    ctx.stroke();
+
+    var lampX = x0 + bw * (0.32 + 0.22 * Math.sin(zRad));
+    var lampY = y0 + bh * 0.18;
+    var spotX = gx + (up ? (z / 90) * bw * 0.12 : bw * 0.18);
+    var spotY = gy + 4;
+    var minor = Math.min(bw, bh) * 0.085;
+    var major = minor * Math.min(smear, 3.6);
+
+    if (up) {
+      ctx.beginPath();
+      ctx.moveTo(lampX - 7, lampY + 8);
+      ctx.lineTo(spotX - major, spotY);
+      ctx.lineTo(spotX + major, spotY);
+      ctx.lineTo(lampX + 7, lampY + 8);
+      ctx.closePath();
+      var bg = ctx.createLinearGradient(lampX, lampY, spotX, spotY);
+      bg.addColorStop(0, 'rgba(255, 194, 74, 0.55)');
+      bg.addColorStop(1, 'rgba(255, 194, 74, ' + (0.08 + 0.22 * conc) + ')');
+      ctx.fillStyle = bg;
+      ctx.fill();
+
+      var k;
+      for (k = 0; k < 5; k++) {
+        var t = (k - 2) / 6;
+        ctx.strokeStyle = 'rgba(255, 244, 180, ' + (0.25 + 0.35 * conc) + ')';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(lampX + t * 10, lampY + 8);
+        ctx.lineTo(spotX + t * major * 1.6, spotY);
+        ctx.stroke();
+      }
+
+      ctx.beginPath();
+      ctx.ellipse(spotX, spotY, major, minor * 0.55, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 194, 74, ' + (0.22 + 0.62 * conc) + ')';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 230, 150, ' + (0.4 + 0.5 * conc) + ')';
+      ctx.stroke();
+    } else {
+      ctx.strokeStyle = 'rgba(255, 126, 95, 0.45)';
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(lampX, lampY + 8);
+      ctx.lineTo(x0 + bw - 16, gy - 8);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Sun below the horizon', gx - 70, gy - 16);
+    }
+
+    ctx.fillStyle = accent;
+    ctx.beginPath();
+    ctx.arc(lampX, lampY, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#fff4c8';
+    ctx.beginPath();
+    ctx.arc(lampX - 2, lampY - 2, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText(title, x0 + 12, y0 + 18);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = accent;
+    ctx.fillText(subtitle, x0 + 12, y0 + 34);
+
+    ctx.restore();
+  }
+
+  function drawFlash() {
+    var s = surfaces.flash;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var dec = declination(state.N);
+    var el = noonElevation(state.lat, dec);
+    var zNow = el > 0 ? 90 - el : 90;
+    var conc = lightConcentration(state.lat, dec);
+    var mid = Math.round(w * 0.5);
+
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.16)';
+    ctx.beginPath();
+    ctx.moveTo(mid, 10);
+    ctx.lineTo(mid, h - 10);
+    ctx.stroke();
+
+    drawBeamPanel(ctx, 8, 8, mid - 16, h - 16, 0,
+      'Overhead  ·  zenith angle 0°',
+      'same photons  ·  1.00×  ·  tight bright spot',
+      '#ffc24a');
+
+    var sub2;
+    if (el <= 0) sub2 = 'polar night  ·  0×  ·  no noon flux';
+    else sub2 = 'zenith ' + zNow.toFixed(1) + '°  ·  ' + conc.toFixed(2) + '×  ·  area × ' + (1 / Math.max(conc, 0.001)).toFixed(2);
+    drawBeamPanel(ctx, mid + 8, 8, w - mid - 16, h - 16, zNow,
+      'Noon at ' + fmtLat(state.lat) + '  ·  this date',
+      sub2,
+      el > 0 ? '#5ec8e5' : '#ff7e5f');
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.95)';
+    ctx.fillText('Identical beam width. Intensity on the ground scales as cos(zenith) = sin(noon elevation).', 14, h - 10);
+  }
+
+  function kv(k, v, cls, sub) {
+    return '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div>' +
+      (sub ? '<div class="s">' + sub + '</div>' : '') + '</div>';
+  }
+
+  function updateReadout() {
+    var N = state.N;
+    var phi = state.lat;
+    var dec = declination(N);
+    var el = noonElevation(phi, dec);
+    var day = daylightHours(phi, dec);
+    var conc = lightConcentration(phi, dec);
+    var dp = dateParts(N);
+    var city = cityMatch();
+    var where = city ? CITIES[city].name : fmtLat(phi);
+
+    var html = '';
+    html += kv('Solar declination', fmtDec(dec), dec >= 0 ? 'sun' : 'warm',
+      'δ = −23.44° cos(360°(N+10)/365)  ·  ' + dp.label);
+    html += kv('Sub-solar latitude', fmtLat(dec), 'sun',
+      'Sun overhead on this parallel  ·  ' + seasonName(dec));
+    html += kv('Noon Sun elevation', (el >= 0 ? el.toFixed(1) + '°' : el.toFixed(1) + '°'),
+      el > 0 ? '' : 'warm',
+      el > 0 ? '90° − |φ − δ|  ·  ' + where : 'below horizon  ·  polar night at ' + where);
+    html += kv('Daylight', fmtHours(day), day >= 18 ? 'sun' : (day <= 6 ? 'warm' : ''),
+      day >= 24 ? 'polar day · midnight sun' : (day <= 0 ? 'polar night · Sun never rises' : 'sunrise equation  ·  2H₀/15°'));
+    html += kv('Light concentration', (conc * 100).toFixed(0) + '% of overhead',
+      conc > 0.7 ? 'sun' : (conc <= 0 ? 'warm' : ''),
+      conc <= 0 ? '0 when the Sun is down' : 'cos z = sin(noon elev) = ' + conc.toFixed(3) + '×');
+    elReadout.innerHTML = html;
+  }
+
+  var readoutTick = 0;
+
+  function drawAll() {
+    drawOrbit();
+    drawSlice();
+    drawFlash();
+    readoutTick++;
+    if (readoutTick % 4 === 1) updateReadout();
+  }
+
+  function frame(ts) {
+    if (state.playing) {
+      if (state.lastTs) {
+        var dt = (ts - state.lastTs) / 1000;
+        if (dt > 0.1) dt = 0.1;
+        state.N = wrapDay(state.N + dt * (YEAR_DAYS / YEAR_SEC));
+        elScrub.value = String(state.N);
+        var dp = dateParts(state.N);
+        elDay.textContent = dp.label + ' · day ' + Math.round(wrapDay(state.N));
+        if (readoutTick % 4 === 0) {
+          var dec = declination(state.N);
+          elSliceMeta.textContent = 'noon meridian · δ ' + fmtDec(dec) + ' · ' + seasonName(dec);
+          syncSeasonChips();
+        }
+      }
+      state.lastTs = ts;
+    } else {
+      state.lastTs = 0;
+    }
+    drawAll();
+    requestAnimationFrame(frame);
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function jumpDay(N) {
+    state.N = wrapDay(N);
+    syncLabels();
+    updateReadout();
+  }
+
+  function applyCity(id) {
+    var c = CITIES[id];
+    if (!c) return;
+    state.lat = c.lat;
+    state.cityId = id;
+    setCityHighlight(id);
+    syncLabels();
+    updateReadout();
+  }
+
+  function onResize() {
+    var prevW = surfaces.orbit.w;
+    fitCanvas(surfaces.orbit);
+    fitCanvas(surfaces.slice);
+    fitCanvas(surfaces.flash);
+    if (surfaces.orbit.w !== prevW || !stars.length) rebuildStars(surfaces.orbit.w, surfaces.orbit.h);
+  }
+
+  elPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+  elScrub.addEventListener('input', function () {
+    state.N = Number(elScrub.value);
+    syncLabels();
+    updateReadout();
+  });
+  $('chipDec').addEventListener('click', function () { jumpDay(DAY_DEC); });
+  $('chipMar').addEventListener('click', function () { jumpDay(DAY_MAR); });
+  $('chipJun').addEventListener('click', function () { jumpDay(DAY_JUN); });
+  $('chipSep').addEventListener('click', function () { jumpDay(DAY_SEP); });
+  elLat.addEventListener('input', function () {
+    state.lat = Number(elLat.value);
+    state.cityId = cityMatch();
+    syncLabels();
+    updateReadout();
+  });
+  Object.keys(CITIES).forEach(function (id) {
+    $(id).addEventListener('click', function () { applyCity(id); });
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    } else if (e.code === 'ArrowRight') {
+      jumpDay(state.N + 1);
+    } else if (e.code === 'ArrowLeft') {
+      jumpDay(state.N - 1);
+    }
+  });
+
+  window.addEventListener('resize', onResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(onResize);
+    ro.observe(cvOrbit);
+    ro.observe(cvSlice);
+    ro.observe(cvFlash);
+  }
+
+  try {
+    var params = new URLSearchParams(window.location.search);
+    if (params.has('n')) state.N = wrapDay(Number(params.get('n')) || state.N);
+    if (params.has('lat')) {
+      var qlat = Number(params.get('lat'));
+      if (isFinite(qlat)) state.lat = Math.max(-90, Math.min(90, qlat));
+    }
+  } catch (e) {}
+
+  onResize();
+  syncLabels();
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why There Are Two High Tides a Day — Differential Gravity, Not the Sun</title>
+<meta name="description" content="The Moon stretches Earth into two ocean bulges. Earth rotates through both each lunar day, so two high tides ~12 h 25 min apart — not because of the Sun.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 720px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.chart-card canvas { height: 210px; }
+.chart-card { grid-column: 1 / -1; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout { grid-template-columns: 1fr 1fr; }
+  .chart-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="3">
+<div class="page">
+  <p class="kicker"><a href="index.html" style="color:inherit;text-decoration:none">Visual explanations · tides</a></p>
+  <h1>Why there are two high tides a day</h1>
+  <p class="lede">The Moon does not just pull the water up. It <strong>stretches Earth into two bulges</strong>, and we rotate through both of them every lunar day — so a given place gets two high tides, about 12 hours 25 minutes apart.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Play</button>
+      <label class="sl grow">
+        <span>Time <em id="timeLabel">0.00 d</em></span>
+        <input type="range" id="scrub" min="0" max="172800" step="60" value="0" aria-label="Time scrubber">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="range2" aria-pressed="true">2 days</button>
+      <button type="button" class="chip" id="range15" aria-pressed="false">Half month</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="sunOff" aria-pressed="true">Moon only</button>
+      <button type="button" class="chip sun" id="sunOn" aria-pressed="false">Moon + Sun</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Latitude <em id="latLabel">0.0°N</em></span>
+        <input type="range" id="lat" min="-90" max="90" step="0.1" value="0" aria-label="Latitude">
+      </label>
+      <label class="sl grow">
+        <span>Longitude <em id="lonLabel">0.0°E</em></span>
+        <input type="range" id="lon" min="-180" max="180" step="0.1" value="0" aria-label="Longitude">
+      </label>
+      <button type="button" class="chip" id="citySingapore">Singapore</button>
+      <button type="button" class="chip" id="cityBoston">Boston</button>
+      <button type="button" class="chip" id="cityReykjavik">Reykjavík</button>
+      <button type="button" class="chip on" id="cityEquator">Equator 0°</button>
+    </div>
+    <div class="row">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Moon distance</span>
+      <button type="button" class="chip" id="dPerigee">Perigee 363.3k</button>
+      <button type="button" class="chip on" id="dMean">Mean 384.4k</button>
+      <button type="button" class="chip" id="dApogee">Apogee 405.5k</button>
+      <div class="sep" aria-hidden="true"></div>
+      <label class="sl grow">
+        <span>Moon declination <em id="decLabel">0.0°</em></span>
+        <input type="range" id="dec" min="-28.5" max="28.5" step="0.1" value="0" aria-label="Moon declination">
+      </label>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Earth–Moon</b><span>north-pole view · bulges locked to the Moon</span></div>
+      <canvas id="cvOrbit" width="640" height="360" aria-label="Earth and Moon with two exaggerated ocean bulges"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Residual force</b><span>Moon gravity minus Earth’s free-fall</span></div>
+      <canvas id="cvForce" width="480" height="360" aria-label="Near, center, and far residual tidal accelerations"></canvas>
+    </div>
+    <div class="card chart-card">
+      <div class="card-h"><b>Tide height at the pin</b><span id="chartMeta">equilibrium ζ · Moon only</span></div>
+      <canvas id="cvChart" width="1200" height="210" aria-label="Tide height time series"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Differential gravity</h2>
+      <p>The near-side ocean feels a stronger lunar pull than Earth’s center does. That leftover acceleration is the near-side bulge — water drawn toward the Moon.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>The far-side bulge</h2>
+      <p>Earth’s center is pulled harder than the far water. Earth is tugged out from under that ocean, so a second bulge is left behind — away from the Moon.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>We spin through both</h2>
+      <p>A lunar day is ~24 h 50 min. Earth rotates through two bulges in that time, so highs arrive ~12 h 25 min apart. Watch the pin.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>The second tide is not the Sun</h2>
+      <p>Leave the Sun off. Two highs remain. The Sun only changes <em>how high</em> (spring when aligned, neap at quadrature) — never how many.</p>
+    </article>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Equilibrium tide.</strong> Tide-generating potential <code>V = (GM R² / D³) P₂(cos θ)</code> with <code>P₂(x) = (3x² − 1)/2</code>. Height <code>ζ = V / g</code>, <code>g = 9.81 m/s²</code>. Scale <code>GM_m R² / (g D³) ≈ 0.36 m</code> at mean lunar distance; crest-to-trough ≈ 1.5× that ≈ 0.54 m (Moon only). This is a global ocean with no continents — the equilibrium tide, not a harbor prediction.</li>
+      <li><strong style="color:var(--text)">Constants (SI).</strong> <code>G = 6.67430×10⁻¹¹</code> (CODATA 2018); <code>M_earth = 5.972168×10²⁴ kg</code>, <code>M_moon = 7.342×10²² kg</code>, <code>M_sun = 1.9885×10³⁰ kg</code>; <code>R_earth = 6.371×10⁶ m</code> (mean volumetric); <code>D_moon = 3.844×10⁸ m</code> mean, perigee 363.3 Mm, apogee 405.5 Mm; <code>D_sun = 1.495978707×10¹¹ m</code> (IAU au). Sidereal day 86164.0905 s; sidereal month 27.321661 d. Lunar day <code>T = 1 / (1/T_sid − 1/T_month) ≈ 24.841 h</code>. Exact axis accelerations: <code>a_near = GM/(D−R)²</code>, <code>a_center = GM/D²</code>, <code>a_far = GM/(D+R)²</code>; residuals <code>a_near − a_center</code> and <code>a_center − a_far</code>.</li>
+      <li><strong style="color:var(--text)">The drawn ocean is exaggerated ~2×10⁶×.</strong> A 0.5 m tide on a 6371 km radius is invisible. The envelope is scaled so the lunar crest is about 12% of the drawn Earth radius. True heights are on the chart and in the readout.</li>
+      <li><strong style="color:var(--text)">Layout scale is not a map.</strong> Moon radius ratio is true (~0.27). Earth–Moon distance is compressed (true D/R ≈ 60). The Sun is a direction marker, not a distance.</li>
+      <li><strong style="color:var(--text)">Real ports lag.</strong> In this model, highs occur when the pin lines up with the Earth–Moon axis (Moon “overhead” or “underfoot” in longitude). Real basins add hours of lag, friction, and amphidromic rotation. Continental shelves and funnels (Bay of Fundy, ~16 m) amplify far beyond 0.5 m. This page does not include that lag.</li>
+      <li><strong style="color:var(--text)">Moon-in-equator default.</strong> Real lunar declination reaches about ±28.5° and produces diurnal or mixed tides at some latitudes. The declination slider is optional; it does not change the two-bulge mechanism.</li>
+      <li><strong style="color:var(--text)">Frames.</strong> An equivalent story uses centrifugal force in the Earth–Moon barycenter frame. We use inertial free-fall / differential gravity because the classroom line “centrifugal is bigger on the far side” is often drawn incorrectly. Both residuals are the leftover after subtracting the acceleration of Earth’s center.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants (SI) — same values as validate-tides.js =====
+  var G = 6.67430e-11;
+  var M_EARTH = 5.972168e24;
+  var M_MOON = 7.342e22;
+  var M_SUN = 1.9885e30;
+  var R_EARTH = 6.371e6;
+  var D_MOON_MEAN = 3.844e8;
+  var D_MOON_PERIGEE = 363.3e6;
+  var D_MOON_APOGEE = 405.5e6;
+  var D_SUN = 1.495978707e11;
+  var G_ACCEL = 9.81;
+  var SIDEREAL_DAY = 86164.0905;
+  var SIDEREAL_MONTH_DAYS = 27.321661;
+  var SIDEREAL_MONTH = SIDEREAL_MONTH_DAYS * 86400;
+  var SIDEREAL_YEAR = 365.256363 * 86400;
+  var MU_MOON = G * M_MOON;
+  var MU_SUN = G * M_SUN;
+  var T_LUNAR = 1 / (1 / SIDEREAL_DAY - 1 / SIDEREAL_MONTH);
+  var T_SEMI = T_LUNAR / 2;
+  var OMEGA_EARTH = 2 * Math.PI / SIDEREAL_DAY;
+  var OMEGA_MOON = 2 * Math.PI / SIDEREAL_MONTH;
+  var OMEGA_SUN = 2 * Math.PI / SIDEREAL_YEAR;
+  var ZETA_REF = MU_MOON * R_EARTH * R_EARTH / (G_ACCEL * D_MOON_MEAN * D_MOON_MEAN * D_MOON_MEAN);
+  var EXAG = (0.12 * R_EARTH) / ZETA_REF;
+  var RANGE_2D = 2 * 86400;
+  var RANGE_15D = 15 * 86400;
+
+  // Cached fonts — never rebuild inside hot loops
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  // ===== Physics =====
+  function p2(x) {
+    return (3 * x * x - 1) / 2;
+  }
+
+  function tidalAccelExact(D) {
+    var aCenter = MU_MOON / (D * D);
+    var aNear = MU_MOON / ((D - R_EARTH) * (D - R_EARTH));
+    var aFar = MU_MOON / ((D + R_EARTH) * (D + R_EARTH));
+    return {
+      aCenter: aCenter,
+      aNear: aNear,
+      aFar: aFar,
+      aTidalNear: aNear - aCenter,
+      aTidalFar: aCenter - aFar
+    };
+  }
+
+  function tidalFirstOrder(D) {
+    var D3 = D * D * D;
+    return {
+      stretch: 2 * MU_MOON * R_EARTH / D3,
+      compress: -MU_MOON * R_EARTH / D3
+    };
+  }
+
+  function forceRatioSunMoon() {
+    return (M_SUN / (D_SUN * D_SUN * D_SUN)) / (M_MOON / (D_MOON_MEAN * D_MOON_MEAN * D_MOON_MEAN));
+  }
+
+  function wrapPi(a) {
+    var t = (a + Math.PI) / (2 * Math.PI);
+    return (t - Math.floor(t)) * 2 * Math.PI - Math.PI;
+  }
+
+  function deg(rad) { return rad * 180 / Math.PI; }
+  function rad(d) { return d * Math.PI / 180; }
+
+  function tideHeight(t, lat, lon, D, sunOn, dec) {
+    var thetaE = OMEGA_EARTH * t;
+    var lonPin = lon + thetaE;
+    var cl = Math.cos(lat);
+    var sl = Math.sin(lat);
+    var px = cl * Math.cos(lonPin);
+    var py = cl * Math.sin(lonPin);
+    var pz = sl;
+
+    var lonM = OMEGA_MOON * t;
+    var cd = Math.cos(dec);
+    var sd = Math.sin(dec);
+    var mx = cd * Math.cos(lonM);
+    var my = cd * Math.sin(lonM);
+    var mz = sd;
+    var cosThM = px * mx + py * my + pz * mz;
+    if (cosThM > 1) cosThM = 1;
+    if (cosThM < -1) cosThM = -1;
+    var V = (MU_MOON * R_EARTH * R_EARTH / (D * D * D)) * p2(cosThM);
+
+    if (sunOn) {
+      var lonS = OMEGA_SUN * t;
+      var sx = Math.cos(lonS);
+      var sy = Math.sin(lonS);
+      var cosThS = px * sx + py * sy;
+      if (cosThS > 1) cosThS = 1;
+      if (cosThS < -1) cosThS = -1;
+      V += (MU_SUN * R_EARTH * R_EARTH / (D_SUN * D_SUN * D_SUN)) * p2(cosThS);
+    }
+    return V / G_ACCEL;
+  }
+
+  function moonHourAngle(t, lon) {
+    return wrapPi((lon + OMEGA_EARTH * t) - OMEGA_MOON * t);
+  }
+
+  function nextHighTide(t, lat, lon, D, sunOn, dec) {
+    var dt = 60;
+    var t0 = t + dt;
+    var zPrev = tideHeight(t0 - dt, lat, lon, D, sunOn, dec);
+    var zCurr = tideHeight(t0, lat, lon, D, sunOn, dec);
+    var limit = t + T_LUNAR + 3600;
+    for (var ts = t0; ts < limit; ts += dt) {
+      var zNext = tideHeight(ts + dt, lat, lon, D, sunOn, dec);
+      if (zCurr > zPrev && zCurr >= zNext) {
+        return ts;
+      }
+      zPrev = zCurr;
+      zCurr = zNext;
+    }
+    return NaN;
+  }
+
+  function springNeapState(t) {
+    var rel = wrapPi((OMEGA_MOON - OMEGA_SUN) * t);
+    var align = Math.abs(Math.cos(rel));
+    if (align > 0.85) return 'spring';
+    if (align < 0.35) return 'neap';
+    return 'in between';
+  }
+
+  // ===== State =====
+  var state = {
+    t: 0,
+    tMax: RANGE_2D,
+    playing: false,
+    sunOn: false,
+    D: D_MOON_MEAN,
+    lat: rad(0),
+    lon: rad(0),
+    dec: 0,
+    lastTs: 0
+  };
+
+  var CITIES = {
+    citySingapore: { lat: 1.35, lon: 103.82, name: 'Singapore' },
+    cityBoston: { lat: 42.36, lon: -71.06, name: 'Boston' },
+    cityReykjavik: { lat: 64.15, lon: -21.94, name: 'Reykjavík' },
+    cityEquator: { lat: 0, lon: 0, name: 'Equator' }
+  };
+
+  // ===== DOM =====
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elScrub = $('scrub');
+  var elTime = $('timeLabel');
+  var elLat = $('lat');
+  var elLon = $('lon');
+  var elDec = $('dec');
+  var elLatL = $('latLabel');
+  var elLonL = $('lonLabel');
+  var elDecL = $('decLabel');
+  var elReadout = $('readout');
+  var elChartMeta = $('chartMeta');
+  var cvOrbit = $('cvOrbit');
+  var cvForce = $('cvForce');
+  var cvChart = $('cvChart');
+
+  // ===== Canvas fit =====
+  var surfaces = {
+    orbit: { canvas: cvOrbit, ctx: null, w: 0, h: 0, cssH: 360 },
+    force: { canvas: cvForce, ctx: null, w: 0, h: 0, cssH: 360 },
+    chart: { canvas: cvChart, ctx: null, w: 0, h: 0, cssH: 210 }
+  };
+
+  var stars = []; // paired x,y,r  (triples; iterate i += 3)
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function rebuildStars(w, h) {
+    stars.length = 0;
+    var n = Math.floor((w * h) / 2800);
+    if (n > 220) n = 220;
+    for (var i = 0; i < n; i++) {
+      stars.push(Math.random() * w, Math.random() * h, Math.random() < 0.15 ? 1.2 : 0.6);
+    }
+  }
+
+  function drawStars(ctx, w, h) {
+    ctx.fillStyle = 'rgba(215, 222, 242, 0.7)';
+    for (var i = 0; i < stars.length; i += 3) {
+      ctx.beginPath();
+      ctx.arc(stars[i], stars[i + 1], stars[i + 2], 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // ===== Chart cache =====
+  var chart = {
+    dirty: true,
+    n: 0,
+    t: null,
+    z: null,
+    zMin: 0,
+    zMax: 0
+  };
+
+  function markChartDirty() { chart.dirty = true; }
+
+  function rebuildChart() {
+    var n = state.tMax > RANGE_2D * 1.5 ? 1600 : 900;
+    if (!chart.t || chart.t.length !== n) {
+      chart.t = new Float64Array(n);
+      chart.z = new Float64Array(n);
+    }
+    var zMin = Infinity;
+    var zMax = -Infinity;
+    var lat = state.lat, lon = state.lon, D = state.D, sunOn = state.sunOn, dec = state.dec;
+    for (var i = 0; i < n; i++) {
+      var t = state.tMax * (i / (n - 1));
+      var z = tideHeight(t, lat, lon, D, sunOn, dec);
+      chart.t[i] = t;
+      chart.z[i] = z;
+      if (z < zMin) zMin = z;
+      if (z > zMax) zMax = z;
+    }
+    var pad = Math.max(0.04, (zMax - zMin) * 0.12);
+    chart.n = n;
+    chart.zMin = zMin - pad;
+    chart.zMax = zMax + pad;
+    chart.dirty = false;
+  }
+
+  // ===== Formatters =====
+  function fmtLat(d) {
+    var a = Math.abs(d);
+    return a.toFixed(1) + '°' + (d >= 0 ? 'N' : 'S');
+  }
+  function fmtLon(d) {
+    var a = Math.abs(d);
+    return a.toFixed(1) + '°' + (d >= 0 ? 'E' : 'W');
+  }
+  function fmtDays(s) {
+    return (s / 86400).toFixed(2) + ' d';
+  }
+  function fmtHM(sec) {
+    if (!isFinite(sec) || sec < 0) return '—';
+    var m = Math.round(sec / 60);
+    var h = Math.floor(m / 60);
+    m = m - h * 60;
+    return h + 'h ' + (m < 10 ? '0' : '') + m + 'm';
+  }
+  function fmtSci(x) {
+    return x.toExponential(3);
+  }
+  function lunarClock(t) {
+    var u = ((t % T_LUNAR) + T_LUNAR) % T_LUNAR;
+    var hours = u / 3600;
+    var H = Math.floor(hours);
+    var M = Math.floor((hours - H) * 60);
+    return H + ':' + (M < 10 ? '0' : '') + M;
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function syncLabels() {
+    elTime.textContent = fmtDays(state.t);
+    elLatL.textContent = fmtLat(deg(state.lat));
+    elLonL.textContent = fmtLon(deg(state.lon));
+    elDecL.textContent = deg(state.dec).toFixed(1) + '°';
+    elScrub.max = String(state.tMax);
+    elScrub.value = String(Math.min(state.t, state.tMax));
+    elChartMeta.textContent = state.sunOn
+      ? 'equilibrium ζ · Moon + Sun  ·  spring / neap from alignment'
+      : 'equilibrium ζ · Moon only  ·  two peaks per lunar day';
+  }
+
+  function timeScale() {
+    if (state.tMax > RANGE_2D * 1.5) return RANGE_15D / 40;
+    return T_LUNAR / 24;
+  }
+
+  // ===== Draw: Earth–Moon =====
+  function drawOrbit() {
+    var s = surfaces.orbit;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+    drawStars(ctx, w, h);
+
+    var cx = w * 0.38;
+    var cy = h * 0.54;
+    var Re = Math.min(w, h) * 0.28;
+    var Rm = Re * 0.27;
+    var gap = Re * 0.95;
+    var moonLon = OMEGA_MOON * state.t;
+    var sunLon = OMEGA_SUN * state.t;
+    var earthAng = OMEGA_EARTH * state.t;
+    var mx = cx + Math.cos(moonLon) * (Re + gap + Rm);
+    var my = cy - Math.sin(moonLon) * (Re + gap + Rm);
+
+    // Sun direction marker
+    if (state.sunOn) {
+      var sx = Math.cos(sunLon);
+      var sy = Math.sin(sunLon);
+      var grd = ctx.createRadialGradient(cx + sx * (w * 0.42), cy - sy * (h * 0.42), 4, cx + sx * (w * 0.42), cy - sy * (h * 0.42), 90);
+      grd.addColorStop(0, 'rgba(255,194,74,0.55)');
+      grd.addColorStop(1, 'rgba(255,194,74,0)');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(cx + sx * (w * 0.42), cy - sy * (h * 0.42), 90, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffc24a';
+      ctx.beginPath();
+      ctx.arc(cx + sx * (w * 0.42), cy - sy * (h * 0.42), 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = FONT_MONO_10;
+      ctx.fillText('Sun (dir.)', cx + sx * (w * 0.42) - 28, cy - sy * (h * 0.42) - 10);
+    }
+
+    // Earth–Moon axis
+    ctx.strokeStyle = 'rgba(255,194,74,0.28)';
+    ctx.setLineDash([5, 4]);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx - Math.cos(moonLon) * (Re + 18), cy + Math.sin(moonLon) * (Re + 18));
+    ctx.lineTo(mx, my);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Ocean bulge (equatorial slice)
+    var D = state.D;
+    var scaleM = MU_MOON * R_EARTH * R_EARTH / (G_ACCEL * D * D * D);
+    var scaleS = state.sunOn ? MU_SUN * R_EARTH * R_EARTH / (G_ACCEL * D_SUN * D_SUN * D_SUN) : 0;
+    ctx.beginPath();
+    var n = 180;
+    for (var i = 0; i <= n; i++) {
+      var a = (i / n) * Math.PI * 2;
+      var cM = Math.cos(a - moonLon);
+      var zeta = scaleM * p2(cM);
+      if (state.sunOn) zeta += scaleS * p2(Math.cos(a - sunLon));
+      var r = Re * (1 + (zeta * EXAG) / R_EARTH);
+      var x = cx + Math.cos(a) * r;
+      var y = cy - Math.sin(a) * r;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(94,200,229,0.20)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(94,200,229,0.75)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Earth disk
+    var earthG = ctx.createRadialGradient(cx - Re * 0.25, cy - Re * 0.3, Re * 0.1, cx, cy, Re);
+    earthG.addColorStop(0, '#2a6a8a');
+    earthG.addColorStop(0.6, '#153552');
+    earthG.addColorStop(1, '#0c1c30');
+    ctx.beginPath();
+    ctx.arc(cx, cy, Re, 0, Math.PI * 2);
+    ctx.fillStyle = earthG;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Atmosphere
+    ctx.beginPath();
+    ctx.arc(cx, cy, Re + 3, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(94,200,229,0.22)';
+    ctx.lineWidth = 5;
+    ctx.stroke();
+
+    // Meridians (spin)
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, Re - 0.5, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.strokeStyle = 'rgba(215,222,242,0.14)';
+    ctx.lineWidth = 1;
+    var m;
+    for (m = 0; m < 12; m++) {
+      var ma = earthAng + m * Math.PI / 6;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(ma) * Re, cy - Math.sin(ma) * Re);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = 'rgba(215,222,242,0.10)';
+    for (var k = 1; k <= 2; k++) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, Re * (k / 3), 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // Near / far sit outside the exaggerated bulge, along the axis
+    var bulgeOut = Re * 1.22 + 10;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(94,200,229,0.95)';
+    ctx.fillText('NEAR', cx + Math.cos(moonLon) * bulgeOut - 12, cy - Math.sin(moonLon) * bulgeOut - 8);
+    ctx.fillStyle = 'rgba(255,126,95,0.95)';
+    ctx.fillText('FAR', cx - Math.cos(moonLon) * bulgeOut - 10, cy + Math.sin(moonLon) * bulgeOut - 8);
+
+    // Pin: label goes inward (on the disk) so it never sits on NEAR/FAR
+    var pinA = state.lon + earthAng;
+    var pinR = Re * Math.max(0.02, Math.cos(state.lat));
+    var px = cx + Math.cos(pinA) * pinR;
+    var py = cy - Math.sin(pinA) * pinR;
+    ctx.beginPath();
+    ctx.arc(px, py, 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+    ctx.strokeStyle = '#fff6d8';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    var pinLx = px - Math.cos(pinA) * 20 - 10;
+    var pinLy = py + Math.sin(pinA) * 20 + 4;
+    ctx.fillText('pin', pinLx, pinLy);
+
+    // Moon
+    var moonG = ctx.createRadialGradient(mx - Rm * 0.3, my - Rm * 0.3, Rm * 0.2, mx, my, Rm);
+    moonG.addColorStop(0, '#ece8df');
+    moonG.addColorStop(1, '#8a867c');
+    ctx.beginPath();
+    ctx.arc(mx, my, Rm, 0, Math.PI * 2);
+    ctx.fillStyle = moonG;
+    ctx.fill();
+    ctx.fillStyle = 'rgba(20,18,14,0.18)';
+    ctx.beginPath(); ctx.arc(mx - Rm * 0.2, my + Rm * 0.1, Rm * 0.22, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(mx + Rm * 0.25, my - Rm * 0.15, Rm * 0.14, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Moon', mx - 14, my + Rm + 14);
+
+    // Captions
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139,147,173,0.95)';
+    ctx.fillText('Viewed from above the North Pole  ·  distance compressed  ·  ocean ×' + (EXAG / 1e6).toFixed(1) + '×10⁶', 12, 18);
+    ctx.fillText('True lunar range ≈ 0.54 m on 6371 km — invisible without exaggeration', 12, h - 12);
+  }
+
+  // ===== Draw: residual force =====
+  function drawForce() {
+    var s = surfaces.force;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var acc = tidalAccelExact(state.D);
+    var fo = tidalFirstOrder(state.D);
+
+    // Geometry only on the lanes. Every number lives in a text band
+    // under its row, so labels cannot sit on dots or arrows.
+    var xFar = 70;
+    var xCtr = Math.round(w * 0.38);
+    var xNear = Math.round(w * 0.62);
+    var xMoon = w - 36;
+    var yG = 78;
+    var yR = 200;
+
+    function lane(y) {
+      ctx.strokeStyle = 'rgba(94,200,229,0.22)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(xFar - 16, y);
+      ctx.lineTo(xMoon - 22, y);
+      ctx.stroke();
+    }
+    function dotOnly(x, y, col) {
+      ctx.beginPath();
+      ctx.arc(x, y, 5.5, 0, Math.PI * 2);
+      ctx.fillStyle = col;
+      ctx.fill();
+    }
+    function centered(x, y, text, color) {
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = color;
+      ctx.fillText(text, x - ctx.measureText(text).width / 2, y);
+    }
+    function arrow(x, y, len, color) {
+      var maxTip = xMoon - 24;
+      var minTip = 18;
+      var tip = x + len;
+      if (tip > maxTip) tip = maxTip;
+      if (tip < minTip) tip = minTip;
+      var dir = tip >= x ? 1 : -1;
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(tip, y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(tip, y);
+      ctx.lineTo(tip - 7 * dir, y - 4);
+      ctx.lineTo(tip - 7 * dir, y + 4);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#a8b0c8';
+    ctx.fillText('Moon gravity  ·  true relative lengths, all toward the Moon', 14, 18);
+
+    lane(yG);
+    var gLen = 48;
+    var gScale = gLen / acc.aNear;
+    arrow(xFar, yG, acc.aFar * gScale, 'rgba(215,222,242,0.55)');
+    arrow(xCtr, yG, acc.aCenter * gScale, 'rgba(215,222,242,0.7)');
+    arrow(xNear, yG, acc.aNear * gScale, 'rgba(215,222,242,0.9)');
+    dotOnly(xFar, yG, '#ff7e5f');
+    dotOnly(xCtr, yG, '#8b93ad');
+    dotOnly(xNear, yG, '#5ec8e5');
+    centered(xFar, yG + 20, 'far', '#ff7e5f');
+    centered(xCtr, yG + 20, 'center', '#8b93ad');
+    centered(xNear, yG + 20, 'near', '#5ec8e5');
+    centered(xFar, yG + 36, fmtSci(acc.aFar), '#d7def2');
+    centered(xCtr, yG + 36, fmtSci(acc.aCenter), '#d7def2');
+    centered(xNear, yG + 36, fmtSci(acc.aNear), '#d7def2');
+
+    ctx.fillStyle = '#a8b0c8';
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('Residual after subtracting a_center  ·  both leftovers point outward', 14, 148);
+
+    lane(yR);
+    var rLen = 40;
+    arrow(xNear, yR, rLen, '#5ec8e5');
+    arrow(xFar, yR, -rLen, '#ff7e5f');
+    dotOnly(xFar, yR, '#ff7e5f');
+    dotOnly(xCtr, yR, '#8b93ad');
+    dotOnly(xNear, yR, '#5ec8e5');
+    centered(xFar, yR + 20, 'far', '#ff7e5f');
+    centered(xCtr, yR + 20, 'center', '#8b93ad');
+    centered(xNear, yR + 20, 'near', '#5ec8e5');
+    centered(xFar, yR + 36, fmtSci(acc.aTidalFar), '#ff7e5f');
+    centered(xCtr, yR + 36, '0', '#8b93ad');
+    centered(xNear, yR + 36, fmtSci(acc.aTidalNear), '#5ec8e5');
+    centered(xFar, yR + 50, 'away', '#ff7e5f');
+    centered(xNear, yR + 50, 'toward', '#5ec8e5');
+
+    ctx.beginPath();
+    ctx.arc(xMoon, (yG + yR) * 0.5, 10, 0, Math.PI * 2);
+    ctx.fillStyle = '#c9c4ba';
+    ctx.fill();
+    centered(xMoon, (yG + yR) * 0.5 + 24, 'Moon', '#d7def2');
+
+    ctx.font = FONT_UI_11;
+    ctx.fillStyle = '#a8b0c8';
+    ctx.fillText('Exact  a_near − a_center = ' + fmtSci(acc.aTidalNear) + ' m/s²    ·    2GMR/D³ = ' + fmtSci(fo.stretch), 14, h - 28);
+    ctx.fillText('Perpendicular compression  −GMR/D³ = ' + fmtSci(fo.compress) + '    ·    far leftover ' + fmtSci(acc.aTidalFar), 14, h - 12);
+  }
+
+  // ===== Draw: chart =====
+  function drawChart() {
+    if (chart.dirty) rebuildChart();
+    var s = surfaces.chart;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var padL = 54, padR = 18, padT = 16, padB = 28;
+    var x0 = padL, y0 = padT, x1 = w - padR, y1 = h - padB;
+    var zMin = chart.zMin, zMax = chart.zMax;
+    function X(t) { return x0 + (x1 - x0) * (t / state.tMax); }
+    function Y(z) { return y1 - (y1 - y0) * ((z - zMin) / (zMax - zMin || 1)); }
+
+    // Grid
+    ctx.strokeStyle = 'rgba(94,200,229,0.10)';
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    var days = state.tMax / 86400;
+    var step = days > 8 ? 2 : 0.5;
+    var d;
+    for (d = 0; d <= days + 1e-9; d += step) {
+      var xt = X(d * 86400);
+      ctx.beginPath();
+      ctx.moveTo(xt, y0);
+      ctx.lineTo(xt, y1);
+      ctx.stroke();
+      ctx.fillText(d.toFixed(d < 2 && step < 1 ? 1 : 0) + 'd', xt + 2, y1 + 14);
+    }
+    var zStep = 0.2;
+    if (zMax - zMin > 1.2) zStep = 0.4;
+    if (zMax - zMin < 0.3) zStep = 0.05;
+    var z;
+    for (z = Math.ceil(zMin / zStep) * zStep; z <= zMax + 1e-9; z += zStep) {
+      var yz = Y(z);
+      ctx.beginPath();
+      ctx.moveTo(x0, yz);
+      ctx.lineTo(x1, yz);
+      ctx.stroke();
+      ctx.fillText(z.toFixed(2), 8, yz + 3);
+    }
+
+    // Zero
+    if (zMin < 0 && zMax > 0) {
+      ctx.strokeStyle = 'rgba(215,222,242,0.2)';
+      ctx.beginPath();
+      ctx.moveTo(x0, Y(0));
+      ctx.lineTo(x1, Y(0));
+      ctx.stroke();
+    }
+
+    // Spring/neap marks
+    if (state.sunOn && state.tMax > RANGE_2D * 1.5) {
+      var syn = 1 / (1 / SIDEREAL_MONTH - 1 / SIDEREAL_YEAR);
+      ctx.font = FONT_MONO_10;
+      for (var k = 0; k < 5; k++) {
+        var ts = k * syn / 4;
+        if (ts > state.tMax) break;
+        var isSpring = k % 2 === 0;
+        ctx.strokeStyle = isSpring ? 'rgba(255,194,74,0.35)' : 'rgba(94,200,229,0.28)';
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(X(ts), y0);
+        ctx.lineTo(X(ts), y1);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = isSpring ? '#ffc24a' : '#5ec8e5';
+        ctx.fillText(isSpring ? 'spring' : 'neap', X(ts) + 4, y0 + 10);
+      }
+    }
+
+    // Area + line
+    ctx.beginPath();
+    var i;
+    for (i = 0; i < chart.n; i++) {
+      var xi = X(chart.t[i]);
+      var yi = Y(chart.z[i]);
+      if (i === 0) ctx.moveTo(xi, yi);
+      else ctx.lineTo(xi, yi);
+    }
+    ctx.lineTo(X(chart.t[chart.n - 1]), Y(0));
+    ctx.lineTo(X(chart.t[0]), Y(0));
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(94,200,229,0.10)';
+    ctx.fill();
+    ctx.beginPath();
+    for (i = 0; i < chart.n; i++) {
+      xi = X(chart.t[i]);
+      yi = Y(chart.z[i]);
+      if (i === 0) ctx.moveTo(xi, yi);
+      else ctx.lineTo(xi, yi);
+    }
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 1.7;
+    ctx.stroke();
+
+    // Playhead
+    var xp = X(state.t);
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(xp, y0);
+    ctx.lineTo(xp, y1);
+    ctx.stroke();
+    var zNow = tideHeight(state.t, state.lat, state.lon, state.D, state.sunOn, state.dec);
+    ctx.beginPath();
+    ctx.arc(xp, Y(zNow), 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('ζ (m)', 8, 12);
+  }
+
+  // ===== Readout =====
+  function kv(k, v, cls, sub) {
+    return '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div>' +
+      (sub ? '<div class="s">' + sub + '</div>' : '') + '</div>';
+  }
+
+  function updateReadout() {
+    var z = tideHeight(state.t, state.lat, state.lon, state.D, state.sunOn, state.dec);
+    var acc = tidalAccelExact(state.D);
+    var H = moonHourAngle(state.t, state.lon);
+    var Hd = deg(H);
+    var absH = Math.abs(Hd);
+    var align;
+    if (absH < 12) align = 'Moon overhead (near high)';
+    else if (Math.abs(absH - 180) < 12) align = 'Moon underfoot (far high)';
+    else if (Math.abs(absH - 90) < 14) align = 'quadrature (low)';
+    else align = 'in between';
+
+    var nxt = nextHighTide(state.t, state.lat, state.lon, state.D, state.sunOn, state.dec);
+    var until = nxt - state.t;
+    var poleish = Math.abs(Math.cos(state.lat)) < 0.08 && Math.abs(state.dec) < 0.05;
+    var nextStr = poleish ? 'no distinct high' : fmtHM(until);
+
+    // Range over one lunar day around now
+    var zLo = Infinity, zHi = -Infinity;
+    var i;
+    for (i = 0; i <= 48; i++) {
+      var zz = tideHeight(state.t + (i / 48) * T_LUNAR, state.lat, state.lon, state.D, state.sunOn, state.dec);
+      if (zz < zLo) zLo = zz;
+      if (zz > zHi) zHi = zz;
+    }
+
+    var ratio = forceRatioSunMoon();
+    var scaleM = ZETA_REF * Math.pow(D_MOON_MEAN / state.D, 3);
+    var scaleS = ZETA_REF * ratio;
+    var sn = springNeapState(state.t);
+    var lunarHrs = ((state.t % T_LUNAR) + T_LUNAR) % T_LUNAR / T_LUNAR;
+
+    var html = '';
+    html += kv('Time', fmtDays(state.t) + '  ·  L ' + lunarClock(state.t), '', 'lunar day clock (24.84 h)  ·  phase ' + (lunarHrs * 100).toFixed(0) + '%');
+    html += kv('Next high tide', nextStr, (zHi - zLo) > 1e-4 && z >= zLo + 0.82 * (zHi - zLo) ? 'sun' : '', poleish ? 'polar + equatorial Moon → almost no variation' : 'equilibrium alignment, no basin lag');
+    html += kv('Tide height ζ', (z >= 0 ? '+' : '') + z.toFixed(3) + ' m', z >= 0 ? '' : 'warm', 'day range ' + (zHi - zLo).toFixed(3) + ' m');
+    html += kv('Moon hour angle', (Hd >= 0 ? '+' : '') + Hd.toFixed(1) + '°', '', align);
+    html += kv('a_tidal near', fmtSci(acc.aTidalNear) + ' m/s²', '', 'toward Moon · a_near − a_center');
+    html += kv('a_tidal far', fmtSci(acc.aTidalFar) + ' m/s²', 'warm', 'away · leftover after free-fall');
+    if (state.sunOn) {
+      html += kv('Solar vs lunar', 'Sun/Moon = ' + ratio.toFixed(2), 'sun', 'amplitudes  lunar ' + scaleM.toFixed(2) + ' m   solar ' + scaleS.toFixed(2) + ' m');
+      html += kv('Spring / neap', sn, sn === 'spring' ? 'sun' : '', 'spring = aligned  ·  neap = quadrature');
+    } else {
+      html += kv('Sun', 'off — two highs remain', '', 'Sun modulates height, not the count');
+      html += kv('Semi-diurnal', fmtHM(T_SEMI), '', 'T_lunar / 2  ·  ' + (T_LUNAR / 3600).toFixed(3) + ' h lunar day');
+    }
+    elReadout.innerHTML = html;
+  }
+
+  var readoutTick = 0;
+
+  function drawAll() {
+    drawOrbit();
+    drawForce();
+    drawChart();
+    readoutTick++;
+    if (readoutTick % 4 === 1) updateReadout();
+  }
+
+  // ===== Loop =====
+  function frame(ts) {
+    if (state.playing) {
+      if (state.lastTs) {
+        var dt = (ts - state.lastTs) / 1000;
+        if (dt > 0.1) dt = 0.1;
+        state.t += dt * timeScale();
+        if (state.t > state.tMax) state.t = 0;
+        elScrub.value = String(state.t);
+        elTime.textContent = fmtDays(state.t);
+      }
+      state.lastTs = ts;
+    } else {
+      state.lastTs = 0;
+    }
+    drawAll();
+    requestAnimationFrame(frame);
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function setCityHighlight(id) {
+    ['citySingapore', 'cityBoston', 'cityReykjavik', 'cityEquator'].forEach(function (k) {
+      setChip($(k), k === id);
+    });
+  }
+
+  function applyCity(id) {
+    var c = CITIES[id];
+    if (!c) return;
+    state.lat = rad(c.lat);
+    state.lon = rad(c.lon);
+    elLat.value = String(c.lat);
+    elLon.value = String(c.lon);
+    setCityHighlight(id);
+    markChartDirty();
+    syncLabels();
+    updateReadout();
+  }
+
+  function setRange(tmax, idOn) {
+    state.tMax = tmax;
+    if (state.t > tmax) state.t = tmax;
+    setChip($('range2'), idOn === 'range2');
+    setChip($('range15'), idOn === 'range15');
+    markChartDirty();
+    syncLabels();
+    updateReadout();
+  }
+
+  function setSun(on) {
+    state.sunOn = on;
+    setChip($('sunOff'), !on);
+    setChip($('sunOn'), on);
+    markChartDirty();
+    syncLabels();
+    updateReadout();
+  }
+
+  function setDist(D, idOn) {
+    state.D = D;
+    setChip($('dPerigee'), idOn === 'dPerigee');
+    setChip($('dMean'), idOn === 'dMean');
+    setChip($('dApogee'), idOn === 'dApogee');
+    markChartDirty();
+    syncLabels();
+    updateReadout();
+  }
+
+  function onResize() {
+    var prevW = surfaces.orbit.w;
+    fitCanvas(surfaces.orbit);
+    fitCanvas(surfaces.force);
+    fitCanvas(surfaces.chart);
+    if (surfaces.orbit.w !== prevW) rebuildStars(surfaces.orbit.w, surfaces.orbit.h);
+    if (!stars.length) rebuildStars(surfaces.orbit.w, surfaces.orbit.h);
+    markChartDirty();
+  }
+
+  // ===== Events =====
+  elPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+  elScrub.addEventListener('input', function () {
+    state.t = Number(elScrub.value);
+    elTime.textContent = fmtDays(state.t);
+    updateReadout();
+  });
+  $('range2').addEventListener('click', function () { setRange(RANGE_2D, 'range2'); });
+  $('range15').addEventListener('click', function () { setRange(RANGE_15D, 'range15'); });
+  $('sunOff').addEventListener('click', function () { setSun(false); });
+  $('sunOn').addEventListener('click', function () { setSun(true); });
+  $('dPerigee').addEventListener('click', function () { setDist(D_MOON_PERIGEE, 'dPerigee'); });
+  $('dMean').addEventListener('click', function () { setDist(D_MOON_MEAN, 'dMean'); });
+  $('dApogee').addEventListener('click', function () { setDist(D_MOON_APOGEE, 'dApogee'); });
+
+  elLat.addEventListener('input', function () {
+    state.lat = rad(Number(elLat.value));
+    setCityHighlight('');
+    markChartDirty();
+    syncLabels();
+  });
+  elLon.addEventListener('input', function () {
+    state.lon = rad(Number(elLon.value));
+    setCityHighlight('');
+    markChartDirty();
+    syncLabels();
+  });
+  elDec.addEventListener('input', function () {
+    state.dec = rad(Number(elDec.value));
+    markChartDirty();
+    syncLabels();
+  });
+
+  Object.keys(CITIES).forEach(function (id) {
+    $(id).addEventListener('click', function () { applyCity(id); });
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    } else if (e.code === 'ArrowRight') {
+      state.t = Math.min(state.tMax, state.t + 1800);
+      syncLabels();
+      updateReadout();
+    } else if (e.code === 'ArrowLeft') {
+      state.t = Math.max(0, state.t - 1800);
+      syncLabels();
+      updateReadout();
+    }
+  });
+
+  window.addEventListener('resize', onResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(onResize);
+    ro.observe(cvOrbit);
+    ro.observe(cvForce);
+    ro.observe(cvChart);
+  }
+
+  // Default city chip
+  setCityHighlight('cityEquator');
+  onResize();
+  syncLabels();
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+
+</script>
+</body>
+</html>

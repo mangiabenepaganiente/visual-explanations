@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newton’s Cannonball — Why Orbiting Is Falling</title>
+<meta name="description" content="Classroom tool for Newton’s 1687 thought experiment. A cannonball on a mountain is always falling; sideways speed is what turns a crash into an orbit. You never leave gravity.">
+<meta name="keywords" content="Newton cannonball, orbiting is falling, orbital mechanics, classroom physics, gravity, escape velocity, circular orbit, thought experiment">
+<meta name="author" content="Visual Explanations">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 12% -12%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1280px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 260px; min-width: 200px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+.track-box { position: relative; padding: 0 0 22px; }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+.tmark {
+  position: absolute; top: 2px; width: 0; pointer-events: none;
+  transform: translateX(-50%);
+}
+.tmark i {
+  display: block; width: 2px; height: 14px; margin: 0 auto;
+  border-radius: 1px;
+}
+.tmark.circ i { background: var(--cool); }
+.tmark.esc i { background: var(--sun2); }
+.tmark b {
+  display: block; margin-top: 12px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.04em;
+  white-space: nowrap; font-weight: 500;
+}
+.tmark.circ b { color: var(--cool); }
+.tmark.esc b { color: var(--sun2); }
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun { border-color: rgba(255, 194, 74, 0.28); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.warm { border-color: rgba(255, 126, 95, 0.32); }
+.chip.warm.on { background: rgba(255, 126, 95, 0.12); border-color: rgba(255, 126, 95, 0.5); color: var(--warm); }
+.hint { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.03em; }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.stage {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.stage canvas {
+  display: block;
+  width: 100%;
+  height: min(800px, 72vw);
+  min-height: 420px;
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+}
+.hud {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 12px 14px;
+}
+.hud-top, .hud-bot { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
+.hud-bot { align-items: flex-end; }
+.pill {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  background: rgba(8, 11, 28, 0.72); border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 10px; color: var(--text);
+  backdrop-filter: blur(6px);
+}
+.pill em { font-style: normal; color: var(--cool); }
+.pill.sun em { color: var(--sun2); }
+.pill.warm em { color: var(--warm); }
+.chip-out {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  border-radius: 999px; padding: 6px 12px; border: 1px solid var(--line);
+  background: rgba(8, 11, 28, 0.78); color: var(--muted);
+  backdrop-filter: blur(6px);
+}
+.chip-out.fall { color: var(--warm); border-color: rgba(255, 126, 95, 0.45); background: rgba(255, 126, 95, 0.12); }
+.chip-out.orbit { color: var(--cool); border-color: rgba(94, 200, 229, 0.5); background: rgba(94, 200, 229, 0.12); }
+.chip-out.escape { color: var(--sun2); border-color: rgba(255, 194, 74, 0.5); background: rgba(255, 194, 74, 0.12); }
+.chip-out.impact { color: #ffb4a4; border-color: rgba(255, 126, 95, 0.6); background: rgba(255, 126, 95, 0.18); }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 88px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .causes { grid-template-columns: 1fr 1fr; }
+  .readout { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout { grid-template-columns: 1fr; }
+  .stage canvas { height: 420px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="cannonball">
+<div class="page">
+  <p class="kicker"><a href="index.html" style="color:inherit;text-decoration:none">Visual explanations · Newton 1687</a></p>
+  <h1>Newton’s Cannonball</h1>
+  <p class="lede">A cannon on a mountain fires faster and faster, and the falling ball begins to miss the Earth. <strong>Orbiting is not floating, and it is not escaping gravity.</strong> It is falling — continuously — around a curve that keeps dropping away.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnFire" title="Spacebar · horizontal tangential shot">Fire</button>
+      <label class="sl grow">
+        <span>Launch speed <em id="spdLabel">7.60 km/s</em></span>
+        <div class="track-box">
+          <span class="tmark circ" id="markCirc"><i></i><b>circ 7.62</b></span>
+          <span class="tmark esc" id="markEsc"><i></i><b>esc 10.77</b></span>
+          <input type="range" id="spd" min="0" max="13" step="0.05" value="7.60" aria-label="Launch speed in kilometres per second">
+        </div>
+      </label>
+    </div>
+    <div class="row">
+      <button type="button" class="chip warm" id="preFall" data-v="6.00">Fall · 6.00</button>
+      <button type="button" class="chip" id="preOrbit" data-v="7.60">Orbit · 7.60</button>
+      <button type="button" class="chip" id="preEll" data-v="9.00">Ellipse · 9.00</button>
+      <button type="button" class="chip sun" id="preEsc" data-v="10.80">Escape · 10.80</button>
+      <button type="button" class="chip sun" id="preFast" data-v="13.00">13.00 km/s</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="btnClear">Clear paths</button>
+      <span class="hint">Drag anywhere to aim (slingshot) · Space fires the classic horizontal shot</span>
+    </div>
+  </div>
+
+  <div class="stage">
+    <canvas id="cv" width="1280" height="800" aria-label="Newton’s cannonball: Earth, mountain cannon, and trajectories"></canvas>
+    <div class="hud">
+      <div class="hud-top">
+        <div class="pill">speed <em id="hudV">—</em></div>
+        <div class="pill">altitude <em id="hudH">500 km</em></div>
+        <div class="pill sun">time warp <em id="hudWarp">×420</em></div>
+        <div class="pill">shots <em id="hudN">0</em></div>
+        <div class="chip-out" id="hudOut">will orbit</div>
+      </div>
+      <div class="hud-bot">
+        <div class="pill">drag opposite the launch · same RK4 as the live shot</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="readout">
+    <div class="kv">
+      <div class="k">Launch</div>
+      <div class="v" id="kvV">7.60 km/s</div>
+      <div class="s" id="kvAim">horizontal · tangential</div>
+    </div>
+    <div class="kv">
+      <div class="k">Classifier</div>
+      <div class="v" id="kvOut">will orbit</div>
+      <div class="s">energy + periapsis, before firing</div>
+    </div>
+    <div class="kv">
+      <div class="k">Periapsis rp</div>
+      <div class="v" id="kvRp">—</div>
+      <div class="s" id="kvEcc">conic from current aim</div>
+    </div>
+    <div class="kv">
+      <div class="k">Specific energy</div>
+      <div class="v sun" id="kvE">—</div>
+      <div class="s">ε = v²/2 − GM/r · km²/s²</div>
+    </div>
+    <div class="kv">
+      <div class="k">g at the cannon</div>
+      <div class="v warm" id="kvG">—</div>
+      <div class="s">still ~86% of surface gravity</div>
+    </div>
+  </div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Gravity is a pull, not a void</h2>
+      <p>The ball is always accelerated toward Earth’s center. There is no “zero-g bubble” at altitude. At this 500 km mountain, g is still about 8.4 m/s². Weightlessness in orbit is free-fall, not missing gravity.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Sideways speed makes the miss</h2>
+      <p>Drop it, and it hits the mountain. Give it enough tangential speed and the ground curves away as fast as the ball falls — so it keeps missing. That continuous miss is an orbit. Newton’s drawing is this idea in one picture.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>You never “leave gravity”</h2>
+      <p>Escape speed does not switch gravity off. It means the orbit is <em>unbound</em>: kinetic energy ≥ the well (ε ≥ 0). The pull still acts; the path is a hyperbola that never comes back. g at the Moon is smaller, not zero.</p>
+    </article>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Point-mass Earth.</strong> Gravity is inverse-square from the center: <code>a = −GM r̂ / r²</code>. Real Earth is an oblate spheroid; J₂ and higher harmonics are omitted. The drawn disc is a circle of mean volumetric radius <code>R = 6,371 km</code>.</li>
+      <li><strong style="color:var(--text)">No atmosphere.</strong> A 500 km mountain sits in the thermosphere; real low orbits decay. Newton’s mountain is a thought-experiment platform so the cannon is clearly above the disc. There is no drag, no lift, no Earth rotation — the mountain is inertial.</li>
+      <li><strong style="color:var(--text)">Integrator.</strong> Classical RK4 on the first-order system <code>(x, y, vx, vy)</code> in kilometres and seconds. <code>GM = 398,600 km³/s²</code> (standard geocentric μ). Circular-orbit energy drift over one period is ~10⁻¹⁴ relative at <code>dt ≈ 0.5–2 s</code>. Paths that look closed are closed.</li>
+      <li><strong style="color:var(--text)">Mountain exaggeration.</strong> Everest is ~9 km. The 500 km height is deliberate so the launch altitude is visible. Thresholds on the slider — <code>V_circ = √(GM / r₀) ≈ 7.62 km/s</code> and <code>V_esc = √(2GM / r₀) ≈ 10.77 km/s</code> with <code>r₀ = R + 500</code> — are exact only for <em>horizontal tangential</em> launches.</li>
+      <li><strong style="color:var(--text)">Classifier.</strong> Before each shot the HUD chip uses the two-body conic, not the slider ticks. Specific energy <code>ε = v²/2 − GM/r</code>, specific angular momentum <code>h = x v_y − y v_x</code>, eccentricity <code>e = √(1 + 2ε h² / GM²)</code>, periapsis <code>r_p = (h²/GM) / (1+e)</code>. <em>Will fall back</em> if the conic intersects Earth and that intersection still lies ahead; <em>will orbit</em> if <code>ε &lt; 0</code> and <code>r_p ≥ R</code>; <em>will escape</em> if <code>ε ≥ 0</code> and the ball does not hit. Drag-aimed shots between ~7.4 and 7.62 km/s can still orbit if periapsis clears the disc — the general classifier handles this; the ticks do not.</li>
+      <li><strong style="color:var(--text)">Time warp.</strong> Base ×420 so a circular orbit (~94 min) plays in ~13 s. A Kepler-style multiplier <code>(r / r₀)^{3/2}</code>, clamped, speeds up high-apogee and escape coasting. The HUD shows the live product. This is a viewing aid, not physical time.</li>
+      <li><strong style="color:var(--text)">Two-body only.</strong> No Moon, no Sun, no relativity. Ghosts are decimated by point index (never by walking a flat x/y array as unpaired values). The cannon barrel holds <code>lastDir</code> — it does not track the flying projectile.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants (km, s) — same values as validate-cannonball.js =====
+  var GM = 398600;
+  var R = 6371;
+  var H0 = 500;
+  var R0 = R + H0;
+  var V_MAX = 13;
+  var V_CIRC = Math.sqrt(GM / R0);
+  var V_ESC = Math.sqrt(2 * GM / R0);
+  var PERIOD = 2 * Math.PI * Math.sqrt(R0 * R0 * R0 / GM);
+  var BASE_WARP = 420;
+  var DT = 0.5;
+  var MAX_GHOSTS = 9;
+  var G_CANNON = GM / (R0 * R0);
+
+  var PALETTE = [
+    '#5ec8e5', '#ffc24a', '#ff7e5f', '#7ee0a8',
+    '#82aaff', '#e0c36e', '#c792ea', '#80cbc4', '#ff9cac'
+  ];
+
+  // Cached font strings — rebuilt only on DPR change, never inside ghost-label loop
+  var FONT_MONO_9 = '9px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+
+  function hypot(x, y) { return Math.sqrt(x * x + y * y); }
+
+  function accel(x, y) {
+    var r2 = x * x + y * y;
+    var r = Math.sqrt(r2);
+    var s = -GM / (r2 * r);
+    return { ax: s * x, ay: s * y };
+  }
+
+  function energyOf(x, y, vx, vy) {
+    return 0.5 * (vx * vx + vy * vy) - GM / hypot(x, y);
+  }
+
+  function rk4Step(s, dt) {
+    var h2 = dt * 0.5;
+    var a1 = accel(s.x, s.y);
+    var k1x = s.vx, k1y = s.vy, k1vx = a1.ax, k1vy = a1.ay;
+
+    var a2 = accel(s.x + h2 * k1x, s.y + h2 * k1y);
+    var k2x = s.vx + h2 * k1vx, k2y = s.vy + h2 * k1vy, k2vx = a2.ax, k2vy = a2.ay;
+
+    var a3 = accel(s.x + h2 * k2x, s.y + h2 * k2y);
+    var k3x = s.vx + h2 * k2vx, k3y = s.vy + h2 * k2vy, k3vx = a3.ax, k3vy = a3.ay;
+
+    var a4 = accel(s.x + dt * k3x, s.y + dt * k3y);
+    var k4x = s.vx + dt * k3vx, k4y = s.vy + dt * k3vy, k4vx = a4.ax, k4vy = a4.ay;
+
+    s.x += dt / 6 * (k1x + 2 * k2x + 2 * k3x + k4x);
+    s.y += dt / 6 * (k1y + 2 * k2y + 2 * k3y + k4y);
+    s.vx += dt / 6 * (k1vx + 2 * k2vx + 2 * k3vx + k4vx);
+    s.vy += dt / 6 * (k1vy + 2 * k2vy + 2 * k3vy + k4vy);
+  }
+
+  // Analytic pre-classification from energy + conic periapsis.
+  // Handles arbitrary launch angles, not just horizontal.
+  function classify(x, y, vx, vy) {
+    var r = hypot(x, y);
+    var v2 = vx * vx + vy * vy;
+    var E = 0.5 * v2 - GM / r;
+    var h = x * vy - y * vx;
+    var h2 = h * h;
+    var e2 = 1 + (2 * E * h2) / (GM * GM);
+    if (e2 < 0) e2 = 0;
+    var e = Math.sqrt(e2);
+    var p = h2 / GM;
+    var rp = p / (1 + e);
+    var vr = (x * vx + y * vy) / r;
+    var hits = rp < R - 0.5;
+    var unbound = E >= -1e-12; // treat -0 (fp at exact V_esc) as parabolic escape
+    var outcome;
+    if (hits) {
+      // Unbound and already outbound: periapsis is behind us; we recede.
+      if (unbound && vr > 0) outcome = 'escape';
+      else outcome = 'fall';
+    } else if (unbound) {
+      outcome = 'escape';
+    } else {
+      outcome = 'orbit';
+    }
+    return { outcome: outcome, E: E, rp: rp, e: e, h: h, vr: vr };
+  }
+
+  function outcomeLabel(o, live) {
+    if (o === 'fall') return live ? 'falling back' : 'will fall back';
+    if (o === 'orbit') return live ? 'orbiting' : 'will orbit';
+    if (o === 'escape') return live ? 'escaping' : 'will escape';
+    if (o === 'impact') return 'impact';
+    return o;
+  }
+
+  function clamp(x, a, b) { return x < a ? a : (x > b ? b : x); }
+
+  // Trace a dashed prediction with the SAME RK4 / gravity as the live shot.
+  function predictPath(x, y, vx, vy) {
+    var s = { x: x, y: y, vx: vx, vy: vy };
+    var cls = classify(x, y, vx, vy);
+    var pts = [x, y];
+    var aAbs = cls.E < 0 ? (-GM / (2 * cls.E)) : 0;
+    var tOrb = (cls.E < -1e-12 && aAbs > 0)
+      ? (2 * Math.PI * Math.sqrt(aAbs * aAbs * aAbs / GM))
+      : PERIOD;
+    var maxT = cls.outcome === 'orbit' ? Math.min(tOrb * 1.06, PERIOD * 8)
+      : (cls.outcome === 'fall' ? PERIOD : PERIOD * 2);
+    var t = 0;
+    var prevAng = Math.atan2(y, x);
+    var angAcc = 0;
+    var lastRec = 0;
+    var steps = 0;
+    var maxSteps = 4000;
+    while (t < maxT && steps < maxSteps) {
+      var rNow = hypot(s.x, s.y);
+      var dt = 2;
+      if (rNow > 3 * R0) dt = 5;
+      if (rNow > 8 * R0) dt = 10;
+      rk4Step(s, dt);
+      t += dt;
+      steps += 1;
+      var r = hypot(s.x, s.y);
+      if (r <= R) {
+        var f = R / (r || 1);
+        pts.push(s.x * f, s.y * f);
+        return { pts: pts, hit: true, cls: cls };
+      }
+      if (r > 90 * R) {
+        pts.push(s.x, s.y);
+        return { pts: pts, hit: false, cls: cls };
+      }
+      var ang = Math.atan2(s.y, s.x);
+      var da = ang - prevAng;
+      if (da > Math.PI) da -= 2 * Math.PI;
+      if (da < -Math.PI) da += 2 * Math.PI;
+      angAcc += da;
+      prevAng = ang;
+      if (t - lastRec >= 4 || r <= R + 80) {
+        pts.push(s.x, s.y);
+        lastRec = t;
+      }
+      if (cls.outcome === 'orbit' && angAcc >= 2 * Math.PI * 1.02) break;
+    }
+    pts.push(s.x, s.y);
+    return { pts: pts, hit: false, cls: cls };
+  }
+
+  // Decimate a flat [x0,y0,x1,y1,...] path BY POINT INDEX, never by
+  // walking the array as if stride applied to unpaired scalars.
+  function decimateByIndex(pts, maxPts) {
+    var n = pts.length >> 1;
+    if (n <= maxPts) return pts.slice();
+    var step = Math.ceil(n / maxPts);
+    var out = [];
+    var i;
+    for (i = 0; i < n; i += step) {
+      out.push(pts[i * 2], pts[i * 2 + 1]);
+    }
+    if ((n - 1) % step !== 0) {
+      out.push(pts[(n - 1) * 2], pts[(n - 1) * 2 + 1]);
+    }
+    return out;
+  }
+
+  // ===== DOM =====
+  var canvas = document.getElementById('cv');
+  var ctx = canvas.getContext('2d');
+  var spdEl = document.getElementById('spd');
+  var spdLabel = document.getElementById('spdLabel');
+  var hudV = document.getElementById('hudV');
+  var hudH = document.getElementById('hudH');
+  var hudWarp = document.getElementById('hudWarp');
+  var hudN = document.getElementById('hudN');
+  var hudOut = document.getElementById('hudOut');
+  var kvV = document.getElementById('kvV');
+  var kvAim = document.getElementById('kvAim');
+  var kvOut = document.getElementById('kvOut');
+  var kvRp = document.getElementById('kvRp');
+  var kvEcc = document.getElementById('kvEcc');
+  var kvE = document.getElementById('kvE');
+  var kvG = document.getElementById('kvG');
+
+  var cssW = 1280, cssH = 800, dpr = 1, W = 1280, H = 800;
+
+  // lastDir holds the last aimed / fired barrel orientation.
+  // It is NEVER overwritten by the projectile's velocity during flight.
+  var lastDirX = 1;
+  var lastDirY = 0;
+
+  var aimV = 7.60;
+  var aimX = 1;
+  var aimY = 0;
+  var dragging = false;
+  var dragSX = 0, dragSY = 0, dragCX = 0, dragCY = 0;
+  var dragCssX = 0, dragCssY = 0;
+
+  var shot = null;
+  var ghosts = [];
+  var shotCount = 0;
+  var pred = null;
+  var predDirty = true;
+
+  var camScale = 0.02;
+  var camTarget = 0.02;
+  var lastTs = 0;
+  var warpLive = BASE_WARP;
+
+  var stars = [];
+  (function seedStars() {
+    var s = 2166136261;
+    function rnd() {
+      s = (Math.imul(s, 16777619) + 1013904223) >>> 0;
+      return s / 4294967296;
+    }
+    var i;
+    for (i = 0; i < 320; i++) {
+      var a = rnd() * Math.PI * 2;
+      var rad = Math.sqrt(rnd()) * 95 * R;
+      stars.push({
+        x: Math.cos(a) * rad,
+        y: Math.sin(a) * rad,
+        r: 0.5 + rnd() * 1.5,
+        a: 0.22 + rnd() * 0.7
+      });
+    }
+  })();
+
+  function updateFonts() {
+    FONT_MONO_9 = (9 * dpr) + 'px "IBM Plex Mono", ui-monospace, monospace';
+    FONT_MONO_10 = (10 * dpr) + 'px "IBM Plex Mono", ui-monospace, monospace';
+    FONT_MONO_11 = (11 * dpr) + 'px "IBM Plex Mono", ui-monospace, monospace';
+    FONT_UI_11 = (11 * dpr) + 'px Inter, system-ui, sans-serif';
+  }
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    cssW = Math.max(1, rect.width);
+    cssH = Math.max(1, rect.height);
+    dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    var nw = Math.max(1, Math.round(cssW * dpr));
+    var nh = Math.max(1, Math.round(cssH * dpr));
+    if (canvas.width !== nw || canvas.height !== nh) {
+      canvas.width = nw;
+      canvas.height = nh;
+    }
+    W = canvas.width;
+    H = canvas.height;
+    updateFonts();
+  }
+
+  function worldToScreen(x, y) {
+    return { x: W * 0.5 + x * camScale, y: H * 0.52 - y * camScale };
+  }
+
+  function currentAim() {
+    if (dragging) {
+      return { vx: aimV * aimX, vy: aimV * aimY, v: aimV, horiz: false };
+    }
+    return { vx: aimV, vy: 0, v: aimV, horiz: true };
+  }
+
+  function applySliderAim() {
+    aimV = parseFloat(spdEl.value);
+    if (!dragging) {
+      aimX = 1;
+      aimY = 0;
+    }
+    predDirty = true;
+    refreshHud();
+  }
+
+  function setSlider(v) {
+    v = Math.round(v / 0.05) * 0.05;
+    if (v < 0) v = 0;
+    if (v > V_MAX) v = V_MAX;
+    spdEl.value = v.toFixed(2);
+    aimV = parseFloat(spdEl.value);
+    spdLabel.textContent = aimV.toFixed(2) + ' km/s';
+  }
+
+  function refreshHud() {
+    var aim = currentAim();
+    var cls = classify(0, R0, aim.vx, aim.vy);
+    var flying = shot && shot.alive;
+    var vx = flying ? shot.vx : aim.vx;
+    var vy = flying ? shot.vy : aim.vy;
+    var x = flying ? shot.x : 0;
+    var y = flying ? shot.y : R0;
+    var v = hypot(vx, vy);
+    var alt = hypot(x, y) - R;
+    hudV.textContent = v.toFixed(2) + ' km/s';
+    hudH.textContent = (alt < 0 ? 0 : alt).toFixed(1) + ' km';
+    hudWarp.textContent = '×' + Math.round(warpLive);
+    hudN.textContent = String(shotCount);
+
+    var oc = flying ? (shot.hit ? 'impact' : shot.cls.outcome) : cls.outcome;
+    var lab = flying && shot.hit ? 'impact' : outcomeLabel(oc, flying);
+    hudOut.textContent = lab;
+    hudOut.className = 'chip-out ' + (shot && shot.hit ? 'impact' : oc);
+
+    kvV.textContent = aim.v.toFixed(2) + ' km/s';
+    kvAim.textContent = aim.horiz
+      ? 'horizontal · tangential'
+      : 'aimed · ' + (Math.atan2(aim.vy, aim.vx) * 180 / Math.PI).toFixed(1) + '° from +x';
+    kvOut.textContent = outcomeLabel(cls.outcome, false);
+    kvOut.className = 'v' + (cls.outcome === 'fall' ? ' warm' : cls.outcome === 'escape' ? ' sun' : '');
+    kvRp.textContent = (cls.rp < 1 ? '< 1' : cls.rp.toFixed(0)) + ' km';
+    kvEcc.textContent = 'e = ' + cls.e.toFixed(3) + (cls.rp < R ? ' · intersects Earth' : ' · clears Earth');
+    kvE.textContent = (cls.E >= 0 ? '+' : '') + cls.E.toFixed(3);
+    kvE.className = 'v' + (cls.E >= 0 ? ' sun' : '');
+    kvG.textContent = (G_CANNON * 1000).toFixed(2) + ' m/s²';
+    spdLabel.textContent = aimV.toFixed(2) + ' km/s';
+  }
+
+  function archiveShot() {
+    if (!shot || shot.path.length < 4) { shot = null; return; }
+    ghosts.push({
+      pts: decimateByIndex(shot.path, 360),
+      color: shot.color,
+      v: shot.v0,
+      outcome: shot.hit ? 'fall' : shot.cls.outcome,
+      label: outcomeLabel(shot.hit ? 'fall' : shot.cls.outcome, false) + ' · ' + shot.v0.toFixed(2) + ' km/s'
+    });
+    while (ghosts.length > MAX_GHOSTS) ghosts.shift();
+    shot = null;
+  }
+
+  function fire(vx, vy, horiz) {
+    if (shot) archiveShot();
+    var v = hypot(vx, vy);
+    lastDirX = v > 1e-12 ? vx / v : 1;
+    lastDirY = v > 1e-12 ? vy / v : 0;
+    var cls = classify(0, R0, vx, vy);
+    var color = PALETTE[shotCount % PALETTE.length];
+    shot = {
+      x: 0, y: R0, vx: vx, vy: vy,
+      alive: true,
+      hit: false,
+      path: [0, R0],
+      head: [0, R0],
+      v0: v,
+      cls: cls,
+      angAcc: 0,
+      prevAng: Math.atan2(R0, 0),
+      pathClosed: false,
+      lastRecX: 0,
+      lastRecY: R0,
+      color: color
+    };
+    shotCount += 1;
+    pred = null;
+    predDirty = true;
+    refreshHud();
+  }
+
+  function fireHorizontal() {
+    var v = parseFloat(spdEl.value);
+    lastDirX = 1;
+    lastDirY = 0;
+    fire(v, 0, true);
+  }
+
+  function maybePredict() {
+    if (shot && shot.alive) { pred = null; return; }
+    if (!predDirty && pred) return;
+    var aim = currentAim();
+    pred = predictPath(0, R0, aim.vx, aim.vy);
+    predDirty = false;
+  }
+
+  // ===== Pointer (capture) — Angry Birds slingshot =====
+  canvas.addEventListener('pointerdown', function (e) {
+    canvas.setPointerCapture(e.pointerId);
+    var rect = canvas.getBoundingClientRect();
+    dragging = true;
+    dragSX = e.clientX - rect.left;
+    dragSY = e.clientY - rect.top;
+    dragCX = dragSX;
+    dragCY = dragSY;
+    dragCssX = 0;
+    dragCssY = 0;
+    e.preventDefault();
+  });
+
+  canvas.addEventListener('pointermove', function (e) {
+    if (!dragging) return;
+    var rect = canvas.getBoundingClientRect();
+    dragCX = e.clientX - rect.left;
+    dragCY = e.clientY - rect.top;
+    var sx = dragCX - dragSX;
+    var sy = dragCY - dragSY;
+    dragCssX = sx;
+    dragCssY = sy;
+    var maxPx = 0.36 * Math.min(cssW, cssH);
+    var dist = hypot(sx, sy);
+    var v = Math.min(V_MAX, (dist / maxPx) * V_MAX);
+    // Slingshot: launch opposite the drag. Screen y is down; world y is up.
+    var lx = -sx;
+    var ly = sy;
+    var len = hypot(lx, ly);
+    if (len > 1e-6) { lx /= len; ly /= len; }
+    else { lx = 1; ly = 0; }
+    aimV = v;
+    aimX = lx;
+    aimY = ly;
+    lastDirX = lx;
+    lastDirY = ly;
+    setSlider(v);
+    predDirty = true;
+    e.preventDefault();
+  });
+
+  function endDrag(e) {
+    if (!dragging) return;
+    dragging = false;
+    try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+    var dist = hypot(dragCssX, dragCssY);
+    if (dist > 8) {
+      fire(aimV * aimX, aimV * aimY, false);
+    }
+    predDirty = true;
+  }
+  canvas.addEventListener('pointerup', endDrag);
+  canvas.addEventListener('pointercancel', endDrag);
+
+  document.getElementById('btnFire').addEventListener('click', fireHorizontal);
+  document.getElementById('btnClear').addEventListener('click', function () {
+    shot = null;
+    ghosts = [];
+    predDirty = true;
+    refreshHud();
+  });
+
+  spdEl.addEventListener('input', function () {
+    if (!dragging) {
+      aimV = parseFloat(spdEl.value);
+      aimX = 1;
+      aimY = 0;
+    }
+    spdLabel.textContent = parseFloat(spdEl.value).toFixed(2) + ' km/s';
+    predDirty = true;
+    refreshHud();
+  });
+
+  function bindPreset(id) {
+    document.getElementById(id).addEventListener('click', function () {
+      var v = parseFloat(this.getAttribute('data-v'));
+      setSlider(v);
+      aimX = 1;
+      aimY = 0;
+      lastDirX = 1;
+      lastDirY = 0;
+      fireHorizontal();
+    });
+  }
+  bindPreset('preFall');
+  bindPreset('preOrbit');
+  bindPreset('preEll');
+  bindPreset('preEsc');
+  bindPreset('preFast');
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' || e.key === ' ') {
+      e.preventDefault();
+      if (e.repeat) return;
+      if (!dragging) fireHorizontal();
+    }
+  });
+
+  // ===== Draw helpers =====
+  function strokeFlat(pts, stride) {
+    var n = pts.length >> 1;
+    if (n < 2) return;
+    var step = stride > 0 ? stride : 1;
+    var p = worldToScreen(pts[0], pts[1]);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    var i;
+    for (i = step; i < n; i += step) {
+      p = worldToScreen(pts[i * 2], pts[i * 2 + 1]);
+      ctx.lineTo(p.x, p.y);
+    }
+    if ((n - 1) % step !== 0) {
+      p = worldToScreen(pts[(n - 1) * 2], pts[(n - 1) * 2 + 1]);
+      ctx.lineTo(p.x, p.y);
+    }
+    ctx.stroke();
+  }
+
+  function farthestIndex(pts) {
+    var n = pts.length >> 1;
+    var bestI = 0, bestR = -1, i, r;
+    for (i = 0; i < n; i++) {
+      r = hypot(pts[i * 2], pts[i * 2 + 1]);
+      if (r > bestR) { bestR = r; bestI = i; }
+    }
+    return bestI;
+  }
+
+  function drawStars() {
+    var i, p, s;
+    for (i = 0; i < stars.length; i++) {
+      s = stars[i];
+      p = worldToScreen(s.x, s.y);
+      if (p.x < -4 || p.y < -4 || p.x > W + 4 || p.y > H + 4) continue;
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(215,222,242,' + s.a + ')';
+      ctx.arc(p.x, p.y, s.r * dpr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawEarth() {
+    var c = worldToScreen(0, 0);
+    var re = R * camScale;
+    var atmo = ctx.createRadialGradient(c.x, c.y, re * 0.92, c.x, c.y, re * 1.18);
+    atmo.addColorStop(0, 'rgba(94,200,229,0)');
+    atmo.addColorStop(0.55, 'rgba(94,200,229,0.10)');
+    atmo.addColorStop(1, 'rgba(94,200,229,0)');
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, re * 1.18, 0, Math.PI * 2);
+    ctx.fillStyle = atmo;
+    ctx.fill();
+
+    var g = ctx.createRadialGradient(
+      c.x - re * 0.32, c.y - re * 0.38, re * 0.1,
+      c.x, c.y, re
+    );
+    g.addColorStop(0, '#3d8bb8');
+    g.addColorStop(0.45, '#1b4d7a');
+    g.addColorStop(1, '#0c2340');
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, re, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, re, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.fillStyle = 'rgba(62, 130, 86, 0.78)';
+    function blob(wx, wy, rx, ry, rot) {
+      ctx.save();
+      ctx.translate(c.x + wx * camScale, c.y - wy * camScale);
+      ctx.rotate(-rot);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, rx * camScale, ry * camScale, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    blob(-1800, 800, 2100, 1100, 0.4);
+    blob(2200, -400, 1600, 900, -0.5);
+    blob(400, 2200, 1400, 700, 0.2);
+    blob(-800, -2400, 1800, 800, 0.7);
+    ctx.fillStyle = 'rgba(90, 150, 100, 0.45)';
+    blob(800, 400, 700, 400, -0.3);
+    // soft terminator
+    var sh = ctx.createLinearGradient(c.x - re, c.y, c.x + re, c.y + re * 0.4);
+    sh.addColorStop(0, 'rgba(8,11,28,0)');
+    sh.addColorStop(0.62, 'rgba(8,11,28,0)');
+    sh.addColorStop(1, 'rgba(8,11,28,0.35)');
+    ctx.fillStyle = sh;
+    ctx.fillRect(c.x - re, c.y - re, re * 2, re * 2);
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, re, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(94,200,229,0.28)';
+    ctx.lineWidth = 1.25 * dpr;
+    ctx.stroke();
+
+    // Faint circular-orbit guide at cannon altitude
+    var c0 = worldToScreen(0, 0);
+    ctx.beginPath();
+    ctx.arc(c0.x, c0.y, R0 * camScale, 0, Math.PI * 2);
+    ctx.setLineDash([5 * dpr, 7 * dpr]);
+    ctx.strokeStyle = 'rgba(94,200,229,0.16)';
+    ctx.lineWidth = 1 * dpr;
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  function drawMountainAndCannon() {
+    var baseAng = 0.075;
+    var p0 = worldToScreen(Math.sin(-baseAng) * R, Math.cos(-baseAng) * R);
+    var p1 = worldToScreen(0, R0);
+    var p2 = worldToScreen(Math.sin(baseAng) * R, Math.cos(baseAng) * R);
+    ctx.beginPath();
+    ctx.moveTo(p0.x, p0.y);
+    ctx.lineTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.closePath();
+    ctx.fillStyle = '#3a3f55';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(215,222,242,0.2)';
+    ctx.lineWidth = 1 * dpr;
+    ctx.stroke();
+
+    var tip = worldToScreen(0, R0);
+    var ang = Math.atan2(-lastDirY, lastDirX); // screen angle (y down)
+    var bl = Math.max(15 * dpr, 200 * camScale);
+    var bw = Math.max(2.6 * dpr, 22 * camScale);
+    ctx.save();
+    ctx.translate(tip.x, tip.y);
+    ctx.rotate(ang);
+    ctx.fillStyle = '#c9a27a';
+    ctx.fillRect(0, -bw * 0.5, bl, bw);
+    ctx.fillStyle = '#8a6a4a';
+    ctx.beginPath();
+    ctx.arc(0, 0, bw * 0.95, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawSlingshot() {
+    if (!dragging) return;
+    var tip = worldToScreen(0, R0);
+    var pullX = tip.x + dragCssX * dpr;
+    var pullY = tip.y + dragCssY * dpr;
+    ctx.beginPath();
+    ctx.moveTo(tip.x, tip.y);
+    ctx.lineTo(pullX, pullY);
+    ctx.strokeStyle = 'rgba(255,126,95,0.85)';
+    ctx.lineWidth = 1.6 * dpr;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(pullX, pullY, 4.5 * dpr, 0, Math.PI * 2);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fill();
+
+    var al = Math.max(28 * dpr, 260 * camScale) * (0.35 + 0.65 * (aimV / V_MAX));
+    var tip2x = tip.x + lastDirX * al;
+    var tip2y = tip.y - lastDirY * al;
+    ctx.beginPath();
+    ctx.moveTo(tip.x, tip.y);
+    ctx.lineTo(tip2x, tip2y);
+    ctx.strokeStyle = 'rgba(255,194,74,0.9)';
+    ctx.lineWidth = 1.8 * dpr;
+    ctx.stroke();
+    var nx = -lastDirY, ny = lastDirX;
+    ctx.beginPath();
+    ctx.moveTo(tip2x, tip2y);
+    ctx.lineTo(tip2x - lastDirX * 8 * dpr + nx * 4 * dpr, tip2y + lastDirY * 8 * dpr + ny * 4 * dpr);
+    ctx.lineTo(tip2x - lastDirX * 8 * dpr - nx * 4 * dpr, tip2y + lastDirY * 8 * dpr - ny * 4 * dpr);
+    ctx.closePath();
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+  }
+
+  function drawPrediction() {
+    if (!pred || !pred.pts || pred.pts.length < 4) return;
+    if (shot && shot.alive) return;
+    ctx.setLineDash([6 * dpr, 5 * dpr]);
+    ctx.strokeStyle = 'rgba(255,194,74,0.55)';
+    ctx.lineWidth = 1.4 * dpr;
+    strokeFlat(pred.pts, 1);
+    ctx.setLineDash([]);
+  }
+
+  function drawGhosts() {
+    // Font cached outside the label loop — do not rebuild strings here.
+    ctx.font = FONT_MONO_10;
+    ctx.textBaseline = 'middle';
+    var g, i, p, n, stride;
+    for (i = 0; i < ghosts.length; i++) {
+      g = ghosts[i];
+      n = g.pts.length >> 1;
+      stride = n > 280 ? 2 : 1;
+      ctx.globalAlpha = 0.42;
+      ctx.strokeStyle = g.color;
+      ctx.lineWidth = 1.15 * dpr;
+      strokeFlat(g.pts, stride);
+      ctx.globalAlpha = 1;
+      var fi = farthestIndex(g.pts);
+      p = worldToScreen(g.pts[fi * 2], g.pts[fi * 2 + 1]);
+      ctx.fillStyle = g.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2.2 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = g.color;
+      ctx.fillText(g.label, p.x + 6 * dpr, p.y - 8 * dpr);
+    }
+  }
+
+  function drawShot() {
+    if (!shot) return;
+    var n = shot.path.length >> 1;
+    if (n >= 2) {
+      ctx.globalAlpha = 0.28;
+      ctx.strokeStyle = shot.color;
+      ctx.lineWidth = 1.2 * dpr;
+      strokeFlat(shot.path, n > 400 ? 2 : 1);
+      ctx.globalAlpha = 1;
+
+      // Bright fading trail head (rolling buffer) over the faint full path
+      var hp = shot.head && shot.head.length >= 4 ? shot.head : shot.path;
+      var hn = hp.length >> 1;
+      var head = Math.min(hn, 70);
+      var start = hn - head;
+      ctx.lineCap = 'round';
+      var i, a, p0, p1;
+      for (i = start + 1; i < hn; i++) {
+        a = (i - start) / head;
+        ctx.strokeStyle = 'rgba(255,246,216,' + (0.15 + 0.85 * a) + ')';
+        ctx.lineWidth = (1.1 + 2.1 * a) * dpr;
+        p0 = worldToScreen(hp[(i - 1) * 2], hp[(i - 1) * 2 + 1]);
+        p1 = worldToScreen(hp[i * 2], hp[i * 2 + 1]);
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        ctx.lineTo(p1.x, p1.y);
+        ctx.stroke();
+      }
+      ctx.lineCap = 'butt';
+    }
+    var p = worldToScreen(shot.x, shot.y);
+    var glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 10 * dpr);
+    glow.addColorStop(0, 'rgba(255,246,216,0.95)');
+    glow.addColorStop(0.35, 'rgba(255,194,74,0.55)');
+    glow.addColorStop(1, 'rgba(255,194,74,0)');
+    ctx.beginPath();
+    ctx.fillStyle = glow;
+    ctx.arc(p.x, p.y, 10 * dpr, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 3.1 * dpr, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff6d8';
+    ctx.fill();
+
+    // Gravity pull tick — always toward Earth
+    var r = hypot(shot.x, shot.y) || 1;
+    var gx = -shot.x / r, gy = -shot.y / r;
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    ctx.lineTo(p.x + gx * 14 * dpr, p.y - gy * 14 * dpr);
+    ctx.strokeStyle = 'rgba(255,126,95,0.7)';
+    ctx.lineWidth = 1.2 * dpr;
+    ctx.stroke();
+  }
+
+  function drawCaption() {
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139,147,173,0.95)';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText('Newton 1687  ·  two-body RK4  ·  mountain 500 km (exaggerated)  ·  orbiting is falling', 12 * dpr, 18 * dpr);
+    ctx.fillText('V_circ ' + V_CIRC.toFixed(2) + ' km/s   V_esc ' + V_ESC.toFixed(2) + ' km/s   at r₀ = ' + R0 + ' km', 12 * dpr, H - 12 * dpr);
+  }
+
+  function fitScale() {
+    var need = R0 * 2.28;
+    if (shot && shot.alive) {
+      need = Math.max(need, hypot(shot.x, shot.y) * 1.28 + R * 0.4);
+    } else if (pred && pred.pts) {
+      var n = pred.pts.length >> 1;
+      var i, r, maxR = R0;
+      var take = Math.min(n, 80);
+      var step = Math.max(1, Math.floor(n / take));
+      for (i = 0; i < n; i += step) {
+        r = hypot(pred.pts[i * 2], pred.pts[i * 2 + 1]);
+        if (r > maxR) maxR = r;
+      }
+      need = Math.max(need, Math.min(maxR * 1.12, 8 * R0));
+    }
+    var pad = 0.86;
+    camTarget = pad * Math.min(W, H) / (2 * need);
+    if (camTarget < 1e-5) camTarget = 1e-5;
+  }
+
+  function stepShot(realDt) {
+    if (!shot || !shot.alive) {
+      warpLive = BASE_WARP;
+      return;
+    }
+    var r = hypot(shot.x, shot.y);
+    var mult = Math.pow(Math.max(r, R0) / R0, 1.5);
+    if (mult < 1) mult = 1;
+    if (mult > 64) mult = 64;
+    warpLive = BASE_WARP * mult;
+    var budget = warpLive * realDt;
+    var advanced = 0;
+    var dt, rr, ang, da;
+    while (advanced < budget && shot.alive) {
+      dt = DT;
+      if (budget - advanced < dt) dt = budget - advanced;
+      if (dt <= 0) break;
+      rk4Step(shot, dt);
+      advanced += dt;
+      rr = hypot(shot.x, shot.y);
+      if (rr <= R) {
+        var f = R / (rr || 1);
+        shot.x *= f;
+        shot.y *= f;
+        shot.vx = 0;
+        shot.vy = 0;
+        shot.alive = false;
+        shot.hit = true;
+        shot.path.push(shot.x, shot.y);
+        break;
+      }
+      if (rr > 110 * R) {
+        shot.alive = false;
+        shot.path.push(shot.x, shot.y);
+        break;
+      }
+      ang = Math.atan2(shot.y, shot.x);
+      da = ang - shot.prevAng;
+      if (da > Math.PI) da -= 2 * Math.PI;
+      if (da < -Math.PI) da += 2 * Math.PI;
+      shot.angAcc += da;
+      shot.prevAng = ang;
+      shot.head.push(shot.x, shot.y);
+      if (shot.head.length > 140) shot.head.splice(0, 2);
+      if (!shot.pathClosed) {
+        var dx = shot.x - shot.lastRecX;
+        var dy = shot.y - shot.lastRecY;
+        if (dx * dx + dy * dy > 64) {
+          shot.path.push(shot.x, shot.y);
+          shot.lastRecX = shot.x;
+          shot.lastRecY = shot.y;
+        }
+        if (shot.angAcc >= 2.15 * Math.PI) {
+          shot.pathClosed = true;
+          shot.path.push(shot.x, shot.y);
+        }
+      }
+    }
+  }
+
+  function draw() {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    var bg = ctx.createRadialGradient(W * 0.5, H * 0.5, 20, W * 0.5, H * 0.55, Math.max(W, H) * 0.72);
+    bg.addColorStop(0, '#0c1230');
+    bg.addColorStop(1, '#060815');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    drawStars();
+    drawGhosts();
+    drawPrediction();
+    drawEarth();
+    drawMountainAndCannon();
+    drawSlingshot();
+    drawShot();
+    drawCaption();
+  }
+
+  function frame(ts) {
+    if (!lastTs) lastTs = ts;
+    var realDt = (ts - lastTs) / 1000;
+    if (realDt > 0.05) realDt = 0.05;
+    lastTs = ts;
+    resize();
+    stepShot(realDt);
+    fitScale();
+    camScale += (camTarget - camScale) * (1 - Math.exp(-realDt * 3.2));
+    maybePredict();
+    refreshHud();
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  function placeMarks() {
+    document.getElementById('markCirc').style.left = (V_CIRC / V_MAX * 100) + '%';
+    document.getElementById('markEsc').style.left = (V_ESC / V_MAX * 100) + '%';
+  }
+
+  placeMarks();
+  kvG.textContent = (G_CANNON * 1000).toFixed(2) + ' m/s²';
+  resize();
+  fitScale();
+  camScale = camTarget;
+  applySliderAim();
+  maybePredict();
+  refreshHud();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

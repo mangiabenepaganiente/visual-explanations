@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual Explanations — Interactive Physics for Classrooms</title>
+<meta name="description" content="Free interactive physics and astronomy explainers for teachers and learners. Tilt not distance, orbiting is falling, two tides a day. Real math, live readouts, honest caveats.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1040px; margin: 0 auto; padding: 36px 22px 72px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+.lede { font-size: 18px; line-height: 1.55; color: var(--muted); max-width: 680px; margin: 0 0 28px; }
+.lede strong { color: var(--text); font-weight: 500; }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 800px) {
+  .grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+a.card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 18px 18px;
+  min-height: 220px;
+}
+a.card:hover { border-color: rgba(94, 200, 229, 0.5); }
+.n {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin-bottom: 10px;
+}
+a.card h2 {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+a.card p { margin: 0 0 16px; color: var(--muted); font-size: 14px; line-height: 1.5; flex: 1; }
+.go {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sun2);
+}
+.foot {
+  margin-top: 36px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="kicker">Visual explanations · for classrooms</p>
+  <h1>Interactive physics you can scrub.</h1>
+  <p class="lede">Free explainers for <strong>teachers and learners</strong>. Real constants, live numbers, and the misconception named out loud. Open one, press play, argue with the slider.</p>
+  <div class="grid">
+    <a class="card" href="seasons.html">
+      <div class="n">01 · astronomy</div>
+      <h2>Why Earth has seasons</h2>
+      <p>A fixed 23.44° tilt, not a closer Sun in July. Orbit, terminator, and a flashlight on the same day-of-year scrubber.</p>
+      <span class="go">Open explainer</span>
+    </a>
+    <a class="card" href="cannonball.html">
+      <div class="n">02 · orbits</div>
+      <h2>Newton’s cannonball</h2>
+      <p>Orbiting is falling sideways fast enough. Drag to aim, fire past circular and escape, keep the ghost paths.</p>
+      <span class="go">Open explainer</span>
+    </a>
+    <a class="card" href="tides.html">
+      <div class="n">03 · gravity</div>
+      <h2>Why two high tides a day</h2>
+      <p>The Moon stretches Earth into two bulges. Turn the Sun off: two highs remain. It only changes how high.</p>
+      <span class="go">Open explainer</span>
+    </a>
+  </div>
+  <p class="foot">Single-file pages. Vanilla JS. Models footnoted. Built for a projector and a curious kid.</p>
+</div>
+</body>
+</html>
