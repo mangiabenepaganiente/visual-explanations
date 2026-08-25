@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why the Sky Is Blue (and Sunsets Red) — Rayleigh Scattering, Not the Ocean</title>
+<meta name="description" content="Classroom explainer for teachers: the sky is blue because air molecules scatter short wavelengths as λ⁻⁴, not because it reflects the ocean. Looking up you see the scattered blue; looking at the Sun through a long air mass you see the leftover red. Live air mass, Rayleigh ratios, and a zenith-to-horizon sky.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 12% -8%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.warm.on { background: rgba(255, 126, 95, 0.14); border-color: rgba(255, 126, 95, 0.5); color: var(--warm); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.chart-card canvas { height: 230px; }
+.chart-card { grid-column: 1 / -1; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .chart-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .chart-card canvas { height: 220px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="4">
+<div class="page">
+  <p class="kicker"><a href="index.html" style="color:inherit;text-decoration:none">Visual explanations · sky</a></p>
+  <h1>Why the sky is blue — and sunsets red</h1>
+  <p class="lede">Air is not blue stuff, and the sky does not borrow the ocean. Molecules scatter sunlight as <strong>λ<sup>−4</sup></strong>. Looking up you see the scattered short wavelengths. Looking at the Sun through a long air mass you see the leftover: orange, then red.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Play</button>
+      <label class="sl grow">
+        <span>Sun elevation <em id="elevLabel">35.0°</em></span>
+        <input type="range" id="scrub" min="0" max="90" step="0.1" value="35" aria-label="Sun elevation in degrees">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="chipNoon" aria-pressed="false">Noon 90°</button>
+      <button type="button" class="chip on" id="chipAft" aria-pressed="true">Afternoon 35°</button>
+      <button type="button" class="chip" id="chipLow" aria-pressed="false">Low 12°</button>
+      <button type="button" class="chip sun" id="chipSet" aria-pressed="false">Sunset 2°</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Sky · zenith to horizon</b><span id="skyMeta">single-scatter Rayleigh</span></div>
+      <canvas id="cvSky" width="760" height="360" aria-label="Sky color from zenith to horizon with the Sun at the chosen elevation"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Two sightlines</b><span>scatter vs leftover</span></div>
+      <canvas id="cvLook" width="480" height="360" aria-label="Looking up zenith color versus looking at the Sun beam color"></canvas>
+    </div>
+    <div class="card chart-card">
+      <div class="card-h"><b>Scatter vs wavelength</b><span id="chartMeta">σ ∝ λ⁻⁴ · beam T = e^{−τX}</span></div>
+      <canvas id="cvBars" width="1200" height="230" aria-label="Bar chart of Rayleigh scatter and beam transmittance versus wavelength"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Molecules scatter as λ⁻⁴</h2>
+      <p>N₂ and O₂ are far smaller than visible wavelengths, so Rayleigh scattering goes as 1/λ⁴. Light at 450 nm is tossed sideways <strong style="color:var(--text)">(650/450)⁴ ≈ 4.36×</strong> more than light at 650 nm.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Geometry: scatter vs leftover</h2>
+      <p>Looking up, you see the light that was scattered — short-λ wins. Looking at the Sun through a long air mass, you see what remains after that short-λ has been stripped out.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">The path</div>
+      <h2>Air mass grows at low Sun</h2>
+      <p>Overhead, <code style="font-family:var(--mono);color:#8fd4e8">X = 1</code>. Near the horizon, Kasten–Young air mass climbs past 10, then ~38. Beam transmittance <code style="font-family:var(--mono);color:#8fd4e8">e^{−τX}</code> kills blue first. Zenith stays bluish until twilight.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>It is not the ocean</h2>
+      <p>The sky is blue over wheat fields and deserts. Air is not a blue gas. Oceans look blue partly because they <em>see</em> the sky, and because water absorbs red — the arrow goes the other way.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Rayleigh and air-mass facts">
+    <div class="stat">
+      <div class="k">σ(450) / σ(650)</div>
+      <div class="v">4.36×</div>
+      <div class="s">(650/450)⁴ · Rayleigh</div>
+    </div>
+    <div class="stat">
+      <div class="k">Air mass at zenith</div>
+      <div class="v">1.00</div>
+      <div class="s">X = 1 / sin(elev) · z = 0°</div>
+    </div>
+    <div class="stat">
+      <div class="k">Air mass at horizon</div>
+      <div class="v">~37.9</div>
+      <div class="s">Kasten–Young 1989 · elev 0°</div>
+    </div>
+    <div class="stat">
+      <div class="k">τ at 550 nm</div>
+      <div class="v">0.12</div>
+      <div class="s">clear sea-level Rayleigh column</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Rayleigh scattering.</strong> For particles much smaller than the wavelength, the scattering cross-section <code>σ ∝ 1/λ⁴</code> across the visible. Relative scatter <code>σ(λ₁)/σ(λ₂) = (λ₂/λ₁)⁴</code>. At the classroom pair: <code>(650/450)⁴ ≈ 4.36</code>. This page does not treat air as a blue pigment.</li>
+      <li><strong style="color:var(--text)">Air mass.</strong> Zenith angle <code>z = 90° − elev</code>. For <code>z &lt; 70°</code> we use the plane-parallel <code>X = 1/cos z = 1/sin(elev)</code>, which is exactly 1 at the zenith. For <code>z ≥ 70°</code> we switch to Kasten &amp; Young 1989: <code>X = 1 / [sin γ + 0.50572 (γ + 6.07995)^{−1.6364}]</code> with <code>γ</code> in degrees. That formula stays finite at the horizon (<code>X ≈ 37.9</code>). A raw <code>1/sin(elev)</code> would blow up.</li>
+      <li><strong style="color:var(--text)">Optical depth and the leftover beam.</strong> Vertical Rayleigh optical depth <code>τ(λ) = 0.12 · (550 nm / λ)⁴</code> — a typical clear sea-level column, no aerosols. Direct-beam transmittance <code>T = exp(−τ X)</code>. Because <code>τ</code> is larger in the blue, a large air mass strips short-λ first and the transmitted Sun goes yellow → orange → red.</li>
+      <li><strong style="color:var(--text)">Looking up (zenith still blue).</strong> Single-scattering sketch: <code>I(λ) ∝ F(λ) · σ(λ) · exp(−τ X_in) · (1 − exp(−τ X_view))</code>. Overhead scatterers sit high, so incoming air mass is only a fraction of the solar air mass: <code>X_in = 1 + (0.18 + 0.55 t)(X − 1)</code>, <code>t = 1 − viewElev/90</code>. That is why the zenith stays bluish until twilight even while the Sun on the horizon is red. A pinch of wavelength-flat Mie / multiple-scatter is mixed in near the horizon so noon’s horizon is milky, not neon.</li>
+      <li><strong style="color:var(--text)">Solar spectrum.</strong> Three channels at 650 / 550 / 450 nm, relative Planck function at 5772 K (<code>hc/k = 1.438777×10⁷ nm·K</code>), normalized to 550 nm. Display uses Reinhard tonemapping and γ = 2.2. This is not a CIE XYZ transform and not a photograph.</li>
+      <li><strong style="color:var(--text)">Clouds are a different scatter.</strong> Cloud droplets are ~10 μm, much larger than λ, so Mie scattering is almost color-blind — clouds look white or gray. Same sunlight, different particle size. Fog and haze also pull the sky toward white.</li>
+      <li><strong style="color:var(--text)">Ozone is not why the sky is blue.</strong> The Chappuis bands (roughly 500–650 nm) are a sunset nuance — they can nudge a red Sun toward orange — not the primary-blue mechanism. We do not invent ozone-as-primary-blue.</li>
+      <li><strong style="color:var(--text)">Drawings are not maps.</strong> No polarization, no multiple-scattering radiative transfer, no green flash, no refraction of the solar disk. The Sun’s drawn size is schematic. Real horizons include aerosols that this clear-Rayleigh column omits.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  var LAMBDA_B = 450;
+  var LAMBDA_G = 550;
+  var LAMBDA_R = 650;
+  var LAMBDA_REF = 550;
+  var TAU_REF = 0.12;
+  var T_SUN = 5772;
+  var HC_K = 1.438777e7;
+  var SKY_EXPOSURE = 7;
+  var SUN_EXPOSURE = 2.4;
+  var SWEEP_SEC = 16;
+  var LAMBDAS = [400, 425, 450, 475, 500, 525, 550, 575, 600, 625, 650, 675, 700];
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13 = '13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_DISPLAY_SM = '600 13px Fraunces, Georgia, serif';
+
+  function rayleighRelative(lambdaNm, refNm) {
+    return Math.pow(refNm / lambdaNm, 4);
+  }
+
+  function scatterRatio(shortNm, longNm) {
+    return Math.pow(longNm / shortNm, 4);
+  }
+
+  function opticalDepth(lambdaNm) {
+    return TAU_REF * Math.pow(LAMBDA_REF / lambdaNm, 4);
+  }
+
+  function kastenYoung(elevDeg) {
+    var g = elevDeg;
+    if (g < -0.2361) g = -0.2361;
+    var arg = Math.sin(g * Math.PI / 180) + 0.50572 * Math.pow(6.07995 + g, -1.6364);
+    return 1 / arg;
+  }
+
+  function airMass(elevDeg) {
+    var z = 90 - elevDeg;
+    if (z < 70) {
+      var s = Math.sin(elevDeg * Math.PI / 180);
+      if (s < 1e-12) return kastenYoung(elevDeg);
+      return 1 / s;
+    }
+    return kastenYoung(elevDeg);
+  }
+
+  function transmittance(lambdaNm, elevDeg) {
+    return Math.exp(-opticalDepth(lambdaNm) * airMass(elevDeg));
+  }
+
+  function planckRel(lambdaNm, T) {
+    var x = HC_K / (lambdaNm * T);
+    return 1 / (Math.pow(lambdaNm, 5) * (Math.exp(x) - 1));
+  }
+
+  var PLANCK_G = planckRel(LAMBDA_G, T_SUN);
+
+  function solarNorm(lambdaNm) {
+    return planckRel(lambdaNm, T_SUN) / PLANCK_G;
+  }
+
+  function skyColorAtViewElev(sunElev, viewElev) {
+    var X_sun = airMass(sunElev);
+    var X_view = airMass(viewElev);
+    var t = 1 - viewElev / 90;
+    if (t < 0) t = 0;
+    if (t > 1) t = 1;
+    var X_in = 1 + (0.18 + 0.55 * t) * (X_sun - 1);
+    var mie = 0.035 * t * Math.exp(-0.12 * Math.max(0, X_sun - 1));
+    function chan(lam) {
+      var tau = opticalDepth(lam);
+      var sigma = rayleighRelative(lam, LAMBDA_REF);
+      var F = solarNorm(lam);
+      return F * sigma * Math.exp(-tau * X_in) * (1 - Math.exp(-tau * X_view)) + mie * F * Math.exp(-tau * X_in);
+    }
+    return { r: chan(LAMBDA_R), g: chan(LAMBDA_G), b: chan(LAMBDA_B) };
+  }
+
+  function lookingUpLinear(elevDeg) {
+    return skyColorAtViewElev(elevDeg, 90);
+  }
+
+  function lookingAtSunLinear(elevDeg) {
+    var X = airMass(elevDeg);
+    return {
+      r: solarNorm(LAMBDA_R) * Math.exp(-opticalDepth(LAMBDA_R) * X),
+      g: solarNorm(LAMBDA_G) * Math.exp(-opticalDepth(LAMBDA_G) * X),
+      b: solarNorm(LAMBDA_B) * Math.exp(-opticalDepth(LAMBDA_B) * X)
+    };
+  }
+
+  function tonemapChannel(x) {
+    var y = x / (1 + x);
+    if (y < 0) y = 0;
+    return Math.pow(y, 1 / 2.2);
+  }
+
+  function toDisplay(lin, exposure) {
+    return {
+      r: Math.round(255 * Math.min(1, tonemapChannel(lin.r * exposure))),
+      g: Math.round(255 * Math.min(1, tonemapChannel(lin.g * exposure))),
+      b: Math.round(255 * Math.min(1, tonemapChannel(lin.b * exposure)))
+    };
+  }
+
+  function sunDiskDisplay(lin) {
+    var m = Math.max(lin.r, lin.g, lin.b, 1e-12);
+    var r = lin.r / m;
+    var g = lin.g / m;
+    var b = lin.b / m;
+    return {
+      r: Math.round(255 * Math.pow(r, 1 / 2.2)),
+      g: Math.round(255 * Math.pow(g, 1 / 2.2)),
+      b: Math.round(255 * Math.pow(b, 1 / 2.2))
+    };
+  }
+
+  function rgbCss(c) {
+    return 'rgb(' + c.r + ',' + c.g + ',' + c.b + ')';
+  }
+
+  function rgbLabel(c) {
+    return 'rgb(' + c.r + ', ' + c.g + ', ' + c.b + ')';
+  }
+
+  function hexLabel(c) {
+    function h(n) {
+      var s = n.toString(16);
+      return s.length < 2 ? '0' + s : s;
+    }
+    return '#' + h(c.r) + h(c.g) + h(c.b);
+  }
+
+  function wavelengthRGB(nm) {
+    var r = 0, g = 0, b = 0;
+    if (nm < 380) { r = 0; g = 0; b = 0; }
+    else if (nm < 440) { r = -(nm - 440) / (440 - 380); g = 0; b = 1; }
+    else if (nm < 490) { r = 0; g = (nm - 440) / (490 - 440); b = 1; }
+    else if (nm < 510) { r = 0; g = 1; b = -(nm - 510) / (510 - 490); }
+    else if (nm < 580) { r = (nm - 510) / (580 - 510); g = 1; b = 0; }
+    else if (nm < 645) { r = 1; g = -(nm - 645) / (645 - 580); b = 0; }
+    else { r = 1; g = 0; b = 0; }
+    var f = 1;
+    if (nm > 700) f = 0.35 + 0.65 * (780 - nm) / 80;
+    if (nm < 420) f = 0.35 + 0.65 * (nm - 380) / 40;
+    if (f > 1) f = 1;
+    if (f < 0.35) f = 0.35;
+    return { r: r * f, g: g * f, b: b * f };
+  }
+
+  function clampElev(e) {
+    if (e < 0) return 0;
+    if (e > 90) return 90;
+    return e;
+  }
+
+  var state = {
+    elev: 35,
+    playing: false,
+    dir: -1,
+    lastTs: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elScrub = $('scrub');
+  var elElev = $('elevLabel');
+  var elReadout = $('readout');
+  var elSkyMeta = $('skyMeta');
+  var elChartMeta = $('chartMeta');
+  var cvSky = $('cvSky');
+  var cvLook = $('cvLook');
+  var cvBars = $('cvBars');
+
+  var surfaces = {
+    sky: { canvas: cvSky, ctx: null, w: 0, h: 0, cssH: 360 },
+    look: { canvas: cvLook, ctx: null, w: 0, h: 0, cssH: 360 },
+    bars: { canvas: cvBars, ctx: null, w: 0, h: 0, cssH: 230 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function nearestChip(elev) {
+    var chips = [
+      { id: 'chipNoon', e: 90 },
+      { id: 'chipAft', e: 35 },
+      { id: 'chipLow', e: 12 },
+      { id: 'chipSet', e: 2 }
+    ];
+    var best = null;
+    var bestD = 1e9;
+    var i;
+    for (i = 0; i < chips.length; i++) {
+      var d = Math.abs(elev - chips[i].e);
+      if (d < bestD) { bestD = d; best = chips[i]; }
+    }
+    return bestD < 1.2 ? best.id : '';
+  }
+
+  function syncChips() {
+    var on = nearestChip(state.elev);
+    setChip($('chipNoon'), on === 'chipNoon');
+    setChip($('chipAft'), on === 'chipAft');
+    setChip($('chipLow'), on === 'chipLow');
+    setChip($('chipSet'), on === 'chipSet');
+    $('chipNoon').classList.toggle('sun', on === 'chipNoon');
+    $('chipSet').classList.toggle('sun', on === 'chipSet');
+    $('chipSet').classList.toggle('warm', on === 'chipSet');
+  }
+
+  function syncLabels() {
+    elElev.textContent = state.elev.toFixed(1) + '°';
+    elScrub.value = String(state.elev);
+    var X = airMass(state.elev);
+    var z = 90 - state.elev;
+    elSkyMeta.textContent = 'z = ' + z.toFixed(1) + '°  ·  X = ' + X.toFixed(2) +
+      (z < 70 ? '  ·  1/cos z' : '  ·  Kasten–Young');
+    elChartMeta.textContent = 'σ ∝ λ⁻⁴  ·  T = e^{−τX}  ·  X = ' + X.toFixed(2);
+    syncChips();
+  }
+
+  function drawSky() {
+    var s = surfaces.sky;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+
+    var groundH = Math.max(48, Math.round(h * 0.18));
+    var skyH = h - groundH;
+    var elev = state.elev;
+    var rows = 72;
+    var i;
+
+    for (i = 0; i < rows; i++) {
+      var viewElev = 90 * (1 - (i + 0.5) / rows);
+      var lin = skyColorAtViewElev(elev, viewElev);
+      var col = toDisplay(lin, SKY_EXPOSURE);
+      ctx.fillStyle = rgbCss(col);
+      var y0 = (i / rows) * skyH;
+      ctx.fillRect(0, y0, w, skyH / rows + 1);
+    }
+
+    var sunLin = lookingAtSunLinear(elev);
+    var sunCol = sunDiskDisplay(sunLin);
+    var sunX = w * 0.72;
+    var sunY = 18 + (skyH - 36) * (1 - elev / 90);
+    var glowR = 70 + (1 - elev / 90) * 90;
+    var glow = ctx.createRadialGradient(sunX, sunY, 2, sunX, sunY, glowR);
+    glow.addColorStop(0, 'rgba(' + sunCol.r + ',' + sunCol.g + ',' + sunCol.b + ',0.95)');
+    glow.addColorStop(0.22, 'rgba(' + sunCol.r + ',' + sunCol.g + ',' + sunCol.b + ',0.38)');
+    glow.addColorStop(1, 'rgba(' + sunCol.r + ',' + sunCol.g + ',' + sunCol.b + ',0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(sunX, sunY, glowR, 0, Math.PI * 2);
+    ctx.fill();
+
+    var sunR = 11 + (1 - elev / 90) * 3;
+    ctx.fillStyle = rgbCss(sunCol);
+    ctx.beginPath();
+    ctx.arc(sunX, sunY, sunR, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    var g0 = skyH;
+    var ground = ctx.createLinearGradient(0, g0, 0, h);
+    ground.addColorStop(0, '#141028');
+    ground.addColorStop(1, '#080616');
+    ctx.fillStyle = ground;
+    ctx.beginPath();
+    ctx.moveTo(0, h);
+    ctx.lineTo(0, g0 + 8);
+    ctx.lineTo(w * 0.12, g0 + 2);
+    ctx.lineTo(w * 0.28, g0 + 18);
+    ctx.lineTo(w * 0.46, g0 + 6);
+    ctx.lineTo(w * 0.68, g0 + 22);
+    ctx.lineTo(w * 0.86, g0 + 8);
+    ctx.lineTo(w, g0 + 14);
+    ctx.lineTo(w, h);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#0b0a18';
+    ctx.beginPath();
+    ctx.moveTo(0, h);
+    ctx.lineTo(0, g0 + 28);
+    ctx.lineTo(w * 0.18, g0 + 22);
+    ctx.lineTo(w * 0.4, g0 + 34);
+    ctx.lineTo(w * 0.7, g0 + 24);
+    ctx.lineTo(w, g0 + 32);
+    ctx.lineTo(w, h);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(215, 222, 242, 0.72)';
+    ctx.fillText('ZENITH · looking up', 12, 16);
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.8)';
+    ctx.fillText('HORIZON', 12, skyH - 8);
+    ctx.fillStyle = 'rgba(' + sunCol.r + ',' + sunCol.g + ',' + sunCol.b + ',0.95)';
+    var sunLab = elev < 6 ? 'Sun · leftover beam' : 'Sun';
+    var tw = ctx.measureText(sunLab).width;
+    var lx = sunX + sunR + 8;
+    if (lx + tw > w - 8) lx = sunX - tw - sunR - 8;
+    ctx.fillText(sunLab, lx, Math.max(14, sunY - sunR - 6));
+  }
+
+  function drawLook() {
+    var s = surfaces.look;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var elev = state.elev;
+    var up = toDisplay(lookingUpLinear(elev), SKY_EXPOSURE);
+    var beam = toDisplay(lookingAtSunLinear(elev), SUN_EXPOSURE);
+
+    var pad = 14;
+    var gap = 12;
+    var sw = (w - pad * 2 - gap) / 2;
+    var sh = Math.min(168, h * 0.46);
+    var y0 = 36;
+
+    function swatch(x, col, title, sub, rgb, hex, accent) {
+      ctx.fillStyle = rgbCss(col);
+      roundRect(ctx, x, y0, sw, sh, 10);
+      ctx.fill();
+      ctx.strokeStyle = accent;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.font = FONT_DISPLAY_SM;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(title, x, y0 - 10);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = 'rgba(139, 147, 173, 0.95)';
+      var lines = [sub, rgb, hex];
+      var i;
+      for (i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], x, y0 + sh + 14 + i * 14);
+      }
+    }
+
+    swatch(pad, up, 'Looking up', 'scattered · zenith', rgbLabel(up), hexLabel(up), 'rgba(94, 200, 229, 0.45)');
+    swatch(pad + sw + gap, beam, 'Looking at the Sun', 'leftover beam', rgbLabel(beam), hexLabel(beam), 'rgba(255, 194, 74, 0.45)');
+
+    var cy = h - 58;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.95)';
+    ctx.fillText('Same sunlight. Two directions.', pad, cy - 28);
+
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.75)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pad + 8, cy);
+    ctx.lineTo(w * 0.42, cy);
+    ctx.stroke();
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath();
+    ctx.arc(pad + 8, cy, 5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('Sun', pad + 16, cy - 8);
+
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.85)';
+    ctx.beginPath();
+    ctx.moveTo(w * 0.28, cy);
+    ctx.lineTo(w * 0.28, cy - 18);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(w * 0.28, cy - 18);
+    ctx.lineTo(w * 0.28 - 4, cy - 11);
+    ctx.lineTo(w * 0.28 + 4, cy - 11);
+    ctx.closePath();
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fill();
+    ctx.fillText('scatter → up', w * 0.28 + 8, cy - 12);
+
+    ctx.strokeStyle = 'rgba(255, 126, 95, 0.9)';
+    ctx.beginPath();
+    ctx.moveTo(w * 0.42, cy);
+    ctx.lineTo(w - pad - 18, cy);
+    ctx.stroke();
+    ctx.fillStyle = '#ff7e5f';
+    ctx.beginPath();
+    ctx.moveTo(w - pad - 8, cy);
+    ctx.lineTo(w - pad - 18, cy - 4);
+    ctx.lineTo(w - pad - 18, cy + 4);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillText('leftover → eye', w * 0.46, cy + 14);
+
+    ctx.fillStyle = 'rgba(215, 222, 242, 0.55)';
+    ctx.fillText('molecule', w * 0.28 - 22, cy + 14);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function drawBars() {
+    var s = surfaces.bars;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var padL = 48;
+    var padR = 56;
+    var padT = 22;
+    var padB = 36;
+    var plotW = w - padL - padR;
+    var plotH = h - padT - padB;
+    var elev = state.elev;
+    var n = LAMBDAS.length;
+    var gap = 6;
+    var barW = (plotW - gap * (n - 1)) / n;
+    if (barW < 8) barW = 8;
+    var maxSig = rayleighRelative(LAMBDAS[0], LAMBDAS[0]);
+    var i;
+
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.12)';
+    ctx.lineWidth = 1;
+    for (i = 0; i <= 4; i++) {
+      var gy = padT + plotH * (i / 4);
+      ctx.beginPath();
+      ctx.moveTo(padL, gy);
+      ctx.lineTo(padL + plotW, gy);
+      ctx.stroke();
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.9)';
+    ctx.textAlign = 'right';
+    ctx.fillText('1.0', padL - 8, padT + 4);
+    ctx.fillText('σ / σ₄₀₀', padL - 8, padT + 16);
+    ctx.fillText('0', padL - 8, padT + plotH + 4);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(255, 126, 95, 0.85)';
+    ctx.fillText('T', padL + plotW + 8, padT + 4);
+    ctx.fillText('1', padL + plotW + 8, padT + 16);
+    ctx.fillText('0', padL + plotW + 8, padT + plotH + 4);
+
+    var x450 = 0, x650 = 0, h450 = 0, h650 = 0;
+
+    for (i = 0; i < n; i++) {
+      var lam = LAMBDAS[i];
+      var sig = rayleighRelative(lam, LAMBDAS[0]) / maxSig;
+      var bh = sig * plotH;
+      var x = padL + i * (barW + gap);
+      var y = padT + plotH - bh;
+      var wr = wavelengthRGB(lam);
+      var hi = (lam === 450 || lam === 650);
+      ctx.fillStyle = 'rgba(' +
+        Math.round(wr.r * 255) + ',' +
+        Math.round(wr.g * 255) + ',' +
+        Math.round(wr.b * 255) + ',' + (hi ? '0.95' : '0.72') + ')';
+      ctx.fillRect(x, y, barW, bh);
+      if (hi) {
+        ctx.strokeStyle = 'rgba(215, 222, 242, 0.85)';
+        ctx.lineWidth = 1.2;
+        ctx.strokeRect(x + 0.5, y + 0.5, barW - 1, bh - 1);
+      }
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = hi ? '#d7def2' : 'rgba(139, 147, 173, 0.9)';
+      ctx.textAlign = 'center';
+      ctx.fillText(String(lam), x + barW / 2, padT + plotH + 14);
+      if (lam === 450) { x450 = x + barW / 2; h450 = bh; }
+      if (lam === 650) { x650 = x + barW / 2; h650 = bh; }
+    }
+
+    ctx.beginPath();
+    for (i = 0; i < n; i++) {
+      var T = transmittance(LAMBDAS[i], elev);
+      var px = padL + i * (barW + gap) + barW / 2;
+      var py = padT + plotH - T * plotH;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = 'rgba(255, 126, 95, 0.95)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    for (i = 0; i < n; i++) {
+      var T2 = transmittance(LAMBDAS[i], elev);
+      var qx = padL + i * (barW + gap) + barW / 2;
+      var qy = padT + plotH - T2 * plotH;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.beginPath();
+      ctx.arc(qx, qy, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    var ratio = scatterRatio(450, 650);
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.7)';
+    ctx.setLineDash([3, 3]);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x450, padT + plotH - h450);
+    ctx.lineTo(x450, padT + 6);
+    ctx.lineTo(x650, padT + 6);
+    ctx.lineTo(x650, padT + plotH - h650);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.textAlign = 'center';
+    ctx.fillText('(650/450)⁴ = ' + ratio.toFixed(2) + '×', (x450 + x650) / 2, padT + 4);
+
+    ctx.textAlign = 'left';
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(215, 222, 242, 0.7)';
+    ctx.fillText('bars = relative scatter   ·   warm line = beam leftover at this air mass   ·   nm', padL, h - 8);
+  }
+
+  function kv(k, v, cls, sub) {
+    return '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div>' +
+      (sub ? '<div class="s">' + sub + '</div>' : '') + '</div>';
+  }
+
+  function updateReadout() {
+    var elev = state.elev;
+    var z = 90 - elev;
+    var X = airMass(elev);
+    var ratio = scatterRatio(LAMBDA_B, LAMBDA_R);
+    var tB = transmittance(LAMBDA_B, elev);
+    var tR = transmittance(LAMBDA_R, elev);
+    var leftover = tR / Math.max(tB, 1e-12);
+    var model = z < 70 ? 'X = 1/cos z' : 'Kasten–Young';
+    var html = '';
+    html += kv('Sun elevation', elev.toFixed(1) + '°', elev < 8 ? 'warm' : (elev > 60 ? 'sun' : ''),
+      'zenith angle z = ' + z.toFixed(1) + '°');
+    html += kv('Air mass X', X.toFixed(2), X > 8 ? 'warm' : '',
+      model + '  ·  zenith X = 1');
+    html += kv('σ(450) / σ(650)', ratio.toFixed(2) + '×', '',
+      '(650/450)⁴  ·  Rayleigh  ·  fixed');
+    html += kv('T(450) blue beam', tB < 0.01 ? tB.toExponential(2) : tB.toFixed(3),
+      tB < 0.15 ? 'warm' : '',
+      'exp(−τ₄₅₀ X)  ·  τ = ' + opticalDepth(LAMBDA_B).toFixed(3));
+    html += kv('T(650) red beam', tR.toFixed(3), tR > 0.4 ? 'sun' : 'warm',
+      'exp(−τ₆₅₀ X)  ·  τ = ' + opticalDepth(LAMBDA_R).toFixed(3));
+    html += kv('Leftover T₆₅₀ / T₄₅₀', leftover >= 100 ? leftover.toFixed(0) + '×' : leftover.toFixed(2) + '×',
+      leftover > 5 ? 'warm' : '',
+      leftover > 5 ? 'blue stripped · Sun goes red' : 'still a pale Sun');
+    elReadout.innerHTML = html;
+  }
+
+  var readoutTick = 0;
+
+  function drawAll() {
+    drawSky();
+    drawLook();
+    drawBars();
+    readoutTick++;
+    if (readoutTick % 4 === 1) updateReadout();
+  }
+
+  function frame(ts) {
+    if (state.playing) {
+      if (state.lastTs) {
+        var dt = (ts - state.lastTs) / 1000;
+        if (dt > 0.1) dt = 0.1;
+        state.elev = clampElev(state.elev + state.dir * dt * (90 / SWEEP_SEC));
+        if (state.elev <= 0) { state.elev = 0; state.dir = 1; }
+        if (state.elev >= 90) { state.elev = 90; state.dir = -1; }
+        elScrub.value = String(state.elev);
+        elElev.textContent = state.elev.toFixed(1) + '°';
+        if (readoutTick % 4 === 0) {
+          var X = airMass(state.elev);
+          var z = 90 - state.elev;
+          elSkyMeta.textContent = 'z = ' + z.toFixed(1) + '°  ·  X = ' + X.toFixed(2) +
+            (z < 70 ? '  ·  1/cos z' : '  ·  Kasten–Young');
+          elChartMeta.textContent = 'σ ∝ λ⁻⁴  ·  T = e^{−τX}  ·  X = ' + X.toFixed(2);
+          syncChips();
+        }
+      }
+      state.lastTs = ts;
+    } else {
+      state.lastTs = 0;
+    }
+    drawAll();
+    requestAnimationFrame(frame);
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function jumpElev(e) {
+    state.elev = clampElev(e);
+    if (e >= 90) state.dir = -1;
+    if (e <= 0) state.dir = 1;
+    syncLabels();
+    updateReadout();
+  }
+
+  function onResize() {
+    fitCanvas(surfaces.sky);
+    fitCanvas(surfaces.look);
+    fitCanvas(surfaces.bars);
+  }
+
+  elPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+  elScrub.addEventListener('input', function () {
+    state.elev = clampElev(Number(elScrub.value));
+    syncLabels();
+    updateReadout();
+  });
+  $('chipNoon').addEventListener('click', function () { jumpElev(90); });
+  $('chipAft').addEventListener('click', function () { jumpElev(35); });
+  $('chipLow').addEventListener('click', function () { jumpElev(12); });
+  $('chipSet').addEventListener('click', function () { jumpElev(2); });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    } else if (e.code === 'ArrowRight') {
+      jumpElev(state.elev + 1);
+    } else if (e.code === 'ArrowLeft') {
+      jumpElev(state.elev - 1);
+    }
+  });
+
+  window.addEventListener('resize', onResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(onResize);
+    ro.observe(cvSky);
+    ro.observe(cvLook);
+    ro.observe(cvBars);
+  }
+
+  try {
+    var params = new URLSearchParams(window.location.search);
+    if (params.has('el')) {
+      var qel = Number(params.get('el'));
+      if (isFinite(qel)) state.elev = clampElev(qel);
+    }
+  } catch (err) {}
+
+  onResize();
+  syncLabels();
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
