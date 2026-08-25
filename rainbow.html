@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Rainbows Are Circles (and Why You Only See an Arc) — Classroom Optics</title>
+<meta name="description" content="Classroom explainer: a rainbow is not a colored arch sitting in a place. Each raindrop sends a color to your eye at ~42°. The locus is a cone with you at the tip — ground clips the bottom; from a plane you can see a circle. Descartes geometry, live angles, for teachers.">
+<meta name="keywords" content="rainbow, why is a rainbow a circle, rainbow arc, Descartes rainbow, 42 degrees, classroom optics, refraction, teachers, secondary rainbow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 12% -8%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 780px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.cone-card { grid-column: 1 / -1; }
+.cone-card canvas { height: 280px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .cone-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .cone-card canvas { height: 260px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="4">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · rainbows</a></p>
+  <h1>Why rainbows are circles — and why you only see an arc</h1>
+  <p class="lede">The rainbow is not a physical colored arch sitting in a place, and the rain is not dyed. Each drop sends a given color to <strong>your</strong> eye at a nearly fixed scattering angle — about <strong>42° for red, 40° for violet</strong>. Those drops lie on a cone with you at the tip. Ground clips the bottom; from a plane you can see a circle.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Play</button>
+      <label class="sl grow">
+        <span>Sun elevation <em id="sunLabel">8.0°</em></span>
+        <input type="range" id="sun" min="0" max="48" step="0.1" value="8" aria-label="Sun elevation in degrees">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip sun on" id="sunDawn" aria-pressed="true">Dawn 5°</button>
+      <button type="button" class="chip" id="sunAft" aria-pressed="false">Afternoon 15°</button>
+      <button type="button" class="chip" id="sunHigh" aria-pressed="false">High 32°</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Observer height <em id="hLabel">ground · 0 m</em></span>
+        <input type="range" id="height" min="0" max="10000" step="10" value="0" aria-label="Observer height in meters">
+      </label>
+      <button type="button" class="chip on" id="hGround" aria-pressed="true">Ground</button>
+      <button type="button" class="chip" id="hHill" aria-pressed="false">Hill 80 m</button>
+      <button type="button" class="chip" id="hPlane" aria-pressed="false">Airplane 10 km</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="btnSec" aria-pressed="false">Secondary ~51°</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>You walk <em id="walkLabel">stay put</em></span>
+        <input type="range" id="walk" min="-1" max="1" step="0.01" value="0" aria-label="Walk left or right">
+      </label>
+      <button type="button" class="chip myth" id="walkReset">Reset walk</button>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.04em">The bow moves with you. There is no “end.”</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Sky · cone on the dome</b><span id="skyMeta">anti-Sun below the horizon · primary arc</span></div>
+      <canvas id="cvSky" width="720" height="360" aria-label="Rainbow as a circle around the anti-Sun, clipped by the ground"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>One drop · Descartes path</b><span id="dropMeta">incident → refract → reflect → refract</span></div>
+      <canvas id="cvDrop" width="520" height="360" aria-label="Ray path through a spherical raindrop showing the 42 degree rainbow angle"></canvas>
+    </div>
+    <div class="card cone-card">
+      <div class="card-h"><b>You at the tip</b><span id="coneMeta">anti-solar axis · 42° cone · ground clips</span></div>
+      <canvas id="cvCone" width="1200" height="280" aria-label="Observer at the tip of a cone of raindrops that send red light to the eye"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>One drop, one angle</h2>
+      <p>Sunlight enters a spherical drop, reflects once off the back, and leaves. Descartes’ minimum-deviation ray for red water is ~42.3° from the anti-solar direction. Violet, with a slightly higher <em>n</em>, comes out ~40.6° — so violet sits inside red.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>A cone of drops</h2>
+      <p>Every drop that can send that color to <em>your</em> eye lies at the same angle from the anti-solar axis. The locus is a cone with you at the tip. On the sky that cone is a circle around the anti-Sun.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Ground clips the circle</h2>
+      <p>From the ground you cannot look through dirt, so you only get the part of the circle above the horizon — an arc. Raise the observer (a hill, then a plane) and more of the cone is in view. From the air the circle can close.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>You cannot “go to the end”</h2>
+      <p>Walk toward the bow: it walks with you. The rainbow is not a place, and the rain is not colored. It is a direction — a set of drops that happen to send 42° light into this pair of eyes.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Rainbow angles">
+    <div class="stat">
+      <div class="k">Primary red</div>
+      <div class="v">42.3°</div>
+      <div class="s">650 nm · θ = 4r − 2i</div>
+    </div>
+    <div class="stat">
+      <div class="k">Primary violet</div>
+      <div class="v">40.6°</div>
+      <div class="s">400 nm · inside the red</div>
+    </div>
+    <div class="stat">
+      <div class="k">Secondary</div>
+      <div class="v">~51°</div>
+      <div class="s">two reflections · colors reversed</div>
+    </div>
+    <div class="stat">
+      <div class="k">Descartes</div>
+      <div class="v">1637</div>
+      <div class="s">min. deflection · Les Météores</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Descartes / geometric optics.</strong> A spherical drop, one internal reflection (primary, <code>k = 1</code>). Incidence <code>i</code> and refraction <code>r</code> obey Snell <code>sin i = n sin r</code> with <code>n_air = 1</code>. The scattering angle from the anti-solar direction is <code>θ = 4r − 2i</code>. The rainbow is the <em>stationary</em> (minimum-deviation) ray: <code>dθ/di = 0</code> gives <code>cos i = √((n² − 1) / (k(k+2)))</code>, so for the primary <code>cos i = √((n² − 1)/3)</code>. Published classroom values: <code>θ_r ≈ 42.3°</code> (red 650 nm), <code>θ_v ≈ 40.6°</code> (violet 400 nm). Descartes, <em>Les Météores</em> (1637); Walker, <em>Am. J. Phys.</em> 44, 421 (1976).</li>
+      <li><strong style="color:var(--text)">Cauchy <em>n</em>(water).</strong> <code>n(λ) = 1.32425 + 3050 / λ²</code> with <code>λ</code> in nm. This two-term Cauchy fit is tuned so the Descartes primary lands on the published angles (red 42.3°, violet 40.6°) and so <code>n(589 nm) ≈ 1.333</code> (the usual sodium-D classroom index). It is not a full Sellmeier water model; temperature and dissolved salt shift <code>n</code> at the 0.001 level and the bow by a few tenths of a degree.</li>
+      <li><strong style="color:var(--text)">Secondary bow.</strong> Two internal reflections (<code>k = 2</code>): <code>cos i = √((n² − 1)/8)</code> and angular radius from the anti-Sun <code>θ₂ = 180° + 2i − 6r ≈ 51°</code>. Extra reflection reverses the color order (red inside, violet outside) and dims the bow. Alexander’s dark band is the sky between the two caustics — not a cloud shadow.</li>
+      <li><strong style="color:var(--text)">Cone and clipping.</strong> Anti-solar elevation = <code>−α</code> if the Sun is at elevation <code>α</code>. Bow-top elevation ≈ <code>θ − α</code> (flat-sky). When <code>α &gt; θ</code> the whole primary is below the astronomical horizon. Ground-level clip elevation is 0°. Height uses a pedagogical look-down model <code>clip = −90° · h / (h + 1800 m)</code> so a hill shows a sliver of the lower bow and a 10 km airplane can close the circle on a cloud deck. Real geometric horizon dip at 10 km is only ~3°; the full circle is a “rain or cloud around / below you” effect, not the dip of the sea horizon.</li>
+      <li><strong style="color:var(--text)">It moves when you move.</strong> The cone is attached to your eye and the anti-solar axis. Walking translates the cone. There is no pot of gold and no “end” you can reach. Two observers a few meters apart have slightly different rainbows.</li>
+      <li><strong style="color:var(--text)">What this page leaves out.</strong> Drops are treated as spheres (large-drop geometric optics). Airy’s interference theory — supernumerary fringes inside the primary — is omitted. Polarization, Mie scattering for small drops, and the faint tertiary bows are omitted. The sky map uses spherical directions for the circle and a linear elevation/azimuth projection (fine near the horizon; footnoted as a classroom map, not a photograph). Drawings are not to scale: the drop, the cone, and the sky dome are three different pictures of one angle.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  var LAMBDA_RED = 650;
+  var LAMBDA_VIOLET = 400;
+  var LAMBDA_D = 589;
+  var CAUCHY_A = 1.32425;
+  var CAUCHY_B = 3050;
+  var CLIP_H0 = 1800;
+  var DEG = 180 / Math.PI;
+  var RAD = Math.PI / 180;
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  function nWater(lambdaNm) {
+    return CAUCHY_A + CAUCHY_B / (lambdaNm * lambdaNm);
+  }
+
+  function descartesIncidence(n, k) {
+    return Math.acos(Math.sqrt((n * n - 1) / (k * (k + 2))));
+  }
+
+  function refractionAngle(i, n) {
+    return Math.asin(Math.sin(i) / n);
+  }
+
+  function primaryRadius(n) {
+    var i = descartesIncidence(n, 1);
+    var r = refractionAngle(i, n);
+    return 4 * r - 2 * i;
+  }
+
+  function secondaryRadius(n) {
+    var i = descartesIncidence(n, 2);
+    var r = refractionAngle(i, n);
+    return Math.PI + 2 * i - 6 * r;
+  }
+
+  function primaryOfI(n, i) {
+    var r = refractionAngle(i, n);
+    return 4 * r - 2 * i;
+  }
+
+  function antiSunElevation(sunElevDeg) {
+    return -sunElevDeg;
+  }
+
+  function bowTopElevation(thetaRad, sunElevDeg) {
+    return thetaRad * DEG - sunElevDeg;
+  }
+
+  function clipElevation(hMeters) {
+    if (hMeters <= 0) return 0;
+    return -90 * (hMeters / (hMeters + CLIP_H0));
+  }
+
+  function visibleKind(thetaRad, sunElevDeg, hMeters) {
+    var top = bowTopElevation(thetaRad, sunElevDeg);
+    var bottom = -thetaRad * DEG - sunElevDeg;
+    var clip = clipElevation(hMeters);
+    if (top < clip) return 'hidden';
+    if (bottom >= clip) return 'circle';
+    return 'arc';
+  }
+
+  function visibleArcFraction(thetaRad, sunElevDeg, hMeters) {
+    var theta = thetaRad * DEG;
+    var clip = clipElevation(hMeters);
+    var arg = (clip + sunElevDeg) / theta;
+    if (arg <= -1) return 1;
+    if (arg >= 1) return 0;
+    return Math.acos(arg) / Math.PI;
+  }
+
+  var N_RED = nWater(LAMBDA_RED);
+  var N_VIO = nWater(LAMBDA_VIOLET);
+  var N_D = nWater(LAMBDA_D);
+  var THETA_R = primaryRadius(N_RED);
+  var THETA_V = primaryRadius(N_VIO);
+  var THETA2_R = secondaryRadius(N_RED);
+  var THETA2_V = secondaryRadius(N_VIO);
+  var I_DESC = descartesIncidence(N_RED, 1);
+  var R_DESC = refractionAngle(I_DESC, N_RED);
+
+  var LAMBDAS = [650, 620, 590, 570, 540, 510, 490, 470, 450, 430, 410, 400];
+
+  function wavelengthRGB(l, a) {
+    var r = 0, g = 0, b = 0;
+    if (l < 440) { r = (440 - l) / 40; b = 1; }
+    else if (l < 490) { g = (l - 440) / 50; b = 1; }
+    else if (l < 510) { g = 1; b = (510 - l) / 20; }
+    else if (l < 580) { r = (l - 510) / 70; g = 1; }
+    else if (l < 645) { r = 1; g = (645 - l) / 65; }
+    else { r = 1; }
+    var f = 1;
+    if (l < 420) f = 0.35 + 0.65 * (l - 400) / 20;
+    if (l > 640) f = 0.55 + 0.45 * (650 - l) / 10;
+    if (f > 1) f = 1;
+    if (f < 0.3) f = 0.3;
+    var A = a == null ? 1 : a;
+    return 'rgba(' + Math.round(255 * r * f) + ',' + Math.round(255 * g * f) + ',' + Math.round(255 * b * f) + ',' + A + ')';
+  }
+
+  function fmtDeg(x, n) {
+    var d = n == null ? 1 : n;
+    var sign = x < 0 ? '−' : '';
+    return sign + Math.abs(x).toFixed(d) + '°';
+  }
+
+  function fmtHeight(h) {
+    if (h < 5) return 'ground · 0 m';
+    if (h < 1000) return Math.round(h) + ' m';
+    return (h / 1000).toFixed(h >= 10000 ? 0 : 1) + ' km';
+  }
+
+  var state = {
+    sun: 8,
+    h: 0,
+    walk: 0,
+    secondary: false,
+    playing: false,
+    lastTs: 0,
+    playDir: 1,
+    tDrop: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elSun = $('sun');
+  var elSunL = $('sunLabel');
+  var elH = $('height');
+  var elHL = $('hLabel');
+  var elWalk = $('walk');
+  var elWalkL = $('walkLabel');
+  var elReadout = $('readout');
+  var elSkyMeta = $('skyMeta');
+  var elDropMeta = $('dropMeta');
+  var elConeMeta = $('coneMeta');
+  var cvSky = $('cvSky');
+  var cvDrop = $('cvDrop');
+  var cvCone = $('cvCone');
+
+  var surfaces = {
+    sky: { canvas: cvSky, ctx: null, w: 0, h: 0, cssH: 360 },
+    drop: { canvas: cvDrop, ctx: null, w: 0, h: 0, cssH: 360 },
+    cone: { canvas: cvCone, ctx: null, w: 0, h: 0, cssH: 280 }
+  };
+
+  var rain = [];
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function rebuildRain(w, h) {
+    rain.length = 0;
+    var n = Math.floor((w * h) / 4200);
+    if (n > 70) n = 70;
+    var i;
+    for (i = 0; i < n; i++) {
+      rain.push(Math.random() * w, Math.random() * h, 10 + Math.random() * 22, 0.25 + Math.random() * 0.55);
+    }
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function nearestSunChip() {
+    var chips = [
+      { id: 'sunDawn', v: 5 },
+      { id: 'sunAft', v: 15 },
+      { id: 'sunHigh', v: 32 }
+    ];
+    var best = '';
+    var bestD = 1.2;
+    var i;
+    for (i = 0; i < chips.length; i++) {
+      var d = Math.abs(state.sun - chips[i].v);
+      if (d < bestD) { bestD = d; best = chips[i].id; }
+    }
+    return best;
+  }
+
+  function nearestHChip() {
+    if (state.h < 20) return 'hGround';
+    if (Math.abs(state.h - 80) < 25) return 'hHill';
+    if (state.h > 9000) return 'hPlane';
+    return '';
+  }
+
+  function syncLabels() {
+    elSun.value = String(state.sun);
+    elH.value = String(state.h);
+    elWalk.value = String(state.walk);
+    elSunL.textContent = state.sun.toFixed(1) + '°';
+    elHL.textContent = fmtHeight(state.h);
+    if (Math.abs(state.walk) < 0.02) elWalkL.textContent = 'stay put';
+    else elWalkL.textContent = (state.walk < 0 ? 'left ' : 'right ') + Math.abs(state.walk * 12).toFixed(1) + ' steps';
+
+    var onS = nearestSunChip();
+    setChip($('sunDawn'), onS === 'sunDawn');
+    setChip($('sunAft'), onS === 'sunAft');
+    setChip($('sunHigh'), onS === 'sunHigh');
+    $('sunDawn').classList.toggle('sun', onS === 'sunDawn');
+    $('sunAft').classList.toggle('sun', onS === 'sunAft');
+    $('sunHigh').classList.toggle('sun', onS === 'sunHigh');
+
+    var onH = nearestHChip();
+    setChip($('hGround'), onH === 'hGround');
+    setChip($('hHill'), onH === 'hHill');
+    setChip($('hPlane'), onH === 'hPlane');
+    setChip($('btnSec'), state.secondary);
+
+    var kind = visibleKind(THETA_R, state.sun, state.h);
+    var top = bowTopElevation(THETA_R, state.sun);
+    if (kind === 'hidden') elSkyMeta.textContent = 'primary below the clip · no bow';
+    else if (kind === 'circle') elSkyMeta.textContent = 'full circle · anti-Sun ' + fmtDeg(antiSunElevation(state.sun));
+    else elSkyMeta.textContent = 'arc · top ' + fmtDeg(top) + ' · anti-Sun ' + fmtDeg(antiSunElevation(state.sun));
+
+    elDropMeta.textContent = 'n(650) = ' + N_RED.toFixed(4) + ' · i = ' + (I_DESC * DEG).toFixed(1) + '° · θ_r = ' + (THETA_R * DEG).toFixed(2) + '°';
+    elConeMeta.textContent = (kind === 'circle' ? 'circle closes' : kind === 'hidden' ? 'cone under the ground' : 'ground clips') + ' · walk ' + (Math.abs(state.walk) < 0.02 ? '0' : state.walk.toFixed(2));
+  }
+
+  function updateReadout() {
+    var kind = visibleKind(THETA_R, state.sun, state.h);
+    var top = bowTopElevation(THETA_R, state.sun);
+    var anti = antiSunElevation(state.sun);
+    var frac = visibleArcFraction(THETA_R, state.sun, state.h);
+    var kindTxt = kind === 'circle' ? 'full circle' : kind === 'hidden' ? 'hidden' : 'arc';
+    var kindSub = kind === 'circle'
+      ? 'look down · rain around you'
+      : kind === 'hidden'
+        ? 'Sun higher than the bow'
+        : (frac * 180).toFixed(0) + '° of 180° half-circle';
+    var topClass = top < clipElevation(state.h) ? 'warm' : 'sun';
+    elReadout.innerHTML =
+      '<div class="kv"><div class="k">Primary red</div><div class="v sun">' + (THETA_R * DEG).toFixed(2) + '°</div><div class="s">650 nm · n = ' + N_RED.toFixed(4) + '</div></div>' +
+      '<div class="kv"><div class="k">Primary violet</div><div class="v">' + (THETA_V * DEG).toFixed(2) + '°</div><div class="s">400 nm · ' + ((THETA_R - THETA_V) * DEG).toFixed(2) + '° inside red</div></div>' +
+      '<div class="kv"><div class="k">Bow-top elevation</div><div class="v ' + topClass + '">' + fmtDeg(top) + '</div><div class="s">θ<sub>r</sub> − α · anti-Sun at ' + fmtDeg(anti) + '</div></div>' +
+      '<div class="kv"><div class="k">Anti-Sun</div><div class="v">' + fmtDeg(anti) + '</div><div class="s">opposite the Sun · cone axis</div></div>' +
+      '<div class="kv"><div class="k">What you see</div><div class="v ' + (kind === 'hidden' ? 'warm' : '') + '">' + kindTxt + '</div><div class="s">' + kindSub + (state.secondary ? ' · + secondary ' + (THETA2_R * DEG).toFixed(1) + '°' : '') + '</div></div>';
+  }
+
+  function antiSunVec(sunElevDeg) {
+    var a = sunElevDeg * RAD;
+    return { x: Math.cos(a), y: 0, z: -Math.sin(a) };
+  }
+
+  function coneFrame(a) {
+    var e1x = -a.x * a.z, e1y = -a.y * a.z, e1z = 1 - a.z * a.z;
+    var len = Math.hypot(e1x, e1y, e1z);
+    if (len < 1e-8) { e1x = 1; e1y = 0; e1z = 0; len = 1; }
+    e1x /= len; e1y /= len; e1z /= len;
+    var e2x = a.y * e1z - a.z * e1y;
+    var e2y = a.z * e1x - a.x * e1z;
+    var e2z = a.x * e1y - a.y * e1x;
+    return { e1: { x: e1x, y: e1y, z: e1z }, e2: { x: e2x, y: e2y, z: e2z } };
+  }
+
+  function coneDir(a, fr, theta, psi) {
+    var ct = Math.cos(theta), st = Math.sin(theta);
+    var cp = Math.cos(psi), sp = Math.sin(psi);
+    return {
+      x: ct * a.x + st * (cp * fr.e1.x + sp * fr.e2.x),
+      y: ct * a.y + st * (cp * fr.e1.y + sp * fr.e2.y),
+      z: ct * a.z + st * (cp * fr.e1.z + sp * fr.e2.z)
+    };
+  }
+
+  function elevAz(d) {
+    return {
+      el: Math.asin(Math.max(-1, Math.min(1, d.z))) * DEG,
+      az: Math.atan2(d.y, d.x) * DEG
+    };
+  }
+
+  function drawSky() {
+    var surf = surfaces.sky;
+    var ctx = surf.ctx;
+    var w = surf.w, h = surf.h;
+    if (!ctx) return;
+
+    var sun = state.sun;
+    var clip = clipElevation(state.h);
+    var kind = visibleKind(THETA_R, sun, state.h);
+    var walkX = state.walk * w * 0.18;
+
+    var elMax, elMin;
+    if (kind === 'circle' || state.h > 2500) {
+      elMax = Math.max(18, -sun + THETA_R * DEG + 10);
+      elMin = Math.min(clip - 4, -sun - THETA_R * DEG - 10);
+    } else {
+      elMax = Math.max(46, bowTopElevation(THETA_R, sun) + 10);
+      elMin = Math.min(-6, clip - 8);
+    }
+    if (elMax - elMin < 36) elMax = elMin + 36;
+
+    var horizonY = h * (elMax / (elMax - elMin));
+    var px = h / (elMax - elMin);
+    var cx = w * 0.5 + walkX;
+
+    function toXY(az, el) {
+      return { x: cx + az * px, y: horizonY - el * px };
+    }
+
+    var g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, '#07101f');
+    g.addColorStop(0.55, '#0c1730');
+    g.addColorStop(1, '#15203a');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    var i;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(180, 200, 230, 0.07)';
+    ctx.lineWidth = 1;
+    for (i = 0; i < rain.length; i += 4) {
+      var rx = rain[i], ry = (rain[i + 1] + state.tDrop * 28 * rain[i + 3]) % (h + 30);
+      ctx.globalAlpha = 0.35 * rain[i + 3];
+      ctx.beginPath();
+      ctx.moveTo(rx, ry);
+      ctx.lineTo(rx + 1.2, ry + rain[i + 2]);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    var groundTop = toXY(0, clip).y;
+    var gg = ctx.createLinearGradient(0, groundTop, 0, h);
+    gg.addColorStop(0, 'rgba(28, 48, 32, 0.92)');
+    gg.addColorStop(1, 'rgba(10, 16, 18, 0.98)');
+    ctx.fillStyle = gg;
+    ctx.fillRect(0, groundTop, w, Math.max(0, h - groundTop + 2));
+
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.35)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, groundTop);
+    ctx.lineTo(w, groundTop);
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.9)';
+    ctx.fillText(clip <= -1 ? 'look-down clip  ' + fmtDeg(clip) : 'horizon', 10, Math.min(h - 8, groundTop - 6));
+
+    var hills = [0.08, 0.18, 0.28, 0.4, 0.55, 0.7, 0.82, 0.95];
+    ctx.beginPath();
+    ctx.moveTo(0, h);
+    ctx.lineTo(0, groundTop + 8);
+    for (i = 0; i < hills.length; i++) {
+      ctx.lineTo(w * hills[i], groundTop + 6 + (i % 2 ? 18 : 8));
+    }
+    ctx.lineTo(w, groundTop + 10);
+    ctx.lineTo(w, h);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(8, 16, 14, 0.55)';
+    ctx.fill();
+
+    var a = antiSunVec(sun);
+    var fr = coneFrame(a);
+    var anti = elevAz(a);
+    var pAnti = toXY(anti.az, anti.el);
+
+    ctx.save();
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.35)';
+    ctx.beginPath();
+    ctx.moveTo(pAnti.x, 8);
+    ctx.lineTo(pAnti.x, h - 8);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    function sampleBow(theta, nPts) {
+      var pts = [];
+      var k, psi, d, p, q;
+      for (k = 0; k <= nPts; k++) {
+        psi = -Math.PI + (2 * Math.PI * k) / nPts;
+        d = coneDir(a, fr, theta, psi);
+        q = elevAz(d);
+        p = toXY(q.az, q.el);
+        pts.push({ x: p.x, y: p.y, el: q.el, az: q.az, psi: psi });
+      }
+      return pts;
+    }
+
+    function strokeBow(pts, color, width, onlyAbove) {
+      var started = false;
+      var j;
+      ctx.beginPath();
+      for (j = 0; j < pts.length; j++) {
+        var vis = !onlyAbove || pts[j].el >= clip - 0.05;
+        if (vis) {
+          if (!started) { ctx.moveTo(pts[j].x, pts[j].y); started = true; }
+          else ctx.lineTo(pts[j].x, pts[j].y);
+        } else if (started) {
+          ctx.stroke();
+          ctx.beginPath();
+          started = false;
+        }
+      }
+      if (started) ctx.stroke();
+    }
+
+    if (state.secondary) {
+      var s;
+      for (s = 0; s < LAMBDAS.length; s++) {
+        var ls = LAMBDAS[s];
+        var ths = secondaryRadius(nWater(ls));
+        var ptsS = sampleBow(ths, 160);
+        ctx.strokeStyle = wavelengthRGB(ls, 0.38);
+        ctx.lineWidth = 2.2;
+        ctx.shadowColor = wavelengthRGB(ls, 0.35);
+        ctx.shadowBlur = 6;
+        strokeBow(ptsS, ctx.strokeStyle, 2.2, true);
+      }
+      ctx.shadowBlur = 0;
+      var bandOuter = sampleBow(THETA2_R, 80);
+      var bandInner = sampleBow(THETA_R, 80);
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, w, Math.max(0, groundTop));
+      ctx.clip();
+      ctx.fillStyle = 'rgba(4, 8, 18, 0.28)';
+      ctx.beginPath();
+      var bi;
+      for (bi = 0; bi < bandOuter.length; bi++) {
+        if (bi === 0) ctx.moveTo(bandOuter[bi].x, bandOuter[bi].y);
+        else ctx.lineTo(bandOuter[bi].x, bandOuter[bi].y);
+      }
+      for (bi = bandInner.length - 1; bi >= 0; bi--) ctx.lineTo(bandInner[bi].x, bandInner[bi].y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    var s2;
+    for (s2 = 0; s2 < LAMBDAS.length; s2++) {
+      var lp = LAMBDAS[s2];
+      var thp = primaryRadius(nWater(lp));
+      var ptsP = sampleBow(thp, 180);
+      ctx.strokeStyle = wavelengthRGB(lp, 0.82);
+      ctx.lineWidth = 2.6;
+      ctx.shadowColor = wavelengthRGB(lp, 0.55);
+      ctx.shadowBlur = 8;
+      strokeBow(ptsP, ctx.strokeStyle, 2.6, true);
+    }
+    ctx.shadowBlur = 0;
+
+    if (kind === 'hidden' || bowTopElevation(THETA_R, sun) < clip + 1) {
+      var ghost = sampleBow(THETA_R, 120);
+      ctx.setLineDash([3, 5]);
+      ctx.strokeStyle = 'rgba(255, 194, 74, 0.22)';
+      ctx.lineWidth = 1.4;
+      strokeBow(ghost, ctx.strokeStyle, 1.4, false);
+      ctx.setLineDash([]);
+    }
+
+    ctx.beginPath();
+    ctx.arc(pAnti.x, pAnti.y, 6, 0, Math.PI * 2);
+    ctx.fillStyle = '#0a0e22';
+    ctx.fill();
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pAnti.x - 10, pAnti.y);
+    ctx.lineTo(pAnti.x + 10, pAnti.y);
+    ctx.moveTo(pAnti.x, pAnti.y - 10);
+    ctx.lineTo(pAnti.x, pAnti.y + 10);
+    ctx.stroke();
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    var alx = pAnti.x + 12;
+    if (alx > w - 84) alx = pAnti.x - 88;
+    var aly = pAnti.y - 10;
+    if (aly < 16) aly = pAnti.y + 18;
+    ctx.fillText('anti-Sun', alx, aly);
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.75)';
+    ctx.fillText(fmtDeg(anti.el), alx, aly + 12);
+
+    var topDir = coneDir(a, fr, THETA_R, 0);
+    var topP = elevAz(topDir);
+    var pTop = toXY(topP.az, topP.el);
+    if (topP.el >= clip - 0.2) {
+      ctx.strokeStyle = 'rgba(255, 194, 74, 0.55)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(pAnti.x, pAnti.y);
+      ctx.lineTo(pTop.x, pTop.y);
+      ctx.stroke();
+      var mx = (pAnti.x + pTop.x) * 0.5 + 8;
+      var my = (pAnti.y + pTop.y) * 0.5;
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText((THETA_R * DEG).toFixed(1) + '° red', mx, my);
+    }
+
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.14)';
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.45)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(w - 28, 22, 9, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.textAlign = 'right';
+    ctx.fillText('Sun behind you  ' + fmtDeg(sun), w - 42, 26);
+    ctx.textAlign = 'left';
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.95)';
+    ctx.fillText('Looking away from the Sun · circle around the anti-Sun', 12, 16);
+  }
+
+  function vAdd(a, b, s) {
+    return { x: a.x + s * b.x, y: a.y + s * b.y };
+  }
+  function vDot(a, b) { return a.x * b.x + a.y * b.y; }
+  function vScale(a, s) { return { x: a.x * s, y: a.y * s }; }
+  function vNorm(a) {
+    var L = Math.hypot(a.x, a.y) || 1;
+    return { x: a.x / L, y: a.y / L };
+  }
+
+  function refract2(I, Ninc, nFrom, nTo) {
+    var N = { x: Ninc.x, y: Ninc.y };
+    var cosi = -vDot(I, N);
+    if (cosi < 0) { N = { x: -N.x, y: -N.y }; cosi = -cosi; }
+    var eta = nFrom / nTo;
+    var k = 1 - eta * eta * (1 - cosi * cosi);
+    if (k < 0) return null;
+    return vAdd(vScale(I, eta), N, eta * cosi - Math.sqrt(k));
+  }
+
+  function reflect2(I, Nout) {
+    return vAdd(I, Nout, -2 * vDot(I, Nout));
+  }
+
+  function nextCircleHit(o, d, R) {
+    var a = d.x * d.x + d.y * d.y;
+    var b = 2 * (o.x * d.x + o.y * d.y);
+    var c = o.x * o.x + o.y * o.y - R * R;
+    var disc = b * b - 4 * a * c;
+    if (disc < 0) return null;
+    var s = Math.sqrt(disc);
+    var t1 = (-b - s) / (2 * a);
+    var t2 = (-b + s) / (2 * a);
+    var t = t1 > 1e-6 ? t1 : t2;
+    if (t < 1e-6) t = t2;
+    if (t < 1e-6) return null;
+    return { x: o.x + t * d.x, y: o.y + t * d.y, t: t };
+  }
+
+  function dropPath(n, iAng, R) {
+    var hit1 = { x: -R * Math.cos(iAng), y: R * Math.sin(iAng) };
+    var n1 = vNorm(hit1);
+    var I0 = { x: 1, y: 0 };
+    var v1 = refract2(I0, n1, 1, n);
+    if (!v1) return null;
+    var hit2 = nextCircleHit(hit1, v1, R);
+    if (!hit2) return null;
+    var n2 = vNorm(hit2);
+    var v2 = reflect2(v1, n2);
+    var hit3 = nextCircleHit(hit2, v2, R);
+    if (!hit3) return null;
+    var n3 = vNorm(hit3);
+    var v3 = refract2(v2, { x: -n3.x, y: -n3.y }, n, 1);
+    return { hit1: hit1, hit2: hit2, hit3: hit3, v0: I0, v1: v1, v2: v2, v3: v3 };
+  }
+
+  function drawDrop() {
+    var surf = surfaces.drop;
+    var ctx = surf.ctx;
+    var w = surf.w, h = surf.h;
+    if (!ctx) return;
+
+    ctx.fillStyle = '#080d1c';
+    ctx.fillRect(0, 0, w, h);
+
+    var cx = w * 0.56;
+    var cy = h * 0.52;
+    var R = Math.min(w, h) * 0.28;
+
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.14)';
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath();
+    ctx.moveTo(16, cy);
+    ctx.lineTo(w - 12, cy);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    var drop = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.1, cx, cy, R);
+    drop.addColorStop(0, 'rgba(150, 210, 230, 0.28)');
+    drop.addColorStop(0.55, 'rgba(40, 90, 120, 0.22)');
+    drop.addColorStop(1, 'rgba(20, 40, 70, 0.18)');
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fillStyle = drop;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.55)';
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.ellipse(cx - R * 0.28, cy - R * 0.38, R * 0.16, R * 0.1, -0.5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(215, 240, 255, 0.18)';
+    ctx.fill();
+
+    function mapP(p) { return { x: cx + p.x, y: cy - p.y }; }
+
+    var n = N_RED;
+    var fans = [0.55, 0.75, 0.9, 1.0, 1.08, 1.18];
+    var f;
+    for (f = 0; f < fans.length; f++) {
+      var ii = I_DESC * fans[f];
+      if (ii > 1.2) ii = 1.2;
+      var path = dropPath(n, ii, R);
+      if (!path || !path.v3) continue;
+      var isD = Math.abs(fans[f] - 1) < 1e-6;
+      var p1 = mapP(path.hit1);
+      var p2 = mapP(path.hit2);
+      var p3 = mapP(path.hit3);
+      var in0 = mapP({ x: path.hit1.x - 1.35 * R, y: path.hit1.y });
+      var out3 = mapP({ x: path.hit3.x + path.v3.x * 1.5 * R, y: path.hit3.y + path.v3.y * 1.5 * R });
+      ctx.strokeStyle = isD ? 'rgba(255, 194, 74, 0.95)' : 'rgba(94, 200, 229, 0.18)';
+      ctx.lineWidth = isD ? 2.1 : 1;
+      ctx.beginPath();
+      ctx.moveTo(in0.x, in0.y);
+      ctx.lineTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.lineTo(p3.x, p3.y);
+      ctx.lineTo(out3.x, out3.y);
+      ctx.stroke();
+    }
+
+    var main = dropPath(n, I_DESC, R);
+    if (main && main.v3) {
+      var a1 = mapP(main.hit1);
+      var a2 = mapP(main.hit2);
+      var a3 = mapP(main.hit3);
+      var ain = mapP({ x: main.hit1.x - 1.35 * R, y: main.hit1.y });
+      var aout = mapP({ x: main.hit3.x + main.v3.x * 1.55 * R, y: main.hit3.y + main.v3.y * 1.55 * R });
+      var segs = [
+        [ain, a1],
+        [a1, a2],
+        [a2, a3],
+        [a3, aout]
+      ];
+      var tt = state.tDrop % 1;
+      var segI = Math.min(3, Math.floor(tt * 4));
+      var u = tt * 4 - segI;
+      var A = segs[segI][0], B = segs[segI][1];
+      var px = A.x + (B.x - A.x) * u;
+      var py = A.y + (B.y - A.y) * u;
+      ctx.beginPath();
+      ctx.arc(px, py, 4.2, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffc24a';
+      ctx.shadowColor = '#ffc24a';
+      ctx.shadowBlur = 10;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('1 incident', ain.x, ain.y - 8);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('2 refract', (a1.x + a2.x) * 0.5 - 10, (a1.y + a2.y) * 0.5 - 8);
+      ctx.fillText('3 reflect', a2.x + 6, a2.y - 6);
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('4 refract out', a3.x - 20, a3.y + 16);
+
+      var back = mapP({ x: main.hit3.x - 1.4 * R, y: main.hit3.y });
+      ctx.setLineDash([3, 3]);
+      ctx.strokeStyle = 'rgba(255, 126, 95, 0.55)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(a3.x, a3.y);
+      ctx.lineTo(back.x, back.y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      var ang1 = Math.atan2(back.y - a3.y, back.x - a3.x);
+      var ang2 = Math.atan2(aout.y - a3.y, aout.x - a3.x);
+      ctx.strokeStyle = '#ff7e5f';
+      ctx.beginPath();
+      ctx.arc(a3.x, a3.y, 26, Math.min(ang1, ang2), Math.max(ang1, ang2));
+      ctx.stroke();
+      ctx.fillStyle = '#ff7e5f';
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('θ ≈ ' + (THETA_R * DEG).toFixed(1) + '°', a3.x - 72, a3.y + 36);
+
+      var nHit = mapP({ x: 0, y: 0 });
+      ctx.setLineDash([2, 3]);
+      ctx.strokeStyle = 'rgba(215, 222, 242, 0.35)';
+      ctx.beginPath();
+      ctx.moveTo(nHit.x, nHit.y);
+      ctx.lineTo(a1.x, a1.y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(215, 222, 242, 0.7)';
+      ctx.font = FONT_MONO_10;
+      ctx.fillText('i ' + (I_DESC * DEG).toFixed(1) + '°', a1.x - 52, a1.y + 4);
+      ctx.fillText('r ' + (R_DESC * DEG).toFixed(1) + '°', (a1.x + cx) * 0.5 - 8, (a1.y + cy) * 0.5 + 14);
+    }
+
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.16)';
+    ctx.fillRect(12, 22, 46, 8);
+    var beamY = cy - R * Math.sin(I_DESC);
+    ctx.fillRect(12, beamY - 1, cx - R * Math.cos(I_DESC) - 18, 2);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('sunlight', 12, 18);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.95)';
+    ctx.fillText('Faint rays bunch at the caustic — that pile-up is the bow', 12, h - 10);
+  }
+
+  function drawCone() {
+    var surf = surfaces.cone;
+    var ctx = surf.ctx;
+    var w = surf.w, h = surf.h;
+    if (!ctx) return;
+
+    ctx.fillStyle = '#080d1c';
+    ctx.fillRect(0, 0, w, h);
+
+    var walk = state.walk;
+    var eyeX = w * (0.22 + walk * 0.16);
+    var groundY = h * (0.72 - Math.min(0.18, state.h / 10000 * 0.22));
+    var eyeY = groundY - 18 - Math.min(70, Math.sqrt(state.h) * 0.55);
+    var sunEl = state.sun;
+    var axisLen = w * 0.58;
+    var axisAng = (sunEl + 8) * RAD * 0.35;
+    var ax = Math.cos(axisAng);
+    var ay = Math.sin(axisAng);
+    var farX = eyeX + ax * axisLen;
+    var farY = eyeY + ay * axisLen;
+    var theta = THETA_R;
+    var coneR = axisLen * Math.tan(theta);
+
+    var gnd = ctx.createLinearGradient(0, groundY, 0, h);
+    gnd.addColorStop(0, 'rgba(24, 42, 30, 0.95)');
+    gnd.addColorStop(1, 'rgba(8, 12, 16, 1)');
+    ctx.fillStyle = gnd;
+    ctx.fillRect(0, groundY, w, h - groundY);
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.28)';
+    ctx.beginPath();
+    ctx.moveTo(0, groundY);
+    ctx.lineTo(w, groundY);
+    ctx.stroke();
+
+    var k;
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.08)';
+    for (k = 1; k <= 6; k++) {
+      var gy = groundY + (h - groundY) * (k / 6);
+      ctx.beginPath();
+      ctx.moveTo(0, gy);
+      ctx.lineTo(w, gy);
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.arc(36, 28, 11, 0, Math.PI * 2);
+    var sg = ctx.createRadialGradient(34, 26, 1, 36, 28, 11);
+    sg.addColorStop(0, '#fff4c4');
+    sg.addColorStop(1, '#ffc24a');
+    ctx.fillStyle = sg;
+    ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('Sun  ' + fmtDeg(sunEl), 52, 32);
+
+    ctx.setLineDash([5, 4]);
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.55)';
+    ctx.lineWidth = 1.3;
+    ctx.beginPath();
+    ctx.moveTo(eyeX - ax * 40, eyeY - ay * 40);
+    ctx.lineTo(farX + ax * 30, farY + ay * 30);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    var px = -ay, py = ax;
+    var u1x = farX + px * coneR * 0.92;
+    var u1y = farY + py * coneR * 0.92;
+    var u2x = farX - px * coneR * 0.92;
+    var u2y = farY - py * coneR * 0.92;
+
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.06)';
+    ctx.beginPath();
+    ctx.moveTo(eyeX, eyeY);
+    ctx.lineTo(u1x, u1y);
+    ctx.lineTo(u2x, u2y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.28)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(eyeX, eyeY);
+    ctx.lineTo(u1x, u1y);
+    ctx.moveTo(eyeX, eyeY);
+    ctx.lineTo(u2x, u2y);
+    ctx.stroke();
+
+    ctx.save();
+    ctx.translate(farX, farY);
+    ctx.rotate(axisAng);
+    var ew = coneR * 0.38, eh = coneR * 0.92;
+    var kind = visibleKind(THETA_R, state.sun, state.h);
+
+    var b;
+    for (b = 0; b < LAMBDAS.length; b++) {
+      var lb = LAMBDAS[b];
+      var thb = primaryRadius(nWater(lb));
+      var scale = Math.tan(thb) / Math.tan(THETA_R);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, ew * scale, eh * scale, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = wavelengthRGB(lb, 0.85);
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    if (kind !== 'circle') {
+      ctx.beginPath();
+      ctx.ellipse(0, 0, ew, eh, 0, 0, Math.PI * 2);
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = 'rgba(255, 194, 74, 0.2)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    if (state.secondary) {
+      var sc = Math.tan(THETA2_R) / Math.tan(THETA_R);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, ew * sc, eh * sc, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(180, 140, 255, 0.35)';
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    if (kind !== 'circle') {
+      var gnd2 = ctx.createLinearGradient(0, groundY, 0, h);
+      gnd2.addColorStop(0, 'rgba(24, 42, 30, 0.92)');
+      gnd2.addColorStop(1, 'rgba(8, 12, 16, 1)');
+      ctx.fillStyle = gnd2;
+      ctx.fillRect(0, groundY, w, h - groundY);
+      ctx.strokeStyle = 'rgba(94, 200, 229, 0.28)';
+      ctx.beginPath();
+      ctx.moveTo(0, groundY);
+      ctx.lineTo(w, groundY);
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.arc(farX + ax * 36, farY + ay * 36, 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#0a0e22';
+    ctx.fill();
+    ctx.strokeStyle = '#ffc24a';
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('anti-Sun', farX + 10, farY + 28);
+
+    ctx.beginPath();
+    ctx.arc(eyeX, eyeY, 5.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fill();
+    ctx.strokeStyle = '#ffd2c6';
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(255, 126, 95, 0.85)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(eyeX, eyeY + 6);
+    ctx.lineTo(eyeX, groundY - 2);
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('you', eyeX - 10, eyeY - 10);
+
+    if (Math.abs(walk) > 0.04) {
+      var ghostX = w * 0.22;
+      ctx.globalAlpha = 0.28;
+      ctx.beginPath();
+      ctx.arc(ghostX, eyeY, 5, 0, Math.PI * 2);
+      ctx.strokeStyle = '#ff7e5f';
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = 'rgba(255, 126, 95, 0.7)';
+      ctx.fillText('were here', ghostX - 22, eyeY - 12);
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.95)';
+    ctx.fillText('Cone half-angle = primary red  ' + (THETA_R * DEG).toFixed(2) + '°  ·  move and the cone moves', 12, 16);
+  }
+
+  var readoutTick = 0;
+
+  function drawAll() {
+    drawSky();
+    drawDrop();
+    drawCone();
+    readoutTick++;
+    if (readoutTick % 4 === 1) updateReadout();
+  }
+
+  function frame(ts) {
+    if (state.playing) {
+      if (state.lastTs) {
+        var dt = (ts - state.lastTs) / 1000;
+        if (dt > 0.1) dt = 0.1;
+        state.sun += state.playDir * dt * 4.2;
+        if (state.sun >= 46) { state.sun = 46; state.playDir = -1; }
+        if (state.sun <= 0.4) { state.sun = 0.4; state.playDir = 1; }
+        syncLabels();
+      }
+      state.lastTs = ts;
+    } else {
+      state.lastTs = 0;
+    }
+    state.tDrop = (ts / 2200) % 1;
+    drawAll();
+    requestAnimationFrame(frame);
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function setSun(v) {
+    state.sun = Math.max(0, Math.min(48, v));
+    syncLabels();
+    updateReadout();
+  }
+
+  function setH(v, id) {
+    state.h = Math.max(0, Math.min(10000, v));
+    syncLabels();
+    updateReadout();
+  }
+
+  function onResize() {
+    var prevW = surfaces.sky.w;
+    fitCanvas(surfaces.sky);
+    fitCanvas(surfaces.drop);
+    fitCanvas(surfaces.cone);
+    if (surfaces.sky.w !== prevW || !rain.length) rebuildRain(surfaces.sky.w, surfaces.sky.h);
+  }
+
+  elPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+  elSun.addEventListener('input', function () { setSun(Number(elSun.value)); });
+  elH.addEventListener('input', function () { setH(Number(elH.value)); });
+  elWalk.addEventListener('input', function () {
+    state.walk = Number(elWalk.value);
+    syncLabels();
+  });
+  $('walkReset').addEventListener('click', function () {
+    state.walk = 0;
+    syncLabels();
+  });
+  $('sunDawn').addEventListener('click', function () { setSun(5); });
+  $('sunAft').addEventListener('click', function () { setSun(15); });
+  $('sunHigh').addEventListener('click', function () { setSun(32); });
+  $('hGround').addEventListener('click', function () { setH(0); });
+  $('hHill').addEventListener('click', function () { setH(80); });
+  $('hPlane').addEventListener('click', function () { setH(10000); });
+  $('btnSec').addEventListener('click', function () {
+    state.secondary = !state.secondary;
+    syncLabels();
+    updateReadout();
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    } else if (e.code === 'ArrowRight') {
+      setSun(state.sun + 1);
+    } else if (e.code === 'ArrowLeft') {
+      setSun(state.sun - 1);
+    }
+  });
+
+  window.addEventListener('resize', onResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(onResize);
+    ro.observe(cvSky);
+    ro.observe(cvDrop);
+    ro.observe(cvCone);
+  }
+
+  onResize();
+  syncLabels();
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
