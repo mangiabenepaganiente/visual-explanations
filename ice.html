@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Ice Floats (and Why That Saves Lakes) — Open Lattice, Not “Because It’s Cold”</title>
+<meta name="description" content="Classroom explainer for teachers: ice floats because ice Ih’s open hexagonal hydrogen-bond lattice is less dense than liquid water (916.7 vs ~1000 kg/m³), not because cold things float. ~9% expansion on freeze. Lakes freeze from the top; life survives below. Live density, packing, and a sinking-ice counterfactual. NGSS MS-PS1 / MS-ESS2.">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.lake-card { grid-column: 1 / -1; }
+.lake-card canvas { height: 340px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .lake-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .lake-card canvas { height: 280px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="4">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · ice</a></p>
+  <h1>Why ice floats (and why that saves lakes)</h1>
+  <p class="lede">Almost every solid sinks in its own melt. Ice does not. Water freezes into an <strong>open hexagonal lattice</strong> (ice Ih) that is about 9% roomier than the liquid — so a lid of ice forms on lakes, and life keeps a liquid refuge underneath. It is not because “cold things float.”</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Play</button>
+      <label class="sl grow">
+        <span>Water temperature <em id="tempLabel">0.00 °C</em></span>
+        <input type="range" id="temp" min="-10" max="30" step="0.02" value="0" aria-label="Water temperature in degrees Celsius">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="chipWinter" aria-pressed="false">−8 °C freeze</button>
+      <button type="button" class="chip on" id="chipZero" aria-pressed="true">0 °C</button>
+      <button type="button" class="chip sun" id="chipMax" aria-pressed="false">3.98 °C max ρ</button>
+      <button type="button" class="chip" id="chipRoom" aria-pressed="false">20 °C room</button>
+    </div>
+    <div class="row">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Lake</span>
+      <button type="button" class="chip on" id="modeFloat" aria-pressed="true">Ice floats (real)</button>
+      <button type="button" class="chip myth" id="modeSink" aria-pressed="false">If ice sank</button>
+      <div class="sep" aria-hidden="true"></div>
+      <span id="modeHint" style="font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.4">Ice is a lid. Water below stays liquid.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Lattice vs liquid</b><span>ice Ih hexagons · liquid packs tighter</span></div>
+      <canvas id="cvLattice" width="720" height="360" aria-label="Side by side ice Ih hexagonal lattice and disordered liquid packing"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Density meter</b><span id="meterMeta">ρ(T) · CIPM-2001 · ice line</span></div>
+      <canvas id="cvMeter" width="520" height="360" aria-label="Density of ice versus liquid water and a floating ice cube"></canvas>
+    </div>
+    <div class="card lake-card">
+      <div class="card-h"><b>Lake cross-section</b><span id="lakeMeta">ice cap · life under the lid</span></div>
+      <canvas id="cvLake" width="1200" height="340" aria-label="Lake cross section with floating ice cap or sinking ice counterfactual"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Hydrogen-bond geometry</h2>
+      <p>Each H<sub>2</sub>O can make four hydrogen bonds. In ice Ih those bonds lock a tetrahedral network into open hexagonal channels. The holes are the story — the solid is roomier than the liquid.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Density decides floating</h2>
+      <p>Ice Ih is 916.7 kg/m³ at 0 °C. Liquid water is 999.8 kg/m³ at 0 °C and peaks near 1000 at 3.98 °C. Submerged fraction is ρ<sub>ice</sub>/ρ<sub>water</sub> ≈ 0.917, so about 8% of an iceberg sits above the waterline.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Lakes freeze from the top</h2>
+      <p>The floating lid insulates. Water under the ice stays liquid, and the densest 4 °C water sinks to the bed. Fish, insects, and plants keep a winter refuge. Toggle “If ice sank” to see the counterfactual.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Not “because it’s cold”</h2>
+      <p>Cold liquid water is <em>denser</em> than warm water down to 4 °C — it sinks. Ice floats because of the open lattice, not the thermometer. Most solids are denser than their melt. Water is the classroom exception.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Ice and water density facts">
+    <div class="stat">
+      <div class="k">Ice Ih at 0 °C</div>
+      <div class="v">916.7 kg/m³</div>
+      <div class="s">ordinary hexagonal ice</div>
+    </div>
+    <div class="stat">
+      <div class="k">Water max density</div>
+      <div class="v">999.97 kg/m³</div>
+      <div class="s">at 3.98 °C · CIPM-2001</div>
+    </div>
+    <div class="stat">
+      <div class="k">Expansion on freeze</div>
+      <div class="v">~9%</div>
+      <div class="s">0 °C water → ice Ih</div>
+    </div>
+    <div class="stat">
+      <div class="k">Above the waterline</div>
+      <div class="v">~8%</div>
+      <div class="s">submerged ≈ ρ_ice / ρ_water</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Ice density.</strong> Ordinary ice Ih at 0 °C is taken as <code>ρ_ice = 916.7 kg/m³</code> (0.9167 g/cm³), the usual CRC / handbook value for air-free ice at atmospheric pressure. Ice does get slightly denser as it cools further (linear expansion ~50×10⁻⁶ /K); that shift is a few kg/m³ and is omitted — the lattice-versus-liquid gap is ~83 kg/m³.</li>
+      <li><strong style="color:var(--text)">Liquid density (CIPM-2001 / Tanaka).</strong> Air-free Standard Mean Ocean Water at 101 325 Pa, valid 0–40 °C: <code>ρ(t) = a₅ [1 − (t + a₁)² (t + a₂) / (a₃ (t + a₄))]</code> with <code>a₁ = −3.983035 °C</code>, <code>a₂ = 301.797 °C</code>, <code>a₃ = 522528.9 °C²</code>, <code>a₄ = 69.34881 °C</code>, <code>a₅ = 999.974950 kg/m³</code> (Tanaka, Girard, Davis, Peuto &amp; Bignell, <em>Metrologia</em> 38, 301–309, 2001; CIPM recommended table). This gives <code>ρ(0 °C) ≈ 999.84</code>, a maximum <code>ρ(3.98 °C) ≈ 999.975</code>, and <code>ρ(20 °C) ≈ 998.21</code> kg/m³. Below 0 °C the remaining lake water is treated as 0 °C (the ice–water interface). Supercooled-water density is not modeled.</li>
+      <li><strong style="color:var(--text)">Buoyancy.</strong> For an ice body in hydrostatic equilibrium, submerged volume fraction <code>= ρ_ice / ρ_water(T)</code>. At 0 °C that is 916.7 / 999.84 ≈ 0.917, so ~8.3% sits above the waterline. The live cube uses that ratio at the slider temperature (ice cubes in a drink). Real icebergs include trapped air and snow; the drawn cube is solid ice Ih.</li>
+      <li><strong style="color:var(--text)">Expansion.</strong> Volume change on freezing 0 °C water is <code>ρ_water(0)/ρ_ice − 1 ≈ 9.07%</code>. The classroom “about 9%” is this number, not a new fit.</li>
+      <li><strong style="color:var(--text)">Lattice drawing is a cartoon.</strong> The ice panel is a 2-D honeycomb — the usual classroom view looking down the c-axis of ice Ih, where hexagonal rings and empty channels are visible. Real ice is a 3-D tetrahedral network (each oxygen has four neighbors). The liquid panel is a tighter, disordered 2-D packing with flickering near-neighbor bonds, not a molecular-dynamics trajectory. Molecule counts are chosen so the liquid side is ~9% denser in the same box.</li>
+      <li><strong style="color:var(--text)">Lake is schematic.</strong> Ice thickness is not a heat-diffusion model. In the real toggle, the lid stays thin on purpose: ice is a poor conductor, so growth slows. In the sinking toggle, ice is allowed to pile until the basin is nearly solid — the counterfactual that makes the ecological point. Real lakes also mix, freeze from the edges, and can go anoxic under a long ice cover; those are not drawn. Fish are icons.</li>
+      <li><strong style="color:var(--text)">The 4 °C anomaly is small.</strong> The bump from 0 °C to 3.98 °C is only ~0.13 kg/m³. The meter zooms the water curve so you can see it; the ice–water gap (~83 kg/m³) is a different scale, shown on the bars and the cube. Both are real.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Density, phase change, and a winter-lakes / ecosystems hook. Pairs with a middle-school density lab (NGSS MS-PS1 structure and properties of matter; MS-ESS2 Earth systems). The misconception to name out loud: solids are always denser than their liquids, or ice floats “because it is cold.”</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants — same values as validate-ice.js =====
+  var RHO_ICE = 916.7; // kg/m³, ice Ih at 0 °C
+  var CIPM_A1 = -3.983035;
+  var CIPM_A2 = 301.797;
+  var CIPM_A3 = 522528.9;
+  var CIPM_A4 = 69.34881;
+  var CIPM_A5 = 999.974950;
+  var T_MAX_DENSITY = 3.983035;
+  var T_MIN = -10;
+  var T_MAX = 30;
+  var PLAY_DPS = 4; // °C per second while playing
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  function clamp(x, a, b) {
+    return x < a ? a : (x > b ? b : x);
+  }
+
+  // CIPM-2001 / Tanaka et al. 2001. Valid 0–40 °C.
+  // Below 0 °C the remaining water is treated as 0 °C (ice–water interface).
+  function rhoWater(tC) {
+    var t = tC;
+    if (t < 0) t = 0;
+    if (t > 40) t = 40;
+    var num = (t + CIPM_A1) * (t + CIPM_A1) * (t + CIPM_A2);
+    var den = CIPM_A3 * (t + CIPM_A4);
+    return CIPM_A5 * (1 - num / den);
+  }
+
+  function submergedFraction(tC) {
+    return RHO_ICE / rhoWater(tC);
+  }
+
+  function fractionAboveWater(tC) {
+    return 1 - submergedFraction(tC);
+  }
+
+  function expansionOnFreeze() {
+    return rhoWater(0) / RHO_ICE - 1;
+  }
+
+  function mulberry32(a) {
+    return function () {
+      var t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  // ===== State =====
+  var state = {
+    T: 0,
+    playing: false,
+    playDir: -1,
+    sink: false,
+    lastTs: 0,
+    time: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elTemp = $('temp');
+  var elTempL = $('tempLabel');
+  var elReadout = $('readout');
+  var elModeHint = $('modeHint');
+  var elLakeMeta = $('lakeMeta');
+  var elMeterMeta = $('meterMeta');
+  var cvLattice = $('cvLattice');
+  var cvMeter = $('cvMeter');
+  var cvLake = $('cvLake');
+
+  var surfaces = {
+    lattice: { canvas: cvLattice, ctx: null, w: 0, h: 0, cssH: 360 },
+    meter: { canvas: cvMeter, ctx: null, w: 0, h: 0, cssH: 360 },
+    lake: { canvas: cvLake, ctx: null, w: 0, h: 0, cssH: 340 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  // ===== Packing geometry (rebuilt on resize) =====
+  var packing = { ice: null, liquid: null, w: 0, h: 0 };
+
+  function buildIce(w, h) {
+    var mid = w * 0.5;
+    var pad = 28;
+    var size = Math.min(20, (mid - pad * 2) / 7.2);
+    if (size < 13) size = 13;
+    var wHex = Math.sqrt(3) * size;
+    var hHex = 1.5 * size;
+    var atoms = [];
+    var atomKey = {};
+    var bonds = [];
+    var bondKey = {};
+    var hexes = [];
+
+    function addAtom(x, y) {
+      var k = Math.round(x * 4) + ',' + Math.round(y * 4);
+      if (atomKey[k] != null) return atomKey[k];
+      var i = atoms.length;
+      atoms.push({ x: x, y: y, phase: (x * 0.17 + y * 0.13) });
+      atomKey[k] = i;
+      return i;
+    }
+    function addBond(i, j) {
+      if (i === j) return;
+      var a = Math.min(i, j);
+      var b = Math.max(i, j);
+      var k = a + '-' + b;
+      if (bondKey[k]) return;
+      bondKey[k] = 1;
+      bonds.push(a, b);
+    }
+
+    var cols = Math.floor((mid - pad * 2) / wHex) + 1;
+    var rows = Math.floor((h - 56) / hHex) + 1;
+    var ox = pad + 6;
+    var oy = 36;
+    var r, q, i;
+    for (r = 0; r < rows; r++) {
+      for (q = 0; q < cols; q++) {
+        var cx = ox + wHex * (q + (r % 2) * 0.5);
+        var cy = oy + hHex * r;
+        if (cx < 12 || cx > mid - 14 || cy < 28 || cy > h - 30) continue;
+        hexes.push(cx, cy);
+        var idxs = [];
+        for (i = 0; i < 6; i++) {
+          var ang = Math.PI / 180 * (60 * i - 30);
+          idxs.push(addAtom(cx + size * Math.cos(ang), cy + size * Math.sin(ang)));
+        }
+        for (i = 0; i < 6; i++) addBond(idxs[i], idxs[(i + 1) % 6]);
+      }
+    }
+    return { atoms: atoms, bonds: bonds, hexes: hexes, size: size };
+  }
+
+  function buildLiquid(w, h, nTarget) {
+    var pad = 28;
+    var x0 = w * 0.5 + pad;
+    var x1 = w - pad;
+    var y0 = 36;
+    var y1 = h - 30;
+    var area = Math.max(1, (x1 - x0) * (y1 - y0));
+    var spacing = Math.sqrt(area / Math.max(8, nTarget));
+    var atoms = [];
+    var rng = mulberry32(20260824);
+    var row = 0;
+    var y, x;
+    for (y = y0 + spacing * 0.45; y < y1 - 3; y += spacing * 0.866) {
+      var xoff = (row % 2) * spacing * 0.5;
+      for (x = x0 + spacing * 0.35 + xoff; x < x1 - 3; x += spacing) {
+        atoms.push({
+          x: x + (rng() - 0.5) * spacing * 0.38,
+          y: y + (rng() - 0.5) * spacing * 0.38,
+          phase: rng() * Math.PI * 2
+        });
+      }
+      row += 1;
+    }
+    var neighbors = [];
+    var i, j, dx, dy, d2, lim = spacing * 1.28;
+    var lim2 = lim * lim;
+    for (i = 0; i < atoms.length; i++) neighbors.push([]);
+    for (i = 0; i < atoms.length; i++) {
+      for (j = i + 1; j < atoms.length; j++) {
+        dx = atoms[i].x - atoms[j].x;
+        dy = atoms[i].y - atoms[j].y;
+        d2 = dx * dx + dy * dy;
+        if (d2 < lim2) {
+          neighbors[i].push(j);
+        }
+      }
+    }
+    return { atoms: atoms, neighbors: neighbors, spacing: spacing };
+  }
+
+  function rebuildPacking(w, h) {
+    var ice = buildIce(w, h);
+    var nLiq = Math.round(ice.atoms.length * (rhoWater(0) / RHO_ICE));
+    packing.ice = ice;
+    packing.liquid = buildLiquid(w, h, nLiq);
+    packing.w = w;
+    packing.h = h;
+  }
+
+  // Precomputed ρ_water(T) for the meter, 0..30 °C
+  var curveN = 301;
+  var curveT = new Float64Array(curveN);
+  var curveR = new Float64Array(curveN);
+  var curveRMin = 1e9;
+  var curveRMax = -1e9;
+  (function () {
+    var i, t, r;
+    for (i = 0; i < curveN; i++) {
+      t = 30 * (i / (curveN - 1));
+      r = rhoWater(t);
+      curveT[i] = t;
+      curveR[i] = r;
+      if (r < curveRMin) curveRMin = r;
+      if (r > curveRMax) curveRMax = r;
+    }
+  })();
+
+  var lakeStars = [];
+  function rebuildLakeStars(w, h) {
+    lakeStars.length = 0;
+    var n = Math.floor((w * h) / 4200);
+    if (n > 90) n = 90;
+    var rng = mulberry32(77);
+    var i;
+    for (i = 0; i < n; i++) {
+      lakeStars.push(rng() * w, rng() * (h * 0.28), rng() < 0.2 ? 1.15 : 0.55);
+    }
+  }
+
+  // ===== Formatters =====
+  function fmtT(t) {
+    var s = (t >= 0 ? '' : '−') + Math.abs(t).toFixed(2);
+    return s + ' °C';
+  }
+  function fmtRho(r) {
+    return r.toFixed(2) + ' kg/m³';
+  }
+  function fmtPct(x) {
+    return x.toFixed(2) + '%';
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function syncTempChips() {
+    var t = state.T;
+    setChip($('chipWinter'), Math.abs(t + 8) < 0.05);
+    setChip($('chipZero'), Math.abs(t - 0) < 0.05);
+    setChip($('chipMax'), Math.abs(t - T_MAX_DENSITY) < 0.04);
+    setChip($('chipRoom'), Math.abs(t - 20) < 0.05);
+  }
+
+  function syncLabels() {
+    elTemp.value = String(state.T);
+    elTempL.textContent = fmtT(state.T);
+    syncTempChips();
+    setChip($('modeFloat'), !state.sink);
+    setChip($('modeSink'), state.sink);
+    if (state.sink) {
+      elModeHint.textContent = 'If ice sank, winter would pile ice on the bed until the lake froze solid.';
+      elModeHint.style.color = 'var(--warm)';
+      elLakeMeta.textContent = 'counterfactual · ice on the bed';
+    } else {
+      elModeHint.textContent = 'Ice is a lid. Water below stays liquid.';
+      elModeHint.style.color = 'var(--muted)';
+      elLakeMeta.textContent = 'ice cap · life under the lid';
+    }
+    var rw = rhoWater(state.T);
+    elMeterMeta.textContent = 'ρ_water = ' + rw.toFixed(2) + ' · ρ_ice = 916.7';
+  }
+
+  function updateReadout() {
+    var rw = rhoWater(state.T);
+    var f = submergedFraction(state.T);
+    var above = fractionAboveWater(state.T) * 100;
+    var exp = expansionOnFreeze() * 100;
+    var dlt = rw - RHO_ICE;
+    elReadout.innerHTML =
+      '<div class="kv"><div class="k">ρ ice Ih</div><div class="v">' + fmtRho(RHO_ICE) + '</div><div class="s">0 °C · handbook ice</div></div>' +
+      '<div class="kv"><div class="k">ρ water at T</div><div class="v sun">' + fmtRho(rw) + '</div><div class="s">CIPM-2001 · T = ' + fmtT(state.T) + (state.T < 0 ? ' · water held at 0 °C' : '') + '</div></div>' +
+      '<div class="kv"><div class="k">Submerged fraction</div><div class="v">' + f.toFixed(4) + '</div><div class="s">' + fmtPct(above) + ' above the waterline</div></div>' +
+      '<div class="kv"><div class="k">Above water</div><div class="v sun">' + fmtPct(above) + '</div><div class="s">Archimedes · ρ_ice / ρ_water</div></div>' +
+      '<div class="kv"><div class="k">Freeze expansion</div><div class="v warm">' + fmtPct(exp) + '</div><div class="s">Δρ = ' + dlt.toFixed(1) + ' kg/m³ · 0 °C water → ice</div></div>';
+  }
+
+  // ===== Draw: lattice =====
+  function drawLattice() {
+    var s = surfaces.lattice;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    if (!packing.ice || packing.w !== w || packing.h !== h) rebuildPacking(w, h);
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var mid = w * 0.5;
+    var t = state.time;
+    var iceAmp = 0.45;
+    var liqAmp = 0.9 + 0.055 * clamp(state.T, 0, 30);
+
+    var ice = packing.ice;
+    var i, a, b, x, y, hx, hy;
+    var size = ice.size;
+
+    // Ice voids
+    ctx.fillStyle = 'rgba(94,200,229,0.055)';
+    for (i = 0; i < ice.hexes.length; i += 2) {
+      hx = ice.hexes[i];
+      hy = ice.hexes[i + 1];
+      ctx.beginPath();
+      var k;
+      for (k = 0; k < 6; k++) {
+        var ang = Math.PI / 180 * (60 * k - 30);
+        var px = hx + (size * 0.72) * Math.cos(ang);
+        var py = hy + (size * 0.72) * Math.sin(ang);
+        if (k === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // Ice bonds
+    ctx.strokeStyle = 'rgba(94,200,229,0.42)';
+    ctx.lineWidth = 1.15;
+    ctx.lineCap = 'round';
+    for (i = 0; i < ice.bonds.length; i += 2) {
+      a = ice.atoms[ice.bonds[i]];
+      b = ice.atoms[ice.bonds[i + 1]];
+      ctx.beginPath();
+      ctx.moveTo(a.x + iceAmp * Math.sin(t * 2.1 + a.phase), a.y + iceAmp * Math.cos(t * 1.7 + a.phase));
+      ctx.lineTo(b.x + iceAmp * Math.sin(t * 2.1 + b.phase), b.y + iceAmp * Math.cos(t * 1.7 + b.phase));
+      ctx.stroke();
+    }
+
+    // Ice oxygens
+    for (i = 0; i < ice.atoms.length; i++) {
+      a = ice.atoms[i];
+      x = a.x + iceAmp * Math.sin(t * 2.1 + a.phase);
+      y = a.y + iceAmp * Math.cos(t * 1.7 + a.phase);
+      ctx.beginPath();
+      ctx.arc(x, y, 3.3, 0, Math.PI * 2);
+      ctx.fillStyle = '#8fd4e8';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x - 0.7, y - 0.7, 1.1, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.45)';
+      ctx.fill();
+    }
+
+    // Divider
+    ctx.strokeStyle = 'rgba(94,200,229,0.18)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(mid, 10);
+    ctx.lineTo(mid, h - 10);
+    ctx.stroke();
+
+    // Liquid bonds (flicker)
+    var liq = packing.liquid;
+    var flick;
+    ctx.lineWidth = 1;
+    ctx.lineCap = 'round';
+    for (i = 0; i < liq.atoms.length; i++) {
+      a = liq.atoms[i];
+      var nb = liq.neighbors[i];
+      var ni;
+      for (ni = 0; ni < nb.length; ni++) {
+        b = liq.atoms[nb[ni]];
+        flick = 0.5 + 0.5 * Math.sin(t * 3.4 + a.phase + b.phase);
+        if (flick < 0.35) continue;
+        ctx.strokeStyle = 'rgba(255,126,95,' + (0.10 + 0.18 * flick) + ')';
+        ctx.beginPath();
+        ctx.moveTo(a.x + liqAmp * Math.sin(t * 3.3 + a.phase), a.y + liqAmp * Math.cos(t * 2.6 + a.phase));
+        ctx.lineTo(b.x + liqAmp * Math.sin(t * 3.3 + b.phase), b.y + liqAmp * Math.cos(t * 2.6 + b.phase));
+        ctx.stroke();
+      }
+    }
+
+    for (i = 0; i < liq.atoms.length; i++) {
+      a = liq.atoms[i];
+      x = a.x + liqAmp * Math.sin(t * 3.3 + a.phase);
+      y = a.y + liqAmp * Math.cos(t * 2.6 + a.phase);
+      ctx.beginPath();
+      ctx.arc(x, y, 3.05, 0, Math.PI * 2);
+      ctx.fillStyle = '#ff9a7a';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x - 0.6, y - 0.6, 1.0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fill();
+    }
+
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('ICE Ih  ·  open hexagons', 14, 18);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('LIQUID  ·  tighter, disordered', mid + 14, 18);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(ice.atoms.length + ' sites  ·  empty channels', 14, h - 12);
+    ctx.fillText(liq.atoms.length + ' sites  ·  ~' + ((liq.atoms.length / Math.max(1, ice.atoms.length) - 1) * 100).toFixed(0) + '% more in the same box', mid + 14, h - 12);
+  }
+
+  // ===== Draw: density meter =====
+  function drawMeter() {
+    var s = surfaces.meter;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var rw = rhoWater(state.T);
+    var f = submergedFraction(state.T);
+    var above = fractionAboveWater(state.T);
+
+    // Layout: cube on the left, curve on the right, bars under the curve
+    var cubeW = Math.min(168, w * 0.38);
+    var tankX = 16;
+    var tankY = 36;
+    var tankW = cubeW;
+    var tankH = h - 58;
+
+    // Tank
+    ctx.fillStyle = '#0b1630';
+    ctx.fillRect(tankX, tankY, tankW, tankH);
+    var waterTop = tankY + tankH * 0.28;
+    var wg = ctx.createLinearGradient(0, waterTop, 0, tankY + tankH);
+    wg.addColorStop(0, 'rgba(94,200,229,0.28)');
+    wg.addColorStop(1, 'rgba(20,60,90,0.55)');
+    ctx.fillStyle = wg;
+    ctx.fillRect(tankX, waterTop, tankW, tankY + tankH - waterTop);
+
+    var cubeH = tankH * 0.52;
+    var cubeW2 = tankW * 0.56;
+    var cubeX = tankX + (tankW - cubeW2) * 0.5;
+    var subH = cubeH * f;
+    var cubeBottom = waterTop + subH;
+    var cubeTop = cubeBottom - cubeH;
+
+    // Ice cube
+    var ig = ctx.createLinearGradient(cubeX, cubeTop, cubeX + cubeW2, cubeTop + cubeH);
+    ig.addColorStop(0, 'rgba(200,236,248,0.92)');
+    ig.addColorStop(1, 'rgba(94,200,229,0.55)');
+    ctx.fillStyle = ig;
+    ctx.fillRect(cubeX, cubeTop, cubeW2, cubeH);
+    ctx.strokeStyle = 'rgba(215,246,255,0.7)';
+    ctx.lineWidth = 1.2;
+    ctx.strokeRect(cubeX + 0.5, cubeTop + 0.5, cubeW2 - 1, cubeH - 1);
+
+    // Waterline across cube
+    ctx.strokeStyle = 'rgba(255,194,74,0.85)';
+    ctx.lineWidth = 1.4;
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath();
+    ctx.moveTo(tankX + 4, waterTop);
+    ctx.lineTo(tankX + tankW - 4, waterTop);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Hatch the submerged part lightly
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(cubeX, waterTop, cubeW2, subH);
+    ctx.clip();
+    ctx.fillStyle = 'rgba(14, 40, 70, 0.18)';
+    ctx.fillRect(cubeX, waterTop, cubeW2, subH);
+    ctx.restore();
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText((above * 100).toFixed(2) + '% above', tankX + 8, Math.max(tankY + 12, cubeTop - 6));
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText((f * 100).toFixed(2) + '% under', tankX + 8, waterTop + 14);
+
+    ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+    ctx.strokeRect(tankX + 0.5, tankY + 0.5, tankW - 1, tankH - 1);
+
+    // Curve + bars on the right
+    var plotX = tankX + tankW + 16;
+    var plotR = w - 12;
+    var plotW = plotR - plotX;
+    var curveTop = 28;
+    var curveBot = h * 0.58;
+    var barTop = curveBot + 18;
+    var barBot = h - 18;
+
+    // Zoomed water curve
+    var r0 = curveRMin - 0.15;
+    var r1 = curveRMax + 0.12;
+    function CX(tC) { return plotX + 36 + (plotW - 44) * (tC / 30); }
+    function CY(rho) { return curveBot - (curveBot - curveTop) * ((rho - r0) / (r1 - r0)); }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('ρ_water(T)  zoomed  ·  4 °C bump is only ~0.13 kg/m³', plotX, 16);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(94,200,229,0.10)';
+    ctx.lineWidth = 1;
+    var ticks = [996, 997, 998, 999, 1000];
+    var ti;
+    for (ti = 0; ti < ticks.length; ti++) {
+      if (ticks[ti] < r0 || ticks[ti] > r1) continue;
+      var gy = CY(ticks[ti]);
+      ctx.beginPath();
+      ctx.moveTo(plotX + 36, gy);
+      ctx.lineTo(plotR - 8, gy);
+      ctx.stroke();
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText(String(ticks[ti]), plotX + 2, gy + 3);
+    }
+    var xt;
+    for (xt = 0; xt <= 30; xt += 10) {
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText(String(xt), CX(xt) - 6, curveBot + 12);
+    }
+
+    // Curve
+    ctx.beginPath();
+    for (ti = 0; ti < curveN; ti++) {
+      var px = CX(curveT[ti]);
+      var py = CY(curveR[ti]);
+      if (ti === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+
+    // 3.98 marker
+    var xMax = CX(T_MAX_DENSITY);
+    ctx.strokeStyle = 'rgba(255,194,74,0.55)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath();
+    ctx.moveTo(xMax, curveTop);
+    ctx.lineTo(xMax, curveBot);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('3.98°', xMax - 14, curveTop + 10);
+
+    // Current T on the water curve (clamped to [0,30] for the plot)
+    var tPlot = clamp(state.T, 0, 30);
+    var xNow = CX(tPlot);
+    var yNow = CY(rhoWater(tPlot));
+    ctx.beginPath();
+    ctx.arc(xNow, yNow, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+    ctx.strokeStyle = '#fff6d8';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Bars: ice vs water on 900–1010 scale
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('same scale  ·  ice vs liquid', plotX, barTop - 6);
+
+    var b0 = 900;
+    var b1 = 1010;
+    function BX(rho) {
+      return plotX + 8 + (plotW - 16) * ((rho - b0) / (b1 - b0));
+    }
+    var yIce = barTop + 10;
+    var yWat = barTop + 38;
+    var barH = 16;
+
+    ctx.fillStyle = 'rgba(94,200,229,0.10)';
+    ctx.fillRect(plotX + 8, yIce, plotW - 16, barH);
+    ctx.fillRect(plotX + 8, yWat, plotW - 16, barH);
+
+    ctx.fillStyle = 'rgba(94,200,229,0.85)';
+    ctx.fillRect(plotX + 8, yIce, BX(RHO_ICE) - (plotX + 8), barH);
+    ctx.fillStyle = 'rgba(255,194,74,0.85)';
+    ctx.fillRect(plotX + 8, yWat, BX(rw) - (plotX + 8), barH);
+
+    ctx.fillStyle = '#d7def2';
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('ice  ' + RHO_ICE.toFixed(1), plotX + 12, yIce + 12);
+    ctx.fillText('water  ' + rw.toFixed(1), plotX + 12, yWat + 12);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('900', plotX + 8, barBot);
+    ctx.fillText('1010', plotR - 28, barBot);
+  }
+
+  // ===== Draw: lake =====
+  function iceCapFrac(T) {
+    if (T > 0) return 0;
+    // 0 °C: a thin skin so the default view is a lid, not open water.
+    return Math.min(0.22, 0.045 + (-T) / 10 * 0.175);
+  }
+  function sunkIceFrac(T) {
+    if (T >= 0) return 0.07;
+    return Math.min(0.92, 0.12 + (-T) / 10 * 0.80);
+  }
+
+  function drawFish(ctx, x, y, scale, dir, dead) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(dir * scale, scale);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 13, 5.5, 0, 0, Math.PI * 2);
+    ctx.fillStyle = dead ? '#6a6570' : '#ffc24a';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-11, 0);
+    ctx.lineTo(-19, -5.5);
+    ctx.lineTo(-19, 5.5);
+    ctx.closePath();
+    ctx.fill();
+    if (dead) {
+      ctx.strokeStyle = '#1a1520';
+      ctx.lineWidth = 1.15;
+      ctx.beginPath();
+      ctx.moveTo(5.2, -2.1); ctx.lineTo(9.2, 1.7);
+      ctx.moveTo(9.2, -2.1); ctx.lineTo(5.2, 1.7);
+      ctx.stroke();
+    } else {
+      ctx.fillStyle = '#080b1c';
+      ctx.beginPath();
+      ctx.arc(7.4, -1.0, 1.25, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawLake() {
+    var s = surfaces.lake;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+
+    var T = state.T;
+    var f = submergedFraction(T);
+    var above = fractionAboveWater(T);
+    var cold = clamp((8 - T) / 18, 0, 1);
+    var sky = ctx.createLinearGradient(0, 0, 0, h * 0.32);
+    sky.addColorStop(0, cold > 0.55 ? '#070a16' : '#141a36');
+    sky.addColorStop(1, cold > 0.55 ? '#0b1730' : '#243056');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, w, h);
+
+    if (cold > 0.25) {
+      ctx.fillStyle = 'rgba(215,222,242,' + (0.25 + 0.5 * cold) + ')';
+      var si;
+      for (si = 0; si < lakeStars.length; si += 3) {
+        if (lakeStars[si + 1] > h * 0.30) continue;
+        ctx.beginPath();
+        ctx.arc(lakeStars[si], lakeStars[si + 1], lakeStars[si + 2], 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    var bank = 54;
+    var surfaceY = h * 0.30;
+    var bedY = h - 28;
+    var waterH = bedY - surfaceY;
+    var tAnim = state.time;
+
+    // Water body
+    var waterG = ctx.createLinearGradient(0, surfaceY, 0, bedY);
+    waterG.addColorStop(0, 'rgba(55, 130, 170, 0.72)');
+    waterG.addColorStop(0.45, 'rgba(22, 70, 110, 0.88)');
+    waterG.addColorStop(1, 'rgba(8, 28, 48, 0.96)');
+    ctx.beginPath();
+    ctx.moveTo(bank, surfaceY);
+    ctx.lineTo(w - bank, surfaceY);
+    ctx.lineTo(w - 18, bedY);
+    ctx.lineTo(18, bedY);
+    ctx.closePath();
+    ctx.fillStyle = waterG;
+    ctx.fill();
+
+    // Bed
+    ctx.fillStyle = '#2a2318';
+    ctx.beginPath();
+    ctx.moveTo(10, bedY);
+    ctx.lineTo(w - 10, bedY);
+    ctx.lineTo(w - 6, h);
+    ctx.lineTo(6, h);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#3a3224';
+    var peb;
+    for (peb = 0; peb < 18; peb++) {
+      ctx.beginPath();
+      ctx.ellipse(24 + (w - 48) * (peb / 17), bedY + 8 + (peb % 3) * 2, 7 + (peb % 4), 3.2, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Reeds
+    ctx.strokeStyle = 'rgba(120, 160, 90, 0.55)';
+    ctx.lineWidth = 1.4;
+    var rd;
+    for (rd = 0; rd < 7; rd++) {
+      var rx = 28 + rd * 9;
+      ctx.beginPath();
+      ctx.moveTo(rx, bedY);
+      ctx.quadraticCurveTo(rx + 4, bedY - 30, rx - 2, bedY - 52 - (rd % 3) * 6);
+      ctx.stroke();
+    }
+
+    var liquidTop = surfaceY;
+    var liquidBot = bedY;
+    var iceThick = 0;
+
+    if (!state.sink) {
+      iceThick = iceCapFrac(T) * waterH;
+      if (T <= 0) {
+        liquidTop = surfaceY + iceThick;
+        // Ice cap
+        var capG = ctx.createLinearGradient(0, surfaceY, 0, liquidTop);
+        capG.addColorStop(0, 'rgba(232, 244, 252, 0.96)');
+        capG.addColorStop(1, 'rgba(160, 214, 232, 0.88)');
+        ctx.fillStyle = capG;
+        ctx.beginPath();
+        ctx.moveTo(bank - 2, surfaceY);
+        ctx.lineTo(w - bank + 2, surfaceY);
+        ctx.lineTo(w - bank + 6, liquidTop);
+        // jagged underside
+        var j, jx, jy;
+        for (j = 8; j >= 0; j--) {
+          jx = bank + (w - 2 * bank) * (j / 8);
+          jy = liquidTop + 3 * Math.sin(j * 1.7 + 0.4) * (iceThick > 4 ? 1 : 0);
+          ctx.lineTo(jx, jy);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(bank + 10, surfaceY + iceThick * 0.35);
+        ctx.lineTo(w - bank - 10, surfaceY + iceThick * 0.35);
+        ctx.stroke();
+      } else {
+        // Floating demo cubes
+        var cubes = [
+          { x: w * 0.34, s: 26 },
+          { x: w * 0.52, s: 20 },
+          { x: w * 0.68, s: 23 }
+        ];
+        var ci;
+        for (ci = 0; ci < cubes.length; ci++) {
+          var cw = cubes[ci].s;
+          var ch = cubes[ci].s * 0.72;
+          var sub = ch * f;
+          var cx = cubes[ci].x;
+          var bob = Math.sin(tAnim * 1.4 + ci) * 1.4;
+          var cTop = surfaceY - (ch - sub) + bob;
+          ctx.fillStyle = 'rgba(200,236,248,0.9)';
+          ctx.fillRect(cx, cTop, cw, ch);
+          ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+          ctx.strokeRect(cx + 0.5, cTop + 0.5, cw - 1, ch - 1);
+        }
+      }
+    } else {
+      iceThick = sunkIceFrac(T) * waterH;
+      liquidBot = bedY - iceThick;
+      // Piled ice on the bed
+      ctx.fillStyle = 'rgba(190, 226, 240, 0.9)';
+      ctx.beginPath();
+      ctx.moveTo(20, bedY);
+      ctx.lineTo(w - 20, bedY);
+      var u, ux, uy;
+      for (u = 12; u >= 0; u--) {
+        ux = 20 + (w - 40) * (u / 12);
+        uy = liquidBot - 6 * Math.sin(u * 1.3) - 4 * Math.sin(u * 0.6 + 1);
+        if (uy > bedY) uy = bedY;
+        ctx.lineTo(ux, uy);
+      }
+      ctx.closePath();
+      ctx.fill();
+      // Facet cracks
+      ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.22, bedY - 4);
+      ctx.lineTo(w * 0.30, liquidBot + 8);
+      ctx.moveTo(w * 0.55, bedY - 2);
+      ctx.lineTo(w * 0.48, liquidBot + 10);
+      ctx.stroke();
+
+      if (T > 0) {
+        // A few sunk cubes
+        ctx.fillStyle = 'rgba(200,236,248,0.85)';
+        ctx.fillRect(w * 0.28, bedY - 22, 24, 18);
+        ctx.fillRect(w * 0.46, bedY - 18, 20, 14);
+        ctx.fillRect(w * 0.61, bedY - 26, 28, 20);
+      }
+    }
+
+    // 4 °C badge on the bed in real winter
+    if (!state.sink && T <= 4) {
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('~4 °C densest water on the bed', bank + 8, bedY - 10);
+    }
+
+    // Fish
+    var fishY0 = (liquidTop + liquidBot) * 0.5;
+    var room = liquidBot - liquidTop;
+    var dead = state.sink && room < waterH * 0.22;
+    if (room > 16) {
+      var fx1 = w * 0.38 + Math.sin(tAnim * 0.7) * 28;
+      var fy1 = clamp(fishY0 + Math.sin(tAnim * 0.9) * Math.min(22, room * 0.25), liquidTop + 10, liquidBot - 10);
+      var fx2 = w * 0.62 + Math.cos(tAnim * 0.55) * 34;
+      var fy2 = clamp(fishY0 + 16 + Math.cos(tAnim * 1.1) * Math.min(16, room * 0.2), liquidTop + 10, liquidBot - 10);
+      drawFish(ctx, fx1, fy1, 1, Math.sin(tAnim * 0.7) >= 0 ? 1 : -1, dead);
+      drawFish(ctx, fx2, fy2, 0.85, Math.cos(tAnim * 0.55) >= 0 ? -1 : 1, dead);
+    }
+
+    // Banks
+    ctx.fillStyle = '#16120e';
+    ctx.beginPath();
+    ctx.moveTo(0, surfaceY - 20);
+    ctx.lineTo(bank, surfaceY);
+    ctx.lineTo(18, bedY);
+    ctx.lineTo(0, h);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(w, surfaceY - 20);
+    ctx.lineTo(w - bank, surfaceY);
+    ctx.lineTo(w - 18, bedY);
+    ctx.lineTo(w, h);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#2c261c';
+    ctx.fillRect(0, surfaceY - 22, bank + 4, 16);
+    ctx.fillRect(w - bank - 4, surfaceY - 22, bank + 8, 16);
+
+    // Surface line
+    ctx.strokeStyle = 'rgba(215,246,255,0.35)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(bank, surfaceY);
+    ctx.lineTo(w - bank, surfaceY);
+    ctx.stroke();
+
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = state.sink ? '#ff7e5f' : '#5ec8e5';
+    var headline = state.sink
+      ? (dead ? 'Almost no liquid left  ·  a solid lake' : 'Ice piles on the bed  ·  the refuge shrinks')
+      : (T <= 0 ? 'Ice lid on top  ·  liquid refuge below' : 'Cubes float  ·  ~' + (above * 100).toFixed(1) + '% above the waterline');
+    ctx.fillText(headline, bank + 8, 20);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('T = ' + fmtT(T) + '   ·   schematic basin, not a heat model', bank + 8, h - 10);
+  }
+
+  var readoutTick = 0;
+
+  function drawAll() {
+    drawLattice();
+    drawMeter();
+    drawLake();
+    readoutTick += 1;
+    if (readoutTick % 4 === 1) updateReadout();
+  }
+
+  function frame(ts) {
+    if (state.lastTs) {
+      var dt = (ts - state.lastTs) / 1000;
+      if (dt > 0.1) dt = 0.1;
+      state.time += dt;
+      if (state.playing) {
+        state.T += state.playDir * dt * PLAY_DPS;
+        if (state.T >= T_MAX) { state.T = T_MAX; state.playDir = -1; }
+        if (state.T <= T_MIN) { state.T = T_MIN; state.playDir = 1; }
+        syncLabels();
+      }
+    }
+    state.lastTs = ts;
+    drawAll();
+    requestAnimationFrame(frame);
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function setTemp(t, fromChip) {
+    state.T = clamp(t, T_MIN, T_MAX);
+    if (!fromChip) syncTempChips();
+    syncLabels();
+    updateReadout();
+  }
+
+  function setMode(sink) {
+    state.sink = sink;
+    syncLabels();
+  }
+
+  function onResize() {
+    var prevW = surfaces.lake.w;
+    fitCanvas(surfaces.lattice);
+    fitCanvas(surfaces.meter);
+    fitCanvas(surfaces.lake);
+    rebuildPacking(surfaces.lattice.w, surfaces.lattice.h);
+    if (surfaces.lake.w !== prevW || !lakeStars.length) {
+      rebuildLakeStars(surfaces.lake.w, surfaces.lake.h);
+    }
+  }
+
+  elPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+  elTemp.addEventListener('input', function () {
+    setTemp(Number(elTemp.value), false);
+  });
+  $('chipWinter').addEventListener('click', function () { setTemp(-8, true); });
+  $('chipZero').addEventListener('click', function () { setTemp(0, true); });
+  $('chipMax').addEventListener('click', function () { setTemp(T_MAX_DENSITY, true); });
+  $('chipRoom').addEventListener('click', function () { setTemp(20, true); });
+  $('modeFloat').addEventListener('click', function () { setMode(false); });
+  $('modeSink').addEventListener('click', function () { setMode(true); });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    } else if (e.code === 'ArrowRight') {
+      setTemp(state.T + 0.5, false);
+    } else if (e.code === 'ArrowLeft') {
+      setTemp(state.T - 0.5, false);
+    }
+  });
+
+  window.addEventListener('resize', onResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(onResize);
+    ro.observe(cvLattice);
+    ro.observe(cvMeter);
+    ro.observe(cvLake);
+  }
+
+  onResize();
+  syncLabels();
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+
+</script>
+</body>
+</html>
