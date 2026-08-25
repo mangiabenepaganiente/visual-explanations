@@ -231,6 +231,28 @@ input[type="range"]::-moz-range-thumb {
   .stage canvas { height: 420px; }
   .page { padding: 18px 14px 48px; }
 }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
 </style>
 </head>
 <body data-build="cannonball">
@@ -238,6 +260,8 @@ input[type="range"]::-moz-range-thumb {
   <p class="kicker"><a href="index.html" style="color:inherit;text-decoration:none">Visual explanations · Newton 1687</a></p>
   <h1>Newton’s Cannonball</h1>
   <p class="lede">A cannon on a mountain fires faster and faster, and the falling ball begins to miss the Earth. <strong>Orbiting is not floating, and it is not escaping gravity.</strong> It is falling — continuously — around a curve that keeps dropping away.</p>
+
+  <p class="try"><b>Try this</b>Drag back to aim and set speed, then <strong>Fire</strong> (or Space for a flat shot). Notice ~7.62 km/s closes a circle and ~10.77 km/s leaves Earth.</p>
 
   <div class="panel controls">
     <div class="row">
