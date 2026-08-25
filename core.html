@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How We Know Earth’s Outer Core Is Liquid — Seismic Shadow Zones</title>
+<meta name="description" content="Classroom explainer for Earth-science teachers: nobody drilled to the core. S-waves cannot cross a liquid; P-waves refract at the core–mantle boundary. The resulting shadow zones prove Earth’s outer core is molten. Interactive 2D cross-section, live stations, honest PREM caveats.">
+<meta name="keywords" content="outer core liquid, seismic shadow zone, S-wave, P-wave, Earth science classroom, NGSS MS-ESS2, IRIS, PREM, core-mantle boundary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1280px; margin: 0 auto; padding: 20px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+.kicker a:hover { color: var(--sun2); }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 780px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.warm.on { background: rgba(255, 126, 95, 0.16); border-color: rgba(255, 126, 95, 0.5); color: var(--warm); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 14px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.earth-card canvas { display: block; width: 100%; height: 520px; }
+.strip-card canvas { display: block; width: 100%; height: 132px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .causes, .readout { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout { grid-template-columns: 1fr; }
+  .page { padding: 18px 14px 48px; }
+  .earth-card canvas { height: 400px; }
+}
+</style>
+</head>
+<body data-build="4">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · Earth’s core</a></p>
+  <h1>How do we know Earth’s outer core is liquid?</h1>
+  <p class="lede">Nobody has dug there. <strong>Seismic waves</strong> did the work: S-waves are shear and die in a fluid, P-waves are a push and keep going — they just bend. The dark patch of stations that never record S is the proof.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <label class="sl grow">
+        <span>Earthquake position <em id="quakeLabel">90.0° · top</em></span>
+        <input type="range" id="quake" min="0" max="360" step="0.1" value="90" aria-label="Earthquake angle around the globe">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip sun on" id="chipTop" aria-pressed="true">Quake at top</button>
+      <button type="button" class="chip" id="chipLeft" aria-pressed="false">Quake at left</button>
+      <button type="button" class="chip" id="chipSpin" aria-pressed="false">Spin the quake</button>
+    </div>
+    <div class="row">
+      <button type="button" class="chip on" id="chipP" aria-pressed="true">P-rays</button>
+      <button type="button" class="chip warm on" id="chipS" aria-pressed="true">S-rays</button>
+      <button type="button" class="chip" id="chipPrem" aria-pressed="false">PREM shadow overlay</button>
+      <button type="button" class="chip myth" id="chipGhost" aria-pressed="false">What if solid?</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="pinAnti" aria-pressed="true">Pin antipode</button>
+      <button type="button" class="chip" id="pinShadow" aria-pressed="false">Pin S-shadow (130°)</button>
+      <button type="button" class="chip" id="pinNear" aria-pressed="false">Pin near field (60°)</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card earth-card">
+      <div class="card-h"><b>Cross-section · Snell at the CMB</b><span id="earthMeta">S dies at the liquid · P refracts through</span></div>
+      <canvas id="cvEarth" width="1280" height="800" aria-label="Earth cross-section with P and S seismic rays and rim seismometers"></canvas>
+    </div>
+    <div class="card strip-card">
+      <div class="card-h"><b>Who hears what · epicentral Δ</b><span id="stripMeta">this model vs PREM textbook</span></div>
+      <canvas id="cvStrip" width="1280" height="132" aria-label="Unwrapped 0 to 180 degree station coverage for P and S waves"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>P versus S</h2>
+      <p>A P-wave is a compressional push — it works in solid or liquid. An S-wave is a shear shake. In this mantle, <em>V</em><sub>p</sub> ≈ 8 km/s and <em>V</em><sub>s</sub> ≈ 4.5 km/s, so P outruns S to every nearby station.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Liquid kills S</h2>
+      <p>In a fluid the shear modulus is zero, so <em>V</em><sub>s</sub> = √(μ/ρ) = 0. S-rays that hit the core–mantle boundary stop. That cutoff — not a drill core — is the aha.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Shadow zones are the proof</h2>
+      <p>Stations beyond this model’s ~114° never record S. P still arrives on the far side through the core. A wholly solid Earth would ring with S everywhere. It doesn’t.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>We did not drill there</h2>
+      <p>The Kola Superdeep Borehole reached 12 km — 0.4% of the way to the CMB. Iron is a density / meteorite inference. <em>Liquid</em> is a seismic one.</p>
+    </article>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Layered constant speeds (this page).</strong> Crust+mantle average <code>V<sub>p</sub> = 8.0 km/s</code>, <code>V<sub>s</sub> = 4.5 km/s</code>. Outer core <code>V<sub>p</sub> = 8.5 km/s</code>, <code>V<sub>s</sub> = 0</code>. Inner core (optional path) <code>V<sub>p</sub> = 11.0 km/s</code>, <code>V<sub>s</sub> = 3.6 km/s &gt; 0</code>. Speeds are uniform inside each shell, so rays are <em>straight lines</em> that refract only at the CMB / ICB. Labeled Snell: <code>sin i<sub>1</sub> / v<sub>1</sub> = sin i<sub>2</sub> / v<sub>2</sub></code> (equivalently the spherical ray parameter <code>p = r sin i / v</code>).</li>
+      <li><strong style="color:var(--text)">Radii.</strong> Mean Earth radius <code>R = 6371 km</code>. Core–mantle boundary at <code>3480 km</code> from the center (depth <code>2891 km</code>). Inner-core boundary <code>1221 km</code> from the center if drawn. These are the usual textbook / PREM-rounded figures, not a full PREM table.</li>
+      <li><strong style="color:var(--text)">This model’s shadows, then PREM’s.</strong> A straight mantle ray that just grazes the CMB reaches <code>Δ = 2 arccos(R<sub>CMB</sub> / R) ≈ 113.8°</code>. That is the S-wave cutoff <em>and</em> the last direct P in this cartoon. Core-refracted P (PKP / PKIKP) in these speeds begins near <code>Δ ≈ 84°</code> and runs to the antipode, so <strong>this model has no P-wave gap</strong> — P still arrives on the far side via a core path. Real Earth uses PREM, where <em>V</em><sub>p</sub> drops from ~13.7 km/s at the base of the mantle to ~8.1 km/s at the top of the outer core. That drop opens the textbook P-wave shadow <code>~103°–142°</code>; S is absent beyond <code>~103°</code>. The PREM overlay paints those textbook arcs; the live chips report <em>this</em> model’s numbers.</li>
+      <li><strong style="color:var(--text)">Why the simple speeds miss 103° / 142°.</strong> Real rays curve because velocity increases with depth in the mantle (they can “see” farther before grazing). A two-speed ball cannot reproduce PREM’s caustics. We compute the shadow of the speeds above and refuse to fake 103–142 as if the cartoon produced them.</li>
+      <li><strong style="color:var(--text)">Inner core, as a stretch.</strong> A solid inner core is drawn because PKIKP (P through the inner core) and later normal-mode / PKJKP work found it. In these speeds a steep P-ray can enter (<code>V<sub>p</sub></code> jumps 8.5 → 11, so some incidence TIR’s). We do <em>not</em> draw S in the inner core; that would need an SKS conversion at the CMB, which is a different lesson.</li>
+      <li><strong style="color:var(--text)">Iron vs liquid are different inferences.</strong> Mean density, the moment of inertia, and iron meteorites argue the core is iron-nickel. Seismology argues the outer core is liquid. Old classroom lines that “we guessed iron, then dug” skip both steps.</li>
+      <li><strong style="color:var(--text)">The drawing is a 2D equatorial slice.</strong> No ellipticity, no oceans, no 3-D PREM gradients, no diffraction around the core (which weakly lights the real P-shadow). Travel times are path length over the layer speed, time-warped ~320× so a 25-minute antipode P fits a few seconds of play. Stations are 36 rim seismometers, 10° apart. Drag the rim to move the quake; click a station to pin it.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants — same names as validate-core.js =====
+  var R_EARTH = 6371;
+  var R_CMB = 3480;
+  var R_ICB = 1221;
+  var CMB_DEPTH = R_EARTH - R_CMB;
+  var VP_MANTLE = 8.0;
+  var VS_MANTLE = 4.5;
+  var VP_OC = 8.5;
+  var VS_OC = 0;
+  var VP_IC = 11.0;
+  var VS_IC = 3.6;
+  var PREM_S_SHADOW = 103;
+  var PREM_P_LO = 103;
+  var PREM_P_HI = 142;
+  var N_STATIONS = 36;
+  var T_FLIGHT_MAX = 2000;
+  var TIME_WARP = 320;
+  var SPIN_DPS = 12;
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  function clamp1(x) {
+    if (x < -1) return -1;
+    if (x > 1) return 1;
+    return x;
+  }
+  function wrap360(d) {
+    return ((d % 360) + 360) % 360;
+  }
+  function hypot(x, y) { return Math.sqrt(x * x + y * y); }
+  function deg(rad) { return rad * 180 / Math.PI; }
+  function rad(d) { return d * Math.PI / 180; }
+
+  function epicentralDeg(quakeDeg, stationDeg) {
+    var d = Math.abs(wrap360(stationDeg) - wrap360(quakeDeg));
+    if (d > 180) d = 360 - d;
+    return d;
+  }
+
+  function deltaGrazeDeg() {
+    return 2 * Math.acos(R_CMB / R_EARTH) * 180 / Math.PI;
+  }
+
+  function corePathDeltaDeg(i0) {
+    var b = R_EARTH * Math.sin(i0);
+    if (b >= R_CMB - 1e-9) return null;
+    var sinIoc = (VP_OC / VP_MANTLE) * (b / R_CMB);
+    if (sinIoc > 1) return null;
+    var bOc = b * (VP_OC / VP_MANTLE);
+    var dMant = Math.acos(clamp1(b / R_EARTH)) - Math.acos(clamp1(b / R_CMB));
+    if (bOc >= R_ICB - 1e-6) {
+      return (2 * dMant + 2 * Math.acos(clamp1(bOc / R_CMB))) * 180 / Math.PI;
+    }
+    var sinIic = (VP_IC / VP_OC) * (bOc / R_ICB);
+    if (sinIic > 1) return null;
+    var bIc = bOc * (VP_IC / VP_OC);
+    var dOC = Math.acos(clamp1(bOc / R_CMB)) - Math.acos(clamp1(bOc / R_ICB));
+    var dIC = Math.acos(clamp1(bIc / R_ICB));
+    return (2 * dMant + 2 * dOC + 2 * dIC) * 180 / Math.PI;
+  }
+
+  function computePkpMinDeg() {
+    var iGraze = Math.asin(R_CMB / R_EARTH);
+    var minD = 180;
+    var i;
+    for (i = 1; i <= 500; i++) {
+      var i0 = iGraze * (i / 500);
+      var d = corePathDeltaDeg(i0);
+      if (d !== null && d < minD) minD = d;
+    }
+    return minD;
+  }
+
+  var DELTA_GRAZE = deltaGrazeDeg();
+  var DELTA_PKP_MIN = computePkpMinDeg();
+
+  function phasesAt(deltaDeg) {
+    var d = deltaDeg;
+    if (d < 0) d = -d;
+    if (d > 180) d = 360 - d;
+    var hasS = d <= DELTA_GRAZE + 1e-6;
+    var hasDirectP = d <= DELTA_GRAZE + 1e-6;
+    var hasCoreP = d >= DELTA_PKP_MIN - 1e-6;
+    return {
+      P: hasDirectP || hasCoreP,
+      S: hasS,
+      directP: hasDirectP,
+      coreP: hasCoreP
+    };
+  }
+
+  function travelDirect(deltaDeg, v) {
+    if (deltaDeg > DELTA_GRAZE + 0.05) return Infinity;
+    return 2 * R_EARTH * Math.sin(rad(deltaDeg) / 2) / v;
+  }
+
+  function vOf(layer, isP, vsOc) {
+    if (layer === 'mantle') return isP ? VP_MANTLE : VS_MANTLE;
+    if (layer === 'oc') return isP ? VP_OC : vsOc;
+    return isP ? VP_IC : VS_IC;
+  }
+
+  function intersectCircle(px, py, dx, dy, r, tMin) {
+    var pd = px * dx + py * dy;
+    var c = px * px + py * py - r * r;
+    var disc = pd * pd - c;
+    if (disc < 0) return null;
+    var s = Math.sqrt(disc);
+    var t1 = -pd - s;
+    var t2 = -pd + s;
+    var t = null;
+    if (t1 > tMin) t = t1;
+    if (t2 > tMin && (t === null || t2 < t)) t = t2;
+    return t;
+  }
+
+  function tryRefract(dx, dy, px, py, v1, v2) {
+    if (!(v2 > 0)) return null;
+    var r = hypot(px, py);
+    var nx = px / r;
+    var ny = py / r;
+    var nd = dx * nx + dy * ny;
+    if (nd > 0) { nx = -nx; ny = -ny; nd = -nd; }
+    var c1 = -nd;
+    var eta = v2 / v1;
+    var k = 1 - eta * eta * (1 - c1 * c1);
+    if (k < 0) return null;
+    var c2 = Math.sqrt(k);
+    var rx = eta * dx + (eta * c1 - c2) * nx;
+    var ry = eta * dy + (eta * c1 - c2) * ny;
+    var n = hypot(rx, ry);
+    if (n < 1e-12) return null;
+    return { x: rx / n, y: ry / n };
+  }
+
+  function traceRay(qx, qy, i0, sign, isP, vsOc) {
+    if (vsOc === undefined) vsOc = VS_OC;
+    var qang = Math.atan2(qy, qx);
+    var downx = -Math.cos(qang);
+    var downy = -Math.sin(qang);
+    var ca = Math.cos(sign * i0);
+    var sa = Math.sin(sign * i0);
+    var dx = downx * ca - downy * sa;
+    var dy = downx * sa + downy * ca;
+    var NUDGE = 0.4;
+    var px = qx + dx * NUDGE;
+    var py = qy + dy * NUDGE;
+    var layer = 'mantle';
+    var v = vOf(layer, isP, vsOc);
+    var pts = [{ x: qx, y: qy, t: 0 }];
+    var tAcc = 0;
+    var hops = 0;
+    var arrived = false;
+    var delta = null;
+    var viaCore = false;
+    var viaIC = false;
+    var stopped = null;
+    while (hops++ < 12) {
+      var candidates = [];
+      function consider(r, name) {
+        var tt = intersectCircle(px, py, dx, dy, r, 1e-4);
+        if (tt !== null) candidates.push({ t: tt, name: name });
+      }
+      consider(R_EARTH, 'surf');
+      consider(R_CMB, 'cmb');
+      consider(R_ICB, 'icb');
+      if (!candidates.length) { stopped = 'miss'; break; }
+      candidates.sort(function (a, b) { return a.t - b.t; });
+      var hit = candidates[0];
+      var nx = px + dx * hit.t;
+      var ny = py + dy * hit.t;
+      tAcc += hit.t / v;
+      pts.push({ x: nx, y: ny, t: tAcc });
+      if (hit.name === 'surf') {
+        arrived = true;
+        var sang = Math.atan2(ny, nx);
+        var dd = Math.abs(sang - qang) * 180 / Math.PI;
+        if (dd > 180) dd = 360 - dd;
+        delta = dd;
+        break;
+      }
+      var goingIn = (dx * nx + dy * ny) < 0;
+      var nextLayer = hit.name === 'cmb' ? (goingIn ? 'oc' : 'mantle') : (goingIn ? 'ic' : 'oc');
+      var v2 = vOf(nextLayer, isP, vsOc);
+      var ref = tryRefract(dx, dy, nx, ny, v, v2);
+      if (!ref) {
+        stopped = (v2 === 0) ? 'S_killed' : 'TIR';
+        break;
+      }
+      if (nextLayer === 'oc' || nextLayer === 'ic') viaCore = true;
+      if (nextLayer === 'ic') viaIC = true;
+      dx = ref.x;
+      dy = ref.y;
+      v = v2;
+      layer = nextLayer;
+      px = nx + dx * NUDGE;
+      py = ny + dy * NUDGE;
+    }
+    return { pts: pts, arrived: arrived, delta: delta, viaCore: viaCore, viaIC: viaIC, t: tAcc, stopped: stopped };
+  }
+
+  function takeoffList(isP) {
+    var a = [];
+    var i;
+    if (isP) {
+      for (i = 0.35; i <= 8.0; i += 0.55) a.push(i);
+      for (i = 10.6; i <= 29.8; i += 0.85) a.push(i);
+      for (i = 29.9; i <= 30.92; i += 0.08) a.push(i);
+      for (i = 33.25; i <= 86; i += 2.4) a.push(i);
+    } else {
+      for (i = 4; i <= 32; i += 3.2) a.push(i);
+      for (i = 33.25; i <= 86; i += 2.8) a.push(i);
+    }
+    return a;
+  }
+
+  // ===== State =====
+  var state = {
+    quakeDeg: 90,
+    pinMode: 'anti',
+    stationDeg: 270,
+    playing: true,
+    spinning: false,
+    showP: true,
+    showS: true,
+    showPrem: false,
+    ghostSolid: false,
+    simT: 0,
+    lastTs: 0,
+    hoverStation: -1,
+    dragging: false
+  };
+
+  function syncPinnedStation() {
+    if (state.pinMode === 'anti') state.stationDeg = wrap360(state.quakeDeg + 180);
+    else if (state.pinMode === 'shadow') state.stationDeg = wrap360(state.quakeDeg + 130);
+    else if (state.pinMode === 'near') state.stationDeg = wrap360(state.quakeDeg + 60);
+  }
+  syncPinnedStation();
+
+  // ===== DOM =====
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elQuake = $('quake');
+  var elQuakeL = $('quakeLabel');
+  var elReadout = $('readout');
+  var elEarthMeta = $('earthMeta');
+  var elStripMeta = $('stripMeta');
+  var cvEarth = $('cvEarth');
+  var cvStrip = $('cvStrip');
+
+  var surfaces = {
+    earth: { canvas: cvEarth, ctx: null, w: 0, h: 0, cssH: 800 },
+    strip: { canvas: cvStrip, ctx: null, w: 0, h: 0, cssH: 132 }
+  };
+
+  var view = { cx: 0, cy: 0, scale: 1 };
+  var stars = [];
+  var rayCache = { q: NaN, ghost: null, p: [], s: [], g: [] };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function rebuildStars(w, h) {
+    stars.length = 0;
+    var n = Math.floor((w * h) / 2600);
+    if (n > 260) n = 260;
+    var i;
+    for (i = 0; i < n; i++) {
+      stars.push(Math.random() * w, Math.random() * h, Math.random() < 0.15 ? 1.2 : 0.55);
+    }
+  }
+
+  function drawStars(ctx) {
+    ctx.fillStyle = 'rgba(215, 222, 242, 0.7)';
+    var i;
+    for (i = 0; i < stars.length; i += 3) {
+      ctx.beginPath();
+      ctx.arc(stars[i], stars[i + 1], stars[i + 2], 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function quakeClock(d) {
+    var x = wrap360(d);
+    if (Math.abs(x - 90) < 0.6) return 'top';
+    if (Math.abs(x - 270) < 0.6) return 'bottom';
+    if (Math.abs(x - 180) < 0.6) return 'left';
+    if (x < 0.6 || x > 359.4) return 'right';
+    return 'rim';
+  }
+
+  function syncLabels() {
+    elQuake.value = String(wrap360(state.quakeDeg).toFixed(1));
+    elQuakeL.textContent = wrap360(state.quakeDeg).toFixed(1) + '° · ' + quakeClock(state.quakeDeg);
+    elEarthMeta.textContent = state.ghostSolid
+      ? 'dashed S through the core is fiction — Vs would not be 0'
+      : 'S dies at the liquid · P refracts through';
+    elStripMeta.textContent = 'model S-shadow Δ > ' + DELTA_GRAZE.toFixed(1) +
+      '°   ·   PREM P-shadow 103–142° · S > 103°';
+    setChip($('chipTop'), Math.abs(wrap360(state.quakeDeg) - 90) < 0.8);
+    setChip($('chipLeft'), Math.abs(wrap360(state.quakeDeg) - 180) < 0.8);
+    setChip($('chipSpin'), state.spinning);
+    setChip($('chipP'), state.showP);
+    setChip($('chipS'), state.showS);
+    setChip($('chipPrem'), state.showPrem);
+    setChip($('chipGhost'), state.ghostSolid);
+    setChip($('pinAnti'), state.pinMode === 'anti');
+    setChip($('pinShadow'), state.pinMode === 'shadow');
+    setChip($('pinNear'), state.pinMode === 'near');
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function setQuake(d, resetFlight) {
+    state.quakeDeg = wrap360(d);
+    syncPinnedStation();
+    if (resetFlight) state.simT = 0;
+    syncLabels();
+  }
+
+  function stationAngle(i) {
+    return wrap360(i * (360 / N_STATIONS));
+  }
+
+  function ensureRays() {
+    if (rayCache.q === state.quakeDeg && rayCache.ghost === state.ghostSolid) return;
+    rayCache.q = state.quakeDeg;
+    rayCache.ghost = state.ghostSolid;
+    var q = rad(state.quakeDeg);
+    var qx = R_EARTH * Math.cos(q);
+    var qy = R_EARTH * Math.sin(q);
+    rayCache.p = [];
+    rayCache.s = [];
+    rayCache.g = [];
+    var tp = takeoffList(true);
+    var ts = takeoffList(false);
+    var i, s;
+    for (i = 0; i < tp.length; i++) {
+      for (s = -1; s <= 1; s += 2) {
+        rayCache.p.push(traceRay(qx, qy, rad(tp[i]), s, true, VS_OC));
+      }
+    }
+    for (i = 0; i < ts.length; i++) {
+      for (s = -1; s <= 1; s += 2) {
+        rayCache.s.push(traceRay(qx, qy, rad(ts[i]), s, false, VS_OC));
+      }
+    }
+    if (state.ghostSolid) {
+      var tg = takeoffList(true);
+      for (i = 0; i < tg.length; i++) {
+        if (tg[i] > 32) continue;
+        for (s = -1; s <= 1; s += 2) {
+          rayCache.g.push(traceRay(qx, qy, rad(tg[i]), s, false, 4.5));
+        }
+      }
+    }
+  }
+
+  function tx(x) { return view.cx + x * view.scale; }
+  function ty(y) { return view.cy - y * view.scale; }
+
+  function drawRay(ctx, pts, tNow, color, width, dashed, alpha) {
+    if (!pts || pts.length < 2) return;
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = width;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    if (dashed) ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(tx(pts[0].x), ty(pts[0].y));
+    var i;
+    var head = null;
+    for (i = 1; i < pts.length; i++) {
+      if (pts[i].t <= tNow) {
+        ctx.lineTo(tx(pts[i].x), ty(pts[i].y));
+        head = pts[i];
+      } else {
+        var t0 = pts[i - 1].t;
+        var t1 = pts[i].t;
+        var u = (tNow - t0) / (t1 - t0);
+        if (u < 0) break;
+        if (u > 1) u = 1;
+        var x = pts[i - 1].x + (pts[i].x - pts[i - 1].x) * u;
+        var y = pts[i - 1].y + (pts[i].y - pts[i - 1].y) * u;
+        ctx.lineTo(tx(x), ty(y));
+        head = { x: x, y: y };
+        break;
+      }
+    }
+    ctx.stroke();
+    if (head && tNow < T_FLIGHT_MAX - 1) {
+      ctx.fillStyle = color;
+      ctx.globalAlpha = Math.min(1, alpha + 0.25);
+      ctx.beginPath();
+      ctx.arc(tx(head.x), ty(head.y), width + 1.4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawEarth() {
+    var s = surfaces.earth;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+    drawStars(ctx);
+
+    view.cx = w * 0.48;
+    view.cy = h * 0.52;
+    var Rpx = Math.min(w, h) * 0.36;
+    view.scale = Rpx / R_EARTH;
+
+    ensureRays();
+    var tNow = state.playing || state.simT > 0 ? state.simT : T_FLIGHT_MAX;
+    if (!state.playing && state.simT === 0) tNow = T_FLIGHT_MAX;
+
+    var q = rad(state.quakeDeg);
+    var qx = R_EARTH * Math.cos(q);
+    var qy = R_EARTH * Math.sin(q);
+
+    function strokeDeltaBand(lo, hi, color, width, alpha) {
+      var signs = [1, -1];
+      var si;
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = alpha;
+      ctx.lineWidth = width;
+      ctx.lineCap = 'butt';
+      ctx.lineJoin = 'round';
+      for (si = 0; si < signs.length; si++) {
+        var sign = signs[si];
+        ctx.beginPath();
+        var started = false;
+        var a;
+        for (a = lo; a <= hi; a += 1) {
+          var ang = wrap360(state.quakeDeg + sign * a);
+          var pxb = tx(Math.cos(rad(ang)) * (R_EARTH + 240));
+          var pyb = ty(Math.sin(rad(ang)) * (R_EARTH + 240));
+          if (!started) { ctx.moveTo(pxb, pyb); started = true; }
+          else ctx.lineTo(pxb, pyb);
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    strokeDeltaBand(DELTA_GRAZE, 180, '#ff7e5f', 16, 0.16);
+    if (state.showPrem) {
+      strokeDeltaBand(PREM_P_LO, PREM_P_HI, '#5ec8e5', 8, 0.38);
+    }
+
+    // Layers
+    function disc(rKm, fill) {
+      ctx.beginPath();
+      ctx.arc(view.cx, view.cy, rKm * view.scale, 0, Math.PI * 2);
+      ctx.fillStyle = fill;
+      ctx.fill();
+    }
+    var gMant = ctx.createRadialGradient(view.cx - Rpx * 0.2, view.cy - Rpx * 0.25, Rpx * 0.1, view.cx, view.cy, Rpx);
+    gMant.addColorStop(0, '#2a2438');
+    gMant.addColorStop(0.72, '#1b1730');
+    gMant.addColorStop(1, '#14101f');
+    disc(R_EARTH, gMant);
+
+    var gOC = ctx.createRadialGradient(view.cx - 8, view.cy - 10, 4, view.cx, view.cy, R_CMB * view.scale);
+    gOC.addColorStop(0, 'rgba(255, 194, 74, 0.55)');
+    gOC.addColorStop(0.35, 'rgba(255, 126, 95, 0.55)');
+    gOC.addColorStop(1, 'rgba(160, 50, 36, 0.92)');
+    disc(R_CMB, gOC);
+
+    var gIC = ctx.createRadialGradient(view.cx - 4, view.cy - 5, 2, view.cx, view.cy, R_ICB * view.scale);
+    gIC.addColorStop(0, '#ffe39a');
+    gIC.addColorStop(1, '#e0a020');
+    disc(R_ICB, gIC);
+
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.55)';
+    ctx.lineWidth = 1.2;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.arc(view.cx, view.cy, R_CMB * view.scale, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(view.cx, view.cy, R_ICB * view.scale, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.strokeStyle = 'rgba(215, 222, 242, 0.28)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(view.cx, view.cy, Rpx, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Rays — faint full, then live
+    function spray(list, color, faintA, liveA, w0, dashed) {
+      var i;
+      for (i = 0; i < list.length; i++) {
+        drawRay(ctx, list[i].pts, T_FLIGHT_MAX, color, w0, dashed, faintA);
+      }
+      for (i = 0; i < list.length; i++) {
+        drawRay(ctx, list[i].pts, tNow, color, w0 + 0.4, dashed, liveA);
+      }
+    }
+    if (state.ghostSolid && rayCache.g.length) {
+      spray(rayCache.g, '#ff7e5f', 0.08, 0.28, 1.1, true);
+    }
+    if (state.showP) spray(rayCache.p, '#5ec8e5', 0.10, 0.55, 1.15, false);
+    if (state.showS) spray(rayCache.s, '#ff7e5f', 0.10, 0.62, 1.25, false);
+
+    // Layer labels
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(215,222,242,0.7)';
+    ctx.textAlign = 'center';
+    ctx.fillText('mantle  Vp 8 · Vs 4.5', view.cx, view.cy - (R_CMB + 420) * view.scale);
+    ctx.fillStyle = 'rgba(255,194,74,0.9)';
+    ctx.fillText('liquid outer core  Vp 8.5 · Vs 0', view.cx, view.cy - (R_ICB + 900) * view.scale);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('solid IC', view.cx, view.cy + 4);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(255,194,74,0.75)';
+    ctx.fillText('CMB  3480 km', tx(R_CMB * 0.12), ty(R_CMB) + 12);
+    ctx.fillText('ICB  1221 km', tx(R_ICB * 0.2), ty(-R_ICB) - 6);
+
+    // Stations
+    var i;
+    for (i = 0; i < N_STATIONS; i++) {
+      var sa = stationAngle(i);
+      var dlt = epicentralDeg(state.quakeDeg, sa);
+      var ph = phasesAt(dlt);
+      var reachedP = ph.P && travelP(dlt) <= tNow;
+      var reachedS = ph.S && travelDirect(dlt, VS_MANTLE) <= tNow;
+      var sx = Math.cos(rad(sa));
+      var sy = Math.sin(rad(sa));
+      var rr = R_EARTH + 280;
+      var px = tx(sx * rr);
+      var py = ty(sy * rr);
+      var selected = i === nearestStation(state.stationDeg).i;
+      var hover = i === state.hoverStation;
+      var rdot = selected || hover ? 6.5 : 4.4;
+      ctx.beginPath();
+      ctx.arc(px, py, rdot + 3, 0, Math.PI * 2);
+      ctx.fillStyle = selected ? 'rgba(255,194,74,0.18)' : 'transparent';
+      ctx.fill();
+      if (reachedP && reachedS) {
+        ctx.fillStyle = '#5ec8e5';
+        ctx.beginPath();
+        ctx.arc(px, py, rdot, Math.PI / 2, 3 * Math.PI / 2);
+        ctx.fill();
+        ctx.fillStyle = '#ff7e5f';
+        ctx.beginPath();
+        ctx.arc(px, py, rdot, -Math.PI / 2, Math.PI / 2);
+        ctx.fill();
+      } else if (reachedP) {
+        ctx.fillStyle = '#5ec8e5';
+        ctx.beginPath();
+        ctx.arc(px, py, rdot, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (reachedS) {
+        ctx.fillStyle = '#ff7e5f';
+        ctx.beginPath();
+        ctx.arc(px, py, rdot, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.strokeStyle = 'rgba(139,147,173,0.55)';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.arc(px, py, rdot - 0.6, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+      if (selected) {
+        ctx.font = FONT_MONO_10;
+        ctx.fillStyle = '#ffc24a';
+        ctx.textAlign = 'center';
+        ctx.fillText('Δ ' + dlt.toFixed(1) + '°', px, py - 12);
+      }
+    }
+
+    // Pin tick at the exact pinned angle
+    var pinA = rad(state.stationDeg);
+    var pinR = R_EARTH + 280;
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(tx(Math.cos(pinA) * (R_EARTH + 80)), ty(Math.sin(pinA) * (R_EARTH + 80)));
+    ctx.lineTo(tx(Math.cos(pinA) * (R_EARTH + 420)), ty(Math.sin(pinA) * (R_EARTH + 420)));
+    ctx.stroke();
+
+    // Quake
+    var eqx = tx(qx);
+    var eqy = ty(qy);
+    ctx.save();
+    ctx.translate(eqx, eqy);
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath();
+    var k;
+    for (k = 0; k < 8; k++) {
+      var a0 = k * Math.PI / 4;
+      var r1 = 10;
+      var r2 = 4;
+      ctx.lineTo(Math.cos(a0) * r1, Math.sin(a0) * r1);
+      ctx.lineTo(Math.cos(a0 + Math.PI / 8) * r2, Math.sin(a0 + Math.PI / 8) * r2);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#ffc24a';
+    ctx.textAlign = 'center';
+    ctx.fillText('EQ', eqx, eqy - 16);
+
+    // Legend
+    ctx.textAlign = 'left';
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('P  compressional', 22, 28);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('cyan  ·  lives in liquid', 22, 46);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.font = FONT_DISPLAY;
+    ctx.fillText('S  shear', 22, 72);
+    ctx.font = FONT_MONO_11;
+    ctx.fillText('warm  ·  Vs = 0 in the outer core', 22, 90);
+
+    ctx.fillStyle = 'rgba(139,147,173,0.95)';
+    ctx.font = FONT_MONO_10;
+    var yL = h - 58;
+    ctx.fillText('Stations  half-cyan / half-warm = P+S    cyan = P only (the proof)    ring = not yet / none', 22, yL);
+    ctx.fillText('This model S-shadow  Δ > ' + DELTA_GRAZE.toFixed(1) + '°     PREM (real Earth)  P 103–142° · S > 103°', 22, yL + 16);
+    ctx.fillText('R = 6371 km   CMB = 3480 km   ICB = 1221 km   warp ×' + TIME_WARP + '   t = ' + (tNow >= T_FLIGHT_MAX ? 'all rays' : (tNow).toFixed(0) + ' s'), 22, yL + 32);
+  }
+
+  function travelP(deltaDeg) {
+    var tDir = travelDirect(deltaDeg, VP_MANTLE);
+    if (!phasesAt(deltaDeg).coreP) return tDir;
+    var best = Infinity;
+    var i;
+    ensureRays();
+    for (i = 0; i < rayCache.p.length; i++) {
+      var r = rayCache.p[i];
+      if (r.arrived && r.viaCore && Math.abs(r.delta - deltaDeg) < 4) {
+        if (r.t < best) best = r.t;
+      }
+    }
+    return Math.min(tDir, best);
+  }
+
+  function drawStrip() {
+    var s = surfaces.strip;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var padL = 52, padR = 18, padT = 18, padB = 28;
+    var x0 = padL, x1 = w - padR;
+    function xAt(d) { return x0 + (x1 - x0) * (d / 180); }
+
+    ctx.strokeStyle = 'rgba(94,200,229,0.16)';
+    ctx.lineWidth = 1;
+    [0, 60, 90, DELTA_GRAZE, 180].forEach(function (d) {
+      var x = xAt(d);
+      ctx.beginPath();
+      ctx.moveTo(x, padT);
+      ctx.lineTo(x, h - padB + 4);
+      ctx.stroke();
+    });
+
+    function band(y, hgt, lo, hi, color, a) {
+      ctx.fillStyle = color;
+      ctx.globalAlpha = a;
+      ctx.fillRect(xAt(lo), y, xAt(hi) - xAt(lo), hgt);
+      ctx.globalAlpha = 1;
+    }
+    band(28, 22, 0, DELTA_GRAZE, '#5ec8e5', 0.22);
+    band(28, 22, DELTA_PKP_MIN, 180, '#5ec8e5', 0.38);
+    band(58, 22, 0, DELTA_GRAZE, '#ff7e5f', 0.32);
+
+    if (state.showPrem) {
+      ctx.save();
+      ctx.fillStyle = 'rgba(94,200,229,0.12)';
+      var xL = xAt(PREM_P_LO);
+      ctx.fillRect(xL, 28, xAt(PREM_P_HI) - xL, 22);
+      ctx.setLineDash([3, 3]);
+      ctx.strokeStyle = 'rgba(94,200,229,0.7)';
+      ctx.strokeRect(xL, 28, xAt(PREM_P_HI) - xL, 22);
+      ctx.restore();
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.textAlign = 'left';
+    ctx.fillText('P', 16, 43);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('S', 16, 73);
+
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'center';
+    ctx.fillText('0°', xAt(0), h - 10);
+    ctx.fillText('60°', xAt(60), h - 10);
+    ctx.fillText('90°', xAt(90), h - 10);
+    ctx.fillText('graze ' + DELTA_GRAZE.toFixed(1) + '°', xAt(DELTA_GRAZE), h - 10);
+    ctx.fillText('180°', xAt(180), h - 10);
+
+    var dSel = epicentralDeg(state.quakeDeg, state.stationDeg);
+    var xs = xAt(dSel);
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(xs, 12);
+    ctx.lineTo(xs, h - padB + 2);
+    ctx.stroke();
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('pin ' + dSel.toFixed(1) + '°', xs, 12);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(139,147,173,0.9)';
+    ctx.fillText('direct P + S', xAt(8), 44);
+    ctx.fillText('core P (PKP)', xAt(DELTA_PKP_MIN + 4), 44);
+    ctx.fillText('S-shadow of this model', xAt(DELTA_GRAZE + 4), 74);
+  }
+
+  function fmtSec(t) {
+    if (!isFinite(t)) return '—';
+    if (t < 60) return t.toFixed(0) + ' s';
+    var m = Math.floor(t / 60);
+    var s = Math.round(t - m * 60);
+    return m + ' m ' + (s < 10 ? '0' : '') + s + ' s';
+  }
+
+  function phaseWords(ph) {
+    if (ph.P && ph.S) return 'P + S';
+    if (ph.P && ph.coreP && !ph.directP) return 'P only · core path';
+    if (ph.P) return 'P';
+    return 'none';
+  }
+
+  function kv(k, v, cls, sub) {
+    return '<div class="kv"><div class="k">' + k + '</div><div class="v' +
+      (cls ? ' ' + cls : '') + '">' + v + '</div>' +
+      (sub ? '<div class="s">' + sub + '</div>' : '') + '</div>';
+  }
+
+  function updateReadout() {
+    var d = epicentralDeg(state.quakeDeg, state.stationDeg);
+    var ph = phasesAt(d);
+    var nPS = 0, nP = 0, nN = 0;
+    var i;
+    for (i = 0; i < N_STATIONS; i++) {
+      var p = phasesAt(epicentralDeg(state.quakeDeg, stationAngle(i)));
+      if (p.P && p.S) nPS++;
+      else if (p.P) nP++;
+      else nN++;
+    }
+    var inModelS = d > DELTA_GRAZE + 1e-6;
+    var inPremP = d >= PREM_P_LO && d <= PREM_P_HI;
+    var inPremS = d > PREM_S_SHADOW;
+    var tP = travelP(d);
+    var tS = ph.S ? travelDirect(d, VS_MANTLE) : Infinity;
+    var path = !ph.P ? 'no P in this model (should not happen)' :
+      (ph.directP && ph.coreP) ? 'direct mantle P and PKP both allowed' :
+      ph.coreP ? 'P via the outer core (PKP / PKIKP)' :
+      'direct mantle P (no core leg)';
+
+    var html = '';
+    html += kv('Epicentral Δ', d.toFixed(2) + '°', inModelS ? 'warm' : '', 'pin vs quake · 0–180° minor arc');
+    html += kv('Phases at pin', phaseWords(ph), ph.S ? '' : 'warm', path);
+    html += kv('Shadow chips',
+      (inModelS ? 'S-shadow' : 'out of S-shadow') + (inPremP ? ' · PREM P-gap' : ''),
+      inModelS ? 'warm' : '',
+      'PREM S-shadow ' + (inPremS ? 'yes' : 'no') + '  ·  model graze ' + DELTA_GRAZE.toFixed(2) + '°');
+    html += kv('Travel time', 'P ' + fmtSec(tP) + '   S ' + fmtSec(tS), '', 'path / layered speed  ·  warp ×' + TIME_WARP);
+    html += kv('Station tally', nPS + ' P+S   ·   ' + nP + ' P only   ·   ' + nN + ' silent', nP ? 'sun' : '', '36 rim stations · 10° spacing');
+    html += kv('Constants', 'R ' + R_EARTH + '   CMB ' + R_CMB + '   Vs,oc ' + VS_OC,
+      VS_OC === 0 ? 'sun' : 'warm',
+      'depth CMB ' + CMB_DEPTH + ' km   ICB ' + R_ICB + ' km   PKP from ' + DELTA_PKP_MIN.toFixed(1) + '°');
+    elReadout.innerHTML = html;
+  }
+
+  var readoutTick = 0;
+
+  function drawAll() {
+    drawEarth();
+    drawStrip();
+    readoutTick++;
+    if (readoutTick % 3 === 1) updateReadout();
+  }
+
+  function frame(ts) {
+    if (state.playing || state.spinning) {
+      if (state.lastTs) {
+        var dt = (ts - state.lastTs) / 1000;
+        if (dt > 0.1) dt = 0.1;
+        if (state.playing) {
+          state.simT += dt * TIME_WARP;
+          if (state.simT > T_FLIGHT_MAX) state.simT = 0;
+        }
+        if (state.spinning) {
+          setQuake(state.quakeDeg + dt * SPIN_DPS, false);
+        }
+      }
+      state.lastTs = ts;
+    } else {
+      state.lastTs = 0;
+    }
+    drawAll();
+    requestAnimationFrame(frame);
+  }
+
+  function canvasPos(surf, ev) {
+    var rect = surf.canvas.getBoundingClientRect();
+    return {
+      x: (ev.clientX - rect.left) * (surf.w / rect.width),
+      y: (ev.clientY - rect.top) * (surf.h / rect.height)
+    };
+  }
+
+  function angleAt(x, y) {
+    return wrap360(deg(Math.atan2(view.cy - y, x - view.cx)));
+  }
+
+  function nearestStation(ang) {
+    var best = 0, bd = 1e9, i;
+    for (i = 0; i < N_STATIONS; i++) {
+      var e = epicentralDeg(ang, stationAngle(i));
+      if (e < bd) { bd = e; best = i; }
+    }
+    return { i: best, err: bd };
+  }
+
+  function onPointer(ev, down) {
+    var p = canvasPos(surfaces.earth, ev);
+    var ang = angleAt(p.x, p.y);
+    var ns = nearestStation(ang);
+    var dx = p.x - view.cx, dy = p.y - view.cy;
+    var rr = hypot(dx, dy);
+    var Rpx = R_EARTH * view.scale;
+    if (down) {
+      if (ns.err < 8 && rr > Rpx + 8) {
+        state.pinMode = 'free';
+        state.stationDeg = stationAngle(ns.i);
+        setChip($('pinAnti'), false);
+        setChip($('pinShadow'), false);
+        setChip($('pinNear'), false);
+      } else {
+        state.dragging = true;
+        setQuake(ang, true);
+        try { cvEarth.setPointerCapture(ev.pointerId); } catch (e) {}
+      }
+      syncLabels();
+      updateReadout();
+    } else if (state.dragging) {
+      setQuake(ang, false);
+    } else {
+      state.hoverStation = (ns.err < 8 && rr > Rpx) ? ns.i : -1;
+    }
+  }
+
+  cvEarth.addEventListener('pointerdown', function (ev) {
+    ev.preventDefault();
+    onPointer(ev, true);
+  });
+  cvEarth.addEventListener('pointermove', function (ev) { onPointer(ev, false); });
+  cvEarth.addEventListener('pointerup', function () { state.dragging = false; });
+  cvEarth.addEventListener('pointercancel', function () { state.dragging = false; });
+  cvEarth.addEventListener('pointerleave', function () { state.hoverStation = -1; });
+
+  elPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+  elQuake.addEventListener('input', function () {
+    setQuake(Number(elQuake.value), true);
+    updateReadout();
+  });
+  $('chipTop').addEventListener('click', function () {
+    state.spinning = false;
+    setQuake(90, true);
+    updateReadout();
+  });
+  $('chipLeft').addEventListener('click', function () {
+    state.spinning = false;
+    setQuake(180, true);
+    updateReadout();
+  });
+  $('chipSpin').addEventListener('click', function () {
+    state.spinning = !state.spinning;
+    if (state.spinning && !state.playing) setPlaying(true);
+    syncLabels();
+  });
+  $('chipP').addEventListener('click', function () { state.showP = !state.showP; syncLabels(); });
+  $('chipS').addEventListener('click', function () { state.showS = !state.showS; syncLabels(); });
+  $('chipPrem').addEventListener('click', function () { state.showPrem = !state.showPrem; syncLabels(); });
+  $('chipGhost').addEventListener('click', function () {
+    state.ghostSolid = !state.ghostSolid;
+    rayCache.q = NaN;
+    syncLabels();
+  });
+  $('pinAnti').addEventListener('click', function () { state.pinMode = 'anti'; syncPinnedStation(); syncLabels(); updateReadout(); });
+  $('pinShadow').addEventListener('click', function () { state.pinMode = 'shadow'; syncPinnedStation(); syncLabels(); updateReadout(); });
+  $('pinNear').addEventListener('click', function () { state.pinMode = 'near'; syncPinnedStation(); syncLabels(); updateReadout(); });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    } else if (e.code === 'ArrowRight') {
+      setQuake(state.quakeDeg + 2, false);
+      updateReadout();
+    } else if (e.code === 'ArrowLeft') {
+      setQuake(state.quakeDeg - 2, false);
+      updateReadout();
+    }
+  });
+
+  function onResize() {
+    var prevW = surfaces.earth.w;
+    fitCanvas(surfaces.earth);
+    fitCanvas(surfaces.strip);
+    if (surfaces.earth.w !== prevW || !stars.length) rebuildStars(surfaces.earth.w, surfaces.earth.h);
+  }
+
+  window.addEventListener('resize', onResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(onResize);
+    ro.observe(cvEarth);
+    ro.observe(cvStrip);
+  }
+
+  onResize();
+  syncLabels();
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
