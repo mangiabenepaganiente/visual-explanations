@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Greenhouse Effect Isn’t a Glass Box — IR Re-emission, Not a Lid</title>
+<meta name="description" content="Free classroom explainer for teachers: Earth’s greenhouse effect is not a garden greenhouse. Visible sunlight in, thermal infrared absorbed and re-emitted both ways. The ozone hole is UV, not the main warming story. Live Ts, Teq, and flux math.">
+<meta name="keywords" content="greenhouse effect, classroom, teachers, albedo, infrared, ozone hole misconception, energy balance, NGSS">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 12% -8%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on { background: rgba(255, 126, 95, 0.16); border-color: rgba(255, 126, 95, 0.55); color: var(--warm); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.flux-card { grid-column: 1 / -1; }
+.flux-card canvas { height: 250px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .flux-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .flux-card canvas { height: 280px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="4">
+<div class="page">
+  <p class="kicker"><a href="index.html" style="color:inherit;text-decoration:none">Visual explanations · greenhouse</a></p>
+  <h1>The greenhouse effect isn’t a glass box</h1>
+  <p class="lede">A garden greenhouse mostly works as a <strong>convection lid</strong> — it stops warm air from leaving. Earth’s atmosphere is not a lid. It is largely <strong>transparent to visible sunlight</strong> and <strong>absorbs / re-emits thermal infrared</strong> in both directions. The ozone hole is a <strong>UV</strong> story, not the heat story.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <label class="sl grow">
+        <span>GHG effective ε <em id="epsLabel">0.78</em></span>
+        <input type="range" id="eps" min="0" max="1" step="0.01" value="0.78" aria-label="Effective infrared emissivity of a single atmospheric layer">
+      </label>
+      <label class="sl grow">
+        <span>Bond albedo A <em id="albLabel">0.30</em></span>
+        <input type="range" id="alb" min="0.05" max="0.80" step="0.01" value="0.30" aria-label="Planetary Bond albedo">
+      </label>
+    </div>
+    <div class="row">
+      <button type="button" class="chip" id="chipBare" aria-pressed="false">Bare rock ε=0</button>
+      <button type="button" class="chip on" id="chipEarth" aria-pressed="true">Earth-like 288 K</button>
+      <button type="button" class="chip" id="chipThick" aria-pressed="false">Thick layer ε=1</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="albDark" aria-pressed="false">Dark A=0.10</button>
+      <button type="button" class="chip sun on" id="albEarth" aria-pressed="true">Earth A=0.30</button>
+      <button type="button" class="chip" id="albIce" aria-pressed="false">Ice A=0.70</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="mythOzone" aria-pressed="false">Myth: ozone hole</button>
+      <button type="button" class="chip myth" id="mythGlass" aria-pressed="false">Myth: glass lid</button>
+    </div>
+    <div class="row">
+      <span class="hint" id="eqLine">σ Ts⁴ = S / (1 − ε/2)</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Garden greenhouse</b><span>visible in · convection lid</span></div>
+      <canvas id="cvGlass" width="600" height="360" aria-label="Garden greenhouse: sunlight enters, warm air is trapped by a glass lid"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Earth’s atmosphere</b><span id="atmMeta">visible in · IR absorbed and re-emitted both ways</span></div>
+      <canvas id="cvAtm" width="600" height="360" aria-label="Earth atmosphere: sunlight enters, thermal infrared is absorbed and re-emitted up and down"></canvas>
+    </div>
+    <div class="card flux-card">
+      <div class="card-h"><b>Photon packets · energy balance</b><span id="fluxMeta">one-layer gray IR · not a GCM</span></div>
+      <canvas id="cvFlux" width="1200" height="250" aria-label="Live energy-budget cartoon with incoming, reflected, absorbed, and infrared fluxes"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Visible in, infrared out</h2>
+      <p>Sunlight is mostly visible and near-IR. Air is largely transparent to that. The ground warms and radiates <em>thermal</em> infrared — a different band. The atmosphere is not a glass wall to sunlight.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Re-emission, both ways</h2>
+      <p>A gray IR layer of emissivity ε absorbs a fraction of the upwelling heat and radiates the same amount up <em>and</em> down. The downward stream is extra energy the surface must balance — so Ts rises above Teq.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>The lid is the garden case</h2>
+      <p>Wood (1909) warmed a box with rock-salt windows that pass thermal IR. It still warmed. A garden greenhouse is mostly a convection lid. Earth’s air is free to rise.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Ozone does not “let heat in”</h2>
+      <p>The ozone hole is missing stratospheric O₃ over Antarctica in spring. That is a <em>UV</em> health story. Ozone is a minor greenhouse gas; less of it is not the main warming mechanism. Toggle the chip — Ts does not move.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Reference energy-balance numbers">
+    <div class="stat">
+      <div class="k">Solar constant S0</div>
+      <div class="v">1361 W/m²</div>
+      <div class="s">Kopp &amp; Lean 2011 · IAU 2015</div>
+    </div>
+    <div class="stat">
+      <div class="k">Bond albedo A</div>
+      <div class="v">0.30</div>
+      <div class="s">textbook Earth · absorbed ≈ 238 W/m²</div>
+    </div>
+    <div class="stat">
+      <div class="k">Bare-rock Teq</div>
+      <div class="v">≈ 255 K</div>
+      <div class="s">−18 °C · no IR layer</div>
+    </div>
+    <div class="stat">
+      <div class="k">Observed mean Ts</div>
+      <div class="v">288 K</div>
+      <div class="s">+15 °C · toy ε ≈ 0.78 recovers it</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">One published toy: the single-layer gray atmosphere.</strong> Pierrehumbert, R. T. (2011). “Infrared radiation and planetary temperature.” <em>Physics Today</em> 64(1), 33–38. Same layer in Pierrehumbert, <em>Principles of Planetary Climate</em> (Cambridge, 2010), Ch. 4. The layer is transparent to solar, gray with emissivity/absorptivity ε in thermal IR, and radiates εσTa⁴ both up and down. Surface and layer are each in energy balance. Result: <code>σ Ts⁴ = S / (1 − ε/2)</code>, with <code>S = S0(1−A)/4</code>. At ε = 1, <code>Ts = 2^{1/4} Teq ≈ 303 K</code>. This page uses that equation and no other.</li>
+      <li><strong style="color:var(--text)">Constants.</strong> <code>S0 = 1361 W/m²</code> (Kopp &amp; Lean 2011; IAU 2015 solar constant). <code>σ = 5.670374419×10⁻⁸ W m⁻² K⁻⁴</code> (CODATA 2018). Default Bond albedo <code>A = 0.30</code> (classroom value; measured ~0.29). Absorbed <code>S = 1361/4 × 0.70 = 238.175 W/m²</code>. Bare-rock <code>Teq = (S/σ)^{1/4} ≈ 254.6 K</code>, cited as ≈ 255 K. Observed global-mean surface air ≈ 288 K.</li>
+      <li><strong style="color:var(--text)">Fluxes in the cartoon.</strong> Incoming at TOA <code>S0/4</code>. Reflected <code>A·S0/4</code>. Surface upwelling <code>σ Ts⁴</code>. Window to space <code>(1−ε)σ Ts⁴</code>. Layer up = layer down = <code>ε σ Ta⁴ = (ε/2) σ Ts⁴</code> because atmosphere balance forces <code>Ta⁴ = Ts⁴ / 2</code>. Outgoing longwave <code>OLR = (1−ε/2)σ Ts⁴ = S</code> at equilibrium. All solar is absorbed at the surface in this toy (the layer is solar-transparent).</li>
+      <li><strong style="color:var(--text)">This is not a GCM.</strong> One isothermal IR layer. No spectral windows, no water-vapor feedback, no lapse rate, no convection in the energy budget, no clouds as a separate field (albedo is a slider), no geography. Real Earth is a leaking, multi-layer, spectrally selective atmosphere with convection that keeps the tropopause near the radiating level. The 288 K chip only means “pick ε so this toy hits 288 K,” not that ε is a measured optical depth.</li>
+      <li><strong style="color:var(--text)">Garden greenhouse ≠ atmosphere.</strong> R. W. Wood, 1909, “Note on the Theory of the Greenhouse,” <em>Philosophical Magazine</em> 17, 319–320: a rock-salt lid (IR-transparent) still warmed. The dominant garden mechanism is suppressed convection, plus some IR opacity of glass. Fourier (1824), Tyndall (1861), and Arrhenius (1896) already treated the atmosphere as a selective absorber, not a closed box.</li>
+      <li><strong style="color:var(--text)">Ozone hole ≠ “heat in.”</strong> Antarctic spring ozone depletion is a UV-B story (Montreal Protocol). Ozone is a greenhouse gas, so removing it is a small radiative perturbation — not the mechanism of recent surface warming, and not a hole that “lets the Sun’s heat in.” The myth chip draws UV packets; it does not change Ts, Teq, or the IR fluxes.</li>
+      <li><strong style="color:var(--text)">Drawings are cartoons.</strong> Photon packets are countable dots, not a Monte Carlo radiative transfer. Packet rates track the live fluxes only schematically. The glass box is a side-view classroom prop. Molecule count scales with ε. Arrow widths on the budget panel scale with W/m².</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Published toy model (Pierrehumbert 2011 / 2010) =====
+  var S0 = 1361;
+  var SIGMA = 5.670374419e-8;
+  var TS_OBS = 288;
+
+  function absorbedSolar(A) {
+    return (S0 / 4) * (1 - A);
+  }
+
+  function teqK(A) {
+    return Math.pow(absorbedSolar(A) / SIGMA, 0.25);
+  }
+
+  function surfaceK(A, eps) {
+    return Math.pow(absorbedSolar(A) / (SIGMA * (1 - 0.5 * eps)), 0.25);
+  }
+
+  function layerK(Ts) {
+    return Ts * Math.pow(0.5, 0.25);
+  }
+
+  function epsForSurface(A, Ts) {
+    var teq4 = absorbedSolar(A) / SIGMA;
+    var ts4 = Ts * Ts * Ts * Ts;
+    var e = 2 * (1 - teq4 / ts4);
+    if (e < 0) return 0;
+    if (e > 1) return 1;
+    return e;
+  }
+
+  function climateState(A, eps) {
+    if (eps < 0) eps = 0;
+    if (eps > 1) eps = 1;
+    if (A < 0) A = 0;
+    if (A > 0.95) A = 0.95;
+    var S = absorbedSolar(A);
+    var Teq = teqK(A);
+    var Ts = surfaceK(A, eps);
+    var Ta = eps > 1e-12 ? layerK(Ts) : NaN;
+    var surfUp = SIGMA * Ts * Ts * Ts * Ts;
+    var atmEach = eps > 1e-12 ? eps * SIGMA * Ta * Ta * Ta * Ta : 0;
+    var win = (1 - eps) * surfUp;
+    return {
+      A: A,
+      eps: eps,
+      S0: S0,
+      S0q: S0 / 4,
+      S: S,
+      reflected: (S0 / 4) * A,
+      Teq: Teq,
+      Ts: Ts,
+      Ta: Ta,
+      surfUp: surfUp,
+      irDown: atmEach,
+      irUpAtm: atmEach,
+      window: win,
+      olr: win + atmEach,
+      dT: Ts - Teq
+    };
+  }
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  var COL_SUN = '#ffc24a';
+  var COL_WARM = '#ff7e5f';
+  var COL_COOL = '#5ec8e5';
+  var COL_TEXT = '#d7def2';
+  var COL_MUTED = '#8b93ad';
+
+  var EPS_EARTH = epsForSurface(0.3, TS_OBS);
+
+  var state = {
+    A: 0.3,
+    eps: EPS_EARTH,
+    playing: true,
+    mythOzone: false,
+    mythGlass: false,
+    lastTs: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elEps = $('eps');
+  var elAlb = $('alb');
+  var elEpsL = $('epsLabel');
+  var elAlbL = $('albLabel');
+  var elReadout = $('readout');
+  var elEq = $('eqLine');
+  var elAtmMeta = $('atmMeta');
+  var elFluxMeta = $('fluxMeta');
+
+  var surfaces = {
+    glass: { canvas: $('cvGlass'), ctx: null, w: 0, h: 0, cssH: 360 },
+    atm: { canvas: $('cvAtm'), ctx: null, w: 0, h: 0, cssH: 360 },
+    flux: { canvas: $('cvFlux'), ctx: null, w: 0, h: 0, cssH: 250 }
+  };
+
+  var glassPhotons = [];
+  var atmPhotons = [];
+  var puffs = [];
+  var molecules = [];
+  var acc = { visG: 0, irG: 0, visA: 0, irA: 0, uv: 0, puff: 0 };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function fmtK(T) {
+    return T.toFixed(1) + ' K';
+  }
+
+  function fmtC(T) {
+    return (T - 273.15).toFixed(1) + ' °C';
+  }
+
+  function fmtW(x) {
+    return x.toFixed(1) + ' W/m²';
+  }
+
+  function rebuildMolecules(w, h) {
+    molecules.length = 0;
+    var n = 28;
+    var i;
+    for (i = 0; i < n; i++) {
+      molecules.push({
+        x: 0.10 + 0.80 * (i / (n - 1)) + (i % 3) * 0.012,
+        y: 0.40 + (i % 2) * 0.07 + ((i * 17) % 5) * 0.008,
+        ph: i * 1.7
+      });
+    }
+  }
+
+  function geom(w, h) {
+    return {
+      ground: h * 0.78,
+      lid: h * 0.30,
+      boxX: w * 0.14,
+      boxW: w * 0.72,
+      layerTop: h * 0.36,
+      layerBot: h * 0.54,
+      sunX: w * 0.10,
+      sunY: h * 0.14,
+      ozoneY: h * 0.22,
+      holeL: w * 0.58,
+      holeR: w * 0.82
+    };
+  }
+
+  function spawn(list, p, cap) {
+    if (list.length >= cap) return;
+    list.push(p);
+  }
+
+  function stepGlass(dt, phys, w, h) {
+    var g = geom(w, h);
+    var i, p;
+    var visRate = 7;
+    var irRate = 5 + 10 * (phys.surfUp / 400);
+    acc.visG += visRate * dt;
+    acc.irG += irRate * dt;
+    acc.puff += 3.2 * dt;
+    while (acc.visG >= 1) {
+      acc.visG -= 1;
+      spawn(glassPhotons, {
+        kind: 'vis', x: g.sunX + 8, y: g.sunY + 6,
+        vx: 55 + Math.random() * 25, vy: 70 + Math.random() * 30,
+        age: 0, hit: 0
+      }, 70);
+    }
+    while (acc.irG >= 1) {
+      acc.irG -= 1;
+      spawn(glassPhotons, {
+        kind: 'ir',
+        x: g.boxX + 16 + Math.random() * (g.boxW - 32),
+        y: g.ground - 4,
+        vx: (Math.random() - 0.5) * 18,
+        vy: -(40 + Math.random() * 28),
+        age: 0, hit: 0
+      }, 70);
+    }
+    while (acc.puff >= 1) {
+      acc.puff -= 1;
+      spawn(puffs, {
+        x: g.boxX + 20 + Math.random() * (g.boxW - 40),
+        y: g.ground - 8,
+        vx: (Math.random() - 0.5) * 12,
+        vy: -(16 + Math.random() * 14),
+        r: 7 + Math.random() * 6,
+        age: 0
+      }, 24);
+    }
+
+    for (i = glassPhotons.length - 1; i >= 0; i--) {
+      p = glassPhotons[i];
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.age += dt;
+      if (p.kind === 'vis') {
+        if (p.y >= g.ground) {
+          if (Math.random() < phys.A) {
+            p.vy = -Math.abs(p.vy) * 0.55;
+            p.y = g.ground - 1;
+            p.hit += 1;
+            if (p.hit > 2) glassPhotons.splice(i, 1);
+          } else {
+            glassPhotons.splice(i, 1);
+          }
+          continue;
+        }
+      } else if (p.kind === 'ir') {
+        if (p.y <= g.lid + 2 && p.vy < 0 && p.x > g.boxX && p.x < g.boxX + g.boxW) {
+          if (Math.random() < 0.82) {
+            p.vy = Math.abs(p.vy) * 0.45;
+            p.y = g.lid + 3;
+            p.hit += 1;
+          } else {
+            glassPhotons.splice(i, 1);
+            continue;
+          }
+        }
+        if (p.y >= g.ground) {
+          glassPhotons.splice(i, 1);
+          continue;
+        }
+      }
+      if (p.x < -20 || p.x > w + 20 || p.y < -20 || p.y > h + 20 || p.age > 8) {
+        glassPhotons.splice(i, 1);
+      }
+    }
+
+    for (i = puffs.length - 1; i >= 0; i--) {
+      p = puffs[i];
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.age += dt;
+      if (p.y <= g.lid + p.r) {
+        p.y = g.lid + p.r;
+        p.vy = Math.abs(p.vy) * 0.35;
+        p.vx += (p.x < g.boxX + g.boxW * 0.5 ? -18 : 18) * dt;
+      }
+      if (p.x < g.boxX + 8) { p.x = g.boxX + 8; p.vx = Math.abs(p.vx); }
+      if (p.x > g.boxX + g.boxW - 8) { p.x = g.boxX + g.boxW - 8; p.vx = -Math.abs(p.vx); }
+      if (p.y > g.ground - 4) { p.y = g.ground - 4; p.vy = -Math.abs(p.vy) * 0.4; }
+      if (p.age > 5.5) puffs.splice(i, 1);
+    }
+  }
+
+  function stepAtm(dt, phys, w, h) {
+    var g = geom(w, h);
+    var i, p;
+    var visRate = 7;
+    var irRate = 5 + 10 * (phys.surfUp / 400);
+    var uvRate = state.mythOzone ? 5.5 : 0;
+    acc.visA += visRate * dt;
+    acc.irA += irRate * dt;
+    acc.uv += uvRate * dt;
+    while (acc.visA >= 1) {
+      acc.visA -= 1;
+      spawn(atmPhotons, {
+        kind: 'vis', x: g.sunX + 8, y: g.sunY + 6,
+        vx: 55 + Math.random() * 25, vy: 70 + Math.random() * 30,
+        age: 0, hit: 0, tagged: 0
+      }, 80);
+    }
+    while (acc.irA >= 1) {
+      acc.irA -= 1;
+      spawn(atmPhotons, {
+        kind: 'ir',
+        x: 18 + Math.random() * (w - 36),
+        y: g.ground - 4,
+        vx: (Math.random() - 0.5) * 16,
+        vy: -(46 + Math.random() * 30),
+        age: 0, hit: 0, tagged: 0
+      }, 80);
+    }
+    while (acc.uv >= 1) {
+      acc.uv -= 1;
+      spawn(atmPhotons, {
+        kind: 'uv', x: g.sunX + 4 + Math.random() * 30, y: g.sunY + 4,
+        vx: 40 + Math.random() * 50, vy: 55 + Math.random() * 35,
+        age: 0, hit: 0, tagged: 0
+      }, 80);
+    }
+
+    for (i = atmPhotons.length - 1; i >= 0; i--) {
+      p = atmPhotons[i];
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.age += dt;
+      if (p.kind === 'vis') {
+        if (p.y >= g.ground) {
+          if (Math.random() < phys.A) {
+            p.vy = -Math.abs(p.vy) * 0.55;
+            p.y = g.ground - 1;
+            p.hit += 1;
+            if (p.hit > 2) atmPhotons.splice(i, 1);
+          } else {
+            atmPhotons.splice(i, 1);
+          }
+          continue;
+        }
+      } else if (p.kind === 'ir' || p.kind === 'ird') {
+        if (!p.tagged && p.vy < 0 && p.y <= g.layerBot && p.y >= g.layerTop) {
+          p.tagged = 1;
+          if (Math.random() < phys.eps) {
+            p.kind = 'ir';
+            p.y = (g.layerTop + g.layerBot) * 0.5;
+            p.vy = -(38 + Math.random() * 20);
+            p.vx = (Math.random() - 0.5) * 22;
+            spawn(atmPhotons, {
+              kind: 'ird',
+              x: p.x,
+              y: p.y + 2,
+              vx: (Math.random() - 0.5) * 20,
+              vy: 36 + Math.random() * 22,
+              age: 0, hit: 0, tagged: 1
+            }, 80);
+          }
+        }
+        if (p.y >= g.ground) {
+          atmPhotons.splice(i, 1);
+          continue;
+        }
+      } else if (p.kind === 'uv') {
+        if (p.y >= g.ozoneY - 2 && p.y <= g.ozoneY + 10 && !p.tagged) {
+          p.tagged = 1;
+          var inHole = p.x >= g.holeL && p.x <= g.holeR;
+          if (!inHole && Math.random() < 0.88) {
+            atmPhotons.splice(i, 1);
+            continue;
+          }
+        }
+        if (p.y >= g.ground) {
+          atmPhotons.splice(i, 1);
+          continue;
+        }
+      }
+      if (p.x < -24 || p.x > w + 24 || p.y < -24 || p.y > h + 24 || p.age > 8) {
+        atmPhotons.splice(i, 1);
+      }
+    }
+  }
+
+  function drawSun(ctx, x, y, r) {
+    var grd = ctx.createRadialGradient(x, y, 2, x, y, r * 2.4);
+    grd.addColorStop(0, 'rgba(255, 194, 74, 0.95)');
+    grd.addColorStop(0.45, 'rgba(255, 194, 74, 0.35)');
+    grd.addColorStop(1, 'rgba(255, 194, 74, 0)');
+    ctx.fillStyle = grd;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 2.4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = COL_SUN;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawPhoton(ctx, p) {
+    var col = COL_SUN;
+    var r = 2.3;
+    if (p.kind === 'ir' || p.kind === 'ird') { col = COL_WARM; r = 2.5; }
+    else if (p.kind === 'uv') { col = '#c9a6ff'; r = 2.2; }
+    ctx.strokeStyle = col;
+    ctx.globalAlpha = 0.35;
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(p.x - p.vx * 0.07, p.y - p.vy * 0.07);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    ctx.globalAlpha = 0.95;
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  function drawPlants(ctx, g, t) {
+    var xs = [0.22, 0.34, 0.48, 0.61, 0.74];
+    var i, x, ph, h;
+    for (i = 0; i < xs.length; i++) {
+      x = g.boxX + g.boxW * (xs[i] - 0.14) / 0.72;
+      ph = t * 0.7 + i;
+      h = 28 + (i % 3) * 8;
+      ctx.strokeStyle = '#3d8f6a';
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(x, g.ground);
+      ctx.quadraticCurveTo(x + 5 * Math.sin(ph), g.ground - h * 0.55, x, g.ground - h);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(86, 176, 122, 0.75)';
+      ctx.beginPath();
+      ctx.ellipse(x + 7, g.ground - h * 0.62, 8, 4, 0.4, 0, Math.PI * 2);
+      ctx.ellipse(x - 6, g.ground - h * 0.42, 7, 3.4, -0.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawGlassScene(ctx, w, h, phys, t) {
+    var g = geom(w, h);
+    var sky = ctx.createLinearGradient(0, 0, 0, h);
+    sky.addColorStop(0, '#0a1030');
+    sky.addColorStop(1, '#141a38');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, w, h);
+
+    drawSun(ctx, g.sunX, g.sunY, 9);
+
+    ctx.fillStyle = '#2a1d16';
+    ctx.fillRect(0, g.ground, w, h - g.ground);
+    ctx.fillStyle = '#3a2a20';
+    ctx.fillRect(g.boxX, g.ground, g.boxW, 10);
+
+    drawPlants(ctx, g, t);
+
+    var i, p;
+    for (i = 0; i < puffs.length; i++) {
+      p = puffs[i];
+      ctx.fillStyle = 'rgba(255, 126, 95, 0.10)';
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y, p.r, p.r * 0.7, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    var glass = ctx.createLinearGradient(g.boxX, g.lid, g.boxX + g.boxW, g.ground);
+    glass.addColorStop(0, 'rgba(94, 200, 229, 0.10)');
+    glass.addColorStop(1, 'rgba(94, 200, 229, 0.03)');
+    ctx.fillStyle = glass;
+    ctx.fillRect(g.boxX, g.lid, g.boxW, g.ground - g.lid);
+    ctx.strokeStyle = state.mythGlass ? 'rgba(255, 126, 95, 0.85)' : 'rgba(94, 200, 229, 0.55)';
+    ctx.lineWidth = state.mythGlass ? 3 : 2;
+    ctx.strokeRect(g.boxX, g.lid, g.boxW, g.ground - g.lid);
+    ctx.fillStyle = state.mythGlass ? 'rgba(255, 126, 95, 0.18)' : 'rgba(94, 200, 229, 0.14)';
+    ctx.fillRect(g.boxX, g.lid - 4, g.boxW, 8);
+    ctx.strokeStyle = state.mythGlass ? COL_WARM : COL_COOL;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(g.boxX - 2, g.lid);
+    ctx.lineTo(g.boxX + g.boxW + 2, g.lid);
+    ctx.stroke();
+
+    for (i = 0; i < glassPhotons.length; i++) drawPhoton(ctx, glassPhotons[i]);
+
+    ctx.fillStyle = COL_MUTED;
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('visible in', g.sunX + 22, g.sunY - 6);
+    ctx.fillStyle = COL_WARM;
+    ctx.fillText('IR hits glass', g.boxX + 12, g.lid - 10);
+    ctx.fillStyle = state.mythGlass ? COL_WARM : COL_COOL;
+    ctx.font = FONT_DISPLAY;
+    ctx.fillText(state.mythGlass ? 'the lid is the mechanism' : 'warm air trapped', g.boxX + 12, g.lid + 22);
+
+    ctx.font = FONT_UI_11;
+    ctx.fillStyle = COL_MUTED;
+    ctx.fillText('Wood 1909: even an IR-clear lid still warms', 12, h - 12);
+  }
+
+  function drawAtmScene(ctx, w, h, phys, t) {
+    var g = geom(w, h);
+    var sky = ctx.createLinearGradient(0, 0, 0, h);
+    sky.addColorStop(0, '#070a18');
+    sky.addColorStop(1, '#10162e');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.fillStyle = 'rgba(215, 222, 242, 0.55)';
+    var s, n = 40;
+    for (s = 0; s < n; s++) {
+      ctx.beginPath();
+      ctx.arc((s * 97 + 13) % w, (s * 53 + 11) % (g.layerTop), s % 3 === 0 ? 1.1 : 0.55, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    drawSun(ctx, g.sunX, g.sunY, 9);
+
+    var layer = ctx.createLinearGradient(0, g.layerTop, 0, g.layerBot);
+    var a = 0.06 + 0.28 * phys.eps;
+    layer.addColorStop(0, 'rgba(255, 126, 95, 0)');
+    layer.addColorStop(0.5, 'rgba(255, 126, 95, ' + a.toFixed(3) + ')');
+    layer.addColorStop(1, 'rgba(255, 126, 95, 0)');
+    ctx.fillStyle = layer;
+    ctx.fillRect(0, g.layerTop, w, g.layerBot - g.layerTop);
+    ctx.strokeStyle = 'rgba(255, 126, 95, ' + (0.15 + 0.45 * phys.eps).toFixed(3) + ')';
+    ctx.setLineDash([5, 5]);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(8, g.layerTop);
+    ctx.lineTo(w - 8, g.layerTop);
+    ctx.moveTo(8, g.layerBot);
+    ctx.lineTo(w - 8, g.layerBot);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    var showN = Math.round(molecules.length * phys.eps);
+    var i, m, mx, my;
+    for (i = 0; i < showN; i++) {
+      m = molecules[i];
+      mx = m.x * w + Math.sin(t * 0.8 + m.ph) * 3;
+      my = m.y * h + Math.cos(t * 0.6 + m.ph) * 2;
+      ctx.fillStyle = 'rgba(255, 126, 95, 0.85)';
+      ctx.beginPath();
+      ctx.arc(mx, my, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 126, 95, 0.25)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(mx, my, 6, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    if (state.mythOzone) {
+      ctx.strokeStyle = 'rgba(94, 200, 229, 0.7)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(8, g.ozoneY);
+      ctx.lineTo(g.holeL, g.ozoneY);
+      ctx.moveTo(g.holeR, g.ozoneY);
+      ctx.lineTo(w - 8, g.ozoneY);
+      ctx.stroke();
+      ctx.setLineDash([3, 5]);
+      ctx.strokeStyle = 'rgba(255, 126, 95, 0.7)';
+      ctx.beginPath();
+      ctx.moveTo(g.holeL, g.ozoneY);
+      ctx.lineTo(g.holeR, g.ozoneY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = COL_COOL;
+      ctx.font = FONT_MONO_10;
+      ctx.fillText('ozone (UV)', 12, g.ozoneY - 8);
+      ctx.fillStyle = COL_WARM;
+      ctx.fillText('hole — UV only', g.holeL + 4, g.ozoneY - 8);
+    }
+
+    ctx.setLineDash([4, 6]);
+    ctx.strokeStyle = 'rgba(139, 147, 173, 0.35)';
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(g.boxX, g.lid);
+    ctx.lineTo(g.boxX + g.boxW, g.lid);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = COL_MUTED;
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('no lid — air rises freely', g.boxX + 8, g.lid - 8);
+
+    ctx.fillStyle = '#1b3a2a';
+    ctx.beginPath();
+    ctx.moveTo(0, g.ground + 8);
+    ctx.quadraticCurveTo(w * 0.5, g.ground - 10, w, g.ground + 8);
+    ctx.lineTo(w, h);
+    ctx.lineTo(0, h);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#2d5a3c';
+    ctx.beginPath();
+    ctx.moveTo(0, g.ground + 18);
+    ctx.quadraticCurveTo(w * 0.5, g.ground - 2, w, g.ground + 18);
+    ctx.lineTo(w, h);
+    ctx.lineTo(0, h);
+    ctx.closePath();
+    ctx.fill();
+
+    var j;
+    for (j = 0; j < 5; j++) {
+      var px = w * (0.18 + j * 0.16);
+      ctx.strokeStyle = 'rgba(215, 222, 242, 0.18)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(px, g.ground - 4);
+      ctx.bezierCurveTo(px + 8, g.ground - 40, px - 6, g.layerTop - 20, px + 4, 16);
+      ctx.stroke();
+    }
+
+    for (i = 0; i < atmPhotons.length; i++) drawPhoton(ctx, atmPhotons[i]);
+
+    ctx.fillStyle = COL_SUN;
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('visible in (transparent)', g.sunX + 22, g.sunY - 6);
+    ctx.fillStyle = COL_WARM;
+    ctx.fillText('IR absorbed · re-emitted ↑↓', 12, g.layerTop + 16);
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = COL_TEXT;
+    ctx.fillText('ε = ' + phys.eps.toFixed(2), w - 92, g.layerTop + 18);
+
+    if (state.mythOzone) {
+      ctx.fillStyle = 'rgba(8, 11, 28, 0.72)';
+      ctx.fillRect(10, h - 36, w - 20, 24);
+      ctx.fillStyle = COL_WARM;
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('Ozone hole changes UV, not the IR greenhouse.  Ts unchanged.', 18, h - 20);
+    }
+  }
+
+  function arrow(ctx, x1, y1, x2, y2, color, width) {
+    var dx = x2 - x1, dy = y2 - y1;
+    var len = Math.hypot(dx, dy) || 1;
+    var ux = dx / len, uy = dy / len;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = width;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    var ah = 7 + width * 0.4;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.45, y2 - uy * ah - ux * ah * 0.45);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.45, y2 - uy * ah + ux * ah * 0.45);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function fluxWidth(W) {
+    return Math.max(1.4, Math.min(9, W / 42));
+  }
+
+  function drawFlux(ctx, w, h, phys) {
+    ctx.fillStyle = '#0a0e22';
+    ctx.fillRect(0, 0, w, h);
+
+    var pad = 16;
+    var left = pad;
+    var mid = w * 0.58;
+    var right = w - pad;
+    var top = 28;
+    var bot = h - 18;
+    var ySpace = top + 8;
+    var yLayer = top + (bot - top) * 0.38;
+    var ySurf = bot - 28;
+
+    ctx.fillStyle = 'rgba(94, 200, 229, 0.06)';
+    ctx.fillRect(left, ySpace - 10, mid - left - 12, 36);
+    ctx.fillStyle = 'rgba(255, 126, 95, ' + (0.05 + 0.10 * phys.eps).toFixed(3) + ')';
+    ctx.fillRect(left, yLayer - 22, mid - left - 12, 52);
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.07)';
+    ctx.fillRect(left, ySurf - 16, mid - left - 12, 40);
+
+    ctx.fillStyle = COL_MUTED;
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('SPACE / TOA', left + 8, ySpace + 4);
+    ctx.fillText('IR LAYER  ε = ' + phys.eps.toFixed(2), left + 8, yLayer - 10);
+    ctx.fillText('SURFACE', left + 8, ySurf + 18);
+
+    var xIn = left + 70;
+    var xRef = left + 200;
+    var xWin = left + 150;
+    var xAtm = left + 280;
+    var xDown = left + 70;
+    var xUp = left + 200;
+
+    arrow(ctx, xIn, ySpace + 18, xIn, ySurf - 8, COL_SUN, fluxWidth(phys.S));
+    arrow(ctx, xRef, ySpace + 22, xRef, ySpace - 2, COL_COOL, fluxWidth(phys.reflected));
+    arrow(ctx, xUp, ySurf - 8, xUp, yLayer + 18, COL_WARM, fluxWidth(phys.surfUp));
+    if (phys.window > 2) arrow(ctx, xWin, yLayer - 8, xWin, ySpace + 16, COL_WARM, fluxWidth(phys.window));
+    if (phys.irUpAtm > 2) arrow(ctx, xAtm, yLayer - 8, xAtm, ySpace + 16, COL_WARM, fluxWidth(phys.irUpAtm));
+    if (phys.irDown > 2) arrow(ctx, xDown + 90, yLayer + 18, xDown + 90, ySurf - 8, COL_WARM, fluxWidth(phys.irDown));
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = COL_SUN;
+    ctx.fillText('S  ' + fmtW(phys.S), xIn + 8, (ySpace + ySurf) * 0.55);
+    ctx.fillStyle = COL_COOL;
+    ctx.fillText('reflected  ' + fmtW(phys.reflected), xRef + 8, ySpace + 32);
+    ctx.fillStyle = COL_WARM;
+    ctx.fillText('σTs⁴  ' + fmtW(phys.surfUp), xUp + 8, ySurf - 22);
+    if (phys.window > 2) ctx.fillText('window  ' + fmtW(phys.window), xWin - 70, yLayer - 26);
+    if (phys.irUpAtm > 2) ctx.fillText('layer↑  ' + fmtW(phys.irUpAtm), xAtm + 8, yLayer - 26);
+    if (phys.irDown > 2) ctx.fillText('layer↓  ' + fmtW(phys.irDown), xDown + 100, yLayer + 32);
+
+    ctx.fillStyle = COL_TEXT;
+    ctx.font = FONT_MONO_11;
+    ctx.fillText('OLR = ' + fmtW(phys.olr) + '   (= S at equilibrium)', left + 8, ySpace + 20);
+
+    var rx = mid + 8;
+    var rw = right - rx;
+    ctx.fillStyle = COL_MUTED;
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('LIVE TEMPERATURES', rx, top);
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = COL_COOL;
+    ctx.fillText('Teq  ' + fmtK(phys.Teq) + '   ' + fmtC(phys.Teq), rx, top + 24);
+    ctx.fillStyle = COL_WARM;
+    ctx.fillText('Ts   ' + fmtK(phys.Ts) + '   ' + fmtC(phys.Ts), rx, top + 46);
+    if (isFinite(phys.Ta)) {
+      ctx.fillStyle = COL_TEXT;
+      ctx.fillText('Ta   ' + fmtK(phys.Ta) + '   ' + fmtC(phys.Ta), rx, top + 68);
+    } else {
+      ctx.fillStyle = COL_MUTED;
+      ctx.fillText('Ta   —   (no layer)', rx, top + 68);
+    }
+    ctx.fillStyle = COL_SUN;
+    ctx.fillText('ΔT   ' + phys.dT.toFixed(1) + ' K  greenhouse', rx, top + 90);
+
+    var barX = rx;
+    var barY = top + 112;
+    var barW = rw - 8;
+    var barH = 16;
+    ctx.fillStyle = '#10162e';
+    ctx.fillRect(barX, barY, barW, barH);
+    var tMin = 200, tMax = 320;
+    function tx(T) { return barX + barW * (T - tMin) / (tMax - tMin); }
+    ctx.fillStyle = 'rgba(94, 200, 229, 0.35)';
+    ctx.fillRect(barX, barY, Math.max(0, tx(phys.Teq) - barX), barH);
+    ctx.fillStyle = 'rgba(255, 126, 95, 0.55)';
+    ctx.fillRect(tx(phys.Teq), barY, Math.max(0, tx(phys.Ts) - tx(phys.Teq)), barH);
+    ctx.strokeStyle = COL_SUN;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(tx(TS_OBS), barY - 3);
+    ctx.lineTo(tx(TS_OBS), barY + barH + 3);
+    ctx.stroke();
+    ctx.fillStyle = COL_MUTED;
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('200 K', barX, barY + 28);
+    ctx.fillText('Earth 288 K', tx(TS_OBS) - 28, barY + 28);
+    ctx.fillText('320 K', barX + barW - 36, barY + 28);
+
+    ctx.font = FONT_UI_12;
+    ctx.fillStyle = COL_MUTED;
+    ctx.fillText('σ Ts⁴ = S / (1 − ε/2)   ·   Pierrehumbert 2011 single-layer gray atmosphere', rx, h - 16);
+
+    ctx.fillStyle = COL_SUN;
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('● visible', rx, barY + 48);
+    ctx.fillStyle = COL_WARM;
+    ctx.fillText('● thermal IR', rx + 70, barY + 48);
+    ctx.fillStyle = '#c9a6ff';
+    ctx.fillText('● UV (myth chip)', rx + 160, barY + 48);
+  }
+
+  var lastReadout = '';
+  function renderReadout(phys) {
+    var ta = isFinite(phys.Ta) ? fmtK(phys.Ta) : '—';
+    var taC = isFinite(phys.Ta) ? fmtC(phys.Ta) : 'no layer';
+    var html =
+      '<div class="kv"><div class="k">Bare-rock Teq</div><div class="v">' + fmtK(phys.Teq) + '</div><div class="s">' + fmtC(phys.Teq) + ' · ε = 0 world</div></div>' +
+      '<div class="kv"><div class="k">Surface Ts</div><div class="v warm">' + fmtK(phys.Ts) + '</div><div class="s">' + fmtC(phys.Ts) + ' · σTs⁴ = ' + fmtW(phys.surfUp) + '</div></div>' +
+      '<div class="kv"><div class="k">Greenhouse ΔT</div><div class="v sun">' + phys.dT.toFixed(1) + ' K</div><div class="s">Ts − Teq · layer Ta ' + ta + '</div></div>' +
+      '<div class="kv"><div class="k">Absorbed S</div><div class="v sun">' + fmtW(phys.S) + '</div><div class="s">S0/4 × (1−A) · S0/4 = ' + fmtW(phys.S0q) + '</div></div>' +
+      '<div class="kv"><div class="k">Downwelling IR</div><div class="v warm">' + fmtW(phys.irDown) + '</div><div class="s">ε σ Ta⁴ · extra energy at surface</div></div>' +
+      '<div class="kv"><div class="k">OLR</div><div class="v">' + fmtW(phys.olr) + '</div><div class="s">window + layer↑ · equals S</div></div>';
+    if (html !== lastReadout) {
+      lastReadout = html;
+      elReadout.innerHTML = html;
+    }
+    elEq.textContent = 'σ Ts⁴ = S / (1 − ε/2)  ·  S = ' + phys.S.toFixed(2) + ' W/m²  ·  Ta ' + taC;
+    elAtmMeta.textContent = state.mythOzone
+      ? 'UV packets on · Ts still ' + fmtK(phys.Ts)
+      : 'visible in · IR absorbed and re-emitted both ways';
+    elFluxMeta.textContent = 'one-layer gray IR · OLR ' + fmtW(phys.olr) + ' · not a GCM';
+  }
+
+  function syncPresetChips() {
+    var e = state.eps;
+    var earth = Math.abs(e - epsForSurface(state.A, TS_OBS)) < 0.015 && Math.abs(state.A - 0.3) < 0.011;
+    setChip($('chipBare'), e < 0.02);
+    setChip($('chipEarth'), earth);
+    setChip($('chipThick'), e > 0.98);
+    setChip($('albDark'), Math.abs(state.A - 0.10) < 0.011);
+    setChip($('albEarth'), Math.abs(state.A - 0.30) < 0.011);
+    setChip($('albIce'), Math.abs(state.A - 0.70) < 0.011);
+    $('albEarth').classList.toggle('sun', Math.abs(state.A - 0.30) < 0.011);
+    setChip($('mythOzone'), state.mythOzone);
+    setChip($('mythGlass'), state.mythGlass);
+  }
+
+  function syncLabels() {
+    elEps.value = String(Math.round(state.eps * 100) / 100);
+    elAlb.value = String(Math.round(state.A * 100) / 100);
+    elEpsL.textContent = state.eps.toFixed(2);
+    elAlbL.textContent = state.A.toFixed(2);
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    syncPresetChips();
+  }
+
+  function currentPhys() {
+    return climateState(state.A, state.eps);
+  }
+
+  function drawAll(t) {
+    var phys = currentPhys();
+    renderReadout(phys);
+    var g = surfaces.glass, a = surfaces.atm, f = surfaces.flux;
+    if (g.ctx) drawGlassScene(g.ctx, g.w, g.h, phys, t);
+    if (a.ctx) drawAtmScene(a.ctx, a.w, a.h, phys, t);
+    if (f.ctx) drawFlux(f.ctx, f.w, f.h, phys);
+  }
+
+  function frame(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = (ts - state.lastTs) / 1000;
+    state.lastTs = ts;
+    if (dt > 0.05) dt = 0.05;
+    fitCanvas(surfaces.glass);
+    fitCanvas(surfaces.atm);
+    fitCanvas(surfaces.flux);
+    if (molecules.length === 0 && surfaces.atm.w) {
+      rebuildMolecules(surfaces.atm.w, surfaces.atm.h);
+    }
+    var phys = currentPhys();
+    if (state.playing) {
+      stepGlass(dt, phys, surfaces.glass.w, surfaces.glass.h);
+      stepAtm(dt, phys, surfaces.atm.w, surfaces.atm.h);
+    }
+    drawAll(ts / 1000);
+    requestAnimationFrame(frame);
+  }
+
+  function onEps() {
+    state.eps = parseFloat(elEps.value);
+    syncLabels();
+  }
+  function onAlb() {
+    state.A = parseFloat(elAlb.value);
+    syncLabels();
+  }
+
+  elEps.addEventListener('input', onEps);
+  elAlb.addEventListener('input', onAlb);
+  elPlay.addEventListener('click', function () {
+    state.playing = !state.playing;
+    syncLabels();
+  });
+  $('chipBare').addEventListener('click', function () {
+    state.eps = 0;
+    syncLabels();
+  });
+  $('chipEarth').addEventListener('click', function () {
+    state.A = 0.3;
+    state.eps = epsForSurface(0.3, TS_OBS);
+    syncLabels();
+  });
+  $('chipThick').addEventListener('click', function () {
+    state.eps = 1;
+    syncLabels();
+  });
+  $('albDark').addEventListener('click', function () {
+    state.A = 0.10;
+    syncLabels();
+  });
+  $('albEarth').addEventListener('click', function () {
+    state.A = 0.30;
+    syncLabels();
+  });
+  $('albIce').addEventListener('click', function () {
+    state.A = 0.70;
+    syncLabels();
+  });
+  $('mythOzone').addEventListener('click', function () {
+    state.mythOzone = !state.mythOzone;
+    syncLabels();
+  });
+  $('mythGlass').addEventListener('click', function () {
+    state.mythGlass = !state.mythGlass;
+    syncLabels();
+  });
+  window.addEventListener('keydown', function (ev) {
+    if (ev.code === 'Space' && ev.target === document.body) {
+      ev.preventDefault();
+      state.playing = !state.playing;
+      syncLabels();
+    }
+  });
+  window.addEventListener('resize', function () {
+    molecules.length = 0;
+  });
+
+  elEps.value = state.eps.toFixed(2);
+  syncLabels();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
