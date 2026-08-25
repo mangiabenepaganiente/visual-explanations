@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why the Siren Drops as It Passes — Doppler Effect, Not Faster Sound</title>
+<meta name="description" content="The siren is not going faster toward you. A moving source packs sound waves tighter ahead and stretches them behind. Interactive classroom fly-by; live Hz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+.note {
+  font-family: var(--mono); font-size: 11px; color: var(--warm); line-height: 1.45;
+  display: none;
+}
+.note.show { display: block; }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.chart-card canvas { height: 210px; }
+.chart-card { grid-column: 1 / -1; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes { grid-template-columns: 1fr 1fr; }
+  .readout { grid-template-columns: 1fr 1fr 1fr; }
+  .chart-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html" style="color:inherit;text-decoration:none">Visual explanations · doppler</a></p>
+  <h1>Why the siren drops as it passes</h1>
+  <p class="lede">The sound is not going faster. The waves are packed tighter in front and stretched behind, and you hear <strong>frequency</strong> — how often crests hit your ear. As the source slides past, pitch falls continuously through the rest note.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Play</button>
+      <label class="sl grow">
+        <span>Source position <em id="posLabel">x = −240 m</em></span>
+        <input type="range" id="scrub" min="-240" max="240" step="0.25" value="-240" aria-label="Source position scrubber">
+      </label>
+      <button type="button" class="chip" id="btnRestart">Restart pass</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="btnMute" aria-pressed="true">Sound off</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Source speed <em id="vsLabel">25.0 m/s · 56 mph</em></span>
+        <input type="range" id="vs" min="0" max="300" step="0.5" value="25" aria-label="Source speed">
+      </label>
+      <label class="sl grow">
+        <span>Source frequency f₀ <em id="f0Label">700 Hz</em></span>
+        <input type="range" id="f0" min="300" max="1200" step="5" value="700" aria-label="Source frequency">
+      </label>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Air temperature <em id="tempLabel">20.0 °C · v = 343.42 m/s</em></span>
+        <input type="range" id="temp" min="-10" max="40" step="0.5" value="20" aria-label="Air temperature">
+      </label>
+      <label class="sl grow">
+        <span>Miss distance <em id="missLabel">15.0 m</em></span>
+        <input type="range" id="miss" min="0" max="80" step="0.5" value="15" aria-label="Miss distance">
+      </label>
+    </div>
+    <p class="note" id="headOnNote">Miss = 0 m is a head-on pass: you sit on the road. Frequency jumps from the approach value to the recede value at the origin — there is no “closest approach” plateau, and the model does not include a collision.</p>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Road view</b><span>top-down · crests expand at v · source enlarged</span></div>
+      <canvas id="cvRoad" width="760" height="360" aria-label="Top-down road with expanding sound wavefronts and a passing source"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Wavelength</b><span id="lamMeta">ahead · rest · behind</span></div>
+      <canvas id="cvLam" width="480" height="360" aria-label="Wavelength ahead, at rest, and behind the moving source"></canvas>
+    </div>
+    <div class="card chart-card">
+      <div class="card-h"><b>Heard frequency</b><span id="chartMeta">f_obs along the fly-by · rest frequency marked</span></div>
+      <canvas id="cvChart" width="1200" height="210" aria-label="Heard frequency versus source position"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Wave speed is the air’s</h2>
+      <p>Sound in still air moves at <em>v(T)</em>, the air’s speed — not the siren’s. Crests leave the speaker and then forget it. Every ring on the map expands at the same <em>v</em>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>A moving source changes λ</h2>
+      <p>The source lays down the next crest farther along the road. Ahead, crests are closer together: <em>λ_front = (v − v_s) / f₀</em>. Behind, they stretch: <em>λ_back = (v + v_s) / f₀</em>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>You hear how often crests arrive</h2>
+      <p>Frequency is <em>f = v / λ</em> along the line of sight. As the radial speed <em>v_r = v_s cos θ</em> swings from toward you to away, <em>f_obs</em> falls through <em>f₀</em> at closest approach.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>The sound is not going faster</h2>
+      <p>An approaching siren is not a faster wave. Two-pitch “high then low” is a cartoon. The drop is continuous, and a stationary listener hears exactly <em>f₀</em> when the source is abeam.</p>
+    </article>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, formulas, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Stationary observer, still air.</strong> Heard frequency <code>f_obs = f₀ · v / (v − v_s · r̂)</code>, where <code>r̂</code> is the unit vector from source to observer and <code>v_s · r̂</code> is the component of source velocity <em>toward</em> the listener (positive when approaching). Equivalently the denominator is <code>v − v_r</code> with <code>v_r = v_s cos θ</code> and <code>θ</code> the angle between velocity and the line source→observer. No wind.</li>
+      <li><strong style="color:var(--text)">Sound speed.</strong> Linear classroom fit <code>v = 331.3 + 0.606 · T_C</code> m/s (dry air, near 1 atm). Default <code>T = 20 °C</code> gives <code>v = 343.42 m/s</code>. Real speed also depends on humidity and composition; we do not model that.</li>
+      <li><strong style="color:var(--text)">Wavelengths along the track.</strong> <code>λ₀ = v / f₀</code>, <code>λ_front = (v − v_s) / f₀</code>, <code>λ_back = (v + v_s) / f₀</code>. Identity used in the self-check: <code>λ_front · f₀ + v_s = v</code>.</li>
+      <li><strong style="color:var(--text)">No shock / sonic boom.</strong> The speed slider is capped at <code>0.9 v</code> (Mach 0.9). This page does not model a Mach cone, N-wave, or nonlinear steepening.</li>
+      <li><strong style="color:var(--text)">Loudness is not Doppler.</strong> Pitch is frequency. If a relative-amplitude number appears in the readout, it is inverse-square <code>∝ 1/r²</code> from the source, labeled as such — a separate geometric effect. A real siren also has a radiation pattern we ignore.</li>
+      <li><strong style="color:var(--text)">Light is a different formula.</strong> Electromagnetic Doppler is relativistic, <code>√((1−β)/(1+β))</code> for a receding source, because light has no rest medium. Do not mix that into this sim.</li>
+      <li><strong style="color:var(--text)">Drawn wavefronts are a finite recent set.</strong> True 700 Hz crests are half a metre apart — invisible at this map scale. Rings are every <em>N</em>th crest (<em>N</em> chosen so rest spacing is about 14 m). Each ring is a true circle centered on the source’s position at that emit time, expanding at <em>v</em>. Bunching is therefore real, not a scaled ellipse. <code>f_obs</code> uses the analytic formula, not crest counting.</li>
+      <li><strong style="color:var(--text)">Vehicle is enlarged.</strong> A 5 m ambulance is a few pixels on a 500 m road. The icon is drawn larger so you can track it. Distances, <em>v</em>, and wavelengths use the true metre scale (scale bar on the map).</li>
+      <li><strong style="color:var(--text)">Audio</strong> (optional). The oscillator plays <code>f_obs</code>, not a recorded siren. Browsers block autoplay; the page starts muted. If Web Audio is unavailable, the Hz readout still runs.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Named formulas (same as validate-doppler.js) =====
+  function soundSpeed(T_C) {
+    return 331.3 + 0.606 * T_C;
+  }
+  function lambdaRest(v, f0) {
+    return v / f0;
+  }
+  function lambdaFront(v, vs, f0) {
+    return (v - vs) / f0;
+  }
+  function lambdaBack(v, vs, f0) {
+    return (v + vs) / f0;
+  }
+  function radialComponent(sx, sy, vx, vy, ox, oy) {
+    var dx = ox - sx;
+    var dy = oy - sy;
+    var r = Math.hypot(dx, dy);
+    if (r < 1e-12) return 0;
+    return (vx * dx + vy * dy) / r;
+  }
+  function observedFrequency(f0, v, vr) {
+    var den = v - vr;
+    if (den <= 1e-12) return Infinity;
+    return f0 * v / den;
+  }
+  function centsDelta(f, f0) {
+    if (f <= 0 || f0 <= 0 || !isFinite(f)) return NaN;
+    return 1200 * Math.log(f / f0) / Math.LN2;
+  }
+
+  var X_ROAD = 240;
+  var WALL_PASS = 18;
+  var MAX_CRESTS = 64;
+  var LAMBDA_VIS = 14;
+  var MPH = 2.236936292;
+  var MAX_MACH = 0.9;
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13 = '13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var state = {
+    x: -X_ROAD,
+    t: 0,
+    vs: 25,
+    f0: 700,
+    T: 20,
+    miss: 15,
+    playing: false,
+    lastTs: 0,
+    waveT: 0
+  };
+
+  var crests = [];
+  var lastHeardTe = -1e9;
+  var hearFlash = 0;
+  var stars = [];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elScrub = $('scrub');
+  var elPos = $('posLabel');
+  var elVs = $('vs');
+  var elVsL = $('vsLabel');
+  var elF0 = $('f0');
+  var elF0L = $('f0Label');
+  var elTemp = $('temp');
+  var elTempL = $('tempLabel');
+  var elMiss = $('miss');
+  var elMissL = $('missLabel');
+  var elMute = $('btnMute');
+  var elHead = $('headOnNote');
+  var elReadout = $('readout');
+  var elLamMeta = $('lamMeta');
+  var elChartMeta = $('chartMeta');
+  var cvRoad = $('cvRoad');
+  var cvLam = $('cvLam');
+  var cvChart = $('cvChart');
+
+  var surfaces = {
+    road: { canvas: cvRoad, ctx: null, w: 0, h: 0, cssH: 360 },
+    lam: { canvas: cvLam, ctx: null, w: 0, h: 0, cssH: 360 },
+    chart: { canvas: cvChart, ctx: null, w: 0, h: 0, cssH: 210 }
+  };
+
+  var audio = { ctx: null, osc: null, gain: null, muted: true, failed: false };
+
+  var chart = { dirty: true, n: 0, x: null, f: null, fMin: 0, fMax: 0 };
+
+  function currentV() { return soundSpeed(state.T); }
+  function maxVs() { return MAX_MACH * currentV(); }
+
+  function sourceAt(te) {
+    if (state.vs < 1e-9) return { x: state.x, y: 0 };
+    return { x: -X_ROAD + state.vs * te, y: 0 };
+  }
+
+  function observerPos() {
+    return { x: 0, y: state.miss };
+  }
+
+  function nowPhysics() {
+    var v = currentV();
+    var vs = state.vs;
+    var f0 = state.f0;
+    var src = { x: state.x, y: 0 };
+    var obs = observerPos();
+    var dx = obs.x - src.x;
+    var dy = obs.y - src.y;
+    var r = Math.hypot(dx, dy);
+    var vr;
+    if (r < 0.25 && state.miss < 0.25) {
+      vr = src.x < 0 ? vs : -vs;
+    } else {
+      vr = radialComponent(src.x, src.y, vs, 0, obs.x, obs.y);
+    }
+    var f = observedFrequency(f0, v, vr);
+    var cosTh = r < 1e-12 ? 0 : dx / r;
+    if (cosTh > 1) cosTh = 1;
+    if (cosTh < -1) cosTh = -1;
+    var theta = Math.acos(cosTh);
+    var tCA = vs < 1e-9 ? NaN : -state.x / vs;
+    return {
+      v: v,
+      vs: vs,
+      f0: f0,
+      src: src,
+      obs: obs,
+      r: r,
+      vr: vr,
+      f: f,
+      theta: theta,
+      tCA: tCA,
+      lam0: lambdaRest(v, f0),
+      lamF: lambdaFront(v, vs, f0),
+      lamB: lambdaBack(v, vs, f0),
+      mach: vs / v,
+      cents: centsDelta(f, f0)
+    };
+  }
+
+  function visualPeriod(v) {
+    return LAMBDA_VIS / v;
+  }
+
+  function rebuildCrests() {
+    var v = currentV();
+    var Tvis = visualPeriod(v);
+    var t = state.waveT;
+    var tLast = Math.floor(t / Tvis) * Tvis;
+    crests.length = 0;
+    var i;
+    for (i = 0; i < MAX_CRESTS; i++) {
+      var te = tLast - i * Tvis;
+      var p = sourceAt(te);
+      crests.push(p.x, p.y, te);
+    }
+  }
+
+  function syncTimeFromX() {
+    if (state.vs < 1e-9) return;
+    state.t = (state.x + X_ROAD) / state.vs;
+    state.waveT = state.t;
+  }
+
+  function syncXFromT() {
+    if (state.vs < 1e-9) return;
+    state.x = -X_ROAD + state.vs * state.t;
+    if (state.x > X_ROAD) {
+      state.x = -X_ROAD;
+      state.t = 0;
+      lastHeardTe = -1e9;
+    }
+    if (state.x < -X_ROAD) {
+      state.x = -X_ROAD;
+      state.t = 0;
+    }
+    state.waveT = state.t;
+  }
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function rebuildStars(w, h) {
+    stars.length = 0;
+    var n = Math.floor((w * h) / 2600);
+    if (n > 180) n = 180;
+    var i;
+    for (i = 0; i < n; i++) {
+      stars.push(Math.random() * w, Math.random() * h, Math.random() < 0.18 ? 1.15 : 0.55);
+    }
+  }
+
+  function markChartDirty() { chart.dirty = true; }
+
+  function rebuildChart() {
+    var n = 480;
+    if (!chart.x || chart.x.length !== n) {
+      chart.x = new Float64Array(n);
+      chart.f = new Float64Array(n);
+    }
+    var v = currentV();
+    var vs = state.vs;
+    var f0 = state.f0;
+    var miss = state.miss;
+    var fMin = Infinity;
+    var fMax = -Infinity;
+    var i;
+    for (i = 0; i < n; i++) {
+      var x = -X_ROAD + (2 * X_ROAD) * (i / (n - 1));
+      var vr;
+      if (miss < 0.25) {
+        // Head-on: a step, not a dip through f0. x=0 is undefined — leave a gap.
+        if (Math.abs(x) < 0.35) {
+          chart.x[i] = x;
+          chart.f[i] = NaN;
+          continue;
+        }
+        vr = x < 0 ? vs : -vs;
+      } else {
+        vr = radialComponent(x, 0, vs, 0, 0, miss);
+      }
+      var f = observedFrequency(f0, v, vr);
+      if (!isFinite(f)) f = f0;
+      chart.x[i] = x;
+      chart.f[i] = f;
+      if (f < fMin) fMin = f;
+      if (f > fMax) fMax = f;
+    }
+    if (fMin === Infinity) {
+      fMin = f0 - 20;
+      fMax = f0 + 20;
+    }
+    var lo = Math.min(fMin, f0);
+    var hi = Math.max(fMax, f0);
+    var pad = Math.max(8, (hi - lo) * 0.14);
+    chart.n = n;
+    chart.fMin = lo - pad;
+    chart.fMax = hi + pad;
+    chart.dirty = false;
+  }
+
+  function fmtHz(f) {
+    if (!isFinite(f)) return '∞';
+    return (Math.abs(f) >= 100 ? f.toFixed(1) : f.toFixed(2)) + ' Hz';
+  }
+  function fmtM(x) {
+    var a = Math.abs(x);
+    var s = (a >= 10 ? a.toFixed(1) : a.toFixed(2)) + ' m';
+    return (x < 0 ? '−' : x > 0 ? '+' : '') + (x < 0 ? s : x > 0 ? s : '0.00 m');
+  }
+  function fmtSigned(x, digits, unit) {
+    var n = x.toFixed(digits);
+    if (x > 0) n = '+' + n;
+    return n + unit;
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function clampVs() {
+    var cap = maxVs();
+    elVs.max = String(Math.max(1, Math.round(cap * 10) / 10));
+    if (state.vs > cap) {
+      state.vs = cap;
+      elVs.value = String(Math.round(state.vs * 10) / 10);
+    }
+  }
+
+  function syncLabels() {
+    var v = currentV();
+    var mph = state.vs * MPH;
+    elPos.textContent = 'x = ' + (state.x < 0 ? '−' : state.x > 0 ? '+' : '') + Math.abs(state.x).toFixed(1) + ' m';
+    elScrub.min = String(-X_ROAD);
+    elScrub.max = String(X_ROAD);
+    elScrub.value = String(state.x);
+    elVsL.textContent = state.vs.toFixed(1) + ' m/s · ' + mph.toFixed(0) + ' mph';
+    elF0L.textContent = state.f0.toFixed(0) + ' Hz';
+    elTempL.textContent = state.T.toFixed(1) + ' °C · v = ' + v.toFixed(2) + ' m/s';
+    elMissL.textContent = state.miss.toFixed(1) + ' m' + (state.miss < 0.25 ? ' · head-on' : '');
+    if (elHead) {
+      if (state.miss < 0.25) elHead.classList.add('show');
+      else elHead.classList.remove('show');
+    }
+    var N = Math.max(1, Math.round(state.f0 * visualPeriod(v)));
+    elLamMeta.textContent = 'λ ahead / rest / behind · rings = every ' + N + ' crests';
+    elChartMeta.textContent = 'f_obs vs position · rest f₀ = ' + state.f0.toFixed(0) + ' Hz · drop is continuous';
+  }
+
+  function worldMap(surf) {
+    var w = surf.w, h = surf.h;
+    var pad = 18;
+    var x0 = -260, x1 = 260, y0 = -78, y1 = 118;
+    var sx = (w - 2 * pad) / (x1 - x0);
+    var sy = (h - 2 * pad) / (y1 - y0);
+    var scale = Math.min(sx, sy);
+    var ox = w / 2 - scale * (x0 + x1) / 2;
+    var oy = h / 2 + scale * (y0 + y1) / 2;
+    return {
+      scale: scale,
+      X: function (x) { return ox + scale * x; },
+      Y: function (y) { return oy - scale * y; },
+      x0: x0, x1: x1, y0: y0, y1: y1
+    };
+  }
+
+  function drawRoad() {
+    var s = surfaces.road;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.fillStyle = 'rgba(215, 222, 242, 0.7)';
+    var i;
+    for (i = 0; i < stars.length; i += 3) {
+      ctx.beginPath();
+      ctx.arc(stars[i], stars[i + 1], stars[i + 2], 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    var map = worldMap(s);
+    var X = map.X, Y = map.Y, sc = map.scale;
+    var phys = nowPhysics();
+    var v = phys.v;
+
+    // sidewalk / grass
+    ctx.fillStyle = 'rgba(20, 32, 28, 0.55)';
+    ctx.fillRect(0, Y(14), w, Y(-14) - Y(14));
+
+    // road
+    var roadH = 7 * sc;
+    ctx.fillStyle = '#141826';
+    ctx.fillRect(0, Y(0) - roadH, w, roadH * 2);
+    ctx.strokeStyle = 'rgba(215,222,242,0.18)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, Y(3.6));
+    ctx.lineTo(w, Y(3.6));
+    ctx.moveTo(0, Y(-3.6));
+    ctx.lineTo(w, Y(-3.6));
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,194,74,0.35)';
+    ctx.setLineDash([8, 10]);
+    ctx.beginPath();
+    ctx.moveTo(0, Y(0));
+    ctx.lineTo(w, Y(0));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // closest-approach marker
+    ctx.strokeStyle = 'rgba(255,194,74,0.22)';
+    ctx.setLineDash([3, 5]);
+    ctx.beginPath();
+    ctx.moveTo(X(0), 8);
+    ctx.lineTo(X(0), h - 8);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // wavefronts — true circles from emit events
+    var Tvis = visualPeriod(v);
+    var rMax = Math.hypot(w, h) / sc;
+    rebuildCrests();
+    var nearest = 1e9;
+    var arriving = false;
+    for (i = 0; i < crests.length; i += 3) {
+      var cx = crests[i], cy = crests[i + 1], te = crests[i + 2];
+      var age = state.waveT - te;
+      if (age <= 0) continue;
+      var rad = v * age;
+      if (rad < 0.4 || rad > rMax * 1.15) continue;
+      var alpha = 0.08 + 0.42 * Math.max(0, 1 - rad / (rMax * 0.85));
+      ctx.beginPath();
+      ctx.arc(X(cx), Y(cy), rad * sc, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(94,200,229,' + alpha.toFixed(3) + ')';
+      ctx.lineWidth = 1.15;
+      ctx.stroke();
+
+      var Robs = Math.hypot(phys.obs.x - cx, phys.obs.y - cy);
+      var gap = Math.abs(rad - Robs);
+      if (gap < nearest) nearest = gap;
+      if (gap < 2.2 && te > lastHeardTe && rad >= Robs - 1.2) {
+        arriving = true;
+        lastHeardTe = te;
+      }
+    }
+    if (arriving) hearFlash = 1;
+    hearFlash *= 0.88;
+
+    // line of sight
+    if (phys.r > 0.6) {
+      ctx.strokeStyle = phys.vr >= 0 ? 'rgba(255,126,95,0.45)' : 'rgba(94,200,229,0.45)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(X(phys.src.x), Y(phys.src.y));
+      ctx.lineTo(X(phys.obs.x), Y(phys.obs.y));
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // miss bracket
+    if (state.miss > 0.4) {
+      ctx.strokeStyle = 'rgba(255,194,74,0.4)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(X(8), Y(0));
+      ctx.lineTo(X(8), Y(state.miss));
+      ctx.stroke();
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('miss ' + state.miss.toFixed(0) + ' m', X(11), Y(state.miss * 0.5) + 4);
+    }
+
+    // observer pin
+    var opx = X(phys.obs.x), opy = Y(phys.obs.y);
+    if (hearFlash > 0.04) {
+      ctx.beginPath();
+      ctx.arc(opx, opy, 10 + hearFlash * 16, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255,194,74,' + (0.15 + hearFlash * 0.65).toFixed(3) + ')';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(opx, opy, 6, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+    ctx.strokeStyle = '#fff6d8';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('you', opx + 10, opy - 8);
+
+    // source icon (enlarged)
+    var spx = X(phys.src.x), spy = Y(phys.src.y);
+    ctx.save();
+    ctx.translate(spx, spy);
+    ctx.fillStyle = 'rgba(255,126,95,0.18)';
+    ctx.beginPath();
+    ctx.arc(0, 0, 20, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#e8eefc';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(-17, -8, 34, 16, 3);
+    else ctx.rect(-17, -8, 34, 16);
+    ctx.fill();
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillRect(7, -7, 11, 14);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillRect(-7, -11, 14, 3.2);
+    ctx.fillStyle = '#10162e';
+    ctx.beginPath(); ctx.arc(-9, 8, 3.1, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(9, 8, 3.1, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('source', spx - 16, spy - 18);
+
+    // velocity arrow
+    ctx.strokeStyle = '#ff7e5f';
+    ctx.fillStyle = '#ff7e5f';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(spx + 20, spy);
+    ctx.lineTo(spx + 36, spy);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(spx + 38, spy);
+    ctx.lineTo(spx + 32, spy - 4);
+    ctx.lineTo(spx + 32, spy + 4);
+    ctx.closePath();
+    ctx.fill();
+
+    // captions
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(255,126,95,0.85)';
+    ctx.fillText('ahead · packed', X(state.x) + 44, Y(0) - 28);
+    ctx.fillStyle = 'rgba(94,200,229,0.85)';
+    ctx.fillText('behind · stretched', X(state.x) - 108, Y(0) - 28);
+    ctx.fillStyle = 'rgba(139,147,173,0.95)';
+    ctx.fillText('Wave speed v is the same in every direction  ·  rings are true circles from emit events', 12, 16);
+    var barM = 50;
+    var barX = 14;
+    var barY = h - 16;
+    ctx.strokeStyle = 'rgba(215,222,242,0.55)';
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(barX, barY);
+    ctx.lineTo(barX + barM * sc, barY);
+    ctx.stroke();
+    ctx.fillStyle = '#a8b0c8';
+    ctx.fillText('50 m', barX + barM * sc + 6, barY + 3);
+
+    var fCol = !isFinite(phys.f) ? '#ff7e5f' : (phys.f >= phys.f0 ? '#ff7e5f' : '#5ec8e5');
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = fCol;
+    var tag = !isFinite(phys.f) ? 'f → ∞' : ('f_heard  ' + phys.f.toFixed(1) + ' Hz');
+    ctx.fillText(tag, w - ctx.measureText(tag).width - 14, 16);
+  }
+
+  function drawLam() {
+    var s = surfaces.lam;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var phys = nowPhysics();
+    var rows = [
+      { name: 'ahead  λ_front', val: phys.lamF, col: '#ff7e5f', sub: '(v − v_s) / f₀' },
+      { name: 'rest    λ₀', val: phys.lam0, col: '#ffc24a', sub: 'v / f₀' },
+      { name: 'behind  λ_back', val: phys.lamB, col: '#5ec8e5', sub: '(v + v_s) / f₀' }
+    ];
+    var maxL = Math.max(phys.lamB, phys.lam0, 1e-6);
+    var left = 18, right = w - 18;
+    var barMax = right - left;
+    var y0 = 56;
+    var i;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('Crest spacing along the track  ·  same f₀, different λ', 14, 20);
+
+    for (i = 0; i < 3; i++) {
+      var y = y0 + i * 78;
+      var row = rows[i];
+      var bw = barMax * (row.val / maxL);
+      if (bw < 2) bw = 2;
+      ctx.fillStyle = '#8b93ad';
+      ctx.font = FONT_MONO_10;
+      ctx.fillText(row.name, left, y);
+      ctx.fillStyle = row.col;
+      ctx.font = FONT_MONO_13;
+      ctx.fillText((row.val * 100).toFixed(2) + ' cm', left, y + 16);
+      ctx.fillStyle = 'rgba(20, 28, 52, 0.9)';
+      ctx.fillRect(left, y + 24, barMax, 10);
+      ctx.fillStyle = row.col;
+      ctx.fillRect(left, y + 24, bw, 10);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText(row.sub, left, y + 50);
+    }
+
+    // two drawn segments at true visual scale (not the 14 m rings)
+    var ySeg = h - 78;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('True λ at this f₀  (700 Hz rest ≈ 49 cm — short; bars above are the comparison)', 14, ySeg - 8);
+
+    var pxPerM = 220;
+    var drawSeg = function (x, y, L, col, label) {
+      var px = Math.max(2, L * pxPerM);
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + px, y);
+      ctx.stroke();
+      ctx.fillStyle = col;
+      ctx.font = FONT_MONO_10;
+      ctx.fillText(label, x, y + 16);
+    };
+    drawSeg(18, ySeg + 14, phys.lamF, '#ff7e5f', 'front');
+    drawSeg(18, ySeg + 40, phys.lamB, '#5ec8e5', 'back');
+
+    ctx.font = FONT_UI_11;
+    ctx.fillStyle = '#a8b0c8';
+    ctx.fillText('Identity  λ_front · f₀ + v_s = v  holds to rounding.', 14, h - 12);
+  }
+
+  function drawChart() {
+    if (chart.dirty) rebuildChart();
+    var s = surfaces.chart;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var padL = 52, padR = 16, padT = 18, padB = 28;
+    var x0 = padL, y0 = padT, x1 = w - padR, y1 = h - padB;
+    var fMin = chart.fMin, fMax = chart.fMax;
+    function X(x) { return x0 + (x1 - x0) * ((x + X_ROAD) / (2 * X_ROAD)); }
+    function F(f) { return y1 - (y1 - y0) * ((f - fMin) / (fMax - fMin || 1)); }
+
+    ctx.strokeStyle = 'rgba(94,200,229,0.10)';
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    var ticks = [-240, -160, -80, 0, 80, 160, 240];
+    var i;
+    for (i = 0; i < ticks.length; i++) {
+      var xt = X(ticks[i]);
+      ctx.beginPath();
+      ctx.moveTo(xt, y0);
+      ctx.lineTo(xt, y1);
+      ctx.stroke();
+      ctx.fillText((ticks[i] === 0 ? '0  closest' : String(ticks[i])), xt + 3, y1 + 14);
+    }
+    var f0 = state.f0;
+    var fStep = 20;
+    var span = fMax - fMin;
+    if (span > 160) fStep = 50;
+    else if (span > 80) fStep = 25;
+    else if (span < 30) fStep = 5;
+    var f;
+    for (f = Math.ceil(fMin / fStep) * fStep; f <= fMax + 1e-6; f += fStep) {
+      var yf = F(f);
+      ctx.beginPath();
+      ctx.moveTo(x0, yf);
+      ctx.lineTo(x1, yf);
+      ctx.stroke();
+      ctx.fillText(String(Math.round(f)), 8, yf + 3);
+    }
+
+    // rest frequency
+    ctx.strokeStyle = 'rgba(255,194,74,0.55)';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(x0, F(f0));
+    ctx.lineTo(x1, F(f0));
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('f₀', x1 - 18, F(f0) - 5);
+
+    // head-on plateaus
+    var v = currentV();
+    if (state.vs > 0.2 && state.vs < v) {
+      var fA = observedFrequency(f0, v, state.vs);
+      var fR = observedFrequency(f0, v, -state.vs);
+      ctx.strokeStyle = 'rgba(255,126,95,0.28)';
+      ctx.setLineDash([3, 4]);
+      ctx.beginPath();
+      ctx.moveTo(x0, F(fA));
+      ctx.lineTo(x1, F(fA));
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(94,200,229,0.28)';
+      ctx.beginPath();
+      ctx.moveTo(x0, F(fR));
+      ctx.lineTo(x1, F(fR));
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(255,126,95,0.75)';
+      ctx.fillText('head-on approach', x0 + 6, F(fA) - 4);
+      ctx.fillStyle = 'rgba(94,200,229,0.75)';
+      ctx.fillText('head-on recede', x0 + 6, F(fR) + 12);
+    }
+
+    // curve (break the path on NaN so a head-on pass is a step, not a V)
+    ctx.strokeStyle = '#8fd4e8';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    var drawing = false;
+    for (i = 0; i < chart.n; i++) {
+      if (!isFinite(chart.f[i])) {
+        drawing = false;
+        continue;
+      }
+      var px = X(chart.x[i]);
+      var py = F(chart.f[i]);
+      if (!drawing) { ctx.moveTo(px, py); drawing = true; }
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    // cursor
+    var phys = nowPhysics();
+    var xc = X(state.x);
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(xc, y0);
+    ctx.lineTo(xc, y1);
+    ctx.stroke();
+    if (isFinite(phys.f)) {
+      ctx.beginPath();
+      ctx.arc(xc, F(phys.f), 4.2, 0, Math.PI * 2);
+      ctx.fillStyle = phys.f >= f0 ? '#ff7e5f' : '#5ec8e5';
+      ctx.fill();
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('f_obs (Hz)', 8, 12);
+    ctx.fillText('source x (m)', w - 78, h - 6);
+  }
+
+  function kv(k, v, cls, sub) {
+    return '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div>' +
+      (sub ? '<div class="s">' + sub + '</div>' : '') + '</div>';
+  }
+
+  function updateReadout() {
+    var p = nowPhysics();
+    var cls = !isFinite(p.f) ? 'warm' : (p.f > p.f0 + 0.05 ? 'warm' : (p.f < p.f0 - 0.05 ? '' : 'sun'));
+    var ratio = isFinite(p.f) ? (p.f / p.f0) : Infinity;
+    var centsStr = isFinite(p.cents) ? fmtSigned(p.cents, 1, ' ¢') : '—';
+    var toward = p.vr > 0.05 ? 'toward you' : (p.vr < -0.05 ? 'away from you' : 'abeam · v_r = 0');
+    var tCA;
+    if (!isFinite(p.tCA)) tCA = 'parked (v_s = 0)';
+    else if (Math.abs(p.tCA) < 0.05) tCA = 'now';
+    else if (p.tCA > 0) tCA = p.tCA.toFixed(2) + ' s to closest';
+    else tCA = Math.abs(p.tCA).toFixed(2) + ' s after closest';
+    var amp = p.r > 0.4 ? (15 * 15) / (p.r * p.r) : Infinity;
+    var ampStr = isFinite(amp) ? (amp * 100).toFixed(0) + '% of 15 m' : 'on top of you';
+    var thDeg = p.theta * 180 / Math.PI;
+
+    var html = '';
+    html += kv('Heard frequency', isFinite(p.f) ? p.f.toFixed(2) + ' Hz' : 'undefined', cls,
+      centsStr + '  ·  f / f₀ = ' + (isFinite(ratio) ? ratio.toFixed(4) : '—'));
+    html += kv('Wavelength', '↑ ' + (p.lamF * 100).toFixed(2) + ' cm', 'warm',
+      'rest ' + (p.lam0 * 100).toFixed(2) + ' cm   ↓ ' + (p.lamB * 100).toFixed(2) + ' cm');
+    html += kv('Speeds', 'v = ' + p.v.toFixed(2) + ' m/s', '',
+      'v_s = ' + p.vs.toFixed(1) + ' m/s   Mach ' + p.mach.toFixed(3));
+    html += kv('Radial v_r', fmtSigned(p.vr, 2, ' m/s'), p.vr >= 0 ? 'warm' : '',
+      toward + '  ·  θ = ' + thDeg.toFixed(1) + '°');
+    html += kv('Closest approach', tCA, Math.abs(p.tCA) < 0.15 ? 'sun' : '',
+      'x = ' + (state.x < 0 ? '−' : '+') + Math.abs(state.x).toFixed(1) + ' m   miss ' + state.miss.toFixed(1) + ' m');
+    html += kv('Range / loudness', p.r.toFixed(1) + ' m', '',
+      'relative 1/r²  ' + ampStr + '  ·  not Doppler');
+    elReadout.innerHTML = html;
+  }
+
+  function ensureAudio() {
+    if (audio.ctx || audio.failed) return;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) { audio.failed = true; return; }
+    try {
+      audio.ctx = new AC();
+      audio.osc = audio.ctx.createOscillator();
+      audio.gain = audio.ctx.createGain();
+      audio.osc.type = 'sine';
+      audio.osc.frequency.value = state.f0;
+      audio.gain.gain.value = 0;
+      audio.osc.connect(audio.gain);
+      audio.gain.connect(audio.ctx.destination);
+      audio.osc.start();
+    } catch (err) {
+      audio.failed = true;
+      audio.ctx = null;
+    }
+  }
+
+  function updateAudio(f) {
+    if (audio.muted || audio.failed || !audio.ctx) return;
+    try {
+      var t = audio.ctx.currentTime;
+      if (!isFinite(f) || f < 40 || f > 8000) {
+        audio.gain.gain.setTargetAtTime(0, t, 0.03);
+        return;
+      }
+      audio.osc.frequency.setTargetAtTime(f, t, 0.018);
+      audio.gain.gain.setTargetAtTime(0.055, t, 0.04);
+    } catch (err) {}
+  }
+
+  function setMuted(on) {
+    audio.muted = on;
+    elMute.textContent = on ? 'Sound off' : 'Sound on';
+    setChip(elMute, !on);
+    if (!on) {
+      ensureAudio();
+      if (audio.ctx && audio.ctx.resume) audio.ctx.resume();
+    } else if (audio.ctx && audio.gain) {
+      try { audio.gain.gain.setTargetAtTime(0, audio.ctx.currentTime, 0.02); } catch (err) {}
+    }
+  }
+
+  var readoutTick = 0;
+
+  function drawAll() {
+    drawRoad();
+    drawLam();
+    drawChart();
+    readoutTick++;
+    if (readoutTick % 3 === 1) updateReadout();
+    updateAudio(nowPhysics().f);
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (!on) state.lastTs = 0;
+  }
+
+  function frame(ts) {
+    if (state.playing) {
+      if (state.lastTs) {
+        var dt = (ts - state.lastTs) / 1000;
+        if (dt > 0.08) dt = 0.08;
+        if (state.vs < 1e-9) {
+          state.waveT += dt;
+        } else {
+          var dx = (2 * X_ROAD / WALL_PASS) * dt;
+          state.x += dx;
+          if (state.x > X_ROAD) {
+            state.x = -X_ROAD;
+            lastHeardTe = -1e9;
+          }
+          syncTimeFromX();
+        }
+        elScrub.value = String(state.x);
+        elPos.textContent = 'x = ' + (state.x < 0 ? '−' : state.x > 0 ? '+' : '') + Math.abs(state.x).toFixed(1) + ' m';
+      }
+      state.lastTs = ts;
+    } else {
+      state.lastTs = 0;
+    }
+    drawAll();
+    requestAnimationFrame(frame);
+  }
+
+  function onResize() {
+    var prevW = surfaces.road.w;
+    fitCanvas(surfaces.road);
+    fitCanvas(surfaces.lam);
+    fitCanvas(surfaces.chart);
+    if (surfaces.road.w !== prevW || !stars.length) rebuildStars(surfaces.road.w, surfaces.road.h);
+    markChartDirty();
+  }
+
+  elPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+  $('btnRestart').addEventListener('click', function () {
+    state.x = -X_ROAD;
+    syncTimeFromX();
+    if (state.vs < 1e-9) { state.waveT = 0; }
+    lastHeardTe = -1e9;
+    hearFlash = 0;
+    syncLabels();
+    updateReadout();
+  });
+  elScrub.addEventListener('input', function () {
+    state.x = Number(elScrub.value);
+    if (state.vs >= 1e-9) syncTimeFromX();
+    syncLabels();
+    updateReadout();
+  });
+  elVs.addEventListener('input', function () {
+    state.vs = Number(elVs.value);
+    clampVs();
+    if (state.vs >= 1e-9) syncTimeFromX();
+    markChartDirty();
+    syncLabels();
+    updateReadout();
+  });
+  elF0.addEventListener('input', function () {
+    state.f0 = Number(elF0.value);
+    markChartDirty();
+    syncLabels();
+    updateReadout();
+  });
+  elTemp.addEventListener('input', function () {
+    state.T = Number(elTemp.value);
+    clampVs();
+    markChartDirty();
+    syncLabels();
+    updateReadout();
+  });
+  elMiss.addEventListener('input', function () {
+    state.miss = Number(elMiss.value);
+    markChartDirty();
+    syncLabels();
+    updateReadout();
+  });
+  elMute.addEventListener('click', function () { setMuted(!audio.muted); });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    } else if (e.code === 'ArrowRight') {
+      state.x = Math.min(X_ROAD, state.x + 4);
+      if (state.vs >= 1e-9) syncTimeFromX();
+      syncLabels();
+      updateReadout();
+    } else if (e.code === 'ArrowLeft') {
+      state.x = Math.max(-X_ROAD, state.x - 4);
+      if (state.vs >= 1e-9) syncTimeFromX();
+      syncLabels();
+      updateReadout();
+    }
+  });
+
+  window.addEventListener('resize', onResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(onResize);
+    ro.observe(cvRoad);
+    ro.observe(cvLam);
+    ro.observe(cvChart);
+  }
+
+  clampVs();
+  syncTimeFromX();
+  onResize();
+  syncLabels();
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
