@@ -193,6 +193,28 @@ input[type="range"]::-moz-range-thumb {
   .scale-card canvas { height: 220px; }
   .page { padding: 18px 14px 48px; }
 }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
 </style>
 </head>
 <body data-build="4">
@@ -200,6 +222,8 @@ input[type="range"]::-moz-range-thumb {
   <p class="kicker"><a href="index.html">Visual explanations · Coriolis</a></p>
   <h1>Do toilets flush the other way in the Southern Hemisphere?</h1>
   <p class="lede">No. <strong>Coriolis acceleration <span style="font-family:var(--mono);color:var(--cool)">a = 2ωv sinφ</span> is real</strong> and it sets which way cyclones spin. A toilet is the wrong size and the wrong time. Rim jets and leftover swirl win by orders of magnitude. Flip the hemisphere: the storm reverses; the bowl does not.</p>
+
+  <p class="try"><b>Try this</b>Drag latitude or flip the hemisphere. The toilet still follows the jets. The storm reverses.</p>
 
   <div class="panel controls">
     <div class="row">
