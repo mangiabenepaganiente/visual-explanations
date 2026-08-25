@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do Toilets Flush the Other Way in the Southern Hemisphere? — Coriolis Effect for Classrooms</title>
+<meta name="description" content="Interactive Coriolis explainer for teachers: toilets and sinks do not reverse across the equator. The acceleration a = 2ωv sinφ is real and sets cyclone spin, but a bathroom drain is too small and too fast. Live numbers, latitude slider, myth busted.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="Coriolis effect classroom, toilet flush southern hemisphere myth, why hurricanes spin counterclockwise, cyclone rotation northern southern hemisphere, Rossby number, weather unit NGSS">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on { background: rgba(255, 126, 95, 0.14); border-color: rgba(255, 126, 95, 0.5); color: var(--warm); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 380px; }
+.scale-card { grid-column: 1 / -1; }
+.scale-card canvas { height: 228px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 100px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause.use .n { color: var(--sun2); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+.cause.use { border-color: rgba(255, 194, 74, 0.28); background: linear-gradient(180deg, rgba(255, 194, 74, 0.05), var(--card)); }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout { grid-template-columns: 1fr 1fr; }
+  .scale-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .scale-card canvas { height: 220px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="4">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · Coriolis</a></p>
+  <h1>Do toilets flush the other way in the Southern Hemisphere?</h1>
+  <p class="lede">No. <strong>Coriolis acceleration <span style="font-family:var(--mono);color:var(--cool)">a = 2ωv sinφ</span> is real</strong> and it sets which way cyclones spin. A toilet is the wrong size and the wrong time. Rim jets and leftover swirl win by orders of magnitude. Flip the hemisphere: the storm reverses; the bowl does not.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <label class="sl grow">
+        <span>Latitude <em id="latLabel">45.0°N</em></span>
+        <input type="range" id="lat" min="-90" max="90" step="0.1" value="45" aria-label="Latitude">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="cityQuito">Quito 0.2°S</button>
+      <button type="button" class="chip" id="citySingapore">Singapore 1.4°N</button>
+      <button type="button" class="chip on sun" id="cityExample">45°N example</button>
+      <button type="button" class="chip" id="cityBoston">Boston 42.4°N</button>
+      <button type="button" class="chip" id="cityMelbourne">Melbourne 37.8°S</button>
+      <button type="button" class="chip myth" id="btnFlip">Flip hemisphere</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Rim jets <em id="jetLabel">CCW +0.65</em></span>
+        <input type="range" id="jet" min="-1" max="1" step="0.01" value="0.65" aria-label="Rim jet bias">
+      </label>
+      <label class="sl grow">
+        <span>Leftover swirl <em id="swirlLabel">CCW +0.30</em></span>
+        <input type="range" id="swirl" min="-1" max="1" step="0.01" value="0.30" aria-label="Leftover swirl">
+      </label>
+      <button type="button" class="chip" id="btnZero">Zero the plumbing</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Bathroom basin</b><span id="basinMeta">jets + leftover set the spin</span></div>
+      <canvas id="cvBasin" width="600" height="380" aria-label="Top-down bathroom basin. Rim jets and leftover swirl set the spin; Coriolis is too small to see."></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Cyclone · weather</b><span id="stormMeta">Coriolis sense by hemisphere</span></div>
+      <canvas id="cvStorm" width="600" height="380" aria-label="Weather-map cyclone. Inflow curves counterclockwise in the north, clockwise in the south."></canvas>
+    </div>
+    <div class="card scale-card">
+      <div class="card-h"><b>Magnitude comparison</b><span>same formula · different time and length</span></div>
+      <canvas id="cvScale" width="1200" height="228" aria-label="Log-scale comparison of basin versus storm Coriolis acceleration and deflection"></canvas>
+    </div>
+  </div>
+
+  <div class="readout">
+    <div class="kv">
+      <div class="k">Latitude · Coriolis parameter</div>
+      <div class="v" id="kvLat">45.0°N</div>
+      <div class="s" id="kvF">f = 2ω sinφ = 1.03×10⁻⁴ s⁻¹</div>
+    </div>
+    <div class="kv">
+      <div class="k">Basin a_cor · deflection</div>
+      <div class="v" id="kvBasinA">2.06×10⁻⁵ m/s²</div>
+      <div class="s" id="kvBasinD">δ ≈ ½ a t² = 0.023 mm · bowl R = 150 mm</div>
+    </div>
+    <div class="kv">
+      <div class="k">Storm a_cor · deflection</div>
+      <div class="v sun" id="kvStormA">1.55×10⁻³ m/s²</div>
+      <div class="s" id="kvStormD">δ over ~2 d is thousands of km · L = 1000 km</div>
+    </div>
+    <div class="kv">
+      <div class="k">Rossby number Ro = v / (|f| L)</div>
+      <div class="v" id="kvRo">basin 6.5×10³ · storm 0.15</div>
+      <div class="s" id="kvRoS">Ro ≫ 1: rotation irrelevant · Ro ≪ 1: it rules</div>
+    </div>
+    <div class="kv">
+      <div class="k">Cyclone sense</div>
+      <div class="v" id="kvSense">NH · counterclockwise</div>
+      <div class="s" id="kvSenseS">inflow deflected to the right</div>
+    </div>
+  </div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Coriolis formula</h2>
+      <p>On a rotating Earth the horizontal acceleration is <em>a</em> = 2ω<em>v</em> sinφ. It vanishes at the equator (sin 0° = 0), grows toward the poles, and flips sign across φ = 0. That sign is the hemisphere rule for weather.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Scale, not the formula</h2>
+      <p>A basin lives for seconds on a 30 cm bowl. Deflection is ½<em>a t</em>² — millimeters or less. A cyclone lives for days on a thousand kilometers. Same <em>a</em>, different <em>t</em> and <em>L</em>. Rossby number says which world you are in.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Toilets do not reverse</h2>
+      <p>Bowl jets and leftover swirl are designed — or accidental — and they dwarf Coriolis. Flip the latitude slider: the storm reverses; the basin keeps the spin you set. The equator is not a plumbing border.</p>
+    </article>
+    <article class="panel cause use">
+      <div class="n">The real classroom</div>
+      <h2>Weather, not the bathroom</h2>
+      <p>Use Coriolis for cyclone sense and the dead zone near the equator, not for sinks. Northern lows turn counterclockwise; southern lows turn clockwise. That is the demo. The toilet is the myth.</p>
+    </article>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats — for teachers</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Formula.</strong> Horizontal Coriolis acceleration magnitude <code>|a_cor| = 2 ω v |sin φ|</code>, signed <code>a = 2 ω v sin φ</code> with φ positive north. ω is Earth’s sidereal rotation rate, not the 24 h solar day. This is the local-vertical part of <code>−2 ω × v</code> acting on horizontal motion (the f-plane). It is not a force in an inertial frame; it is what straight inertial motion looks like on a turning Earth.</li>
+      <li><strong style="color:var(--text)">Constants (SI).</strong> <code>ω_earth = 7.292115×10⁻⁵ rad/s</code> (= 2π / 86 164.0905 s, IAU sidereal day). Classroom basin: <code>v ≈ 0.2 m/s</code>, <code>L ≈ 0.3 m</code>, <code>t = L/v ≈ 1.5 s</code>, bowl radius <code>R = L/2 = 0.15 m</code>. Storm: <code>v ≈ 15 m/s</code>, <code>L ≈ 1000 km</code>, <code>t ≈ 2 d</code>. At φ = 45°, basin <code>|a_cor| ≈ 2.06×10⁻⁵ m/s²</code> and <code>δ ≈ ½ a t² ≈ 0.023 mm</code>. Storm <code>|a_cor| ≈ 1.55×10⁻³ m/s²</code>; over two days the naive deflection is thousands of kilometers — meaning the flow has long since adjusted (geostrophy), not that air flies off the map.</li>
+      <li><strong style="color:var(--text)">Rossby number.</strong> <code>Ro = v / (|f| L)</code> with <code>f = 2 ω sin φ</code>. Basin at 45°: <code>Ro ~ 6×10³</code> (inertia wins). Storm: <code>Ro ~ 0.1</code> (rotation wins). Near the equator <code>f → 0</code> and <code>Ro → ∞</code>: no preferred cyclone sense, and tropical cyclones almost never form inside about |φ| ≲ 5°.</li>
+      <li><strong style="color:var(--text)">Cyclone sense.</strong> Looking down: Northern Hemisphere inflow is deflected to the right, so a low fills counterclockwise. Southern Hemisphere inflow is deflected to the left, so a low fills clockwise. Highs turn the opposite way (anticyclonic). The weather panel is a schematic f-plane inflow, not a forecast model — no beta effect, no convection, no SST.</li>
+      <li><strong style="color:var(--text)">The basin is not a Coriolis meter.</strong> Drawn spin is <code>ω_vis = k_jet·jet + k_swirl·leftover + a_cor / v</code>. The last term is ~10⁻⁴ rad/s (one turn in ~17 h at 45°) against jet terms of order 1 rad/s. Zero both sliders: the remaining Coriolis spin is still invisible on a 1.5 s drain. This page does <em>not</em> claim a household toilet or sink shows a measurable Coriolis reversal.</li>
+      <li><strong style="color:var(--text)">The isolated-lab exception (Shapiro / Veritasium-style).</strong> A carefully still tank, left covered for many hours so residual swirl dies, with symmetric draining and no jet bias, can reveal the planetary sense (Shapiro, <em>Nature</em> 1962 “Bath-Tub Vortex”; classroom and film remakes, including Veritasium). That is a lab, not a rest stop. Penn State’s “Bad Coriolis” page and the Scientific American drain FAQ are the teacher references. Do not send students to the bathroom to “see the hemisphere.”</li>
+      <li><strong style="color:var(--text)">Drawings are not CFD.</strong> Bowl particles follow a prescribed swirl plus a weak drain; they are not a Navier–Stokes toilet. Storm parcels follow a prescribed cyclonic sink. The rotating-Earth badge is a time-warped sidereal spin so the turning frame is watchable (~20 s per day). Porcelain, clouds, and isobars are illustrative. Live numbers use the formulas above.</li>
+      <li><strong style="color:var(--text)">Classroom fit.</strong> Weather &amp; climate / Earth systems: NGSS MS-ESS2-5 adjacent (air-mass motion, latitude), HS rotation and cyclone sense. Search hooks students actually type: “do toilets flush the other way,” “why hurricanes spin counterclockwise,” “Coriolis effect southern hemisphere.” Use the flip-hemisphere chip, then the zero-plumbing chip.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants (SI) — same values as validate-coriolis.js =====
+  var OMEGA_EARTH = 7.292115e-5;
+  var V_BASIN = 0.2;
+  var L_BASIN = 0.3;
+  var T_BASIN = L_BASIN / V_BASIN;
+  var R_BOWL = L_BASIN / 2;
+  var V_STORM = 15;
+  var L_STORM = 1e6;
+  var T_STORM = 2 * 86400;
+  var JET_OMEGA = 2.2;
+  var SWIRL_OMEGA = 1.4;
+  var DAY_VISUAL = 20;
+
+  // Cached fonts — never rebuild inside hot loops
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13 = '13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+  var FONT_DISPLAY_16 = '600 16px Fraunces, Georgia, serif';
+
+  // ===== Physics =====
+  function coriolisAccel(v, latDeg) {
+    return 2 * OMEGA_EARTH * v * Math.sin(latDeg * Math.PI / 180);
+  }
+
+  function deflection(a, t) {
+    return 0.5 * Math.abs(a) * t * t;
+  }
+
+  function rossbyNumber(v, L, latDeg) {
+    var f = 2 * OMEGA_EARTH * Math.sin(latDeg * Math.PI / 180);
+    var af = Math.abs(f);
+    if (af < 1e-18) return Infinity;
+    return v / (af * L);
+  }
+
+  function cycloneSense(latDeg) {
+    if (Math.abs(latDeg) < 1e-9) return 0;
+    return latDeg > 0 ? 1 : -1;
+  }
+
+  function basinOmegas(jet, leftover, latDeg) {
+    var oJet = jet * JET_OMEGA;
+    var oSwirl = leftover * SWIRL_OMEGA;
+    var oCor = coriolisAccel(V_BASIN, latDeg) / V_BASIN;
+    return { jet: oJet, swirl: oSwirl, cor: oCor, total: oJet + oSwirl + oCor };
+  }
+
+  // ===== Formatters =====
+  function fmtLat(d) {
+    var a = Math.abs(d);
+    if (a < 0.05) return '0.0° · equator';
+    return a.toFixed(1) + '°' + (d >= 0 ? 'N' : 'S');
+  }
+  function fmtSci(x, n) {
+    if (!isFinite(x)) return '∞';
+    var d = n === undefined ? 2 : n;
+    var ax = Math.abs(x);
+    if (ax !== 0 && (ax >= 100 || ax < 0.01)) return x.toExponential(d);
+    return x.toFixed(d + 1);
+  }
+  function fmtRo(x) {
+    if (!isFinite(x)) return '∞';
+    if (x >= 100) return x.toExponential(1);
+    if (x >= 10) return x.toFixed(0);
+    return x.toFixed(2);
+  }
+  function spinWord(x) {
+    if (Math.abs(x) < 0.02) return 'none 0.00';
+    return (x > 0 ? 'CCW +' : 'CW ') + x.toFixed(2);
+  }
+  function fmtMM(m) {
+    if (m < 1e-6) return (m * 1e9).toFixed(1) + ' nm';
+    if (m < 1e-3) return (m * 1e6).toFixed(2) + ' µm';
+    if (m < 1) return (m * 1e3).toFixed(3) + ' mm';
+    if (m < 1000) return m.toFixed(2) + ' m';
+    return (m / 1000).toFixed(0) + ' km';
+  }
+
+  // ===== State =====
+  var reduceMotion = false;
+  try {
+    reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch (e1) {}
+
+  var state = {
+    lat: 45,
+    jet: 0.65,
+    leftover: 0.30,
+    playing: !reduceMotion,
+    frameAngle: 0,
+    lastTs: 0,
+    city: 'cityExample'
+  };
+
+  var CITIES = {
+    cityQuito: { lat: -0.18, name: 'Quito' },
+    citySingapore: { lat: 1.35, name: 'Singapore' },
+    cityExample: { lat: 45, name: '45°N' },
+    cityBoston: { lat: 42.36, name: 'Boston' },
+    cityMelbourne: { lat: -37.81, name: 'Melbourne' }
+  };
+
+  // ===== DOM =====
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elLat = $('lat');
+  var elJet = $('jet');
+  var elSwirl = $('swirl');
+  var elLatL = $('latLabel');
+  var elJetL = $('jetLabel');
+  var elSwirlL = $('swirlLabel');
+  var elBasinMeta = $('basinMeta');
+  var elStormMeta = $('stormMeta');
+  var elKvLat = $('kvLat');
+  var elKvF = $('kvF');
+  var elKvBasinA = $('kvBasinA');
+  var elKvBasinD = $('kvBasinD');
+  var elKvStormA = $('kvStormA');
+  var elKvStormD = $('kvStormD');
+  var elKvRo = $('kvRo');
+  var elKvRoS = $('kvRoS');
+  var elKvSense = $('kvSense');
+  var elKvSenseS = $('kvSenseS');
+
+  var surfaces = {
+    basin: { canvas: $('cvBasin'), ctx: null, w: 0, h: 0, cssH: 380 },
+    storm: { canvas: $('cvStorm'), ctx: null, w: 0, h: 0, cssH: 380 },
+    scale: { canvas: $('cvScale'), ctx: null, w: 0, h: 0, cssH: 228 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function markCity(id) {
+    state.city = id;
+    var keys = Object.keys(CITIES);
+    for (var i = 0; i < keys.length; i++) {
+      setChip($(keys[i]), keys[i] === id);
+    }
+  }
+
+  // ===== Particles (preallocated) =====
+  var N_BASIN = 110;
+  var bR = new Float64Array(N_BASIN);
+  var bA = new Float64Array(N_BASIN);
+  var bJ = new Float64Array(N_BASIN);
+  var N_STORM = 86;
+  var sR = new Float64Array(N_STORM);
+  var sA = new Float64Array(N_STORM);
+  var sJ = new Float64Array(N_STORM);
+
+  function seedBasin() {
+    for (var i = 0; i < N_BASIN; i++) {
+      bR[i] = 0.18 + Math.random() * 0.78;
+      bA[i] = Math.random() * Math.PI * 2;
+      bJ[i] = 0.55 + Math.random() * 0.7;
+    }
+  }
+  function seedStorm() {
+    for (var i = 0; i < N_STORM; i++) {
+      sR[i] = 0.12 + Math.random() * 0.86;
+      sA[i] = Math.random() * Math.PI * 2;
+      sJ[i] = 0.55 + Math.random() * 0.8;
+    }
+  }
+  seedBasin();
+  seedStorm();
+
+  function stepBasin(dt) {
+    var om = basinOmegas(state.jet, state.leftover, state.lat);
+    var w = om.total;
+    var drain = 0.22;
+    for (var i = 0; i < N_BASIN; i++) {
+      bA[i] += w * bJ[i] * dt;
+      bR[i] -= drain * dt * (0.35 + 0.65 * bR[i]);
+      if (bR[i] < 0.08) {
+        bR[i] = 0.82 + Math.random() * 0.16;
+        bA[i] = Math.random() * Math.PI * 2;
+      }
+    }
+  }
+
+  function stepStorm(dt) {
+    var sense = Math.sin(state.lat * Math.PI / 180);
+    var spin = 1.15 * sense;
+    var inward = 0.18;
+    for (var i = 0; i < N_STORM; i++) {
+      var r = sR[i];
+      sA[i] += spin * (0.35 + 0.9 * r) * sJ[i] * dt;
+      sR[i] -= inward * dt * (0.45 + 0.4 * r);
+      if (sR[i] < 0.10) {
+        sR[i] = 0.88 + Math.random() * 0.12;
+        sA[i] = Math.random() * Math.PI * 2;
+      }
+    }
+  }
+
+  // ===== Readout =====
+  function syncLabels() {
+    elLatL.textContent = fmtLat(state.lat);
+    elJetL.textContent = spinWord(state.jet);
+    elSwirlL.textContent = spinWord(state.leftover);
+    elLat.value = String(state.lat);
+    elJet.value = String(state.jet);
+    elSwirl.value = String(state.leftover);
+
+    var aB = coriolisAccel(V_BASIN, state.lat);
+    var aS = coriolisAccel(V_STORM, state.lat);
+    var dB = deflection(aB, T_BASIN);
+    var dS = deflection(aS, T_STORM);
+    var RoB = rossbyNumber(V_BASIN, L_BASIN, state.lat);
+    var RoS = rossbyNumber(V_STORM, L_STORM, state.lat);
+    var f = 2 * OMEGA_EARTH * Math.sin(state.lat * Math.PI / 180);
+    var sense = cycloneSense(state.lat);
+    var om = basinOmegas(state.jet, state.leftover, state.lat);
+    var plumbing = Math.abs(om.jet) + Math.abs(om.swirl);
+    var corShare = Math.abs(om.cor) / (plumbing + Math.abs(om.cor) + 1e-18);
+
+    elKvLat.textContent = fmtLat(state.lat) + '  ·  sinφ = ' + Math.sin(state.lat * Math.PI / 180).toFixed(3);
+    elKvF.textContent = 'f = 2ω sinφ = ' + fmtSci(f, 2) + ' s⁻¹';
+    elKvBasinA.textContent = fmtSci(aB, 2) + ' m/s²';
+    elKvBasinA.className = 'v' + (Math.abs(aB) < 1e-8 ? ' warm' : '');
+    elKvBasinD.textContent = 'δ ≈ ½ a t² = ' + fmtMM(dB) + '  ·  bowl R = 150 mm';
+    elKvStormA.textContent = fmtSci(aS, 2) + ' m/s²';
+    elKvStormD.textContent = 'δ over 2 d ≈ ' + fmtMM(dS) + '  ·  L = 1000 km';
+    elKvRo.textContent = 'basin ' + fmtRo(RoB) + '  ·  storm ' + fmtRo(RoS);
+    if (!isFinite(RoB)) {
+      elKvRoS.textContent = 'equator: f = 0 · no preferred spin';
+    } else {
+      elKvRoS.textContent = (RoB > 10 ? 'basin: rotation irrelevant' : 'basin: rotation matters') +
+        '  ·  ' + (RoS < 1 ? 'storm: rotation rules' : 'storm: mixed');
+    }
+    if (Math.abs(state.lat) < 5) {
+      elKvSense.textContent = 'near equator · no tropical cyclone';
+      elKvSense.className = 'v warm';
+      elKvSenseS.textContent = '|φ| ≲ 5° · Coriolis too weak to organize a low';
+      elStormMeta.textContent = 'Coriolis → 0 · no preferred sense';
+    } else if (sense > 0) {
+      elKvSense.textContent = 'NH · counterclockwise';
+      elKvSense.className = 'v';
+      elKvSenseS.textContent = 'inflow deflected to the right';
+      elStormMeta.textContent = 'NH · counterclockwise inflow';
+    } else {
+      elKvSense.textContent = 'SH · clockwise';
+      elKvSense.className = 'v warm';
+      elKvSenseS.textContent = 'inflow deflected to the left';
+      elStormMeta.textContent = 'SH · clockwise inflow';
+    }
+    if (plumbing < 0.05) {
+      elBasinMeta.textContent = 'plumbing off · Coriolis still invisible';
+    } else {
+      elBasinMeta.textContent = 'Coriolis share of |ω| = ' + (corShare * 100).toFixed(3) + '%';
+    }
+
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+  }
+
+  // ===== Draw helpers =====
+  function fillCircle(ctx, x, y, r, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  function strokeCircle(ctx, x, y, r, color, w) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = w || 1;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  function drawBasin() {
+    var s = surfaces.basin;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var cx = w * 0.5;
+    var cy = h * 0.46;
+    var R = Math.min(w, h) * 0.36;
+    var om = basinOmegas(state.jet, state.leftover, state.lat);
+
+    // tile hints
+    ctx.strokeStyle = 'rgba(94,200,229,0.05)';
+    ctx.lineWidth = 1;
+    var g;
+    for (g = 0; g < w; g += 22) {
+      ctx.beginPath(); ctx.moveTo(g, 0); ctx.lineTo(g, h); ctx.stroke();
+    }
+    for (g = 0; g < h; g += 22) {
+      ctx.beginPath(); ctx.moveTo(0, g); ctx.lineTo(w, g); ctx.stroke();
+    }
+
+    // porcelain rim
+    var rim = ctx.createRadialGradient(cx - R * 0.2, cy - R * 0.25, R * 0.2, cx, cy, R * 1.18);
+    rim.addColorStop(0, '#d8d4cc');
+    rim.addColorStop(0.55, '#9a968e');
+    rim.addColorStop(1, '#3a3840');
+    fillCircle(ctx, cx, cy, R * 1.16, rim);
+
+    // inner shadow ring
+    fillCircle(ctx, cx, cy, R * 1.02, '#1c1a22');
+
+    // water
+    var water = ctx.createRadialGradient(cx - R * 0.15, cy - R * 0.12, R * 0.05, cx, cy, R);
+    water.addColorStop(0, '#2a6a7a');
+    water.addColorStop(0.45, '#164858');
+    water.addColorStop(1, '#0b2430');
+    fillCircle(ctx, cx, cy, R, water);
+
+    // surface sheen
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    ctx.lineWidth = 1;
+    var k;
+    for (k = 1; k <= 5; k++) {
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, R * (0.25 + k * 0.14), R * (0.18 + k * 0.12), om.total * 0.08, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // jets
+    var nJet = 6;
+    var jetSign = state.jet === 0 ? 0 : (state.jet > 0 ? 1 : -1);
+    var j;
+    for (j = 0; j < nJet; j++) {
+      var ang = (j / nJet) * Math.PI * 2 + 0.15;
+      var jx = cx + Math.cos(ang) * R * 0.92;
+      var jy = cy + Math.sin(ang) * R * 0.92;
+      fillCircle(ctx, jx, jy, 3.2, '#c5c0b6');
+      if (jetSign !== 0) {
+        var tang = ang + jetSign * Math.PI / 2;
+        var len = 16 + Math.abs(state.jet) * 18;
+        var grd = ctx.createLinearGradient(jx, jy, jx + Math.cos(tang) * len, jy + Math.sin(tang) * len);
+        grd.addColorStop(0, 'rgba(94,200,229,0.85)');
+        grd.addColorStop(1, 'rgba(94,200,229,0)');
+        ctx.strokeStyle = grd;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        ctx.moveTo(jx, jy);
+        ctx.lineTo(jx + Math.cos(tang) * len, jy + Math.sin(tang) * len);
+        ctx.stroke();
+      }
+    }
+
+    // particles
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 0.98, 0, Math.PI * 2);
+    ctx.clip();
+    var i;
+    for (i = 0; i < N_BASIN; i++) {
+      var pr = bR[i] * R * 0.94;
+      var px = cx + Math.cos(bA[i]) * pr;
+      var py = cy + Math.sin(bA[i]) * pr;
+      var alpha = 0.35 + 0.55 * (1 - bR[i]);
+      ctx.fillStyle = 'rgba(94,200,229,' + alpha.toFixed(3) + ')';
+      ctx.beginPath();
+      ctx.arc(px, py, 1.7 + (1 - bR[i]) * 1.1, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // drain
+    fillCircle(ctx, cx, cy, R * 0.11, '#07080e');
+    strokeCircle(ctx, cx, cy, R * 0.11, 'rgba(215,222,242,0.25)', 1);
+    ctx.strokeStyle = 'rgba(215,222,242,0.28)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx - R * 0.08, cy);
+    ctx.lineTo(cx + R * 0.08, cy);
+    ctx.moveTo(cx, cy - R * 0.08);
+    ctx.lineTo(cx, cy + R * 0.08);
+    ctx.stroke();
+
+    // contribution bar
+    var barX = 14;
+    var barY = h - 52;
+    var barW = w - 28;
+    var barH = 10;
+    var magJ = Math.abs(om.jet);
+    var magS = Math.abs(om.swirl);
+    var magC = Math.abs(om.cor);
+    var sum = magJ + magS + magC;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('WHAT SETS |ω|  (jets · leftover · Coriolis)', barX, barY - 8);
+    ctx.fillStyle = '#10162e';
+    ctx.fillRect(barX, barY, barW, barH);
+    if (sum > 0) {
+      var x0 = barX;
+      var wJ = barW * (magJ / sum);
+      var wS = barW * (magS / sum);
+      var wC = barW * (magC / sum);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillRect(x0, barY, Math.max(0, wJ), barH);
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillRect(x0 + wJ, barY, Math.max(0, wS), barH);
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillRect(x0 + wJ + wS, barY, Math.max(wC, sum > 0 && magC > 0 ? 1.5 : 0), barH);
+    }
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('jets ' + magJ.toFixed(2) + '   leftover ' + magS.toFixed(2) + '   Coriolis ' + magC.toExponential(1) + ' rad/s', barX, barY + 24);
+
+    // hemisphere note
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    var spin = om.total;
+    var spinTxt = Math.abs(spin) < 0.03 ? 'almost still' : (spin > 0 ? 'spinning CCW' : 'spinning CW');
+    ctx.fillText(spinTxt, 14, 22);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('looking down · same plumbing, any hemisphere', 14, 36);
+  }
+
+  function drawMiniEarth(ctx, ex, ey, er, latDeg, ang) {
+    var lat = latDeg * Math.PI / 180;
+    var grd = ctx.createRadialGradient(ex - er * 0.3, ey - er * 0.3, er * 0.1, ex, ey, er);
+    grd.addColorStop(0, '#2a5a6e');
+    grd.addColorStop(1, '#0c2430');
+    fillCircle(ctx, ex, ey, er, grd);
+    strokeCircle(ctx, ex, ey, er, 'rgba(94,200,229,0.45)', 1.2);
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(ex, ey, er, 0, Math.PI * 2);
+    ctx.clip();
+
+    // rotating meridians
+    ctx.strokeStyle = 'rgba(215,222,242,0.2)';
+    ctx.lineWidth = 1;
+    var m;
+    for (m = 0; m < 6; m++) {
+      var lon = ang + m * Math.PI / 6;
+      var hx = Math.sin(lon);
+      ctx.beginPath();
+      ctx.ellipse(ex + hx * er * 0.15, ey, er * Math.abs(Math.cos(lon)), er, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    // equator
+    ctx.strokeStyle = 'rgba(255,194,74,0.55)';
+    ctx.beginPath();
+    ctx.moveTo(ex - er, ey);
+    ctx.lineTo(ex + er, ey);
+    ctx.stroke();
+    // latitude parallel
+    var yLat = ey - Math.sin(lat) * er;
+    var rLat = Math.cos(lat) * er;
+    if (rLat > 1) {
+      ctx.strokeStyle = '#5ec8e5';
+      ctx.beginPath();
+      ctx.ellipse(ex, yLat, rLat, rLat * 0.18, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      fillCircle(ctx, ex, yLat, 3, '#ff7e5f');
+    }
+    ctx.restore();
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.textAlign = 'center';
+    ctx.fillText('rotating Earth', ex, ey + er + 12);
+    ctx.textAlign = 'left';
+  }
+
+  function drawStorm() {
+    var s = surfaces.storm;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var cx = w * 0.42;
+    var cy = h * 0.50;
+    var R = Math.min(w, h) * 0.40;
+    var latR = state.lat * Math.PI / 180;
+    var sense = Math.sin(latR);
+    var absS = Math.abs(sense);
+
+    // faint stars
+    ctx.fillStyle = 'rgba(215,222,242,0.35)';
+    fillCircle(ctx, w * 0.08, h * 0.12, 0.7, 'rgba(215,222,242,0.4)');
+    fillCircle(ctx, w * 0.18, h * 0.08, 1.0, 'rgba(215,222,242,0.5)');
+    fillCircle(ctx, w * 0.92, h * 0.18, 0.6, 'rgba(215,222,242,0.35)');
+    fillCircle(ctx, w * 0.86, h * 0.08, 0.8, 'rgba(215,222,242,0.4)');
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.clip();
+
+    var field = ctx.createRadialGradient(cx, cy, R * 0.05, cx, cy, R);
+    if (absS < 0.09) {
+      field.addColorStop(0, '#1a3040');
+      field.addColorStop(1, '#0c1c28');
+    } else if (sense > 0) {
+      field.addColorStop(0, '#3a2218');
+      field.addColorStop(0.45, '#163848');
+      field.addColorStop(1, '#0a2434');
+    } else {
+      field.addColorStop(0, '#3a2218');
+      field.addColorStop(0.45, '#1a3048');
+      field.addColorStop(1, '#0c1c30');
+    }
+    ctx.fillStyle = field;
+    ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
+
+    // isobars
+    ctx.strokeStyle = 'rgba(215,222,242,0.14)';
+    ctx.lineWidth = 1;
+    var ib;
+    for (ib = 1; ib <= 6; ib++) {
+      strokeCircle(ctx, cx, cy, R * (ib / 6.4), 'rgba(215,222,242,0.12)', 1);
+    }
+
+    // spiral bands
+    if (absS > 0.04) {
+      var band, t;
+      var dir = sense > 0 ? 1 : -1;
+      for (band = 0; band < 5; band++) {
+        ctx.beginPath();
+        var a0 = band * (Math.PI * 2 / 5) + state.frameAngle * 0.15;
+        for (t = 0; t <= 1.0001; t += 0.02) {
+          var th = a0 + dir * t * 3.4;
+          var rr = R * (0.98 - t * 0.78);
+          var x = cx + Math.cos(th) * rr;
+          var y = cy + Math.sin(th) * rr;
+          if (t === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = 'rgba(215,222,242,' + (0.10 + 0.06 * band) + ')';
+        ctx.lineWidth = 7 - band;
+        ctx.stroke();
+      }
+    }
+
+    // parcels
+    var i;
+    for (i = 0; i < N_STORM; i++) {
+      var pr = sR[i] * R;
+      var px = cx + Math.cos(sA[i]) * pr;
+      var py = cy + Math.sin(sA[i]) * pr;
+      var col = sense >= 0 ? 'rgba(94,200,229,' : 'rgba(255,126,95,';
+      if (absS < 0.09) col = 'rgba(215,222,242,';
+      ctx.fillStyle = col + (0.40 + 0.45 * (1 - sR[i])).toFixed(3) + ')';
+      ctx.beginPath();
+      ctx.arc(px, py, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // eye
+    fillCircle(ctx, cx, cy, R * 0.08, 'rgba(8,11,28,0.55)');
+    ctx.font = FONT_DISPLAY_16;
+    ctx.fillStyle = '#ff7e5f';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('L', cx, cy);
+    ctx.textBaseline = 'alphabetic';
+    ctx.textAlign = 'left';
+    ctx.restore();
+
+    strokeCircle(ctx, cx, cy, R, 'rgba(94,200,229,0.28)', 1.4);
+
+    // deflection callout
+    var ax = w * 0.78;
+    var ay = h * 0.30;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('INFLOW', ax - 18, ay - 36);
+    ctx.strokeStyle = 'rgba(215,222,242,0.25)';
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath();
+    ctx.moveTo(ax - 28, ay);
+    ctx.lineTo(ax + 28, ay);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('straight in', ax - 24, ay - 8);
+
+    ctx.strokeStyle = absS < 0.09 ? '#8b93ad' : (sense > 0 ? '#5ec8e5' : '#ff7e5f');
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(ax - 28, ay + 22);
+    if (absS < 0.09) {
+      ctx.lineTo(ax + 28, ay + 22);
+    } else if (sense > 0) {
+      ctx.quadraticCurveTo(ax + 6, ay + 6, ax + 28, ay + 34);
+    } else {
+      ctx.quadraticCurveTo(ax + 6, ay + 38, ax + 28, ay + 10);
+    }
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = absS < 0.09 ? '#8b93ad' : (sense > 0 ? '#5ec8e5' : '#ff7e5f');
+    var bend = absS < 0.09 ? 'no bend' : (sense > 0 ? 'to the right · CCW' : 'to the left · CW');
+    ctx.fillText(bend, ax - 28, ay + 52);
+
+    drawMiniEarth(ctx, w - 52, h - 58, 28, state.lat, state.frameAngle);
+
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    var title;
+    if (absS < 0.09) title = 'No preferred spin';
+    else if (sense > 0) title = 'Cyclonic CCW';
+    else title = 'Cyclonic CW';
+    ctx.fillText(title, 14, 22);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('looking down on a low · f-plane schematic', 14, 36);
+  }
+
+  function logX(val, vmin, vmax, x0, x1) {
+    var a = Math.log(Math.max(val, vmin));
+    var b = Math.log(vmin);
+    var c = Math.log(vmax);
+    return x0 + (x1 - x0) * (a - b) / (c - b);
+  }
+
+  function drawScale() {
+    var s = surfaces.scale;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var aB = Math.abs(coriolisAccel(V_BASIN, state.lat));
+    var aS = Math.abs(coriolisAccel(V_STORM, state.lat));
+    var dB = deflection(coriolisAccel(V_BASIN, state.lat), T_BASIN);
+    var dS = deflection(coriolisAccel(V_STORM, state.lat), T_STORM);
+    if (aB < 1e-18) aB = 1e-18;
+    if (aS < 1e-18) aS = 1e-18;
+    if (dB < 1e-18) dB = 1e-18;
+    if (dS < 1e-18) dS = 1e-18;
+
+    var padL = 168;
+    var padR = 18;
+    var x0 = padL;
+    var x1 = w - padR;
+
+    function row(y, label, color, val, vmin, vmax, caption) {
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#8b93ad';
+      ctx.textAlign = 'right';
+      ctx.fillText(label, padL - 10, y + 9);
+      ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(94,200,229,0.10)';
+      ctx.fillRect(x0, y, x1 - x0, 12);
+      var x = logX(val, vmin, vmax, x0, x1);
+      ctx.fillStyle = color;
+      ctx.fillRect(x0, y, Math.max(2, x - x0), 12);
+      ctx.fillStyle = '#d7def2';
+      ctx.font = FONT_MONO_11;
+      ctx.fillText(caption, x0 + 6, y - 4);
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('LOG SCALE  ·  same a = 2ωv sinφ  ·  drag latitude', 14, 16);
+
+    row(36, 'a_cor basin', '#ff7e5f', aB, 1e-8, 1e-1,
+      '|a| basin  ' + (aB <= 1e-17 ? '0 (equator)' : aB.toExponential(2) + ' m/s²'));
+    row(70, 'a_cor storm', '#5ec8e5', aS, 1e-8, 1e-1,
+      '|a| storm  ' + (aS <= 1e-17 ? '0 (equator)' : aS.toExponential(2) + ' m/s²'));
+    row(112, 'basin δ', '#ff7e5f', dB, 1e-8, 1e8,
+      'basin deflection  ' + fmtMM(dB) + '   vs bowl R = 150 mm');
+    row(146, 'bowl R', '#ffc24a', R_BOWL, 1e-8, 1e8,
+      'bowl radius  150 mm   —  δ / R = ' + (dB / R_BOWL).toExponential(1));
+    row(180, 'storm δ', '#5ec8e5', dS, 1e-8, 1e8,
+      'storm deflection  ' + fmtMM(dS) + '   vs L = 1000 km');
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('½at² is a toy free-particle estimate. Storms geostrophically adjust; the point is δ_storm ≫ L while δ_basin ≪ R.', 14, h - 8);
+  }
+
+  function fitAll() {
+    fitCanvas(surfaces.basin);
+    fitCanvas(surfaces.storm);
+    fitCanvas(surfaces.scale);
+  }
+
+  function drawAll() {
+    if (!surfaces.basin.ctx) fitAll();
+    drawBasin();
+    drawStorm();
+    drawScale();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = (ts - state.lastTs) / 1000;
+    state.lastTs = ts;
+    if (dt > 0.05) dt = 0.05;
+    if (state.playing && !document.hidden) {
+      stepBasin(dt);
+      stepStorm(dt);
+      state.frameAngle += dt * (Math.PI * 2 / DAY_VISUAL);
+    }
+    syncLabels();
+    drawAll();
+    requestAnimationFrame(tick);
+  }
+
+  function togglePlay() {
+    state.playing = !state.playing;
+    if (state.playing) state.lastTs = 0;
+    syncLabels();
+  }
+
+  function onLat(v, cityId) {
+    var n = Number(v);
+    if (n > 90) n = 90;
+    if (n < -90) n = -90;
+    state.lat = n;
+    if (cityId) markCity(cityId);
+    else {
+      state.city = '';
+      var keys = Object.keys(CITIES);
+      var i, found = '';
+      for (i = 0; i < keys.length; i++) {
+        if (Math.abs(CITIES[keys[i]].lat - n) < 0.15) found = keys[i];
+      }
+      markCity(found);
+    }
+    syncLabels();
+  }
+
+  elPlay.addEventListener('click', togglePlay);
+  elLat.addEventListener('input', function () { onLat(elLat.value, null); });
+  elJet.addEventListener('input', function () {
+    state.jet = Number(elJet.value);
+    syncLabels();
+  });
+  elSwirl.addEventListener('input', function () {
+    state.leftover = Number(elSwirl.value);
+    syncLabels();
+  });
+
+  var ckeys = Object.keys(CITIES);
+  var ci;
+  for (ci = 0; ci < ckeys.length; ci++) {
+    (function (id) {
+      var btn = $(id);
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        onLat(CITIES[id].lat, id);
+      });
+    })(ckeys[ci]);
+  }
+
+  $('btnFlip').addEventListener('click', function () {
+    onLat(-state.lat, null);
+  });
+  $('btnZero').addEventListener('click', function () {
+    state.jet = 0;
+    state.leftover = 0;
+    syncLabels();
+  });
+
+  document.addEventListener('keydown', function (ev) {
+    if (ev.code === 'Space' && ev.target === document.body) {
+      ev.preventDefault();
+      togglePlay();
+    }
+  });
+
+  window.addEventListener('resize', function () {
+    fitAll();
+    drawAll();
+  });
+
+  fitAll();
+  syncLabels();
+  drawAll();
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
