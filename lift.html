@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Do Airplanes Really Fly? — Equal Transit Time Is a Myth | Classroom</title>
+<meta name="description" content="Teacher explainer: air over a wing does not have to meet at the trailing edge. NASA Glenn calls equal-transit incorrect. Live thin-airfoil CL ≈ 2πα, tracers, downwash, and Bernoulli as a pressure field — not a race.">
+<meta name="keywords" content="how airplanes fly, equal transit time, lift, Bernoulli, classroom, teachers, NASA Glenn, airfoil, angle of attack">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 780px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.55);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 420px; }
+.cl-card canvas { height: 420px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas, .cl-card canvas { height: 300px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="4">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · lift</a></p>
+  <h1>How do airplanes really fly?</h1>
+  <p class="lede">The classroom story says air over the longer top path <strong>must meet</strong> the bottom air at the trailing edge, so it goes faster, so Bernoulli lifts the wing. <strong>NASA Glenn calls that incorrect.</strong> Parcels do not reunite. Lift is the upward reaction to downward momentum — and a pressure field that Bernoulli describes along a streamline. Both languages. Not a fight.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <label class="sl grow">
+        <span>Angle of attack <em id="aoaLabel">5.0°</em></span>
+        <input type="range" id="aoa" min="-4" max="16" step="0.1" value="5" aria-label="Angle of attack in degrees">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="aoa0">0°</button>
+      <button type="button" class="chip on" id="aoa5">5°</button>
+      <button type="button" class="chip" id="aoa10">10°</button>
+      <button type="button" class="chip" id="aoa15">15°</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Freestream v <em id="vLabel">50.0 m/s</em></span>
+        <input type="range" id="vel" min="20" max="80" step="0.5" value="50" aria-label="Freestream speed">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="btnMyth" aria-pressed="false">Equal-transit OFF</button>
+      <button type="button" class="chip" id="btnReset">Reset tracers</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Airfoil · tracers</b><span>illustration · not Navier–Stokes · not CFD</span></div>
+      <canvas id="cvFlow" width="780" height="420" aria-label="Cambered airfoil with particle tracers, downwash, and net lift"></canvas>
+    </div>
+    <div class="card cl-card">
+      <div class="card-h"><b>CL cartoon</b><span>CL ≈ 2π α · stall not modeled</span></div>
+      <canvas id="cvCL" width="480" height="420" aria-label="Thin-airfoil lift coefficient versus angle of attack"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Parcels do not meet</h2>
+      <p>Two tracers that start together at the leading edge do <em>not</em> reunite at the trailing edge. The upper parcel arrives first and is already downstream. There is no meeting rule to enforce.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Downwash is Newton</h2>
+      <p>The wing throws air down. Lift is the upward reaction to that downward momentum. Watch the downwash arrow behind the trailing edge — turn the angle and the turn of the flow grows with it.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Bernoulli is the pressure field</h2>
+      <p>Faster flow along a streamline sits at lower pressure. That is Bernoulli — a statement about the pressure field, not a race to the trailing edge. Newton and Bernoulli describe the same lift.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“They must meet”</h2>
+      <p>“Air over the longer top path must meet the bottom air at the trailing edge, so it goes faster, so Bernoulli gives lift.” NASA GRC: <em>incorrect</em>. Toggle the overlay: forced reunion under-predicts Δv and lift.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Reference wing and atmosphere">
+    <div class="stat">
+      <div class="k">Air density ρ</div>
+      <div class="v">1.225 kg/m³</div>
+      <div class="s">ISA sea level · fixed</div>
+    </div>
+    <div class="stat">
+      <div class="k">Reference area S</div>
+      <div class="v">16.2 m²</div>
+      <div class="s">Cessna 172-class wing · set</div>
+    </div>
+    <div class="stat">
+      <div class="k">Mean chord c</div>
+      <div class="v">1.47 m</div>
+      <div class="s">Γ = π U c α · KJ check</div>
+    </div>
+    <div class="stat">
+      <div class="k">Thin-airfoil CL</div>
+      <div class="v">2π α</div>
+      <div class="s">α in radians · small α only</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">This is an illustration, not Navier–Stokes and not CFD.</strong> The body is a unit-chord <code>NACA 2412</code> (2% camber at 40% chord, 12% thickness). Streamlines are prescribed offset curves of that surface: horizontal inflow, body-following wrap, and a thin-airfoil-inspired downwash after the trailing edge of order <code>α e^{−offset}</code>. Speed along a surface pair is the flat-plate thin-airfoil jump <code>u = U ± U α √((c−x)/x)</code> (clamped near the leading-edge singularity). No viscosity, no boundary layer, no turbulence model.</li>
+      <li><strong style="color:var(--text)">Lift coefficient cartoon.</strong> <code>CL = 2π α</code> with <code>α</code> in radians — the classical thin-airfoil / flat-plate result for small angle. At 5°, <code>α = π/36</code> and <code>CL = π²/18 ≈ 0.548 ≈ 0.55</code>. Camber would shift the zero-lift angle (<code>α_L0 ≈ −2°</code> for a 2412); we do <em>not</em> include that, so the slider maps cleanly onto the textbook formula. <strong>Stall is not modeled past ~15°.</strong> The drawn line continues, but a real section peels and <code>CL</code> falls. Treat anything above ~15° as off-model.</li>
+      <li><strong style="color:var(--text)">Live lift.</strong> <code>L = CL · ½ ρ v² S</code> with <code>ρ = 1.225 kg/m³</code> (ISA sea level), <code>v</code> from the slider, <code>S = 16.2 m²</code> set (Cessna 172-class). Circulation <code>Γ = π U c α</code> with <code>c = 1.47 m</code>. Kutta–Joukowski <code>L = ρ U Γ b</code> and <code>b = S/c</code> recover the same newton. The <code>v</code> slider changes the number, not the tracer animation speed (tracers are watchable, not to scale).</li>
+      <li><strong style="color:var(--text)">Equal-transit overlay.</strong> Geometric surface lengths of the NACA 2412 are <code>L_u/c ≈ 1.028</code> and <code>L_l/c ≈ 1.013</code>. The myth forces a common transit time <code>T = c/U</code>, so <code>v_u = U L_u/c</code>, <code>v_l = U L_l/c</code>, and a Bernoulli cartoon <code>CL_fake = (L_u/c)² − (L_l/c)² ≈ 0.030</code>. That number barely cares about angle of attack — it only knows path length — and it under-predicts Δv and lift versus the thin-airfoil illustration. The toggle does <em>not</em> change the honest <code>CL</code> or <code>L</code>; it only draws the forced-reunion pair and the fake readout.</li>
+      <li><strong style="color:var(--text)">Newton and Bernoulli are both right.</strong> Downwash: the wing gives air downward momentum; the reaction is lift. Pressure: along a streamline, <code>p + ½ρv² = const</code> (steady, inviscid, incompressible), so the thin-airfoil speed field is a suction field on the upper surface. They are two descriptions of one force, not rival theories. Circulation is the bookkeeping that ties them together (Kutta condition at the trailing edge).</li>
+      <li><strong style="color:var(--text)">NASA Glenn.</strong> “Incorrect Theory #1 — Equal Transit Time,” Beginner’s Guide to Aeronautics, NASA Glenn Research Center. The longer-path / must-meet story is explicitly flagged as wrong. Real upper-surface speeds are much higher than a path-length ratio can justify; parcels that split at the leading edge are found at different stations when one of them reaches the trailing edge (see also flow-visualization stills in the GRC notes and any PIV / smoke-line classroom film).</li>
+      <li><strong style="color:var(--text)">2D, inviscid, no induced drag.</strong> d’Alembert’s paradox: this illustration has lift and no profile drag. A finite wing adds trailing vortices and induced drag; a real Reynolds number adds skin friction and a wake. None of that is drawn. The net-force arrow is the lift vector (perpendicular to the freestream). Downwash angle is schematic.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+
+(function () {
+  'use strict';
+
+  // ===== Named formulas (same as validate-lift.js) =====
+  var RHO = 1.225;
+  var S_REF = 16.2;
+  var C_PHYS = 1.47;
+  var U_VIS = 0.42;
+  var STALL_DEG = 15;
+  var PATH_U = 1.027910;
+  var PATH_L = 1.013251;
+
+  function degToRad(d) { return d * Math.PI / 180; }
+  function radToDeg(a) { return a * 180 / Math.PI; }
+
+  function clThinAirfoil(alphaRad) {
+    return 2 * Math.PI * alphaRad;
+  }
+
+  function honestCL(alphaRad, equalTransitOn) {
+    // equal-transit overlay must not change the honest coefficient
+    void equalTransitOn;
+    return clThinAirfoil(alphaRad);
+  }
+
+  function dynamicPressure(rho, v) {
+    return 0.5 * rho * v * v;
+  }
+
+  function liftForce(CL, rho, v, S) {
+    return CL * dynamicPressure(rho, v) * S;
+  }
+
+  function circulationKJ(U, c, alphaRad) {
+    return Math.PI * U * c * alphaRad;
+  }
+
+  function clEqualTransit(pathUpper, pathLower, chord) {
+    var ru = pathUpper / chord;
+    var rl = pathLower / chord;
+    return ru * ru - rl * rl;
+  }
+
+  function honestSpeed(xb, side, U, alpha) {
+    var xi = xb;
+    if (xi < 0.02) xi = 0.02;
+    if (xi > 0.98) xi = 0.98;
+    var du = U * alpha * Math.sqrt((1 - xi) / xi);
+    if (side > 0) return U + du;
+    var v = U - du;
+    return v < 0.18 * U ? 0.18 * U : v;
+  }
+
+  // ===== NACA 2412 =====
+  function naca2412(x) {
+    var m = 0.02;
+    var p = 0.4;
+    var t = 0.12;
+    var yc, dyc;
+    if (x < p) {
+      yc = (m / (p * p)) * (2 * p * x - x * x);
+      dyc = (m / (p * p)) * (2 * p - 2 * x);
+    } else {
+      var den = (1 - p) * (1 - p);
+      yc = (m / den) * ((1 - 2 * p) + 2 * p * x - x * x);
+      dyc = (m / den) * (2 * p - 2 * x);
+    }
+    var sx = Math.sqrt(Math.max(x, 0));
+    var yt = 5 * t * (0.2969 * sx - 0.1260 * x - 0.3516 * x * x + 0.2843 * x * x * x - 0.1015 * x * x * x * x);
+    var th = Math.atan(dyc);
+    var s = Math.sin(th);
+    var c = Math.cos(th);
+    return {
+      yc: yc,
+      dyc: dyc,
+      yt: yt,
+      xu: x - yt * s,
+      yu: yc + yt * c,
+      xl: x + yt * s,
+      yl: yc - yt * c
+    };
+  }
+
+  function bodyNormal(xb, side) {
+    var h = 0.002;
+    var x0 = xb - h;
+    var x1 = xb + h;
+    if (x0 < 0) x0 = 0;
+    if (x1 > 1) x1 = 1;
+    var p0 = naca2412(x0);
+    var p1 = naca2412(x1);
+    var dx, dy;
+    if (side > 0) { dx = p1.xu - p0.xu; dy = p1.yu - p0.yu; }
+    else { dx = p1.xl - p0.xl; dy = p1.yl - p0.yl; }
+    var len = Math.hypot(dx, dy) || 1;
+    var nx = -dy / len;
+    var ny = dx / len;
+    if (side < 0) { nx = -nx; ny = -ny; }
+    return { x: nx, y: ny };
+  }
+
+  // ===== State =====
+  var state = {
+    alphaDeg: 5,
+    v: 50,
+    equalTransit: false,
+    playing: true,
+    lastTs: 0,
+    tVis: 0
+  };
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elAoa = $('aoa');
+  var elAoaL = $('aoaLabel');
+  var elVel = $('vel');
+  var elVelL = $('vLabel');
+  var elMyth = $('btnMyth');
+  var elReadout = $('readout');
+  var cvFlow = $('cvFlow');
+  var cvCL = $('cvCL');
+
+  var surfaces = {
+    flow: { canvas: cvFlow, ctx: null, w: 0, h: 0, cssH: 420 },
+    cl: { canvas: cvCL, ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  var geom = {
+    alpha: null,
+    foil: [],
+    streams: [],
+    pathU: null,
+    pathL: null,
+    le: null,
+    te: null,
+    qc: null
+  };
+
+  var particles = [];
+  var mythPair = null;
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function bodyToWind(xb, yb, alpha) {
+    var xr = xb - 0.25;
+    var ca = Math.cos(alpha);
+    var sa = Math.sin(alpha);
+    return { x: xr * ca + yb * sa, y: -xr * sa + yb * ca };
+  }
+
+  function normalWind(xb, side, alpha) {
+    var n = bodyNormal(xb, side);
+    var ca = Math.cos(alpha);
+    var sa = Math.sin(alpha);
+    return { x: n.x * ca + n.y * sa, y: -n.x * sa + n.y * ca };
+  }
+
+  function polyLen(pts) {
+    var s = 0;
+    var i;
+    for (i = 1; i < pts.length; i++) {
+      s += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+    }
+    return s;
+  }
+
+  function cumLen(pts) {
+    var c = [0];
+    var i;
+    for (i = 1; i < pts.length; i++) {
+      c.push(c[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y));
+    }
+    return c;
+  }
+
+  function atArc(pts, cum, s) {
+    var total = cum[cum.length - 1];
+    if (s <= 0) return { x: pts[0].x, y: pts[0].y, xb: pts[0].xb, done: false, t: 0 };
+    if (s >= total) {
+      var last = pts[pts.length - 1];
+      return { x: last.x, y: last.y, xb: last.xb, done: true, t: 1 };
+    }
+    var lo = 0;
+    var hi = cum.length - 1;
+    while (hi - lo > 1) {
+      var mid = (lo + hi) >> 1;
+      if (cum[mid] <= s) lo = mid;
+      else hi = mid;
+    }
+    var span = cum[hi] - cum[lo] || 1e-9;
+    var u = (s - cum[lo]) / span;
+    var a = pts[lo];
+    var b = pts[hi];
+    var xb;
+    if (a.xb != null && b.xb != null) xb = a.xb + (b.xb - a.xb) * u;
+    return {
+      x: a.x + (b.x - a.x) * u,
+      y: a.y + (b.y - a.y) * u,
+      xb: xb,
+      done: false,
+      t: s / total
+    };
+  }
+
+  function buildSurfacePath(side, alpha) {
+    var pts = [];
+    var le = bodyToWind(0, 0, alpha);
+    pts.push({ x: le.x - 0.11, y: le.y, xb: null });
+    pts.push({ x: le.x - 0.03, y: le.y + side * 0.01, xb: 0 });
+    var i;
+    var n = 40;
+    for (i = 0; i <= n; i++) {
+      var xb = i / n;
+      var s = naca2412(xb);
+      var yb = side > 0 ? s.yu : s.yl;
+      var pw = bodyToWind(xb, yb, alpha);
+      var nm = normalWind(xb, side, alpha);
+      pts.push({ x: pw.x + nm.x * 0.018, y: pw.y + nm.y * 0.018, xb: xb });
+    }
+    var te = pts[pts.length - 1];
+    var k;
+    for (k = 1; k <= 18; k++) {
+      var td = k * 0.07;
+      var ydw = te.y - 0.55 * alpha * (1 - Math.exp(-1.5 * td)) * (side > 0 ? 1 : 0.65);
+      pts.push({ x: te.x + td, y: ydw, xb: 1 + td });
+    }
+    return pts;
+  }
+
+  function buildStream(k, side, alpha) {
+    var off = 0.045 + k * 0.11;
+    var pts = [];
+    var i;
+    var n = 36;
+    var first = null;
+    for (i = 0; i <= n; i++) {
+      var xb = i / n;
+      var s = naca2412(xb);
+      var yb = side > 0 ? s.yu : s.yl;
+      var pw = bodyToWind(xb, yb, alpha);
+      var nm = normalWind(xb, side, alpha);
+      var q = { x: pw.x + nm.x * off, y: pw.y + nm.y * off };
+      if (!first) first = q;
+      pts.push(q);
+    }
+    var last = pts[pts.length - 1];
+    var x;
+    var head = [];
+    for (x = first.x - 0.95; x < first.x; x += 0.05) {
+      var tw = (first.x - x) / 0.95;
+      var yUp = first.y + 0.10 * alpha * tw * Math.exp(-off * 1.4);
+      head.push({ x: x, y: yUp });
+    }
+    pts = head.concat(pts);
+    for (x = last.x + 0.05; x <= last.x + 1.25; x += 0.05) {
+      var td = x - last.x;
+      var yDw = last.y - 0.50 * alpha * (1 - Math.exp(-1.5 * td)) * Math.exp(-1.1 * off);
+      pts.push({ x: x, y: yDw });
+    }
+    return pts;
+  }
+
+  function rebuildGeom() {
+    var alpha = degToRad(state.alphaDeg);
+    geom.alpha = state.alphaDeg;
+    var foil = [];
+    var i;
+    var n = 48;
+    for (i = 0; i <= n; i++) {
+      var xu = i / n;
+      var su = naca2412(xu);
+      foil.push(bodyToWind(su.xu, su.yu, alpha));
+    }
+    for (i = n; i >= 0; i--) {
+      var xl = i / n;
+      var sl = naca2412(xl);
+      foil.push(bodyToWind(sl.xl, sl.yl, alpha));
+    }
+    geom.foil = foil;
+    geom.le = bodyToWind(0, 0, alpha);
+    geom.te = bodyToWind(1, 0, alpha);
+    geom.qc = bodyToWind(0.25, naca2412(0.25).yc, alpha);
+    geom.pathU = buildSurfacePath(1, alpha);
+    geom.pathL = buildSurfacePath(-1, alpha);
+    geom.cumU = cumLen(geom.pathU);
+    geom.cumL = cumLen(geom.pathL);
+    geom.teLenU = 0;
+    geom.teLenL = 0;
+    for (i = 0; i < geom.pathU.length; i++) {
+      if (geom.pathU[i].xb != null && geom.pathU[i].xb >= 1 && geom.teLenU === 0) {
+        geom.teLenU = geom.cumU[i];
+      }
+    }
+    for (i = 0; i < geom.pathL.length; i++) {
+      if (geom.pathL[i].xb != null && geom.pathL[i].xb >= 1 && geom.teLenL === 0) {
+        geom.teLenL = geom.cumL[i];
+      }
+    }
+    if (!geom.teLenU) geom.teLenU = geom.cumU[geom.cumU.length - 1] * 0.62;
+    if (!geom.teLenL) geom.teLenL = geom.cumL[geom.cumL.length - 1] * 0.62;
+    geom.streams = [];
+    var ks = [0, 1, 2, 3, 4];
+    for (i = 0; i < ks.length; i++) {
+      geom.streams.push(buildStream(ks[i], 1, alpha));
+      geom.streams.push(buildStream(ks[i], -1, alpha));
+    }
+  }
+
+  function worldToCanvas(w, h, p) {
+    var chordPx = Math.min(w * 0.50, h * 0.72);
+    var scale = chordPx;
+    var cx = w * 0.40;
+    var cy = h * 0.54;
+    return { x: cx + p.x * scale, y: cy - p.y * scale, scale: scale, cx: cx, cy: cy };
+  }
+
+  function resetTracers() {
+    particles.length = 0;
+    mythPair = null;
+    spawnHonest();
+    if (state.equalTransit) spawnMyth();
+  }
+
+  function spawnHonest() {
+    particles.push({
+      kind: 'honest',
+      sU: 0,
+      sL: 0,
+      trailU: [],
+      trailL: [],
+      age: 0
+    });
+  }
+
+  function spawnMyth() {
+    mythPair = { sU: 0, sL: 0, trailU: [], trailL: [], age: 0 };
+  }
+
+  function stepTracers(dt) {
+    var alpha = degToRad(state.alphaDeg);
+    var i;
+    for (i = particles.length - 1; i >= 0; i--) {
+      var p = particles[i];
+      p.age += dt;
+      var pu = atArc(geom.pathU, geom.cumU, p.sU);
+      var pl = atArc(geom.pathL, geom.cumL, p.sL);
+      var vU = U_VIS;
+      var vL = U_VIS;
+      if (pu.xb != null && pu.xb >= 0 && pu.xb <= 1) vU = honestSpeed(pu.xb, 1, U_VIS, alpha);
+      if (pl.xb != null && pl.xb >= 0 && pl.xb <= 1) vL = honestSpeed(pl.xb, -1, U_VIS, alpha);
+      if (pu.xb != null && pu.xb > 1) vU = U_VIS * (1 + 0.15 * alpha);
+      if (pl.xb != null && pl.xb > 1) vL = U_VIS * (1 - 0.10 * alpha);
+      p.sU += vU * dt;
+      p.sL += vL * dt;
+      pu = atArc(geom.pathU, geom.cumU, p.sU);
+      pl = atArc(geom.pathL, geom.cumL, p.sL);
+      p.trailU.push(pu.x, pu.y);
+      p.trailL.push(pl.x, pl.y);
+      if (p.trailU.length > 80) { p.trailU.splice(0, 4); p.trailL.splice(0, 4); }
+      if (pu.done && pl.done) particles.splice(i, 1);
+    }
+    if (particles.length && particles[particles.length - 1].age > 1.15) spawnHonest();
+    if (particles.length > 6) particles.shift();
+
+    if (state.equalTransit) {
+      if (!mythPair) spawnMyth();
+      var m = mythPair;
+      m.age += dt;
+      var T = geom.teLenU / U_VIS;
+      var vMU = geom.teLenU / T;
+      var vML = geom.teLenL / T;
+      if (m.sU < geom.teLenU) m.sU += vMU * dt;
+      else m.sU += U_VIS * dt;
+      if (m.sL < geom.teLenL) m.sL += vML * dt;
+      else m.sL += U_VIS * dt;
+      var mu = atArc(geom.pathU, geom.cumU, m.sU);
+      var ml = atArc(geom.pathL, geom.cumL, m.sL);
+      m.trailU.push(mu.x, mu.y);
+      m.trailL.push(ml.x, ml.y);
+      if (m.trailU.length > 80) { m.trailU.splice(0, 4); m.trailL.splice(0, 4); }
+      if (mu.done && ml.done) spawnMyth();
+    } else {
+      mythPair = null;
+    }
+  }
+
+  function arrow(ctx, x1, y1, x2, y2, color, lw) {
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    var len = Math.hypot(dx, dy);
+    if (len < 4) return;
+    var ux = dx / len;
+    var uy = dy / len;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = lw;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    var ah = 9;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ah * ux + 4.5 * uy, y2 - ah * uy - 4.5 * ux);
+    ctx.lineTo(x2 - ah * ux - 4.5 * uy, y2 - ah * uy + 4.5 * ux);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function drawTrail(ctx, W, H, xy, color, width) {
+    if (xy.length < 4) return;
+    ctx.beginPath();
+    var q0 = worldToCanvas(W, H, { x: xy[0], y: xy[1] });
+    ctx.moveTo(q0.x, q0.y);
+    var i;
+    for (i = 2; i < xy.length; i += 2) {
+      var q = worldToCanvas(W, H, { x: xy[i], y: xy[i + 1] });
+      ctx.lineTo(q.x, q.y);
+    }
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  }
+
+  function drawFlow() {
+    var s = surfaces.flow;
+    var ctx = s.ctx, W = s.w, H = s.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, W, H);
+
+    var alpha = degToRad(state.alphaDeg);
+    var CL = honestCL(alpha, state.equalTransit);
+    var i;
+
+    // faint grid
+    ctx.strokeStyle = 'rgba(94,200,229,0.06)';
+    ctx.lineWidth = 1;
+    for (i = 0; i < 8; i++) {
+      var gy = 24 + i * (H / 8);
+      ctx.beginPath();
+      ctx.moveTo(0, gy);
+      ctx.lineTo(W, gy);
+      ctx.stroke();
+    }
+
+    // freestream chevrons
+    ctx.strokeStyle = 'rgba(94,200,229,0.28)';
+    ctx.fillStyle = 'rgba(94,200,229,0.28)';
+    for (i = 0; i < 5; i++) {
+      var fy = 40 + i * (H - 80) / 4;
+      arrow(ctx, 14, fy, 46, fy, 'rgba(94,200,229,0.35)', 1.2);
+    }
+
+    // streamlines
+    for (i = 0; i < geom.streams.length; i++) {
+      var st = geom.streams[i];
+      ctx.beginPath();
+      var j;
+      for (j = 0; j < st.length; j++) {
+        var sp = worldToCanvas(W, H, st[j]);
+        if (j === 0) ctx.moveTo(sp.x, sp.y);
+        else ctx.lineTo(sp.x, sp.y);
+      }
+      ctx.strokeStyle = i % 2 === 0 ? 'rgba(94,200,229,0.22)' : 'rgba(94,200,229,0.16)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // airfoil
+    ctx.beginPath();
+    for (i = 0; i < geom.foil.length; i++) {
+      var fp = worldToCanvas(W, H, geom.foil[i]);
+      if (i === 0) ctx.moveTo(fp.x, fp.y);
+      else ctx.lineTo(fp.x, fp.y);
+    }
+    ctx.closePath();
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#2a3348');
+    g.addColorStop(0.5, '#1a2238');
+    g.addColorStop(1, '#12182c');
+    ctx.fillStyle = g;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(215,222,242,0.55)';
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+
+    // LE highlight
+    var leC = worldToCanvas(W, H, geom.le);
+    ctx.beginPath();
+    ctx.arc(leC.x, leC.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+
+    // chord
+    var teC = worldToCanvas(W, H, geom.te);
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(255,194,74,0.35)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(leC.x, leC.y);
+    ctx.lineTo(teC.x, teC.y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // pressure ticks (Bernoulli field cartoon)
+    for (i = 3; i <= 15; i++) {
+      var xb = i / 18;
+      var su = naca2412(xb);
+      var sl = naca2412(xb);
+      var vU = honestSpeed(xb, 1, 1, alpha);
+      var vL = honestSpeed(xb, -1, 1, alpha);
+      var suw = bodyToWind(su.xu, su.yu, alpha);
+      var slw = bodyToWind(sl.xl, sl.yl, alpha);
+      var nu = normalWind(xb, 1, alpha);
+      var nl = normalWind(xb, -1, alpha);
+      var puC = worldToCanvas(W, H, suw);
+      var plC = worldToCanvas(W, H, slw);
+      var tick = 11 + Math.min(W, H) * 0.012;
+      var lenU = tick * (0.55 + 0.9 * Math.max(0, vU - 0.85));
+      var lenL = tick * (0.55 + 0.9 * Math.max(0, 1.15 - vL));
+      ctx.strokeStyle = 'rgba(94,200,229,0.40)';
+      ctx.lineWidth = 1.1;
+      ctx.beginPath();
+      ctx.moveTo(puC.x, puC.y);
+      ctx.lineTo(puC.x + nu.x * lenU, puC.y - nu.y * lenU);
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,126,95,0.48)';
+      ctx.beginPath();
+      ctx.moveTo(plC.x, plC.y);
+      ctx.lineTo(plC.x + nl.x * lenL, plC.y - nl.y * lenL);
+      ctx.stroke();
+    }
+
+    // honest tracers
+    for (i = 0; i < particles.length; i++) {
+      var pr = particles[i];
+      drawTrail(ctx, W, H, pr.trailU, 'rgba(255,194,74,0.55)', 1.6);
+      drawTrail(ctx, W, H, pr.trailL, 'rgba(94,200,229,0.55)', 1.6);
+      var hu = atArc(geom.pathU, geom.cumU, pr.sU);
+      var hl = atArc(geom.pathL, geom.cumL, pr.sL);
+      var huC = worldToCanvas(W, H, hu);
+      var hlC = worldToCanvas(W, H, hl);
+      ctx.beginPath(); ctx.arc(huC.x, huC.y, 4.2, 0, Math.PI * 2); ctx.fillStyle = '#ffc24a'; ctx.fill();
+      ctx.beginPath(); ctx.arc(hlC.x, hlC.y, 4.2, 0, Math.PI * 2); ctx.fillStyle = '#5ec8e5'; ctx.fill();
+      if (!hu.done && !hl.done && hu.xb != null && hu.xb < 1 && hl.xb != null && hl.xb < 1) {
+        ctx.setLineDash([3, 4]);
+        ctx.strokeStyle = 'rgba(215,222,242,0.28)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(huC.x, huC.y);
+        ctx.lineTo(hlC.x, hlC.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+
+    // myth overlay
+    if (state.equalTransit && mythPair) {
+      drawTrail(ctx, W, H, mythPair.trailU, 'rgba(255,126,95,0.7)', 2);
+      drawTrail(ctx, W, H, mythPair.trailL, 'rgba(255,126,95,0.7)', 2);
+      var mu = atArc(geom.pathU, geom.cumU, mythPair.sU);
+      var ml = atArc(geom.pathL, geom.cumL, mythPair.sL);
+      var muC = worldToCanvas(W, H, mu);
+      var mlC = worldToCanvas(W, H, ml);
+      ctx.beginPath(); ctx.arc(muC.x, muC.y, 5, 0, Math.PI * 2); ctx.fillStyle = '#ff7e5f'; ctx.fill();
+      ctx.beginPath(); ctx.arc(mlC.x, mlC.y, 5, 0, Math.PI * 2); ctx.fillStyle = '#ff7e5f'; ctx.fill();
+      ctx.setLineDash([2, 3]);
+      ctx.strokeStyle = 'rgba(255,126,95,0.7)';
+      ctx.beginPath();
+      ctx.moveTo(muC.x, muC.y);
+      ctx.lineTo(mlC.x, mlC.y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // lift arrow at QC
+    var qcC = worldToCanvas(W, H, geom.qc);
+    var liftPx = 28 + Math.min(90, Math.abs(CL) * 48);
+    var liftDir = CL >= 0 ? -1 : 1;
+    arrow(ctx, qcC.x, qcC.y, qcC.x, qcC.y + liftDir * liftPx, '#ffc24a', 2.2);
+
+    // downwash behind TE
+    var dwLen = 42 + Math.min(56, Math.abs(alpha) * 180);
+    var dwDip = 0.38 + 1.15 * Math.abs(alpha);
+    if (alpha < 0) dwDip = -dwDip;
+    var dwx2 = teC.x + 22 + dwLen * 0.72;
+    var dwy2 = teC.y + 10 + dwLen * dwDip;
+    arrow(ctx, teC.x + 14, teC.y + 8, dwx2, dwy2, '#ff7e5f', 2.1);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('LIFT  (net force)', qcC.x + 10, qcC.y + liftDir * liftPx - 4);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('DOWNWASH', dwx2 - 22, dwy2 + 14);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('upper', leC.x + 10, leC.y - 28);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('lower', leC.x + 10, leC.y + 36);
+
+    // TE finish mark
+    ctx.strokeStyle = 'rgba(215,222,242,0.25)';
+    ctx.beginPath();
+    ctx.moveTo(teC.x, teC.y - 34);
+    ctx.lineTo(teC.x, teC.y + 34);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(139,147,173,0.9)';
+    ctx.fillText('TE', teC.x + 6, teC.y - 36);
+
+    // badges
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139,147,173,0.95)';
+    ctx.fillText('ILLUSTRATION  ·  prescribed 2D field  ·  not Navier–Stokes  ·  not CFD', 12, 18);
+    ctx.fillText('NACA 2412 body  ·  thin-airfoil speed  u = U ± Uα√((c−x)/x)  ·  tracers watchable, not to scale with v', 12, H - 12);
+
+    if (state.equalTransit) {
+      ctx.fillStyle = 'rgba(255,126,95,0.95)';
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('EQUAL-TRANSIT ON  —  forced reunion  ·  under-predicts Δv & lift  ·  overlay only', 12, 36);
+    } else {
+      ctx.fillStyle = 'rgba(94,200,229,0.95)';
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('Honest pair: start together at the LE — they do not meet at the TE', 12, 36);
+    }
+
+    if (state.alphaDeg > STALL_DEG) {
+      ctx.fillStyle = '#ff7e5f';
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('α > 15°  ·  stall not modeled', 12, 54);
+    }
+  }
+
+  function drawCL() {
+    var s = surfaces.cl;
+    var ctx = s.ctx, W = s.w, H = s.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, W, H);
+
+    var padL = 44, padR = 16, padT = 28, padB = 132;
+    var x0 = padL, x1 = W - padR, y0 = H - padB, y1 = padT;
+    var aMin = -4, aMax = 16, cMin = -0.6, cMax = 2.05;
+
+    function X(a) { return x0 + (a - aMin) / (aMax - aMin) * (x1 - x0); }
+    function Y(c) { return y0 - (c - cMin) / (cMax - cMin) * (y0 - y1); }
+
+    ctx.strokeStyle = 'rgba(94,200,229,0.14)';
+    ctx.lineWidth = 1;
+    var gA, gC;
+    for (gA = -4; gA <= 16; gA += 4) {
+      ctx.beginPath(); ctx.moveTo(X(gA), y1); ctx.lineTo(X(gA), y0); ctx.stroke();
+    }
+    for (gC = 0; gC <= 2; gC += 0.5) {
+      ctx.beginPath(); ctx.moveTo(x0, Y(gC)); ctx.lineTo(x1, Y(gC)); ctx.stroke();
+    }
+
+    ctx.strokeStyle = 'rgba(215,222,242,0.35)';
+    ctx.beginPath(); ctx.moveTo(x0, y1); ctx.lineTo(x0, y0); ctx.lineTo(x1, y0); ctx.stroke();
+
+    // stall band
+    ctx.fillStyle = 'rgba(255,126,95,0.08)';
+    ctx.fillRect(X(15), y1, X(16) - X(15), y0 - y1);
+
+    // honest CL line
+    ctx.beginPath();
+    var a;
+    var first = true;
+    for (a = aMin; a <= 15.0001; a += 0.25) {
+      var cl = clThinAirfoil(degToRad(a));
+      var px = X(a), py = Y(cl);
+      if (first) { ctx.moveTo(px, py); first = false; }
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // dashed continuation past stall
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(X(15), Y(clThinAirfoil(degToRad(15))));
+    ctx.lineTo(X(16), Y(clThinAirfoil(degToRad(16))));
+    ctx.strokeStyle = 'rgba(255,126,95,0.7)';
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // fake CL (almost flat)
+    var clF = clEqualTransit(PATH_U, PATH_L, 1);
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath();
+    ctx.moveTo(X(aMin), Y(clF));
+    ctx.lineTo(X(aMax), Y(clF));
+    ctx.strokeStyle = '#ff7e5f';
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // current marker
+    var clNow = honestCL(degToRad(state.alphaDeg), state.equalTransit);
+    ctx.beginPath();
+    ctx.arc(X(state.alphaDeg), Y(clNow), 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('α (deg)', x1 - 44, y0 + 16);
+    ctx.save();
+    ctx.translate(14, (y0 + y1) / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('CL', 0, 0);
+    ctx.restore();
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('CL = 2π α', x0 + 8, y1 + 12);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('equal-transit CL ≈ ' + clF.toFixed(3), x0 + 8, y1 + 26);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('stall not modeled →', X(12.2), y1 + 12);
+
+    // Newton / Bernoulli dual
+    var by = y0 + 28;
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Same lift, two languages', 16, by);
+    ctx.font = FONT_UI_12;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('Newton: air goes down → wing goes up.', 16, by + 20);
+    ctx.fillText('Bernoulli: along a streamline, faster ⇒ lower p.', 16, by + 38);
+    ctx.fillText('Circulation ties them. Not a fight.', 16, by + 56);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139,147,173,0.95)';
+    ctx.fillText('illustration · not Navier–Stokes', 16, H - 12);
+  }
+
+  function fmtN(n) {
+    var a = Math.abs(n);
+    if (a >= 10000) return (n / 1000).toFixed(2) + ' kN';
+    if (a >= 1000) return (n / 1000).toFixed(2) + ' kN';
+    return n.toFixed(0) + ' N';
+  }
+
+  function updateReadout() {
+    var alphaRad = degToRad(state.alphaDeg);
+    var CL = honestCL(alphaRad, state.equalTransit);
+    var q = dynamicPressure(RHO, state.v);
+    var L = liftForce(CL, RHO, state.v, S_REF);
+    var G = circulationKJ(state.v, C_PHYS, alphaRad);
+    var clF = clEqualTransit(PATH_U, PATH_L, 1);
+    var Lf = liftForce(clF, RHO, state.v, S_REF);
+    var dvH = 2 * state.v * alphaRad * Math.sqrt((1 - 0.3) / 0.3);
+    var dvF = state.v * (PATH_U - PATH_L);
+    var kgf = L / 9.81;
+
+    elReadout.innerHTML =
+      '<div class="kv"><div class="k">Angle α</div><div class="v">' + state.alphaDeg.toFixed(1) + '°</div>' +
+        '<div class="s">' + alphaRad.toFixed(4) + ' rad</div></div>' +
+      '<div class="kv"><div class="k">Honest CL</div><div class="v">' + CL.toFixed(3) + '</div>' +
+        '<div class="s">2π α · thin airfoil</div></div>' +
+      '<div class="kv"><div class="k">Lift L</div><div class="v sun">' + fmtN(L) + '</div>' +
+        '<div class="s">' + kgf.toFixed(0) + ' kgf · CL · ½ρv²S</div></div>' +
+      '<div class="kv"><div class="k">Circulation Γ</div><div class="v">' + G.toFixed(2) + ' m²/s</div>' +
+        '<div class="s">π U c α · KJ matches L</div></div>' +
+      '<div class="kv"><div class="k">Equal-transit CL</div><div class="v warm">' + clF.toFixed(3) + '</div>' +
+        '<div class="s">overlay only · L_fake ' + fmtN(Lf) + '</div></div>' +
+      '<div class="kv"><div class="k">Δv at 0.3c</div><div class="v">' + dvH.toFixed(1) + ' m/s</div>' +
+        '<div class="s">myth Δv ' + dvF.toFixed(1) + ' m/s · under-predicts</div></div>';
+  }
+
+  function syncAoaChips() {
+    var t = Math.round(state.alphaDeg);
+    setChip($('aoa0'), t === 0);
+    setChip($('aoa5'), t === 5);
+    setChip($('aoa10'), t === 10);
+    setChip($('aoa15'), t === 15);
+  }
+
+  function syncLabels() {
+    elAoaL.textContent = state.alphaDeg.toFixed(1) + '°';
+    elVelL.textContent = state.v.toFixed(1) + ' m/s';
+    elAoa.value = String(state.alphaDeg);
+    elVel.value = String(state.v);
+    elMyth.textContent = state.equalTransit ? 'Equal-transit ON' : 'Equal-transit OFF';
+    setChip(elMyth, state.equalTransit);
+    if (state.equalTransit) elMyth.classList.add('myth');
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    syncAoaChips();
+  }
+
+  function setAlpha(d) {
+    if (d < -4) d = -4;
+    if (d > 16) d = 16;
+    state.alphaDeg = Math.round(d * 10) / 10;
+    rebuildGeom();
+    resetTracers();
+    syncLabels();
+    updateReadout();
+  }
+
+  function render() {
+    fitCanvas(surfaces.flow);
+    fitCanvas(surfaces.cl);
+    if (geom.alpha !== state.alphaDeg) rebuildGeom();
+    drawFlow();
+    drawCL();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = (ts - state.lastTs) / 1000;
+    state.lastTs = ts;
+    if (dt > 0.05) dt = 0.05;
+    if (state.playing) {
+      state.tVis += dt;
+      stepTracers(dt);
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  elPlay.addEventListener('click', function () {
+    state.playing = !state.playing;
+    syncLabels();
+  });
+  elAoa.addEventListener('input', function () {
+    setAlpha(parseFloat(elAoa.value));
+  });
+  elVel.addEventListener('input', function () {
+    state.v = parseFloat(elVel.value);
+    syncLabels();
+    updateReadout();
+  });
+  elMyth.addEventListener('click', function () {
+    state.equalTransit = !state.equalTransit;
+    if (state.equalTransit) spawnMyth();
+    else mythPair = null;
+    syncLabels();
+    updateReadout();
+  });
+  $('btnReset').addEventListener('click', function () {
+    resetTracers();
+  });
+  ['aoa0', 'aoa5', 'aoa10', 'aoa15'].forEach(function (id) {
+    $(id).addEventListener('click', function () {
+      setAlpha(parseFloat(id.replace('aoa', '')));
+    });
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      state.playing = !state.playing;
+      syncLabels();
+    }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  rebuildGeom();
+  resetTracers();
+  syncLabels();
+  updateReadout();
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
