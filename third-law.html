@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newton’s Third Law: Why Don’t Equal Forces Cancel? — Horse–Cart for Classrooms</title>
+<meta name="description" content="Classroom explainer for teachers: Newton’s third-law pairs are equal and opposite, but they act on different objects, so they do not cancel. Interactive horse–cart and person–boat free-body diagrams, live forces, NGSS MS-PS2-1, FCI horse–cart paradox.">
+<meta name="keywords" content="Newton's third law, horse cart paradox, action reaction, free body diagram, classroom physics, NGSS MS-PS2-1, teachers, FCI">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 780px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on { background: rgba(255, 126, 95, 0.14); border-color: rgba(255, 126, 95, 0.5); color: var(--warm); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.25fr 0.85fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; cursor: pointer; }
+
+.quiz-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px;
+  margin-bottom: 14px;
+}
+.quiz-bar .chip.quiz {
+  font-size: 12px;
+  padding: 8px 14px;
+}
+.quiz-bar .chip.quiz.yes {
+  background: rgba(94, 200, 229, 0.16);
+  border-color: rgba(94, 200, 229, 0.55);
+  color: var(--cool);
+}
+.quiz-bar .chip.quiz.no {
+  background: rgba(255, 126, 95, 0.12);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.quiz-bar .chip.quiz.wait {
+  color: var(--muted);
+}
+.quiz-bar p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--muted);
+  flex: 1 1 280px;
+}
+.quiz-bar p strong { color: var(--text); font-weight: 500; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="4">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · third law</a></p>
+  <h1>Newton’s third law: why don’t equal forces cancel?</h1>
+  <p class="lede">The horse pulls the cart; the cart pulls the horse just as hard. Students conclude <strong>nothing can accelerate</strong>. The pair is real — and it does not live on one free-body. <strong>Net force on an object is the sum of forces on that object.</strong> Tap the horse. Then tap the cart.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Play</button>
+      <button type="button" class="btn" id="btnReset">Reset</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="presetTypical" aria-pressed="true">Typical dirt</button>
+      <button type="button" class="chip" id="presetHeavy" aria-pressed="false">Heavy wagon</button>
+      <button type="button" class="chip" id="presetStuck" aria-pressed="false">Stuck in mud</button>
+      <button type="button" class="chip sun" id="presetIce" aria-pressed="false">Ice · isolated pair</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span id="labM1">Horse mass <em id="m1Label">400 kg</em></span>
+        <input type="range" id="m1" min="60" max="900" step="5" value="400" aria-label="Mass 1">
+      </label>
+      <label class="sl grow">
+        <span id="labM2">Cart mass <em id="m2Label">200 kg</em></span>
+        <input type="range" id="m2" min="40" max="1200" step="5" value="200" aria-label="Mass 2">
+      </label>
+      <label class="sl grow">
+        <span id="labPush">Drive / push <em id="pushLabel">800 N</em></span>
+        <input type="range" id="push" min="0" max="2500" step="10" value="800" aria-label="Push or drive force">
+      </label>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span id="labMu1">μ horse–ground <em id="mu1Label">0.60</em></span>
+        <input type="range" id="mu1" min="0" max="1.2" step="0.01" value="0.60" aria-label="Horse-ground friction coefficient">
+      </label>
+      <label class="sl grow">
+        <span id="labMu2">μ cart (rolling) <em id="mu2Label">0.08</em></span>
+        <input type="range" id="mu2" min="0" max="0.80" step="0.01" value="0.08" aria-label="Cart friction coefficient">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Free-body</span>
+      <button type="button" class="chip" id="focusHorse" aria-pressed="false">Horse</button>
+      <button type="button" class="chip" id="focusCart" aria-pressed="false">Cart</button>
+      <button type="button" class="chip" id="focusSystem" aria-pressed="false">System</button>
+      <button type="button" class="chip on" id="focusBoth" aria-pressed="true">Both</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b id="sceneTitle">Horse + cart</b><span id="sceneMeta">side view · tap a body · gold = pair</span></div>
+      <canvas id="cvScene" width="760" height="400" aria-label="Side view of horse and cart with force arrows"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b id="fbdTitle">Free-body</b><span id="fbdMeta">forces on the selected object only</span></div>
+      <canvas id="cvFbd" width="520" height="400" aria-label="Free-body diagram of the selected object"></canvas>
+    </div>
+  </div>
+
+  <div class="quiz-bar panel">
+    <button type="button" class="chip quiz no" id="quizChip" aria-live="polite">Do these cancel?  No</button>
+    <p id="quizWhy"><strong>Different objects.</strong> The gold pair is equal and opposite — and each arrow lives on a different free-body. Tap two arrows. The chip is true only when both sit on the same diagram.</p>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Different objects</h2>
+      <p>F<sub>hc</sub> = −F<sub>ch</sub> is Newton’s third law. The first force is <em>on the cart</em>. The second is <em>on the horse</em>. Equal arrows on two diagrams do not cancel anything.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>External friction on the horse</h2>
+      <p>The horse walks by pushing the ground backward. The ground pushes the horse forward — and that force is <em>not</em> the cart’s pair. If F<sub>ground</sub> beats F<sub>cart on horse</sub>, the horse accelerates.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">The Pivot</div>
+      <h2>ΣF on one object</h2>
+      <p>Net force on a body is the sum of forces <em>on that body</em>. Horse: F<sub>ground</sub> + F<sub>ch</sub> = m<sub>h</sub> a. Cart: F<sub>hc</sub> + F<sub>fric</sub> = m<sub>c</sub> a. Internals drop out of the system.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Pairs cancel the motion</h2>
+      <p>They do not. An isolated pair leaves the center of mass unmoved. With an external force (hooves on dirt), a<sub>cm</sub> = F<sub>ext</sub> / (m<sub>h</sub> + m<sub>c</sub>). Ice is the control: F<sub>ext</sub> = 0, nothing starts.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Classroom anchors">
+    <div class="stat">
+      <div class="k">Third law</div>
+      <div class="v">F<sub style="font-size:12px">ab</sub> = −F<sub style="font-size:12px">ba</sub></div>
+      <div class="s">same line · opposite bodies</div>
+    </div>
+    <div class="stat">
+      <div class="k">System law</div>
+      <div class="v">a = F<sub style="font-size:12px">ext</sub> / M</div>
+      <div class="s">internals cancel for the CM</div>
+    </div>
+    <div class="stat">
+      <div class="k">FCI cluster</div>
+      <div class="v">N3 weakest</div>
+      <div class="s">horse–cart is the classic item</div>
+    </div>
+    <div class="stat">
+      <div class="k">NGSS</div>
+      <div class="v">MS-PS2-1</div>
+      <div class="s">apply Newton’s third law</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Third law (1D).</strong> If object A exerts <code>F_ab</code> on B, then B exerts <code>F_ba = −F_ab</code> on A. Same magnitude, opposite direction, <em>different objects</em>. The page draws the pair in gold (<code>--sun2</code>) and every external horizontal force in cool (<code>--cool</code>). Weights and normals are omitted on purpose — they are a vertical pair and do not settle the paradox.</li>
+      <li><strong style="color:var(--text)">Horse–cart, hitched.</strong> Common acceleration <code>a</code>. Horse: <code>F_ground + F_ch = m_h a</code>. Cart: <code>F_hc + F_fric = m_c a</code>. Adding gives <code>F_ext = F_ground + F_fric = (m_h + m_c) a</code>, so <code>a_system = F_ext / (m_h + m_c)</code>. The hitch force is <code>F_hc = F_ground − m_h a</code> (and <code>F_ch = −F_hc</code>).</li>
+      <li><strong style="color:var(--text)">Friction (Coulomb, optional μ).</strong> <code>g = 9.81 m/s²</code>. Ground on the horse saturates at <code>μ_h m_h g</code> (static cap on the drive slider). Cart friction is <code>μ_c m_c g</code>, opposing velocity; if <code>v ≈ 0</code> and <code>|F_ground| ≤ μ_c m_c g</code> the system stays put and the cart friction is static (<code>F_fric = −F_ground</code>). No rolling inertia, no slip angle, no elastic hitch.</li>
+      <li><strong style="color:var(--text)">Isolated pair (person–boat on ice).</strong> Only the contact pair. Person: <code>a_p = F_bp / m_p</code>. Boat: <code>a_b = F_pb / m_b</code>. Then <code>a_cm = (m_p a_p + m_b a_b) / M = (F_bp + F_pb) / M = 0</code>. They fly apart; the dashed gold CM line does not accelerate. Set both μ sliders to zero — any leftover μ is an external ice drag and the CM can creep.</li>
+      <li><strong style="color:var(--text)">“Do these cancel?”</strong> True only when both selected arrows act on the <em>same</em> free-body (they then <em>add</em>, and the net may happen to be zero). A third-law pair is never on one diagram, so the chip stays No. System view: internals are omitted; the remaining arrows are both on the system and may cancel there.</li>
+      <li><strong style="color:var(--text)">What this is not.</strong> Not 2D. Not a gait or hoof-torque model. “Drive / push” in horse–cart mode is the horizontal force the horse <em>attempts</em> to get from the ground (the useful external). In isolated mode it is the pair magnitude itself. Drawings are classroom glyphs, not anatomy. Real dirt μ and rolling resistance vary; the numbers are live consequences of the sliders, not a particular horse.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+
+(function () {
+  'use strict';
+
+  // ===== Constants / named formulas (same as validate-third-law.js) =====
+  var G_ACCEL = 9.81;
+
+  function pairOpposite(F_hc) {
+    return { F_hc: F_hc, F_ch: -F_hc };
+  }
+
+  function systemAccel(F_ext, m1, m2) {
+    return F_ext / (m1 + m2);
+  }
+
+  function isolatedPair(m1, m2, F12) {
+    var F21 = -F12;
+    var a1 = F21 / m1;
+    var a2 = F12 / m2;
+    var a_cm = (m1 * a1 + m2 * a2) / (m1 + m2);
+    return { F12: F12, F21: F21, a1: a1, a2: a2, a_cm: a_cm, F_ext: 0 };
+  }
+
+  function horseCart(m_h, m_c, F_ground, F_fric) {
+    var F_ext = F_ground + F_fric;
+    var a = systemAccel(F_ext, m_h, m_c);
+    var F_ch = m_h * a - F_ground;
+    var F_hc = -F_ch;
+    return {
+      F_hc: F_hc,
+      F_ch: F_ch,
+      F_ground: F_ground,
+      F_fric: F_fric,
+      F_ext: F_ext,
+      a: a,
+      a_h: a,
+      a_c: a,
+      a_cm: a,
+      net_h: F_ground + F_ch,
+      net_c: F_hc + F_fric
+    };
+  }
+
+  function resolveGround(F_push, mu_h, m_h, g) {
+    var max = mu_h * m_h * g;
+    var slipped = Math.abs(F_push) > max + 1e-12;
+    var F_ground = F_push;
+    if (F_ground > max) F_ground = max;
+    if (F_ground < -max) F_ground = -max;
+    return { F_ground: F_ground, slipped: slipped, max: max };
+  }
+
+  function resolveCartFriction(F_ground, mu_c, m_c, v, g) {
+    var max = mu_c * m_c * g;
+    var staticHold = Math.abs(v) < 1e-4 && Math.abs(F_ground) <= max + 1e-12;
+    if (staticHold) {
+      return { F_fric: -F_ground, static: true, max: max };
+    }
+    var dir = Math.abs(v) > 1e-6 ? (v > 0 ? 1 : -1) : (F_ground >= 0 ? 1 : -1);
+    return { F_fric: -dir * max, static: false, max: max };
+  }
+
+  function doTheyCancel(arrowA, arrowB) {
+    if (!arrowA || !arrowB) return false;
+    return arrowA.on === arrowB.on;
+  }
+
+  // Cached fonts — never rebuild inside hot loops
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13 = '13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_DISPLAY_SM = '600 13px Fraunces, Georgia, serif';
+
+  var COL_GOLD = '#ffc24a';
+  var COL_COOL = '#5ec8e5';
+  var COL_WARM = '#ff7e5f';
+  var COL_TEXT = '#d7def2';
+  var COL_MUTED = '#8b93ad';
+
+  // ===== State =====
+  var state = {
+    mode: 'hitched', // 'hitched' | 'isolated'
+    focus: 'both',   // 'horse' | 'cart' | 'system' | 'both'
+    playing: false,
+    m1: 400,
+    m2: 200,
+    F_push: 800,
+    mu1: 0.60,
+    mu2: 0.08,
+    x: 0,
+    v: 0,
+    x1: -1.0,
+    x2: 1.4,
+    v1: 0,
+    v2: 0,
+    t: 0,
+    lastTs: 0,
+    selected: ['F_hc', 'F_ch'],
+    preset: 'typical'
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elReadout = $('readout');
+  var elQuiz = $('quizChip');
+  var elWhy = $('quizWhy');
+  var cvScene = $('cvScene');
+  var cvFbd = $('cvFbd');
+
+  var surfaces = {
+    scene: { canvas: cvScene, ctx: null, w: 0, h: 0, cssH: 400 },
+    fbd: { canvas: cvFbd, ctx: null, w: 0, h: 0, cssH: 400 }
+  };
+
+  var hitScene = [];
+  var hitFbd = [];
+  var hitBodies = [];
+  var stars = [];
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function rebuildStars(w, h) {
+    stars.length = 0;
+    var n = Math.floor((w * h) / 3200);
+    if (n > 180) n = 180;
+    for (var i = 0; i < n; i++) {
+      stars.push(Math.random() * w, Math.random() * h * 0.62, Math.random() < 0.15 ? 1.15 : 0.55);
+    }
+  }
+
+  function drawStars(ctx, w, h) {
+    ctx.fillStyle = 'rgba(215, 222, 242, 0.55)';
+    for (var i = 0; i < stars.length; i += 3) {
+      ctx.beginPath();
+      ctx.arc(stars[i], stars[i + 1], stars[i + 2], 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function nameOf(body) {
+    if (state.mode === 'isolated') {
+      if (body === 'horse') return 'person';
+      if (body === 'cart') return 'boat';
+    }
+    return body;
+  }
+
+  function forceName(id) {
+    if (state.mode === 'isolated') {
+      if (id === 'F_hc') return 'F_pb';
+      if (id === 'F_ch') return 'F_bp';
+      if (id === 'F_g') return 'F_ice,p';
+      if (id === 'F_f') return 'F_ice,b';
+    }
+    if (id === 'F_hc') return 'F_hc';
+    if (id === 'F_ch') return 'F_ch';
+    if (id === 'F_g') return 'F_ground';
+    if (id === 'F_f') return 'F_fric';
+    return id;
+  }
+
+  function arrowOn(id, focus) {
+    if (focus === 'system') {
+      if (id === 'F_g' || id === 'F_f') return 'system';
+    }
+    if (id === 'F_hc' || id === 'F_f') return 'cart';
+    if (id === 'F_ch' || id === 'F_g') return 'horse';
+    return '';
+  }
+
+  function arrowMeta(id) {
+    return { id: id, on: arrowOn(id, state.focus) };
+  }
+
+  function livePhysics() {
+    var m1 = state.m1;
+    var m2 = state.m2;
+    var g = G_ACCEL;
+    if (state.mode === 'isolated') {
+      var iso = isolatedPair(m1, m2, state.F_push);
+      var d1 = 0;
+      var d2 = 0;
+      if (state.mu1 > 0) {
+        if (Math.abs(state.v1) > 1e-6) d1 = -(state.v1 > 0 ? 1 : -1) * state.mu1 * m1 * g;
+      }
+      if (state.mu2 > 0) {
+        if (Math.abs(state.v2) > 1e-6) d2 = -(state.v2 > 0 ? 1 : -1) * state.mu2 * m2 * g;
+      }
+      var a1 = iso.a1 + d1 / m1;
+      var a2 = iso.a2 + d2 / m2;
+      var F_ext = d1 + d2;
+      var a_cm = (m1 * a1 + m2 * a2) / (m1 + m2);
+      return {
+        mode: 'isolated',
+        m1: m1, m2: m2,
+        F_hc: iso.F12,
+        F_ch: iso.F21,
+        F_ground: d1,
+        F_fric: d2,
+        F_ext: F_ext,
+        a: a_cm,
+        a_h: a1,
+        a_c: a2,
+        a_cm: a_cm,
+        net_h: iso.F21 + d1,
+        net_c: iso.F12 + d2,
+        slipped: false,
+        static: false,
+        F_g_max: state.mu1 * m1 * g,
+        f_c_max: state.mu2 * m2 * g
+      };
+    }
+    var rg = resolveGround(state.F_push, state.mu1, m1, g);
+    var rf = resolveCartFriction(rg.F_ground, state.mu2, m2, state.v, g);
+    var hc = horseCart(m1, m2, rg.F_ground, rf.F_fric);
+    hc.mode = 'hitched';
+    hc.m1 = m1;
+    hc.m2 = m2;
+    hc.slipped = rg.slipped;
+    hc.static = rf.static;
+    hc.F_g_max = rg.max;
+    hc.f_c_max = rf.max;
+    return hc;
+  }
+
+  function fmtN(x) {
+    var a = Math.abs(x);
+    if (a < 0.05) return '0 N';
+    if (a >= 100) return (x >= 0 ? '' : '−') + a.toFixed(0) + ' N';
+    return (x >= 0 ? '' : '−') + a.toFixed(1) + ' N';
+  }
+
+  function fmtA(x) {
+    var a = Math.abs(x);
+    var s = (x >= 0 ? '' : '−');
+    if (a < 0.005) return '0 m/s²';
+    return s + a.toFixed(2) + ' m/s²';
+  }
+
+  function fmtV(x) {
+    var a = Math.abs(x);
+    var s = (x >= 0 ? '' : '−');
+    if (a < 0.005) return '0 m/s';
+    return s + a.toFixed(2) + ' m/s';
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function syncFocusChips() {
+    setChip($('focusHorse'), state.focus === 'horse');
+    setChip($('focusCart'), state.focus === 'cart');
+    setChip($('focusSystem'), state.focus === 'system');
+    setChip($('focusBoth'), state.focus === 'both');
+    $('focusHorse').textContent = state.mode === 'isolated' ? 'Person' : 'Horse';
+    $('focusCart').textContent = state.mode === 'isolated' ? 'Boat' : 'Cart';
+  }
+
+  function syncLabels() {
+    var iso = state.mode === 'isolated';
+    $('labM1').innerHTML = (iso ? 'Person mass ' : 'Horse mass ') + '<em id="m1Label"></em>';
+    $('labM2').innerHTML = (iso ? 'Boat mass ' : 'Cart mass ') + '<em id="m2Label"></em>';
+    $('labPush').innerHTML = (iso ? 'Pair push ' : 'Drive / push ') + '<em id="pushLabel"></em>';
+    $('labMu1').innerHTML = (iso ? 'μ ice on person ' : 'μ horse–ground ') + '<em id="mu1Label"></em>';
+    $('labMu2').innerHTML = (iso ? 'μ ice on boat ' : 'μ cart (rolling) ') + '<em id="mu2Label"></em>';
+    $('m1Label').textContent = state.m1.toFixed(0) + ' kg';
+    $('m2Label').textContent = state.m2.toFixed(0) + ' kg';
+    $('pushLabel').textContent = state.F_push.toFixed(0) + ' N';
+    $('mu1Label').textContent = state.mu1.toFixed(2);
+    $('mu2Label').textContent = state.mu2.toFixed(2);
+    $('sceneTitle').textContent = iso ? 'Person + boat' : 'Horse + cart';
+    $('sceneMeta').textContent = iso
+      ? 'ice · isolated pair · tap a body · gold = pair'
+      : 'side view · tap a body · gold = pair';
+    var foc = state.focus;
+    var title = 'Free-body';
+    if (foc === 'horse') title = 'Free-body · ' + nameOf('horse');
+    if (foc === 'cart') title = 'Free-body · ' + nameOf('cart');
+    if (foc === 'system') title = 'Free-body · system';
+    if (foc === 'both') title = 'Free-body · both';
+    $('fbdTitle').textContent = title;
+    $('fbdMeta').textContent = foc === 'system'
+      ? 'internals omitted · externals only'
+      : 'forces on the selected object only';
+    syncFocusChips();
+  }
+
+  function visibleIds(p) {
+    var ids = [];
+    var foc = state.focus;
+    function showPair() { return foc === 'both' || foc === 'horse' || foc === 'cart'; }
+    function showH() { return foc === 'both' || foc === 'horse' || foc === 'system'; }
+    function showC() { return foc === 'both' || foc === 'cart' || foc === 'system'; }
+    if (showPair() && foc !== 'system') {
+      if (foc !== 'horse') ids.push('F_hc');
+      if (foc !== 'cart') ids.push('F_ch');
+      if (foc === 'both') {
+        // already both
+      }
+    }
+    if (foc === 'horse') ids = ['F_g', 'F_ch'];
+    else if (foc === 'cart') ids = ['F_hc', 'F_f'];
+    else if (foc === 'system') ids = ['F_g', 'F_f'];
+    else ids = ['F_g', 'F_ch', 'F_hc', 'F_f'];
+    return ids;
+  }
+
+  function forceValue(p, id) {
+    if (id === 'F_hc') return p.F_hc;
+    if (id === 'F_ch') return p.F_ch;
+    if (id === 'F_g') return p.F_ground;
+    if (id === 'F_f') return p.F_fric;
+    return 0;
+  }
+
+  function isPair(id) {
+    return id === 'F_hc' || id === 'F_ch';
+  }
+
+  function updateQuiz() {
+    var a = state.selected[0] ? arrowMeta(state.selected[0]) : null;
+    var b = state.selected[1] ? arrowMeta(state.selected[1]) : null;
+    elQuiz.classList.remove('yes', 'no', 'wait');
+    if (!a || !b) {
+      elQuiz.classList.add('wait');
+      elQuiz.textContent = 'Do these cancel?  Pick two arrows';
+      elWhy.innerHTML = 'Tap two force arrows. The chip is <strong>true only if both arrows live on the same free-body</strong>. A third-law pair never does.';
+      return;
+    }
+    var yes = doTheyCancel(a, b);
+    var na = forceName(a.id);
+    var nb = forceName(b.id);
+    var oa = nameOf(a.on === 'system' ? 'system' : a.on);
+    if (a.on === 'system') oa = 'system';
+    var ob = nameOf(b.on === 'system' ? 'system' : b.on);
+    if (b.on === 'system') ob = 'system';
+    if (yes) {
+      elQuiz.classList.add('yes');
+      elQuiz.textContent = 'Do these cancel?  Yes — same free-body';
+      elWhy.innerHTML = '<strong>' + na + '</strong> and <strong>' + nb + '</strong> both act on the <strong>' + oa + '</strong>. They add. Net = ΣF on this object' + (Math.abs(forceValue(livePhysics(), a.id) + forceValue(livePhysics(), b.id)) < 0.05 ? ' — here that net is ~0.' : '.');
+    } else {
+      elQuiz.classList.add('no');
+      elQuiz.textContent = 'Do these cancel?  No';
+      elWhy.innerHTML = '<strong>' + na + '</strong> is on the <strong>' + oa + '</strong>; <strong>' + nb + '</strong> is on the <strong>' + ob + '</strong>. Equal and opposite, different objects — they never share a diagram, so they never cancel.';
+    }
+  }
+
+  function selectArrow(id) {
+    if (!id) return;
+    var i = state.selected.indexOf(id);
+    if (i >= 0) {
+      state.selected.splice(i, 1);
+    } else {
+      if (state.selected.length >= 2) state.selected.shift();
+      state.selected.push(id);
+    }
+    updateQuiz();
+  }
+
+  function setFocus(foc) {
+    state.focus = foc;
+    var vis = visibleIds(livePhysics());
+    state.selected = state.selected.filter(function (id) { return vis.indexOf(id) !== -1; });
+    if (state.selected.length < 2) {
+      if (foc === 'both') state.selected = ['F_hc', 'F_ch'];
+      else if (foc === 'horse') state.selected = ['F_g', 'F_ch'];
+      else if (foc === 'cart') state.selected = ['F_hc', 'F_f'];
+      else if (foc === 'system') state.selected = ['F_g', 'F_f'];
+    }
+    syncLabels();
+    updateQuiz();
+  }
+
+  function resetMotion() {
+    state.v = 0;
+    state.v1 = 0;
+    state.v2 = 0;
+    state.t = 0;
+    if (state.mode === 'isolated') {
+      state.x1 = -1.1;
+      state.x2 = 1.5;
+      var cm = (state.m1 * state.x1 + state.m2 * state.x2) / (state.m1 + state.m2);
+      state.x1 -= cm;
+      state.x2 -= cm;
+    } else {
+      state.x = 0;
+    }
+  }
+
+  function applyPreset(id) {
+    state.preset = id;
+    setChip($('presetTypical'), id === 'typical');
+    setChip($('presetHeavy'), id === 'heavy');
+    setChip($('presetStuck'), id === 'stuck');
+    setChip($('presetIce'), id === 'ice');
+    if (id === 'typical') {
+      state.mode = 'hitched';
+      state.m1 = 400; state.m2 = 200; state.F_push = 800; state.mu1 = 0.60; state.mu2 = 0.08;
+    } else if (id === 'heavy') {
+      state.mode = 'hitched';
+      state.m1 = 450; state.m2 = 900; state.F_push = 1400; state.mu1 = 0.55; state.mu2 = 0.12;
+    } else if (id === 'stuck') {
+      state.mode = 'hitched';
+      state.m1 = 400; state.m2 = 600; state.F_push = 500; state.mu1 = 0.50; state.mu2 = 0.45;
+    } else {
+      state.mode = 'isolated';
+      state.m1 = 70; state.m2 = 140; state.F_push = 200; state.mu1 = 0; state.mu2 = 0;
+    }
+    $('m1').value = String(state.m1);
+    $('m2').value = String(state.m2);
+    $('push').value = String(state.F_push);
+    $('mu1').value = String(state.mu1);
+    $('mu2').value = String(state.mu2);
+    resetMotion();
+    setFocus(state.mode === 'isolated' ? 'both' : state.focus);
+    syncLabels();
+    updateReadout();
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  // ===== Drawing helpers =====
+  function roundRect(ctx, x, y, w, h, r) {
+    if (r > w / 2) r = w / 2;
+    if (r > h / 2) r = h / 2;
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function drawArrowLine(ctx, x1, y1, x2, y2, color, selected, label, sub) {
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    var len = Math.sqrt(dx * dx + dy * dy);
+    if (len < 2) return;
+    var ux = dx / len;
+    var uy = dy / len;
+    ctx.save();
+    if (selected) {
+      ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+      ctx.lineWidth = 7;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = selected ? 3.2 : 2.2;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2 - ux * 10, y2 - uy * 10);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * 12 - uy * 6, y2 - uy * 12 + ux * 6);
+    ctx.lineTo(x2 - ux * 12 + uy * 6, y2 - uy * 12 - ux * 6);
+    ctx.closePath();
+    ctx.fill();
+    if (label) {
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = color;
+      var lx = (x1 + x2) / 2;
+      var ly = (y1 + y2) / 2 - 10;
+      ctx.textAlign = 'center';
+      ctx.fillText(label, lx, ly);
+      if (sub) {
+        ctx.fillStyle = COL_MUTED;
+        ctx.font = FONT_MONO_10;
+        ctx.fillText(sub, lx, ly + 12);
+      }
+    }
+    ctx.restore();
+  }
+
+  function pushHit(list, id, x1, y1, x2, y2) {
+    list.push({ id: id, x1: x1, y1: y1, x2: x2, y2: y2 });
+  }
+
+  function hitTest(list, mx, my) {
+    var best = null;
+    var bestD = 14;
+    for (var i = 0; i < list.length; i++) {
+      var h = list[i];
+      var d = distToSeg(mx, my, h.x1, h.y1, h.x2, h.y2);
+      if (d < bestD) {
+        bestD = d;
+        best = h.id;
+      }
+    }
+    return best;
+  }
+
+  function distToSeg(px, py, x1, y1, x2, y2) {
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    var l2 = dx * dx + dy * dy;
+    if (l2 < 1e-6) {
+      dx = px - x1; dy = py - y1;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+    var t = ((px - x1) * dx + (py - y1) * dy) / l2;
+    if (t < 0) t = 0;
+    if (t > 1) t = 1;
+    var x = x1 + t * dx;
+    var y = y1 + t * dy;
+    dx = px - x; dy = py - y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function canvasPos(canvas, ev) {
+    var r = canvas.getBoundingClientRect();
+    return { x: ev.clientX - r.left, y: ev.clientY - r.top };
+  }
+
+  function drawHorse(ctx, x, y, phase, moving, dim) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.globalAlpha = dim ? 0.28 : 1;
+    ctx.fillStyle = 'rgba(0,0,0,0.35)';
+    ctx.beginPath();
+    ctx.ellipse(4, 6, 40, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+    var s = moving ? 1 : 0.12;
+    ctx.strokeStyle = '#b08968';
+    ctx.lineWidth = 4.2;
+    ctx.lineCap = 'round';
+    function leg(hx, hy, ph) {
+      var sw = Math.sin(ph) * 11 * s;
+      ctx.beginPath();
+      ctx.moveTo(hx, hy);
+      ctx.lineTo(hx + sw * 0.35, hy + 16);
+      ctx.lineTo(hx + sw, hy + 34);
+      ctx.stroke();
+    }
+    leg(-14, -10, phase);
+    leg(-4, -10, phase + Math.PI);
+    leg(14, -10, phase + 0.7);
+    leg(24, -10, phase + Math.PI + 0.7);
+    ctx.fillStyle = '#d7b08a';
+    ctx.beginPath();
+    ctx.ellipse(4, -30, 30, 15, -0.06, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(28, -46, 11, 15, 0.72, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(42, -56, 13, 7.2, 0.28, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#8a5a38';
+    ctx.beginPath();
+    ctx.moveTo(34, -62);
+    ctx.lineTo(31, -74);
+    ctx.lineTo(39, -62);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(-26, -28, 7, 11, 0.9, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#1a1420';
+    ctx.beginPath();
+    ctx.arc(46, -58, 1.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawCart(ctx, x, y, xWorld, dim) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.globalAlpha = dim ? 0.28 : 1;
+    ctx.fillStyle = 'rgba(0,0,0,0.35)';
+    ctx.beginPath();
+    ctx.ellipse(36, 6, 46, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#6d5a48';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-18, -22);
+    ctx.lineTo(4, -22);
+    ctx.stroke();
+    ctx.fillStyle = '#8b5a3c';
+    roundRect(ctx, 4, -40, 78, 26, 4);
+    ctx.fill();
+    ctx.fillStyle = '#c47a4a';
+    roundRect(ctx, 12, -54, 22, 16, 2);
+    ctx.fill();
+    ctx.fillStyle = '#e08a5a';
+    roundRect(ctx, 38, -58, 28, 20, 2);
+    ctx.fill();
+    function wheel(wx) {
+      ctx.save();
+      ctx.translate(wx, -2);
+      ctx.rotate(xWorld / 0.22);
+      ctx.fillStyle = '#2a2438';
+      ctx.beginPath();
+      ctx.arc(0, 0, 16, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#c8b89a';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(-12, 0); ctx.lineTo(12, 0);
+      ctx.moveTo(0, -12); ctx.lineTo(0, 12);
+      ctx.stroke();
+      ctx.restore();
+    }
+    wheel(20);
+    wheel(68);
+    ctx.restore();
+  }
+
+  function drawPerson(ctx, x, y, phase, moving, dim) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.globalAlpha = dim ? 0.28 : 1;
+    ctx.strokeStyle = '#e8d5c4';
+    ctx.fillStyle = '#e8d5c4';
+    ctx.lineWidth = 3.2;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.arc(0, -52, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(0, -44);
+    ctx.lineTo(0, -22);
+    ctx.stroke();
+    var s = moving ? 1 : 0.15;
+    var sw = Math.sin(phase) * 8 * s;
+    ctx.beginPath();
+    ctx.moveTo(0, -22);
+    ctx.lineTo(-6 + sw, 2);
+    ctx.moveTo(0, -22);
+    ctx.lineTo(6 - sw, 2);
+    ctx.stroke();
+    ctx.strokeStyle = COL_WARM;
+    ctx.beginPath();
+    ctx.moveTo(0, -38);
+    ctx.lineTo(16, -30);
+    ctx.lineTo(26, -28);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawBoat(ctx, x, y, dim) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.globalAlpha = dim ? 0.28 : 1;
+    ctx.fillStyle = '#c47a4a';
+    ctx.beginPath();
+    ctx.moveTo(-46, -8);
+    ctx.lineTo(50, -8);
+    ctx.lineTo(40, 8);
+    ctx.lineTo(-34, 8);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#8b5a3c';
+    ctx.fillRect(-18, -22, 36, 14);
+    ctx.strokeStyle = '#d7b08a';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, -22);
+    ctx.lineTo(0, -48);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawForceAt(ctx, hits, ox, oy, Fx, id, scale, yOff, selected) {
+    var mag = Math.abs(Fx);
+    if (mag < 1e-6 && state.mode === 'isolated' && isPair(id) === false) return;
+    var len = mag * scale;
+    if (len < 16 && mag > 1e-6) len = 16;
+    if (len > 120) len = 120;
+    if (mag < 1e-6) len = 10;
+    var dir = Fx >= 0 ? 1 : (Fx < 0 ? -1 : 1);
+    if (mag < 1e-6) dir = 1;
+    var x2 = ox + dir * len;
+    var y = oy + (yOff || 0);
+    var color = isPair(id) ? COL_GOLD : COL_COOL;
+    var lab = forceName(id) + '  ' + fmtN(Fx);
+    drawArrowLine(ctx, ox, y, x2, y, color, selected, lab, null);
+    pushHit(hits, id, ox, y, x2, y);
+  }
+
+
+  function bodyCenters(p, w, groundY) {
+    var px = 42;
+    if (state.mode === 'isolated') {
+      var cm = (p.m1 * state.x1 + p.m2 * state.x2) / (p.m1 + p.m2);
+      return {
+        hx: w * 0.5 + (state.x1 - cm) * px,
+        cx: w * 0.5 + (state.x2 - cm) * px,
+        cmx: w * 0.5,
+        hy: groundY,
+        cy: groundY,
+        px: px
+      };
+    }
+    var hitch = 2.55;
+    var xh = state.x;
+    var xc = state.x + hitch;
+    var cm2 = (p.m1 * xh + p.m2 * xc) / (p.m1 + p.m2);
+    return {
+      hx: w * 0.42 + (xh - cm2) * px,
+      cx: w * 0.42 + (xc - cm2) * px,
+      cmx: w * 0.42,
+      hy: groundY,
+      cy: groundY,
+      px: px
+    };
+  }
+
+  function forceScale(p) {
+    var vals = [p.F_hc, p.F_ch, p.F_ground, p.F_fric];
+    var m = 80;
+    for (var i = 0; i < vals.length; i++) {
+      var a = Math.abs(vals[i]);
+      if (a > m) m = a;
+    }
+    return 96 / m;
+  }
+
+  function drawScene() {
+    var s = surfaces.scene;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    if (!ctx) return;
+    hitScene.length = 0;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+    drawStars(ctx, w, h);
+
+    var groundY = h * 0.72;
+    var grd = ctx.createLinearGradient(0, groundY - 80, 0, h);
+    grd.addColorStop(0, 'rgba(94, 200, 229, 0.0)');
+    grd.addColorStop(0.45, 'rgba(94, 200, 229, 0.04)');
+    grd.addColorStop(0.45, state.mode === 'isolated' ? 'rgba(180, 210, 230, 0.08)' : 'rgba(40, 28, 22, 0.55)');
+    grd.addColorStop(1, '#08060e');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, groundY - 80, w, h - (groundY - 80));
+
+    ctx.strokeStyle = state.mode === 'isolated' ? 'rgba(180, 220, 240, 0.35)' : 'rgba(196, 122, 74, 0.35)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, groundY);
+    ctx.lineTo(w, groundY);
+    ctx.stroke();
+
+    var p = livePhysics();
+    var c = bodyCenters(p, w, groundY);
+    var scroll = (state.mode === 'isolated' ? 0 : state.x) * c.px;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, groundY, w, h - groundY);
+    ctx.clip();
+    ctx.strokeStyle = 'rgba(215, 222, 242, 0.08)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([8, 14]);
+    var dash = ((-scroll) % 44 + 44) % 44;
+    ctx.beginPath();
+    ctx.moveTo(-40 + dash, groundY + 18);
+    ctx.lineTo(w + 40, groundY + 18);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // CM
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.45)';
+    ctx.setLineDash([4, 4]);
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(c.cmx, 28);
+    ctx.lineTo(c.cmx, groundY + 36);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = COL_GOLD;
+    ctx.textAlign = 'center';
+    ctx.fillText('CM', c.cmx, 22);
+
+    var foc = state.focus;
+    var dimH = foc === 'cart';
+    var dimC = foc === 'horse';
+    var movingH = state.mode === 'isolated' ? Math.abs(state.v1) > 0.02 || Math.abs(p.a_h) > 0.02 : (Math.abs(state.v) > 0.02 || p.slipped);
+    var movingC = state.mode === 'isolated' ? Math.abs(state.v2) > 0.02 || Math.abs(p.a_c) > 0.02 : Math.abs(state.v) > 0.02;
+    var phase = state.t * 8;
+
+    if (state.mode === 'isolated') {
+      drawPerson(ctx, c.hx, c.hy, phase, movingH, dimH);
+      drawBoat(ctx, c.cx, c.cy - 4, dimC);
+    } else {
+      drawHorse(ctx, c.hx, c.hy, phase, movingH, dimH);
+      drawCart(ctx, c.cx, c.cy, state.x, dimC);
+    }
+
+    hitBodies.length = 0;
+    hitBodies.push({ id: 'horse', x: c.hx - 56, y: c.hy - 84, w: 118, h: 94 });
+    hitBodies.push({ id: 'cart', x: c.cx - 28, y: c.cy - 74, w: 128, h: 90 });
+
+    var sc = forceScale(p);
+    var sel = state.selected;
+    function picked(id) { return sel.indexOf(id) !== -1; }
+
+    if (foc === 'both' || foc === 'horse' || foc === 'system') {
+      if (foc !== 'system' || Math.abs(p.F_ground) > 1e-6) {
+        drawForceAt(ctx, hitScene, c.hx, c.hy - 18, p.F_ground, 'F_g', sc, 0, picked('F_g'));
+      }
+    }
+    if (foc === 'both' || foc === 'horse') {
+      drawForceAt(ctx, hitScene, c.hx, c.hy - 48, p.F_ch, 'F_ch', sc, 0, picked('F_ch'));
+    }
+    if (foc === 'both' || foc === 'cart') {
+      drawForceAt(ctx, hitScene, c.cx + 30, c.cy - 48, p.F_hc, 'F_hc', sc, 0, picked('F_hc'));
+    }
+    if (foc === 'both' || foc === 'cart' || foc === 'system') {
+      if (foc !== 'system' || Math.abs(p.F_fric) > 1e-6) {
+        drawForceAt(ctx, hitScene, c.cx + 30, c.cy - 14, p.F_fric, 'F_f', sc, 0, picked('F_f'));
+      }
+    }
+
+    if (foc === 'system') {
+      ctx.strokeStyle = 'rgba(94, 200, 229, 0.45)';
+      ctx.setLineDash([6, 5]);
+      ctx.lineWidth = 1.4;
+      var left = Math.min(c.hx, c.cx) - 60;
+      var right = Math.max(c.hx, c.cx) + 90;
+      roundRect(ctx, left, groundY - 96, right - left, 110, 10);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = COL_COOL;
+      ctx.textAlign = 'left';
+      ctx.fillText('system · internals omitted', left + 8, groundY - 104);
+    }
+
+    // HUD
+    ctx.font = FONT_MONO_11;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = COL_MUTED;
+    ctx.fillText(state.mode === 'isolated' ? 'ice · 1D' : 'dirt · 1D hitched', 14, 20);
+    ctx.fillStyle = COL_COOL;
+    ctx.fillText('v  ' + (state.mode === 'isolated' ? fmtV(state.v1) + ' / ' + fmtV(state.v2) : fmtV(state.v)), 14, 36);
+    ctx.fillText('a_cm  ' + fmtA(p.a_cm), 14, 52);
+    ctx.fillStyle = COL_GOLD;
+    ctx.fillText('F_hc + F_ch  =  ' + fmtN(p.F_hc + p.F_ch), 14, 68);
+
+    if (p.slipped && state.mode === 'hitched') {
+      ctx.fillStyle = COL_WARM;
+      ctx.font = FONT_MONO_11;
+      ctx.textAlign = 'right';
+      ctx.fillText('hooves slip · F_ground at μN', w - 14, 22);
+    }
+    if (state.mode === 'hitched' && p.static) {
+      ctx.fillStyle = COL_WARM;
+      ctx.font = FONT_MONO_11;
+      ctx.textAlign = 'right';
+      ctx.fillText('static · cart friction holds', w - 14, 22);
+    }
+    if (state.mode === 'isolated' && Math.abs(p.F_ext) < 1e-9) {
+      ctx.fillStyle = COL_GOLD;
+      ctx.font = FONT_MONO_11;
+      ctx.textAlign = 'right';
+      ctx.fillText('no external F · CM stays', w - 14, 22);
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.textAlign = 'right';
+    ctx.fillStyle = COL_MUTED;
+    ctx.fillText('tap a body · tap arrows', w - 14, h - 12);
+  }
+
+  function drawFbd() {
+    var s = surfaces.fbd;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    if (!ctx) return;
+    hitFbd.length = 0;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#070a18';
+    ctx.fillRect(0, 0, w, h);
+
+    var p = livePhysics();
+    var foc = state.focus;
+    var cx = w * 0.5;
+    var cy = h * 0.48;
+    var sc = forceScale(p);
+    var sel = state.selected;
+    function picked(id) { return sel.indexOf(id) !== -1; }
+
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = COL_TEXT;
+    ctx.textAlign = 'center';
+    var heading = 'Both objects';
+    if (foc === 'horse') heading = nameOf('horse') + ' only';
+    if (foc === 'cart') heading = nameOf('cart') + ' only';
+    if (foc === 'system') heading = 'System · externals';
+    ctx.fillText(heading, cx, 32);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = COL_MUTED;
+    ctx.fillText('gold = 3rd-law pair   ·   cool = external', cx, 50);
+
+    function box(x, y, label, mass) {
+      ctx.strokeStyle = 'rgba(94, 200, 229, 0.4)';
+      ctx.setLineDash([5, 4]);
+      ctx.lineWidth = 1.4;
+      roundRect(ctx, x - 46, y - 28, 92, 56, 8);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(16, 22, 48, 0.9)';
+      roundRect(ctx, x - 46, y - 28, 92, 56, 8);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(94, 200, 229, 0.35)';
+      ctx.stroke();
+      ctx.fillStyle = COL_TEXT;
+      ctx.font = FONT_DISPLAY_SM;
+      ctx.textAlign = 'center';
+      ctx.fillText(label, x, y - 2);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = COL_MUTED;
+      ctx.fillText(mass.toFixed(0) + ' kg', x, y + 14);
+      ctx.fillStyle = COL_GOLD;
+      ctx.beginPath();
+      ctx.arc(x, y + 4, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (foc === 'both') {
+      var xh = w * 0.28;
+      var xc = w * 0.72;
+      box(xh, cy, nameOf('horse'), p.m1);
+      box(xc, cy, nameOf('cart'), p.m2);
+      drawForceAt(ctx, hitFbd, xh, cy - 8, p.F_ch, 'F_ch', sc, -36, picked('F_ch'));
+      drawForceAt(ctx, hitFbd, xh, cy + 8, p.F_ground, 'F_g', sc, 36, picked('F_g'));
+      drawForceAt(ctx, hitFbd, xc, cy - 8, p.F_hc, 'F_hc', sc, -36, picked('F_hc'));
+      drawForceAt(ctx, hitFbd, xc, cy + 8, p.F_fric, 'F_f', sc, 36, picked('F_f'));
+      ctx.strokeStyle = 'rgba(255, 194, 74, 0.35)';
+      ctx.setLineDash([3, 4]);
+      ctx.beginPath();
+      ctx.moveTo(xh + 48, cy - 44);
+      ctx.lineTo(xc - 48, cy - 44);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = COL_GOLD;
+      ctx.font = FONT_MONO_10;
+      ctx.textAlign = 'center';
+      ctx.fillText('pair · different objects', (xh + xc) / 2, cy - 52);
+    } else if (foc === 'horse') {
+      box(cx, cy, nameOf('horse'), p.m1);
+      drawForceAt(ctx, hitFbd, cx, cy, p.F_ch, 'F_ch', sc, -40, picked('F_ch'));
+      drawForceAt(ctx, hitFbd, cx, cy, p.F_ground, 'F_g', sc, 40, picked('F_g'));
+      ctx.fillStyle = COL_COOL;
+      ctx.font = FONT_MONO_12;
+      ctx.textAlign = 'center';
+      ctx.fillText('ΣF = ' + fmtN(p.net_h) + '  =  m a = ' + fmtN(p.m1 * p.a_h), cx, h - 48);
+    } else if (foc === 'cart') {
+      box(cx, cy, nameOf('cart'), p.m2);
+      drawForceAt(ctx, hitFbd, cx, cy, p.F_hc, 'F_hc', sc, -40, picked('F_hc'));
+      drawForceAt(ctx, hitFbd, cx, cy, p.F_fric, 'F_f', sc, 40, picked('F_f'));
+      ctx.fillStyle = COL_COOL;
+      ctx.font = FONT_MONO_12;
+      ctx.textAlign = 'center';
+      ctx.fillText('ΣF = ' + fmtN(p.net_c) + '  =  m a = ' + fmtN(p.m2 * p.a_c), cx, h - 48);
+    } else {
+      box(cx, cy, 'system', p.m1 + p.m2);
+      drawForceAt(ctx, hitFbd, cx, cy, p.F_ground, 'F_g', sc, -40, picked('F_g'));
+      drawForceAt(ctx, hitFbd, cx, cy, p.F_fric, 'F_f', sc, 40, picked('F_f'));
+      ctx.fillStyle = COL_COOL;
+      ctx.font = FONT_MONO_12;
+      ctx.textAlign = 'center';
+      ctx.fillText('a = F_ext / M  =  ' + fmtA(p.a_cm), cx, h - 48);
+    }
+
+    ctx.font = FONT_MONO_11;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = COL_GOLD;
+    ctx.fillText(forceName('F_hc') + ' = −' + forceName('F_ch'), 14, h - 16);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = COL_COOL;
+    ctx.fillText('F_ext = ' + fmtN(p.F_ext), w - 14, h - 16);
+  }
+
+  function kv(k, v, s, klass) {
+    return '<div class="kv"><div class="k">' + k + '</div><div class="v' + (klass ? ' ' + klass : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+  }
+
+  function updateReadout() {
+    var p = livePhysics();
+    var pair = pairOpposite(p.F_hc);
+    elReadout.innerHTML =
+      kv(forceName('F_hc') + ' / ' + forceName('F_ch'), fmtN(p.F_hc) + '  /  ' + fmtN(p.F_ch), 'gold pair · opposite bodies', 'sun') +
+      kv('|F_hc + F_ch|', fmtN(Math.abs(pair.F_hc + pair.F_ch)), 'third law identity', 'sun') +
+      kv(forceName('F_g'), fmtN(p.F_ground), state.mode === 'isolated' ? 'ice drag on person' : 'ground on horse · external', '') +
+      kv(forceName('F_f'), fmtN(p.F_fric), state.mode === 'isolated' ? 'ice drag on boat' : 'friction on cart · external', '') +
+      kv('a_cm = F_ext / M', fmtA(p.a_cm), 'F_ext ' + fmtN(p.F_ext) + '  ·  M ' + (p.m1 + p.m2).toFixed(0) + ' kg', '') +
+      kv('a on each', fmtA(p.a_h) + '  /  ' + fmtA(p.a_c), nameOf('horse') + ' / ' + nameOf('cart'), p.static ? 'warm' : '');
+  }
+
+  var readoutTick = 0;
+
+  function drawAll() {
+    drawScene();
+    drawFbd();
+    readoutTick++;
+    if (readoutTick % 4 === 1) updateReadout();
+  }
+
+  function step(dt) {
+    var p = livePhysics();
+    if (state.mode === 'isolated') {
+      state.v1 += p.a_h * dt;
+      state.v2 += p.a_c * dt;
+      state.x1 += state.v1 * dt;
+      state.x2 += state.v2 * dt;
+      if (Math.abs(state.x1) > 18 || Math.abs(state.x2) > 18) {
+        resetMotion();
+      }
+    } else {
+      var v0 = state.v;
+      state.v += p.a * dt;
+      state.x += state.v * dt;
+      if (p.static || (Math.abs(v0) > 1e-6 && state.v * v0 < 0 && Math.abs(p.F_ground) <= p.f_c_max + 1e-9)) {
+        state.v = 0;
+      }
+    }
+    state.t += dt;
+  }
+
+  function frame(ts) {
+    if (state.playing) {
+      if (state.lastTs) {
+        var dt = (ts - state.lastTs) / 1000;
+        if (dt > 0.05) dt = 0.05;
+        step(dt);
+      }
+      state.lastTs = ts;
+    } else {
+      state.lastTs = 0;
+    }
+    drawAll();
+    requestAnimationFrame(frame);
+  }
+
+  function onResize() {
+    var prevW = surfaces.scene.w;
+    fitCanvas(surfaces.scene);
+    fitCanvas(surfaces.fbd);
+    if (surfaces.scene.w !== prevW || !stars.length) {
+      rebuildStars(surfaces.scene.w, surfaces.scene.h);
+    }
+  }
+
+  function pickBodyBox(mx, my) {
+    for (var i = hitBodies.length - 1; i >= 0; i--) {
+      var b = hitBodies[i];
+      if (mx >= b.x && mx <= b.x + b.w && my >= b.y && my <= b.y + b.h) return b.id;
+    }
+    return null;
+  }
+
+  function pickOnScene(ev) {
+    var pos = canvasPos(cvScene, ev);
+    var id = hitTest(hitScene, pos.x, pos.y);
+    if (id) { selectArrow(id); return; }
+    var body = pickBodyBox(pos.x, pos.y);
+    if (body) setFocus(body);
+  }
+
+  function pickOnFbd(ev) {
+    var pos = canvasPos(cvFbd, ev);
+    var id = hitTest(hitFbd, pos.x, pos.y);
+    if (id) selectArrow(id);
+  }
+
+  // ===== Events =====
+  elPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+  $('btnReset').addEventListener('click', function () { resetMotion(); updateReadout(); });
+  $('presetTypical').addEventListener('click', function () { applyPreset('typical'); });
+  $('presetHeavy').addEventListener('click', function () { applyPreset('heavy'); });
+  $('presetStuck').addEventListener('click', function () { applyPreset('stuck'); });
+  $('presetIce').addEventListener('click', function () { applyPreset('ice'); });
+  $('focusHorse').addEventListener('click', function () { setFocus('horse'); });
+  $('focusCart').addEventListener('click', function () { setFocus('cart'); });
+  $('focusSystem').addEventListener('click', function () { setFocus('system'); });
+  $('focusBoth').addEventListener('click', function () { setFocus('both'); });
+
+  function bindSlider(id, key, asInt) {
+    $(id).addEventListener('input', function () {
+      var v = Number($(id).value);
+      state[key] = asInt ? v : v;
+      if (key === 'm1' || key === 'm2') {
+        if (state.mode === 'isolated') {
+          var cm = (state.m1 * state.x1 + state.m2 * state.x2) / (state.m1 + state.m2);
+          state.x1 -= cm;
+          state.x2 -= cm;
+        }
+      }
+      state.preset = '';
+      setChip($('presetTypical'), false);
+      setChip($('presetHeavy'), false);
+      setChip($('presetStuck'), false);
+      setChip($('presetIce'), false);
+      syncLabels();
+      updateQuiz();
+      updateReadout();
+    });
+  }
+  bindSlider('m1', 'm1', true);
+  bindSlider('m2', 'm2', true);
+  bindSlider('push', 'F_push', true);
+  bindSlider('mu1', 'mu1', false);
+  bindSlider('mu2', 'mu2', false);
+
+  cvScene.addEventListener('pointerdown', pickOnScene);
+  cvFbd.addEventListener('pointerdown', pickOnFbd);
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    } else if (e.code === 'KeyR' && e.target.tagName !== 'INPUT') {
+      resetMotion();
+    }
+  });
+
+  window.addEventListener('resize', onResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(onResize);
+    ro.observe(cvScene);
+    ro.observe(cvFbd);
+  }
+
+  onResize();
+  resetMotion();
+  syncLabels();
+  updateQuiz();
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
