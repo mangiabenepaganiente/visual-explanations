@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Stars Twinkle but Planets Don’t — Scintillation, Not Distance</title>
+<meta name="description" content="Classroom explainer for teachers: stars twinkle because they are unresolved points through turbulent air. Planets are tiny disks, so many independent paths average out. Not because planets are closer or brighter. Live seeing slider, ISS view, honest caveats.">
+<meta name="keywords" content="why stars twinkle, why planets don't twinkle, scintillation, seeing, classroom astronomy, teachers, atmosphere turbulence">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.iss.on { background: rgba(255, 126, 95, 0.16); border-color: rgba(255, 126, 95, 0.5); color: var(--warm); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.chart-card { grid-column: 1 / -1; }
+.chart-card canvas { height: 196px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .chart-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .chart-card canvas { height: 180px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="4">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · scintillation</a></p>
+  <h1>Why stars twinkle but planets don’t</h1>
+  <p class="lede">The air jiggles <strong>all</strong> starlight. A star is an unresolved point, so one ray bundle dances. A planet is a tiny disk — many independent paths, and the wiggles <strong>average out</strong>. Closer is not the mechanism. Closer just makes a larger disk.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <label class="sl grow">
+        <span>Seeing / turbulence <em id="seeLabel">1.00″</em></span>
+        <input type="range" id="seeing" min="0.40" max="5.00" step="0.01" value="1.00" aria-label="Seeing FWHM in arcseconds">
+      </label>
+      <label class="sl grow">
+        <span>Angular size of this disk <em id="thLabel">40.0″ · Jupiter</em></span>
+        <input type="range" id="theta" min="0.01" max="60" step="0.01" value="40" aria-label="Angular diameter in arcseconds">
+      </label>
+    </div>
+    <div class="row">
+      <button type="button" class="chip sun" id="chipStar" aria-pressed="false">Star 0.01″</button>
+      <button type="button" class="chip" id="chipMars" aria-pressed="false">Mars 8″</button>
+      <button type="button" class="chip on" id="chipJup" aria-pressed="true">Jupiter 40″</button>
+      <button type="button" class="chip" id="chipSat" aria-pressed="false">Saturn 18″</button>
+      <button type="button" class="chip" id="chipVen" aria-pressed="false">Venus 25″</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip iss" id="chipIss" aria-pressed="false">View from ISS</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Rays through air cells</b><span id="rayMeta">point vs disk · Gaussian phase screen (illustration)</span></div>
+      <canvas id="cvRays" width="720" height="360" aria-label="Star and planet rays bending through a turbulent atmosphere"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Eyepiece</b><span id="eyeMeta">seeing disk vs planetary disk</span></div>
+      <canvas id="cvEye" width="520" height="360" aria-label="Telescope eyepiece comparison of a twinkling star and a steadier planet"></canvas>
+    </div>
+    <div class="card chart-card">
+      <div class="card-h"><b>Intensity I / ⟨I⟩</b><span id="chartMeta">star vs this disk · live twinkle</span></div>
+      <canvas id="cvChart" width="1200" height="196" aria-label="Live light curves for a star and an extended disk"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Air cells</h2>
+      <p>The troposphere is a stack of warm and cool pockets. Each pocket has a slightly different refractive index, so a ray is steered a fraction of an arcsecond. That steering changes in time. Astronomers call the blur <em>seeing</em> and the flicker <em>scintillation</em>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Point versus disk</h2>
+      <p>A star is far smaller than the seeing disk (~1″). One bundle, one dance. A planet is an angular disk of a few to tens of arcseconds, so many independent paths share the pupil. Twinkle amplitude falls as ~1/√N.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>No air, no twinkle</h2>
+      <p>From the ISS — or any orbit above the air — neither stars nor planets twinkle. Hubble’s advantage is not “being closer to the stars.” It is sitting above the phase screen.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Not “because they’re closer”</h2>
+      <p>Distance is not the mechanism. Closer just makes a <em>larger disk</em>, and the disk is what averages the air. Brightness is a correlation, not a cause: Sirius still winks; Uranus (a dim disk) is steadier than a star of the same brightness.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Typical sizes">
+    <div class="stat">
+      <div class="k">Typical seeing</div>
+      <div class="v">~1″</div>
+      <div class="s">FWHM · 0.5″ excellent · 3″ soggy</div>
+    </div>
+    <div class="stat">
+      <div class="k">Jupiter disk</div>
+      <div class="v">30–50″</div>
+      <div class="s">many seeing cells across the face</div>
+    </div>
+    <div class="stat">
+      <div class="k">A star</div>
+      <div class="v">≪ seeing</div>
+      <div class="s">milliarcseconds · one ray bundle</div>
+    </div>
+    <div class="stat">
+      <div class="k">From orbit</div>
+      <div class="v">σ_I = 0</div>
+      <div class="s">no atmosphere · neither twinkles</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">What twinkling is.</strong> Atmospheric scintillation: turbulent refractive-index fluctuations steer and focus starlight. Image motion is the tip-tilt of the wavefront; intensity flicker is the focusing/defocusing (related to the Laplacian of the phase). Seeing FWHM is the long-exposure blur, typically ~1″ at a decent site. Kolmogorov turbulence uses a phase structure function <code>D_φ(ρ) = 6.88 (ρ/r₀)^{5/3}</code> and Fried parameter <code>r₀</code> with <code>θ_see ≈ 0.98 λ / r₀</code>. This page does <em>not</em> integrate a 3D Kolmogorov volume.</li>
+      <li><strong style="color:var(--text)">Disk-averaging model (named formulas).</strong> Independent-path count <code>N = 1 + (θ / θ_see)²</code>. Point-source twinkle index (RMS of <code>I/⟨I⟩ − 1</code>) <code>T_★ = 0.25 · (θ_see / 1″)</code> when the atmosphere is on, else 0. Extended-source index <code>T = T_★ / √N</code>. Normalized intensity variance <code>σ_I² / ⟨I⟩² = T²</code>. Image-motion RMS <code>0.4 · θ_see / √N</code> arcsec. These are classroom scalings, not a Rytov-variance or isoplanatic-angle calculation. The 0.25 at 1″ is a typical amateur-zenith order of magnitude, not a site forecast.</li>
+      <li><strong style="color:var(--text)">Phase screen is an illustration.</strong> The drawn air cells and ray kicks come from a sum of moving sinusoids / Gaussian-like phase, labeled as such. A real atmosphere is a thick, evolving Kolmogorov cascade with an inner scale and an outer scale. Colors (warm/cool) stand for <code>δn</code> sign, not thermometer readings. Time is sped up so the dance is visible; real scintillation timescales are often ~10 ms.</li>
+      <li><strong style="color:var(--text)">Angular sizes (apparent diameter).</strong> Unresolved star on this page: 0.01″ (most stars are milliarcseconds; Betelgeuse is ~0.05″). Mercury ~4.5–13″; Venus ~10–66″; Mars ~3.5–25″; Jupiter ~30–50″; Saturn ~15–20″ (globe); Uranus ~3.5″; Neptune ~2.3″. Presets use 0.01 / 8 / 40 / 18 / 25. Distance sets <code>θ ≈ 2R/D</code> — that is the only honest link from “closer” to “doesn’t twinkle.”</li>
+      <li><strong style="color:var(--text)">Planets can twinkle.</strong> A small disk (Mars at aphelion, Uranus, Mercury) under poor seeing or a long air mass near the horizon still flickers. The slider will show it: drop θ toward 1″ or raise seeing and watch T rise. The schoolyard line “planets never twinkle” is a useful first cut, not a law.</li>
+      <li><strong style="color:var(--text)">Brightness is not the cause.</strong> Sirius (−1.5 mag) twinkles. Venus (brighter than any star) usually does not, because it is a disk. A dim star still winks; a dim planet is steadier than a star of equal flux. The mechanism is angular coherence, not photon count.</li>
+      <li><strong style="color:var(--text)">View from ISS.</strong> Toggle sets <code>atmosphereOn = false</code>. Then <code>T = 0</code>, intensity variance is 0, and rays are straight. Hubble / JWST / any orbit above the tropopause sees the same: no scintillation. (Space telescopes still have diffraction, jitter, and optical errors — not twinkling.)</li>
+      <li><strong style="color:var(--text)">Drawings are not maps.</strong> Cell size, ray bend, and planet scale are exaggerated so a classroom can see them. The eyepiece maps arcseconds to pixels; the star’s instantaneous blob is a schematic PSF, not an Airy fit. Live intensities on the chart are an Ornstein–Uhlenbeck process with RMS equal to T, so the plotted flicker matches the readout.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Named formulas — same as validate-twinkle.js =====
+  var STAR_THETA_ARCSEC = 0.01;
+  var SEEING_REF_ARCSEC = 1.0;
+  var TWINKLE_POINT_AT_1AS = 0.25;
+  var MOTION_POINT_FRAC = 0.4;
+  var OU_TAU = 0.18;
+  var HIST_LEN = 360;
+
+  function cellCount(thetaArcsec, seeingArcsec) {
+    if (seeingArcsec <= 0) return 1e12;
+    var r = thetaArcsec / seeingArcsec;
+    return 1 + r * r;
+  }
+
+  function pointScintillation(seeingArcsec, atmosphereOn) {
+    if (!atmosphereOn) return 0;
+    if (seeingArcsec <= 0) return 0;
+    return TWINKLE_POINT_AT_1AS * (seeingArcsec / SEEING_REF_ARCSEC);
+  }
+
+  function twinkleIndex(thetaArcsec, seeingArcsec, atmosphereOn) {
+    if (!atmosphereOn) return 0;
+    var n = cellCount(thetaArcsec, seeingArcsec);
+    return pointScintillation(seeingArcsec, true) / Math.sqrt(n);
+  }
+
+  function intensityVarianceNorm(thetaArcsec, seeingArcsec, atmosphereOn) {
+    var t = twinkleIndex(thetaArcsec, seeingArcsec, atmosphereOn);
+    return t * t;
+  }
+
+  function imageMotionRms(thetaArcsec, seeingArcsec, atmosphereOn) {
+    if (!atmosphereOn || seeingArcsec <= 0) return 0;
+    return MOTION_POINT_FRAC * seeingArcsec / Math.sqrt(cellCount(thetaArcsec, seeingArcsec));
+  }
+
+  function sampleNormalizedIntensity(thetaArcsec, seeingArcsec, atmosphereOn, u1, u2) {
+    if (!atmosphereOn) return 1;
+    var sigma = twinkleIndex(thetaArcsec, seeingArcsec, true);
+    if (u1 < 1e-12) u1 = 1e-12;
+    if (u1 > 1) u1 = 1;
+    var z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+    var I = 1 + sigma * z;
+    if (I < 0.02) I = 0.02;
+    return I;
+  }
+
+  // Cached fonts — never rebuild inside hot loops
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  var PRESETS = [
+    { id: 'chipStar', theta: 0.01, name: 'Star' },
+    { id: 'chipMars', theta: 8, name: 'Mars' },
+    { id: 'chipJup', theta: 40, name: 'Jupiter' },
+    { id: 'chipSat', theta: 18, name: 'Saturn' },
+    { id: 'chipVen', theta: 25, name: 'Venus' }
+  ];
+
+  function diskName(theta) {
+    var i, p, best = null, d, bd = 1e9;
+    for (i = 0; i < PRESETS.length; i++) {
+      p = PRESETS[i];
+      d = Math.abs(Math.log((theta + 0.001) / (p.theta + 0.001)));
+      if (d < bd && Math.abs(theta - p.theta) / Math.max(theta, p.theta) < 0.08) {
+        bd = d;
+        best = p.name;
+      }
+    }
+    return best;
+  }
+
+  function fmtArc(x) {
+    if (x < 0.1) return x.toFixed(3) + '\u2033';
+    if (x < 10) return x.toFixed(2) + '\u2033';
+    return x.toFixed(1) + '\u2033';
+  }
+
+  function fmtN(n) {
+    if (n >= 1e11) return '\u221e';
+    if (n >= 100) return n.toFixed(0);
+    if (n >= 10) return n.toFixed(1);
+    return n.toFixed(2);
+  }
+
+  function clamp(x, a, b) {
+    if (x < a) return a;
+    if (x > b) return b;
+    return x;
+  }
+
+  // Deterministic background stars
+  var BG_STARS = [];
+  (function seedStars() {
+    var i, s = 1;
+    for (i = 0; i < 110; i++) {
+      s = (s * 16807) % 2147483647;
+      BG_STARS.push({
+        x: (s % 10000) / 10000,
+        y: ((Math.floor(s / 10000) % 10000) / 10000),
+        b: 0.18 + (s % 80) / 140
+      });
+    }
+  })();
+
+  // Gaussian phase-screen illustration (sum of moving sines — not Kolmogorov)
+  function phaseField(x, y, t, amp) {
+    return amp * (
+      0.50 * Math.sin(6.2 * x + 0.85 * t) * Math.cos(5.4 * y - 0.55 * t) +
+      0.28 * Math.sin(11.0 * x - 1.25 * t + 1.1) * Math.sin(9.5 * y + 0.9 * t) +
+      0.15 * Math.sin(18.0 * x + 1.7 * t) * Math.cos(16.0 * y - 1.4 * t) +
+      0.07 * Math.sin(3.1 * x + 2.2 * y + 0.4 * t)
+    );
+  }
+
+  function phaseGradX(x, y, t, amp) {
+    var e = 0.01;
+    return (phaseField(x + e, y, t, amp) - phaseField(x - e, y, t, amp)) / (2 * e);
+  }
+
+  // RNG / OU
+  var _spare = null;
+  function randn() {
+    if (_spare !== null) {
+      var s = _spare;
+      _spare = null;
+      return s;
+    }
+    var u1 = Math.random();
+    if (u1 < 1e-12) u1 = 1e-12;
+    var u2 = Math.random();
+    var r = Math.sqrt(-2 * Math.log(u1));
+    var th = 2 * Math.PI * u2;
+    _spare = r * Math.sin(th);
+    return r * Math.cos(th);
+  }
+
+  function ouStep(x, sigma, dt, tau) {
+    if (sigma <= 0) return x * Math.exp(-dt / tau);
+    return x + (-x / tau) * dt + sigma * Math.sqrt(2 * dt / tau) * randn();
+  }
+
+  // ===== State =====
+  var state = {
+    playing: true,
+    t: 0,
+    seeing: 1.0,
+    theta: 40,
+    atmosphereOn: true,
+    starI: 1,
+    diskI: 1,
+    starX: 0,
+    starY: 0,
+    diskX: 0,
+    diskY: 0,
+    lastTs: 0
+  };
+
+  var histStar = new Float64Array(HIST_LEN);
+  var histDisk = new Float64Array(HIST_LEN);
+  var histN = 0;
+  var histI = 0;
+  var iH;
+  for (iH = 0; iH < HIST_LEN; iH++) {
+    histStar[iH] = 1;
+    histDisk[iH] = 1;
+  }
+
+  var el = {
+    play: document.getElementById('btnPlay'),
+    seeing: document.getElementById('seeing'),
+    theta: document.getElementById('theta'),
+    seeLabel: document.getElementById('seeLabel'),
+    thLabel: document.getElementById('thLabel'),
+    iss: document.getElementById('chipIss'),
+    rayMeta: document.getElementById('rayMeta'),
+    eyeMeta: document.getElementById('eyeMeta'),
+    chartMeta: document.getElementById('chartMeta'),
+    readout: document.getElementById('readout')
+  };
+
+  var kv = {};
+  (function buildReadout() {
+    var keys = [
+      ['th', 'Angular size θ', 'this disk'],
+      ['see', 'Seeing FWHM', 'typical site ~1″'],
+      ['ratio', 'θ / seeing', 'disk vs air cell'],
+      ['n', 'Independent paths N', '1 + (θ/θ_see)²'],
+      ['tDisk', 'Twinkle index T', 'σ_I / ⟨I⟩ · this disk'],
+      ['tStar', 'Star twinkle T★', 'same air, point source']
+    ];
+    var i, html = '';
+    for (i = 0; i < keys.length; i++) {
+      html += '<div class="kv"><div class="k">' + keys[i][1] + '</div>' +
+        '<div class="v" id="kv-' + keys[i][0] + '">—</div>' +
+        '<div class="s" id="ks-' + keys[i][0] + '">' + keys[i][2] + '</div></div>';
+    }
+    el.readout.innerHTML = html;
+    for (i = 0; i < keys.length; i++) {
+      kv[keys[i][0]] = {
+        v: document.getElementById('kv-' + keys[i][0]),
+        s: document.getElementById('ks-' + keys[i][0])
+      };
+    }
+  })();
+
+  function surfacesOf(id, cssH) {
+    var c = document.getElementById(id);
+    return { c: c, ctx: c.getContext('2d'), w: c.width, h: c.height, cssH: cssH };
+  }
+  var S = {
+    rays: surfacesOf('cvRays', 360),
+    eye: surfacesOf('cvEye', 360),
+    chart: surfacesOf('cvChart', 196)
+  };
+
+  function syncChips() {
+    var i, p, on;
+    for (i = 0; i < PRESETS.length; i++) {
+      p = PRESETS[i];
+      on = Math.abs(state.theta - p.theta) < 0.02;
+      document.getElementById(p.id).classList.toggle('on', on);
+      document.getElementById(p.id).setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+    el.iss.classList.toggle('on', !state.atmosphereOn);
+    el.iss.setAttribute('aria-pressed', state.atmosphereOn ? 'false' : 'true');
+  }
+
+  function updateLabels() {
+    var name = diskName(state.theta);
+    el.seeLabel.textContent = state.atmosphereOn ? fmtArc(state.seeing) : 'n/a · no air';
+    el.thLabel.textContent = fmtArc(state.theta) + (name ? ' · ' + name : '');
+    el.rayMeta.textContent = state.atmosphereOn
+      ? 'point vs disk · Gaussian phase screen (illustration)'
+      : 'ISS · above the air · neither twinkles';
+    el.eyeMeta.textContent = state.atmosphereOn
+      ? 'seeing disk vs planetary disk'
+      : 'space · no scintillation';
+    var Td = twinkleIndex(state.theta, state.seeing, state.atmosphereOn);
+    var Ts = twinkleIndex(STAR_THETA_ARCSEC, state.seeing, state.atmosphereOn);
+    el.chartMeta.textContent = state.atmosphereOn
+      ? 'star T★=' + Ts.toFixed(3) + ' · disk T=' + Td.toFixed(3)
+      : 'atmosphere off · intensity variance = 0';
+  }
+
+  function updateReadout() {
+    var th = state.theta;
+    var se = state.seeing;
+    var atm = state.atmosphereOn;
+    var n = cellCount(th, se);
+    var Td = twinkleIndex(th, se, atm);
+    var Ts = twinkleIndex(STAR_THETA_ARCSEC, se, atm);
+    var ratio = atm ? th / se : Infinity;
+    var motD = imageMotionRms(th, se, atm);
+    var motS = imageMotionRms(STAR_THETA_ARCSEC, se, atm);
+    kv.th.v.textContent = fmtArc(th);
+    kv.th.s.textContent = (diskName(th) || 'extended source') + ' · live';
+    kv.see.v.textContent = atm ? fmtArc(se) : '0″ (no air)';
+    kv.see.v.className = 'v' + (atm ? '' : ' sun');
+    kv.see.s.textContent = atm ? 'FWHM · turbulence slider' : 'ISS / orbit · phase screen off';
+    kv.ratio.v.textContent = atm ? ratio.toFixed(2) : '—';
+    kv.ratio.s.textContent = atm
+      ? (ratio < 1 ? 'smaller than seeing · will twinkle' : 'larger than seeing · averages')
+      : 'no seeing disk';
+    kv.n.v.textContent = atm ? fmtN(n) : 'n/a';
+    kv.n.s.textContent = '1 + (θ/θ_see)²';
+    kv.tDisk.v.textContent = Td.toFixed(4);
+    kv.tDisk.v.className = 'v' + (Td < 0.04 ? ' sun' : (Td > 0.12 ? ' warm' : ''));
+    kv.tDisk.s.textContent = 'motion ' + motD.toFixed(3) + '\u2033 rms · var ' + intensityVarianceNorm(th, se, atm).toExponential(2);
+    kv.tStar.v.textContent = Ts.toFixed(4);
+    kv.tStar.v.className = 'v sun';
+    kv.tStar.s.textContent = 'motion ' + motS.toFixed(3) + '\u2033 rms · same air';
+  }
+
+  function stepPhysics(dt) {
+    var atm = state.atmosphereOn;
+    var se = state.seeing;
+    var th = state.theta;
+    var sigS = twinkleIndex(STAR_THETA_ARCSEC, se, atm);
+    var sigD = twinkleIndex(th, se, atm);
+    var motS = imageMotionRms(STAR_THETA_ARCSEC, se, atm);
+    var motD = imageMotionRms(th, se, atm);
+    state.starI = ouStep(state.starI - 1, sigS, dt, OU_TAU) + 1;
+    state.diskI = ouStep(state.diskI - 1, sigD, dt, OU_TAU) + 1;
+    if (state.starI < 0.05) state.starI = 0.05;
+    if (state.diskI < 0.05) state.diskI = 0.05;
+    state.starX = ouStep(state.starX, motS, dt, OU_TAU);
+    state.starY = ouStep(state.starY, motS, dt, OU_TAU);
+    state.diskX = ouStep(state.diskX, motD, dt, OU_TAU);
+    state.diskY = ouStep(state.diskY, motD, dt, OU_TAU);
+    histStar[histI] = state.starI;
+    histDisk[histI] = state.diskI;
+    histI = (histI + 1) % HIST_LEN;
+    if (histN < HIST_LEN) histN += 1;
+  }
+
+  function fillNight(ctx, w, h) {
+    var g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, '#070a16');
+    g.addColorStop(1, '#0a1024');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+    var i, s, tw;
+    ctx.fillStyle = '#d7def2';
+    for (i = 0; i < BG_STARS.length; i++) {
+      s = BG_STARS[i];
+      tw = s.b;
+      if (state.atmosphereOn) tw *= 0.65 + 0.35 * state.starI;
+      ctx.globalAlpha = tw;
+      ctx.fillRect(s.x * w, s.y * h * 0.92, 1.1, 1.1);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawAtmosphereBand(ctx, x0, x1, y0, y1, t) {
+    var mid = (y0 + y1) / 2;
+    var thick = y1 - y0;
+    var amp = state.atmosphereOn ? state.seeing : 0;
+    if (!state.atmosphereOn) {
+      ctx.fillStyle = 'rgba(94, 200, 229, 0.04)';
+      ctx.fillRect(x0, y0, x1 - x0, 8);
+      return;
+    }
+    var grd = ctx.createLinearGradient(0, y0, 0, y1);
+    grd.addColorStop(0, 'rgba(94, 200, 229, 0.02)');
+    grd.addColorStop(0.5, 'rgba(94, 200, 229, 0.08)');
+    grd.addColorStop(1, 'rgba(255, 126, 95, 0.05)');
+    ctx.fillStyle = grd;
+    ctx.fillRect(x0, y0, x1 - x0, thick);
+
+    var i, n = 16, u, px, py, rw, rh, ph, rot;
+    for (i = 0; i < n; i++) {
+      u = (i + 0.5) / n;
+      px = x0 + (x1 - x0) * (u + 0.018 * Math.sin(t * 0.45 + i * 1.3));
+      py = mid + 0.22 * thick * Math.sin(t * 0.62 + i * 1.7);
+      rw = (x1 - x0) / n * (1.15 + 0.25 * Math.sin(i * 2.1 + t * 0.25));
+      rh = thick * (0.32 + 0.12 * Math.cos(i * 1.4 + t * 0.3));
+      ph = phaseField(u, 0.5, t, amp);
+      rot = 0.25 * Math.sin(t * 0.3 + i);
+      ctx.beginPath();
+      ctx.ellipse(px, py, Math.max(8, rw), Math.max(6, rh), rot, 0, Math.PI * 2);
+      ctx.fillStyle = ph >= 0 ? 'rgba(255, 126, 95, 0.20)' : 'rgba(94, 200, 229, 0.22)';
+      ctx.fill();
+      ctx.strokeStyle = ph >= 0 ? 'rgba(255, 126, 95, 0.35)' : 'rgba(94, 200, 229, 0.38)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(255, 126, 95, 0.85)';
+    ctx.fillText('warm n\u2193', x0 + 8, y0 + 12);
+    ctx.fillStyle = 'rgba(94, 200, 229, 0.9)';
+    ctx.fillText('cool n\u2191', x0 + 72, y0 + 12);
+    ctx.fillStyle = 'rgba(168, 176, 200, 0.8)';
+    ctx.fillText('turbulent refractive cells  ·  illustration', x0 + 140, y0 + 12);
+  }
+
+  function rayKick(xNorm, t) {
+    if (!state.atmosphereOn) return 0;
+    return 14 * phaseGradX(xNorm, 0.5, t, state.seeing);
+  }
+
+  function strokeRay(ctx, x0, y0, x1, y1, kick, color, alpha, width) {
+    var ym = (y0 + y1) * 0.52;
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.quadraticCurveTo(x1 + kick, ym, x1, y1);
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = width;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  function drawStarGlyph(ctx, x, y, r, I) {
+    var g = ctx.createRadialGradient(x, y, 0, x, y, r * 3.2);
+    g.addColorStop(0, 'rgba(255, 230, 160,' + (0.95 * I) + ')');
+    g.addColorStop(0.35, 'rgba(255, 194, 74,' + (0.45 * I) + ')');
+    g.addColorStop(1, 'rgba(255, 194, 74, 0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 3.2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255, 244, 210,' + clamp(0.55 + 0.45 * I, 0.2, 1) + ')';
+    ctx.beginPath();
+    ctx.arc(x, y, Math.max(1.2, r * 0.55), 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawPlanetGlyph(ctx, x, y, r, I, t) {
+    var g = ctx.createRadialGradient(x - r * 0.3, y - r * 0.25, r * 0.1, x, y, r);
+    g.addColorStop(0, 'rgba(200, 230, 240,' + (0.95 * clamp(I, 0.4, 1.3)) + ')');
+    g.addColorStop(0.45, 'rgba(94, 200, 229,' + (0.85 * clamp(I, 0.4, 1.3)) + ')');
+    g.addColorStop(1, 'rgba(20, 50, 80, 0.95)');
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = g;
+    ctx.fill();
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.clip();
+    var k;
+    for (k = -3; k <= 3; k++) {
+      ctx.fillStyle = k % 2 === 0 ? 'rgba(255, 194, 74, 0.10)' : 'rgba(8, 16, 36, 0.18)';
+      ctx.fillRect(x - r, y + k * r * 0.22 + 2 * Math.sin(t + k), r * 2, r * 0.16);
+    }
+    ctx.restore();
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.55)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  function drawEyeIcon(ctx, x, y) {
+    ctx.strokeStyle = 'rgba(215, 222, 242, 0.55)';
+    ctx.fillStyle = 'rgba(16, 22, 48, 0.85)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(x - 16, y);
+    ctx.quadraticCurveTo(x, y - 10, x + 16, y);
+    ctx.quadraticCurveTo(x, y + 10, x - 16, y);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(x, y, 4.2, 0, Math.PI * 2);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(x, y, 1.6, 0, Math.PI * 2);
+    ctx.fillStyle = '#080b1c';
+    ctx.fill();
+  }
+
+  function drawRays() {
+    var s = S.rays;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.textAlign = 'left';
+    fillNight(ctx, w, h);
+    var t = state.t;
+    var midX = w * 0.5;
+    var yAtm0 = h * 0.42;
+    var yAtm1 = h * 0.62;
+    var ySrc = h * 0.16;
+    var yEye = h * 0.88;
+
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.12)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(midX, 18);
+    ctx.lineTo(midX, h - 12);
+    ctx.stroke();
+
+    drawAtmosphereBand(ctx, 10, w - 10, yAtm0, yAtm1, t);
+
+    if (!state.atmosphereOn) {
+      var limb = ctx.createLinearGradient(0, h * 0.78, 0, h);
+      limb.addColorStop(0, 'rgba(94, 200, 229, 0)');
+      limb.addColorStop(0.55, 'rgba(94, 200, 229, 0.08)');
+      limb.addColorStop(1, 'rgba(255, 126, 95, 0.18)');
+      ctx.fillStyle = limb;
+      ctx.fillRect(0, h * 0.78, w, h * 0.22);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = 'rgba(255, 126, 95, 0.9)';
+      ctx.fillText('Earth limb · you are above the air', 14, h - 14);
+    }
+
+    // LEFT: star
+    var xStar = w * 0.25;
+    var kickS = rayKick(0.25, t);
+    strokeRay(ctx, xStar, ySrc + 8, xStar, yEye - 8, kickS, 'rgba(255, 194, 74, 0.85)', 0.95, 1.6);
+    strokeRay(ctx, xStar, ySrc + 8, xStar, yEye - 8, kickS * 0.35, 'rgba(255, 194, 74, 0.28)', 0.7, 4);
+    drawStarGlyph(ctx, xStar + state.starX * 0.15, ySrc, 5.5, state.starI);
+    drawEyeIcon(ctx, xStar, yEye);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('STAR  ·  one ray bundle', 16, 22);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(255, 194, 74, 0.75)';
+    ctx.fillText('unresolved  ·  T★ = ' + twinkleIndex(STAR_THETA_ARCSEC, state.seeing, state.atmosphereOn).toFixed(3), 16, 38);
+
+    // RIGHT: disk
+    var xDisk = w * 0.75;
+    var th = state.theta;
+    var se = Math.max(state.seeing, 0.2);
+    var rPx = clamp(2.4 + 0.62 * th, 2.6, 36);
+    var nDraw = state.atmosphereOn ? clamp(Math.round(3 + Math.sqrt(cellCount(th, se))), 3, 17) : 7;
+    var i, frac, x0, kick;
+    for (i = 0; i < nDraw; i++) {
+      frac = nDraw === 1 ? 0 : (i / (nDraw - 1) - 0.5);
+      x0 = xDisk + frac * rPx * 1.6;
+      kick = rayKick(0.75 + frac * 0.08, t + i * 0.17);
+      strokeRay(ctx, x0, ySrc + rPx * 0.2, xDisk + frac * 10, yEye - 8, kick, 'rgba(94, 200, 229, 0.75)', 0.55 + 0.35 * state.diskI, 1.15);
+    }
+    drawPlanetGlyph(ctx, xDisk + state.diskX * 0.08, ySrc, rPx, state.diskI, t);
+    // seeing-cell ticks on the disk
+    if (state.atmosphereOn && th > se) {
+      var cellPx = rPx * (se / th);
+      ctx.strokeStyle = 'rgba(255, 194, 74, 0.45)';
+      ctx.setLineDash([2, 2]);
+      ctx.beginPath();
+      ctx.arc(xDisk, ySrc, Math.max(2.5, cellPx), 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    drawEyeIcon(ctx, xDisk, yEye);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('THIS DISK  ·  N paths average', w * 0.52 + 8, 22);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(94, 200, 229, 0.85)';
+    ctx.fillText('θ = ' + fmtArc(th) + '   N = ' + fmtN(cellCount(th, state.seeing)) + '   T = ' + twinkleIndex(th, state.seeing, state.atmosphereOn).toFixed(3), w * 0.52 + 8, 38);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.9)';
+    if (state.atmosphereOn) {
+      ctx.fillText('Each cool/warm pocket steers a ray. The star has one pocket-path. The planet has many.', 14, h - 12);
+    }
+  }
+
+  function drawReticle(ctx, cx, cy, R) {
+    ctx.strokeStyle = 'rgba(215, 222, 242, 0.22)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 0.72, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx - R, cy);
+    ctx.lineTo(cx + R, cy);
+    ctx.moveTo(cx, cy - R);
+    ctx.lineTo(cx, cy + R);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R + 7, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.28)';
+    ctx.lineWidth = 6;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R + 7, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.45)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+  }
+
+  function drawEye() {
+    var s = S.eye;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.textAlign = 'left';
+    fillNight(ctx, w, h);
+    var cy = h * 0.52;
+    var R = Math.min(w * 0.20, h * 0.32);
+    var left = w * 0.27;
+    var right = w * 0.73;
+    var pxPer = R / 28;
+    var se = state.seeing;
+    var th = state.theta;
+    var seePx = se * pxPer;
+    var thPx = th * pxPer;
+
+    function clipFov(cx) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.clip();
+      var g = ctx.createRadialGradient(cx, cy, 2, cx, cy, R);
+      g.addColorStop(0, '#10182e');
+      g.addColorStop(1, '#070a16');
+      ctx.fillStyle = g;
+      ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
+    }
+
+    // star FOV
+    clipFov(left);
+    var sx = left + state.starX * pxPer * 2.2;
+    var sy = cy + state.starY * pxPer * 2.2;
+    var blur = state.atmosphereOn ? Math.max(1.6, seePx * 0.55) : 1.2;
+    var Ig = ctx.createRadialGradient(sx, sy, 0, sx, sy, blur * 3.4);
+    var a = clamp(state.starI, 0.15, 2);
+    Ig.addColorStop(0, 'rgba(255, 236, 180,' + (0.95 * a) + ')');
+    Ig.addColorStop(0.4, 'rgba(255, 194, 74,' + (0.55 * a) + ')');
+    Ig.addColorStop(1, 'rgba(255, 194, 74, 0)');
+    ctx.fillStyle = Ig;
+    ctx.beginPath();
+    ctx.arc(sx, sy, blur * 3.4, 0, Math.PI * 2);
+    ctx.fill();
+    if (state.atmosphereOn) {
+      ctx.strokeStyle = 'rgba(255, 194, 74, 0.28)';
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.arc(left, cy, seePx, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    ctx.restore();
+    drawReticle(ctx, left, cy, R);
+
+    // planet FOV
+    clipFov(right);
+    var pR = Math.max(2.2, thPx);
+    var px = right + state.diskX * pxPer * 1.1;
+    var py = cy + state.diskY * pxPer * 1.1;
+    drawPlanetGlyph(ctx, px, py, pR, state.diskI, state.t);
+    if (state.atmosphereOn && pR > 6) {
+      var nCell = clamp(Math.round(Math.sqrt(cellCount(th, se))), 2, 8);
+      var j, ang, rr, br;
+      for (j = 0; j < nCell * nCell; j++) {
+        ang = (j * 2.399) + state.t * 0.15;
+        rr = pR * 0.72 * Math.sqrt((j % nCell + 0.4) / nCell);
+        br = 0.5 + 0.5 * Math.sin(state.t * 3.1 + j * 1.7) * (state.atmosphereOn ? 1 : 0);
+        ctx.fillStyle = 'rgba(255, 255, 255,' + (0.045 * br) + ')';
+        ctx.beginPath();
+        ctx.arc(px + Math.cos(ang) * rr, py + Math.sin(ang) * rr, Math.max(1.2, seePx * 0.45), 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.strokeStyle = 'rgba(255, 194, 74, 0.35)';
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.arc(px, py, seePx, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    ctx.restore();
+    drawReticle(ctx, right, cy, R);
+
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('STAR', left - 14, 26);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('DISK', right - 14, 26);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(168, 176, 200, 0.9)';
+    ctx.fillText(state.atmosphereOn ? 'dashed = seeing ~' + fmtArc(se) : 'no seeing disk', 14, h - 16);
+    ctx.fillStyle = 'rgba(94, 200, 229, 0.9)';
+    ctx.fillText('θ = ' + fmtArc(th), w - 86, h - 16);
+  }
+
+  function histAt(arr, k) {
+    var idx = (histI - histN + k + HIST_LEN * 4) % HIST_LEN;
+    return arr[idx];
+  }
+
+  function drawChart() {
+    var s = S.chart;
+    var ctx = s.ctx, w = s.w, h = s.h;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#070a16';
+    ctx.fillRect(0, 0, w, h);
+    var padL = 48, padR = 16, padT = 16, padB = 28;
+    var x0 = padL, y0 = padT, x1 = w - padR, y1 = h - padB;
+    var i, n = histN, x, y, v;
+    var yMin = 0.2, yMax = 1.85;
+    function X(k) { return x0 + (x1 - x0) * (n <= 1 ? 0 : k / (n - 1)); }
+    function Y(val) { return y1 - (y1 - y0) * ((val - yMin) / (yMax - yMin)); }
+
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.12)';
+    ctx.lineWidth = 1;
+    var ticks = [0.5, 1.0, 1.5];
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.9)';
+    ctx.textAlign = 'right';
+    for (i = 0; i < ticks.length; i++) {
+      y = Y(ticks[i]);
+      ctx.beginPath();
+      ctx.moveTo(x0, y);
+      ctx.lineTo(x1, y);
+      ctx.stroke();
+      ctx.fillText(ticks[i].toFixed(1), x0 - 6, y + 3);
+    }
+    ctx.textAlign = 'left';
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.25)';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(x0, Y(1));
+    ctx.lineTo(x1, Y(1));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    if (n > 1) {
+      ctx.beginPath();
+      for (i = 0; i < n; i++) {
+        v = histAt(histStar, i);
+        x = X(i);
+        y = Y(v);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = '#ffc24a';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.beginPath();
+      for (i = 0; i < n; i++) {
+        v = histAt(histDisk, i);
+        x = X(i);
+        y = Y(v);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = '#5ec8e5';
+      ctx.lineWidth = 1.6;
+      ctx.stroke();
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('star', x0 + 6, y0 + 12);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('this disk', x0 + 44, y0 + 12);
+    ctx.fillStyle = 'rgba(139, 147, 173, 0.9)';
+    ctx.fillText('⟨I⟩ = 1', x1 - 52, Y(1) - 6);
+    ctx.fillText('time \u2192', x1 - 48, h - 10);
+    if (!state.atmosphereOn) {
+      ctx.fillStyle = 'rgba(255, 194, 74, 0.9)';
+      ctx.fillText('atmosphere off · both traces sit on 1', x0 + 110, y0 + 12);
+    }
+  }
+
+  function paint() {
+    drawRays();
+    drawEye();
+    drawChart();
+    updateReadout();
+    updateLabels();
+  }
+
+  function frame(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = (ts - state.lastTs) / 1000;
+    state.lastTs = ts;
+    if (dt > 0.08) dt = 0.08;
+    if (state.playing) {
+      state.t += dt;
+      stepPhysics(dt);
+    }
+    paint();
+    requestAnimationFrame(frame);
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    el.play.textContent = on ? 'Pause' : 'Play';
+    el.play.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  el.play.addEventListener('click', function () { setPlaying(!state.playing); });
+  document.addEventListener('keydown', function (e) {
+    var tag = (e.target && e.target.tagName) || '';
+    if (e.code === 'Space' && tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'BUTTON' && tag !== 'SELECT') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    }
+  });
+
+  el.seeing.addEventListener('input', function () {
+    state.seeing = parseFloat(el.seeing.value);
+    updateLabels();
+    syncChips();
+    if (!state.playing) paint();
+  });
+  el.theta.addEventListener('input', function () {
+    state.theta = parseFloat(el.theta.value);
+    updateLabels();
+    syncChips();
+    if (!state.playing) paint();
+  });
+
+  var pi;
+  for (pi = 0; pi < PRESETS.length; pi++) {
+    (function (p) {
+      document.getElementById(p.id).addEventListener('click', function () {
+        state.theta = p.theta;
+        el.theta.value = String(p.theta);
+        updateLabels();
+        syncChips();
+        if (!state.playing) paint();
+      });
+    })(PRESETS[pi]);
+  }
+
+  function resetHistoryFlat() {
+    var i;
+    for (i = 0; i < HIST_LEN; i++) {
+      histStar[i] = 1;
+      histDisk[i] = 1;
+    }
+    histN = HIST_LEN;
+    histI = 0;
+  }
+
+  el.iss.addEventListener('click', function () {
+    state.atmosphereOn = !state.atmosphereOn;
+    if (!state.atmosphereOn) {
+      state.starI = 1;
+      state.diskI = 1;
+      state.starX = 0;
+      state.starY = 0;
+      state.diskX = 0;
+      state.diskY = 0;
+      resetHistoryFlat();
+    }
+    updateLabels();
+    syncChips();
+    if (!state.playing) paint();
+  });
+
+  updateLabels();
+  syncChips();
+  paint();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
