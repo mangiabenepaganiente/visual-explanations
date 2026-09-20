@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Curveball Curves — Magnus Effect for Classrooms | Teachers</title>
+<meta name="description" content="Teacher explainer: curveballs really curve. Spinning baseballs deflect via the Magnus force F ≈ ½ ρ A CL v² with CL ~ rω/v — not a camera trick, not a pure Bernoulli slogan. Live spin/speed sliders, airflow sketch, plate deflection.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="curveball Magnus effect, why curveballs curve, baseball physics classroom, spin rate deflection, Bernoulli myth, teachers, NGSS force motion, wake boundary layer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 780px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.55);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 420px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .page { padding: 18px 14px 48px; }
+}
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · curveball</a></p>
+  <h1>A curveball curves.</h1>
+  <p class="lede">People say the break is a <strong>camera illusion</strong>, or that “Bernoulli” alone makes air race over one side. The truth is blunter: a <strong>spinning ball deflects</strong>. Air wraps with the spin; the wake shifts; the net force is perpendicular to the velocity — the <strong>Magnus effect</strong>. Order of magnitude <code style="font-family:var(--mono);color:#8fd4e8;font-size:0.95em">F ∼ ρ v ω A</code>. Drag still slows the pitch; gravity still drops it. Spin adds the sideways (or down) shove.</p>
+
+  <p class="try"><b>Try this</b>Zero the spin: the path is straight on this top-down board. Crank rpm either way — the break flips. Speed changes how much plate time the force has.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <label class="sl grow">
+        <span>Spin rate <em id="spinLabel">+1800 rpm</em></span>
+        <input type="range" id="spin" min="-3000" max="3000" step="50" value="1800" aria-label="Spin rate in rpm, signed">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="spin0">0</button>
+      <button type="button" class="chip on" id="spin1800">+1800</button>
+      <button type="button" class="chip" id="spinM1800">−1800</button>
+      <button type="button" class="chip" id="spin2400">+2400</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Pitch speed <em id="vLabel">80.0 mph</em></span>
+        <input type="range" id="vel" min="50" max="100" step="0.5" value="80" aria-label="Pitch speed in mph">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="v70">70 mph</button>
+      <button type="button" class="chip on" id="v80">80 mph</button>
+      <button type="button" class="chip" id="v90">90 mph</button>
+      <button type="button" class="chip myth" id="btnGhost" aria-pressed="true">Ghost straight ON</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Pitch path · top-down</b><span>illustration · no gravity on this board · not CFD</span></div>
+      <canvas id="cvPath" width="780" height="420" aria-label="Top-down pitch path from mound to plate with Magnus deflection"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Airflow · spin wrap</b><span>wake · boundary layer · Magnus arrow</span></div>
+      <canvas id="cvFlow" width="480" height="420" aria-label="Spinning baseball with asymmetric airflow sketch and Magnus force"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Spin wraps the air</h2>
+      <p>The ball’s surface drags a boundary layer. On the side spinning with the freestream, flow hugs longer; on the other side it peels sooner. The wake is shoved off-axis — that asymmetry is the engine.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Force ⊥ velocity</h2>
+      <p>Magnus force sits perpendicular to the flight direction (sense from <code style="font-family:var(--mono);font-size:12px;color:#8fd4e8">ω × v</code>). Side spin curves left/right on this board. Topspin would drop a pitch; backspin would lift. Same rule, different axis.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>F scales with ρ, v, ω</h2>
+      <p>Sports form: <code style="font-family:var(--mono);font-size:12px;color:#8fd4e8">F = ½ ρ A C<sub>L</sub> v²</code> with <code style="font-family:var(--mono);font-size:12px;color:#8fd4e8">C<sub>L</sub> ≈ 1.2 (rω/v)</code>. That is order-of-magnitude <code style="font-family:var(--mono);font-size:12px;color:#8fd4e8">F ∼ ρ v ω A</code>. Zero spin → zero C<sub>L</sub> → no Magnus break.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“It doesn’t curve”</h2>
+      <p>Not a pure camera trick. High-speed tracking (PITCHf/x, Statcast) measures real lateral break. And do not stop at a Bernoulli slogan: pressure differences exist, but the honest classroom story includes the <em>boundary layer and wake</em>, not a race around a smooth sphere.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Baseball and atmosphere reference">
+    <div class="stat">
+      <div class="k">Air density ρ</div>
+      <div class="v">1.225 kg/m³</div>
+      <div class="s">ISA sea level · fixed</div>
+    </div>
+    <div class="stat">
+      <div class="k">Ball radius r</div>
+      <div class="v">3.66 cm</div>
+      <div class="s">official baseball · set</div>
+    </div>
+    <div class="stat">
+      <div class="k">Ball mass m</div>
+      <div class="v">0.145 kg</div>
+      <div class="s">5.125 oz class · set</div>
+    </div>
+    <div class="stat">
+      <div class="k">Mound → plate</div>
+      <div class="v">18.44 m</div>
+      <div class="s">60 ft 6 in · flight time L/v</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">This is an illustration, not Navier–Stokes and not CFD.</strong> Streamlines are a prescribed sketch: freestream plus a spin-biased wrap and an off-center wake. Real seam orientation, roughness, and Reynolds-number transitions matter a lot for baseball; we do not resolve them.</li>
+      <li><strong style="color:var(--text)">Sports-physics Magnus form.</strong> Spin parameter <code>S = r ω / v</code> (ω in rad/s). Lift coefficient cartoon <code>C<sub>L</sub> = 1.2 S</code> clamped to <code>|C<sub>L</sub>| ≤ 0.25</code> (a linear classroom fit in the spirit of Adair / Nathan / Watts &amp; Ferrer order-of-magnitude baseball models — not a universal law). Force magnitude <code>F<sub>M</sub> = ½ ρ A C<sub>L</sub> v²</code> with <code>A = π r²</code>. Unclamped, that is <code>F = (C<sub>L</sub> factor/2) ρ A r ω v</code> — order-of-magnitude <code>F ∼ ρ v ω A r</code>. The slogan <code>F ∼ ρ v ω A</code> absorbs the radius into the ∼. Direction follows the right-hand rule for <code>ω × v</code>: on this top-down board, positive ω (counterclockwise when viewed from above) deflects the +x pitch toward +y (toward first-base side of our diagram).</li>
+      <li><strong style="color:var(--text)">Zero spin → zero Magnus deflection.</strong> <code>ω = 0 ⇒ S = 0 ⇒ C<sub>L</sub> = 0 ⇒ F<sub>M</sub> = 0</code>. The ghost path and the live path coincide. Flip the sign of rpm and the signed force and plate break flip. That is the self-check built into the sliders.</li>
+      <li><strong style="color:var(--text)">Flight model on the board.</strong> Constant speed <code>v</code> along the mound–plate line for timing (<code>t = L/v</code> with <code>L = 18.44 m</code>). Lateral acceleration <code>a = F<sub>M</sub>/m</code> held constant in magnitude (direction always perpendicular to the instantaneous velocity in a simple 2D integrator). Gravity and quadratic drag are <em>omitted on the top-down board</em> so the Magnus break is readable alone; both are huge in a real pitch. Plate deflection readout uses the integrated path’s lateral offset at <code>x = L</code>.</li>
+      <li><strong style="color:var(--text)">Bernoulli is not banned — slogans are.</strong> Faster local flow sits at lower pressure along a streamline (steady, inviscid, incompressible). That language can describe part of the pressure field. It is not a complete explanation by itself: viscosity, the boundary layer, and asymmetric separation set where the wake sits. Do not teach “air races over the longer path.” Teach “spin moves the wake; net force is sideways.”</li>
+      <li><strong style="color:var(--text)">Camera myth.</strong> Video can exaggerate break with lens foreshortening, but optical tracking systems measure real horizontal and vertical movement relative to a no-spin (or spinless reference) trajectory. Curveballs curve. Knuckleballs dance for a different reason (asymmetric seam wake with almost no spin).</li>
+      <li><strong style="color:var(--text)">Units on the sliders.</strong> Speed is mph for baseball feel; internal SI uses <code>1 mph = 0.44704 m/s</code>. Spin is rpm; <code>ω = rpm · 2π/60</code>. Readouts show both human and SI where it helps teachers check homework.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Named formulas (same as validate-curveball.js) =====
+  var RHO = 1.225;
+  var R_BALL = 0.0366;
+  var M_BALL = 0.145;
+  var A_BALL = Math.PI * R_BALL * R_BALL;
+  var L_PLATE = 18.44;
+  var CL_FACTOR = 1.2;
+  var CL_MAX = 0.25;
+  var MPH_TO_MS = 0.44704;
+
+  function rpmToOmega(rpm) {
+    return rpm * Math.PI / 30;
+  }
+
+  function mphToMs(mph) {
+    return mph * MPH_TO_MS;
+  }
+
+  function spinParameter(r, omega, v) {
+    if (v <= 0) return 0;
+    return (r * omega) / v;
+  }
+
+  function liftCoefficient(S) {
+    var cl = CL_FACTOR * S;
+    if (cl > CL_MAX) cl = CL_MAX;
+    if (cl < -CL_MAX) cl = -CL_MAX;
+    return cl;
+  }
+
+  function magnusForce(rho, A, CL, v) {
+    return 0.5 * rho * A * CL * v * v;
+  }
+
+  /**
+   * Order-of-magnitude form with radius explicit: F ~ ρ v |ω| A r.
+   * Classroom slogan "F ∼ ρ v ω A" absorbs r into the ∼ (footnote).
+   */
+  function magnusForceOOM(rho, v, omegaAbs, A, r) {
+    return rho * v * omegaAbs * A * r;
+  }
+
+  /**
+   * Signed lateral Magnus force for v along +x, ω along +z (out of top-down board).
+   * F_y = +magnusForce when ω > 0 (ω × v points +y).
+   */
+  function magnusForceY(rho, A, r, omega, v) {
+    var S = spinParameter(r, omega, v);
+    var CL = liftCoefficient(S);
+    var F = magnusForce(rho, A, Math.abs(CL), v);
+    if (omega === 0 || CL === 0) return 0;
+    return (omega > 0 ? 1 : -1) * F;
+  }
+
+  function flightTime(L, v) {
+    if (v <= 0) return Infinity;
+    return L / v;
+  }
+
+  /** Analytic constant-a lateral break if force stayed purely along +y (good estimate). */
+  function plateBreakAnalytic(Fy, m, L, v) {
+    var t = flightTime(L, v);
+    if (!isFinite(t)) return 0;
+    return 0.5 * (Fy / m) * t * t;
+  }
+
+  /**
+   * Integrate 2D path: speed magnitude roughly held; accel = (Fy_hat) perpendicular
+   * to velocity with |a| = |F|/m. Returns {xs, ys, yPlate}.
+   */
+  function integratePath(v0, Fy0, m, L, n) {
+    var dt = (L / v0) / n;
+    var x = 0;
+    var y = 0;
+    var vx = v0;
+    var vy = 0;
+    var xs = [0];
+    var ys = [0];
+    var i;
+    var Fmag = Math.abs(Fy0);
+    var sign0 = Fy0 === 0 ? 0 : (Fy0 > 0 ? 1 : -1);
+    for (i = 0; i < n; i++) {
+      var speed = Math.hypot(vx, vy) || v0;
+      // unit perpendicular (rotate velocity 90° CCW) * sign matching ω×v for +x start
+      var px = -vy / speed;
+      var py = vx / speed;
+      // For +x motion, +perp is +y; we want accel direction = sign0 * (+y-ish)
+      // When path bends, keep force ⊥ v with fixed sense from initial sign0
+      var ax = sign0 * (Fmag / m) * px;
+      var ay = sign0 * (Fmag / m) * py;
+      // Midpoint-ish Euler
+      vx += ax * dt;
+      vy += ay * dt;
+      // renormalize speed to v0 (drag omitted; keeps flight time ~ L/v)
+      var sp2 = Math.hypot(vx, vy) || v0;
+      vx *= v0 / sp2;
+      vy *= v0 / sp2;
+      x += vx * dt;
+      y += vy * dt;
+      xs.push(x);
+      ys.push(y);
+      if (x >= L) break;
+    }
+    // interpolate y at x = L
+    var yPlate = y;
+    if (xs.length >= 2) {
+      var j = xs.length - 1;
+      if (xs[j] !== xs[j - 1]) {
+        var u = (L - xs[j - 1]) / (xs[j] - xs[j - 1]);
+        yPlate = ys[j - 1] + u * (ys[j] - ys[j - 1]);
+      }
+    }
+    return { xs: xs, ys: ys, yPlate: yPlate };
+  }
+
+  // ===== State =====
+  var state = {
+    rpm: 1800,
+    mph: 80,
+    playing: true,
+    ghost: true,
+    lastTs: 0,
+    tVis: 0,
+    ballS: 0
+  };
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elSpin = $('spin');
+  var elSpinL = $('spinLabel');
+  var elVel = $('vel');
+  var elVelL = $('vLabel');
+  var elGhost = $('btnGhost');
+  var elReadout = $('readout');
+  var cvPath = $('cvPath');
+  var cvFlow = $('cvFlow');
+
+  var surfaces = {
+    path: { canvas: cvPath, ctx: null, w: 0, h: 0, cssH: 420 },
+    flow: { canvas: cvFlow, ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  var tracers = [];
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function livePhysics() {
+    var omega = rpmToOmega(state.rpm);
+    var v = mphToMs(state.mph);
+    var S = spinParameter(R_BALL, omega, v);
+    var CL = liftCoefficient(S);
+    var Fy = magnusForceY(RHO, A_BALL, R_BALL, omega, v);
+    var Fmag = Math.abs(Fy);
+    var a = Fy / M_BALL;
+    var t = flightTime(L_PLATE, v);
+    var yA = plateBreakAnalytic(Fy, M_BALL, L_PLATE, v);
+    var path = integratePath(v, Fy, M_BALL, L_PLATE, 240);
+    var FooM = magnusForceOOM(RHO, v, Math.abs(omega), A_BALL, R_BALL);
+    return {
+      omega: omega,
+      v: v,
+      S: S,
+      CL: CL,
+      Fy: Fy,
+      Fmag: Fmag,
+      a: a,
+      t: t,
+      yAnalytic: yA,
+      yPlate: path.yPlate,
+      path: path,
+      FooM: FooM
+    };
+  }
+
+  function fmtSignRpm(rpm) {
+    if (rpm > 0) return '+' + rpm + ' rpm';
+    return rpm + ' rpm';
+  }
+
+  function updateLabels() {
+    elSpinL.textContent = fmtSignRpm(state.rpm);
+    elVelL.textContent = state.mph.toFixed(1) + ' mph';
+    setChip($('spin0'), state.rpm === 0);
+    setChip($('spin1800'), state.rpm === 1800);
+    setChip($('spinM1800'), state.rpm === -1800);
+    setChip($('spin2400'), state.rpm === 2400);
+    setChip($('v70'), Math.abs(state.mph - 70) < 0.01);
+    setChip($('v80'), Math.abs(state.mph - 80) < 0.01);
+    setChip($('v90'), Math.abs(state.mph - 90) < 0.01);
+  }
+
+  function updateReadout() {
+    var p = livePhysics();
+    var dir = p.Fy === 0 ? 'none' : (p.Fy > 0 ? '+y (1B side)' : '−y (3B side)');
+    var breakIn = p.yPlate * 39.3701;
+    elReadout.innerHTML =
+      '<div class="kv"><div class="k">Spin ω</div><div class="v">' + p.omega.toFixed(1) + ' rad/s</div>' +
+      '<div class="s">' + fmtSignRpm(state.rpm) + '</div></div>' +
+      '<div class="kv"><div class="k">Speed v</div><div class="v">' + p.v.toFixed(2) + ' m/s</div>' +
+      '<div class="s">' + state.mph.toFixed(1) + ' mph</div></div>' +
+      '<div class="kv"><div class="k">Spin param S</div><div class="v">' + p.S.toFixed(3) + '</div>' +
+      '<div class="s">S = rω/v</div></div>' +
+      '<div class="kv"><div class="k">C<sub style="font-size:9px">L</sub> · F<sub style="font-size:9px">M</sub></div><div class="v sun">' + p.CL.toFixed(3) + ' · ' + p.Fmag.toFixed(3) + ' N</div>' +
+      '<div class="s">½ρA C<sub>L</sub> v² · dir ' + dir + '</div></div>' +
+      '<div class="kv"><div class="k">Lateral a</div><div class="v">' + p.a.toFixed(2) + ' m/s²</div>' +
+      '<div class="s">F/m · t = ' + (isFinite(p.t) ? p.t.toFixed(3) : '—') + ' s</div></div>' +
+      '<div class="kv"><div class="k">Plate break</div><div class="v warm">' + (p.yPlate * 100).toFixed(1) + ' cm</div>' +
+      '<div class="s">' + breakIn.toFixed(1) + ' in · ghost Δ</div></div>';
+  }
+
+  function drawPath() {
+    var surf = surfaces.path;
+    var ctx = surf.ctx;
+    if (!ctx) return;
+    var W = surf.w;
+    var H = surf.h;
+    var p = livePhysics();
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a0e22';
+    ctx.fillRect(0, 0, W, H);
+
+    var padL = 56;
+    var padR = 36;
+    var padT = 36;
+    var padB = 48;
+    var x0 = padL;
+    var x1 = W - padR;
+    var yMid = H * 0.5;
+    var maxY = Math.max(0.55, Math.abs(p.yPlate) * 1.35, 0.35);
+    function X(xm) { return x0 + (xm / L_PLATE) * (x1 - x0); }
+    function Y(ym) { return yMid - (ym / maxY) * (H * 0.38); }
+
+    // lane guides
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x0, yMid);
+    ctx.lineTo(x1, yMid);
+    ctx.stroke();
+    ctx.setLineDash([4, 5]);
+    ctx.beginPath();
+    ctx.moveTo(x0, Y(0.3));
+    ctx.lineTo(x1, Y(0.3));
+    ctx.moveTo(x0, Y(-0.3));
+    ctx.lineTo(x1, Y(-0.3));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // mound & plate
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath();
+    ctx.arc(X(0), yMid, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('mound', X(0) - 18, yMid + 22);
+
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(X(L_PLATE) - 10, yMid - 16, 20, 32);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('plate', X(L_PLATE) - 14, yMid + 36);
+
+    // ghost straight
+    if (state.ghost) {
+      ctx.setLineDash([6, 5]);
+      ctx.strokeStyle = 'rgba(255,126,95,0.55)';
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(X(0), Y(0));
+      ctx.lineTo(X(L_PLATE), Y(0));
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('no-spin ghost', X(L_PLATE * 0.38), Y(0) - 10);
+    }
+
+    // curved path
+    var xs = p.path.xs;
+    var ys = p.path.ys;
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    var i;
+    for (i = 0; i < xs.length; i++) {
+      var px = X(Math.min(xs[i], L_PLATE));
+      var py = Y(ys[i]);
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    // animated ball along path
+    var frac = state.playing ? ((state.tVis * 0.35) % 1) : state.ballS;
+    if (!state.playing) frac = state.ballS;
+    var idx = Math.min(xs.length - 1, Math.floor(frac * (xs.length - 1)));
+    var bx = X(Math.min(xs[idx], L_PLATE));
+    var by = Y(ys[idx]);
+
+    // force arrow at ball
+    if (Math.abs(p.Fy) > 1e-9) {
+      // screen +y is down; physical +y is up on canvas via Y()
+      var ay1 = by;
+      var ay2 = by + (p.Fy > 0 ? -40 : 40);
+      ctx.strokeStyle = '#ffc24a';
+      ctx.fillStyle = '#ffc24a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(bx, ay1);
+      ctx.lineTo(bx, ay2);
+      ctx.stroke();
+      ctx.beginPath();
+      if (p.Fy > 0) {
+        ctx.moveTo(bx, ay2);
+        ctx.lineTo(bx - 5, ay2 + 8);
+        ctx.lineTo(bx + 5, ay2 + 8);
+      } else {
+        ctx.moveTo(bx, ay2);
+        ctx.lineTo(bx - 5, ay2 - 8);
+        ctx.lineTo(bx + 5, ay2 - 8);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.font = FONT_MONO_10;
+      ctx.fillText('F_M', bx + 8, (ay1 + ay2) / 2);
+    }
+
+    // ball
+    ctx.beginPath();
+    ctx.arc(bx, by, 8, 0, Math.PI * 2);
+    ctx.fillStyle = '#f2f0e6';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,126,95,0.7)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+    // spin tick
+    var ang = state.tVis * (state.rpm / 60) * Math.PI * 2 * 0.15;
+    ctx.beginPath();
+    ctx.moveTo(bx, by);
+    ctx.lineTo(bx + Math.cos(ang) * 7, by + Math.sin(ang) * 7);
+    ctx.strokeStyle = '#ff7e5f';
+    ctx.stroke();
+
+    // break callout at plate
+    ctx.setLineDash([3, 3]);
+    ctx.strokeStyle = 'rgba(255,194,74,0.5)';
+    ctx.beginPath();
+    ctx.moveTo(X(L_PLATE), Y(0));
+    ctx.lineTo(X(L_PLATE), Y(p.yPlate));
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('Δy = ' + (p.yPlate * 100).toFixed(1) + ' cm', X(L_PLATE) - 72, Y(p.yPlate) + (p.yPlate >= 0 ? -8 : 14));
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139,147,173,0.95)';
+    ctx.fillText('top-down · gravity off · drag off · Magnus only', 14, H - 12);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('+y', 14, Y(maxY * 0.85));
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('flight →', X(L_PLATE * 0.5) - 20, H - 12);
+  }
+
+  function drawFlow() {
+    var surf = surfaces.flow;
+    var ctx = surf.ctx;
+    if (!ctx) return;
+    var W = surf.w;
+    var H = surf.h;
+    var p = livePhysics();
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a0e22';
+    ctx.fillRect(0, 0, W, H);
+
+    var cx = W * 0.46;
+    var cy = H * 0.48;
+    var R = Math.min(W, H) * 0.16;
+
+    // freestream arrows
+    var row;
+    for (row = -3; row <= 3; row++) {
+      if (row === 0) continue;
+      var yy = cy + row * R * 0.55;
+      ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(20, yy);
+      ctx.lineTo(cx - R - 18, yy);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(cx - R - 18, yy);
+      ctx.lineTo(cx - R - 26, yy - 4);
+      ctx.lineTo(cx - R - 26, yy + 4);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(94,200,229,0.35)';
+      ctx.fill();
+    }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('air (ball frame)', 16, 22);
+
+    // streamlines wrapping with spin bias
+    var spinSign = state.rpm === 0 ? 0 : (state.rpm > 0 ? 1 : -1);
+    var k;
+    for (k = -4; k <= 4; k++) {
+      if (k === 0) continue;
+      var yOff = k * 0.22 * R;
+      ctx.beginPath();
+      var t;
+      var first = true;
+      for (t = 0; t <= 1.001; t += 0.02) {
+        var ang = Math.PI - t * Math.PI;
+        // bias: positive spin (CCW) pulls wrap upward on left / shifts wake down
+        var bias = spinSign * 0.35 * Math.sin(t * Math.PI) * (k > 0 ? 1.1 : 0.7);
+        var rr = R + 14 + Math.abs(k) * 9 + bias * R * 0.15 * (k > 0 ? 1 : -1);
+        // wake shift: separation earlier on one side
+        var wakePull = spinSign * 0.55 * R * t * t;
+        var sx = cx + Math.cos(ang) * rr;
+        var sy = cy + Math.sin(ang) * rr * (k > 0 ? 1 : -1) * Math.sign(k) + yOff * 0.15 - wakePull * Math.sign(k) * 0.3;
+        // simpler parametric: left-to-right with vertical offset that bends
+        sx = 24 + t * (W - 40);
+        var base = cy + k * R * 0.42;
+        var wrap = 0;
+        if (sx > cx - R * 1.8 && sx < cx + R * 1.8) {
+          var xn = (sx - cx) / (R * 1.6);
+          wrap = Math.sqrt(Math.max(0, 1 - xn * xn)) * R * 0.55 * Math.sign(k);
+          wrap += -spinSign * 0.35 * R * (1 - xn * xn) * (k > 0 ? 0.9 : 1.1);
+        } else if (sx >= cx + R * 1.8) {
+          // wake region: shifted
+          wrap = -spinSign * 0.5 * R * Math.exp(-(sx - cx - R * 1.8) / (R * 1.2)) * Math.sign(k) * Math.abs(k) / 4;
+          wrap += -spinSign * 0.25 * R;
+        }
+        sy = base - wrap * Math.sign(k) * Math.sign(k);
+        sy = base + (k > 0 ? -1 : 1) * (sx > cx - R * 1.8 && sx < cx + R * 1.8
+          ? Math.sqrt(Math.max(0, 1 - Math.pow((sx - cx) / (R * 1.5), 2))) * R * (0.5 + 0.2 * Math.abs(spinSign))
+          : 0);
+        // apply spin asymmetry: one side closer, wake center shifted
+        if (sx > cx + R * 0.2) {
+          sy += -spinSign * 18 * Math.min(1, (sx - cx) / (R * 3));
+        }
+        if (first) { ctx.moveTo(sx, sy); first = false; }
+        else ctx.lineTo(sx, sy);
+      }
+      ctx.strokeStyle = k > 0
+        ? 'rgba(94,200,229,' + (0.25 + 0.08 * Math.abs(spinSign)) + ')'
+        : 'rgba(255,126,95,' + (0.22 + 0.08 * Math.abs(spinSign)) + ')';
+      ctx.lineWidth = 1.3;
+      ctx.stroke();
+    }
+
+    // wake blob
+    ctx.beginPath();
+    ctx.ellipse(cx + R * 2.1, cy - spinSign * 22, R * 0.9, R * 0.55, 0, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(8,11,28,0.65)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(139,147,173,0.35)';
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('wake', cx + R * 1.6, cy - spinSign * 22 + 4);
+
+    // ball body
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fillStyle = '#e8e4d4';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,126,95,0.55)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // seams hint
+    ctx.strokeStyle = 'rgba(255,126,95,0.45)';
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 0.72, -0.8, 0.8);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 0.72, Math.PI - 0.8, Math.PI + 0.8);
+    ctx.stroke();
+
+    // spin arrows
+    if (spinSign !== 0) {
+      ctx.strokeStyle = '#ff7e5f';
+      ctx.fillStyle = '#ff7e5f';
+      ctx.lineWidth = 2;
+      var sa0 = state.tVis * 2.5 * spinSign;
+      var a1 = sa0;
+      var a2 = sa0 + spinSign * 2.2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, R + 12, a1, a2, spinSign < 0);
+      ctx.stroke();
+      var ax = cx + Math.cos(a2) * (R + 12);
+      var ay = cy + Math.sin(a2) * (R + 12);
+      var tx = -Math.sin(a2) * spinSign;
+      var ty = Math.cos(a2) * spinSign;
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(ax - tx * 8 - ty * 5, ay - ty * 8 + tx * 5);
+      ctx.lineTo(ax - tx * 8 + ty * 5, ay - ty * 8 - tx * 5);
+      ctx.closePath();
+      ctx.fill();
+      ctx.font = FONT_MONO_10;
+      ctx.fillText(spinSign > 0 ? 'ω CCW (+)' : 'ω CW (−)', cx - 28, cy + R + 36);
+    } else {
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('ω = 0 · no Magnus', cx - 48, cy + R + 36);
+    }
+
+    // Magnus force arrow
+    if (spinSign !== 0) {
+      var len = 50 + Math.min(40, Math.abs(p.Fmag) * 80);
+      ctx.strokeStyle = '#ffc24a';
+      ctx.fillStyle = '#ffc24a';
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx, cy - spinSign * len);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - spinSign * len);
+      ctx.lineTo(cx - 6, cy - spinSign * len + spinSign * 10);
+      ctx.lineTo(cx + 6, cy - spinSign * len + spinSign * 10);
+      ctx.closePath();
+      ctx.fill();
+      ctx.font = FONT_DISPLAY;
+      ctx.fillText('F_M ⊥ v', cx + 14, cy - spinSign * len * 0.55);
+    }
+
+    // boundary layer callout
+    ctx.font = FONT_UI_12;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Boundary layer rides the spin.', 16, H - 48);
+    ctx.fillStyle = '#8b93ad';
+    ctx.font = FONT_UI_11;
+    ctx.fillText('Separation shifts the wake. Net force ⊥ flight.', 16, H - 30);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(139,147,173,0.95)';
+    ctx.fillText('sketch · not a pressure CFD', 16, H - 12);
+  }
+
+  function syncSpinChips() {
+    updateLabels();
+  }
+
+  function onSpin() {
+    state.rpm = parseFloat(elSpin.value) || 0;
+    syncSpinChips();
+    updateReadout();
+  }
+
+  function onVel() {
+    state.mph = parseFloat(elVel.value) || 80;
+    updateLabels();
+    updateReadout();
+  }
+
+  function setRpm(v) {
+    state.rpm = v;
+    elSpin.value = String(v);
+    syncSpinChips();
+    updateReadout();
+  }
+
+  function setMph(v) {
+    state.mph = v;
+    elVel.value = String(v);
+    updateLabels();
+    updateReadout();
+  }
+
+  elSpin.addEventListener('input', onSpin);
+  elVel.addEventListener('input', onVel);
+  $('spin0').addEventListener('click', function () { setRpm(0); });
+  $('spin1800').addEventListener('click', function () { setRpm(1800); });
+  $('spinM1800').addEventListener('click', function () { setRpm(-1800); });
+  $('spin2400').addEventListener('click', function () { setRpm(2400); });
+  $('v70').addEventListener('click', function () { setMph(70); });
+  $('v80').addEventListener('click', function () { setMph(80); });
+  $('v90').addEventListener('click', function () { setMph(90); });
+
+  elGhost.addEventListener('click', function () {
+    state.ghost = !state.ghost;
+    elGhost.textContent = state.ghost ? 'Ghost straight ON' : 'Ghost straight OFF';
+    setChip(elGhost, state.ghost);
+    if (state.ghost) elGhost.classList.add('myth');
+  });
+  setChip(elGhost, true);
+  elGhost.classList.add('myth');
+  elGhost.classList.add('on');
+
+  elPlay.addEventListener('click', function () {
+    state.playing = !state.playing;
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      elPlay.click();
+    }
+  });
+
+  function frame(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (state.playing) {
+      state.tVis += dt;
+      state.ballS = (state.ballS + dt * 0.35) % 1;
+    }
+    fitCanvas(surfaces.path);
+    fitCanvas(surfaces.flow);
+    drawPath();
+    drawFlow();
+    requestAnimationFrame(frame);
+  }
+
+  function resize() {
+    fitCanvas(surfaces.path);
+    fitCanvas(surfaces.flow);
+    updateReadout();
+  }
+
+  window.addEventListener('resize', resize);
+  updateLabels();
+  updateReadout();
+  resize();
+  requestAnimationFrame(frame);
+
+  // Expose for debugging / parity with validator names
+  window.__curveball = {
+    RHO: RHO,
+    R_BALL: R_BALL,
+    M_BALL: M_BALL,
+    A_BALL: A_BALL,
+    L_PLATE: L_PLATE,
+    CL_FACTOR: CL_FACTOR,
+    CL_MAX: CL_MAX,
+    rpmToOmega: rpmToOmega,
+    mphToMs: mphToMs,
+    spinParameter: spinParameter,
+    liftCoefficient: liftCoefficient,
+    magnusForce: magnusForce,
+    magnusForceY: magnusForceY,
+    magnusForceOOM: magnusForceOOM,
+    plateBreakAnalytic: plateBreakAnalytic,
+    integratePath: integratePath,
+    livePhysics: livePhysics
+  };
+})();
+</script>
+</body>
+</html>
