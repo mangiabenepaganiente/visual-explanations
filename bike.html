@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Bike Stays Up by Steering Into the Fall — Not Gyro Magic | Classroom</title>
+<meta name="description" content="Teacher explainer: spinning wheels are not what keeps a bike upright. Lean makes the front wheel steer under the center of mass (trail/caster). Toggle the gyro-only myth. Live lean and steer angles.">
+<meta name="keywords" content="bicycle stability, gyroscopic effect myth, trail caster, steer into the fall, Kooijman, classroom physics, self-stable bike">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 820px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.55);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 440px; }
+.trail-card canvas { height: 440px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .bike-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas, .trail-card canvas { height: 300px; }
+  .page { padding: 18px 14px 48px; }
+}
+
+.try {
+  max-width: 760px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · bike</a></p>
+  <h1>A bike stays up by steering into the fall — not gyro magic</h1>
+  <p class="lede">The spinning wheels do make a gyroscopic torque, but that is <strong>not</strong> what keeps a bicycle upright in the classroom story. Lean tips the geometry: <strong>trail / caster</strong> turns the front wheel into the fall, the contact patch moves under the center of mass, and the bike recovers. Research bikes with near-zero net gyro can still self-stabilize.</p>
+
+  <p class="try"><b>Try this</b>Press Play and watch slow-mo lean → steer under the COG → recovery. Then toggle <strong>gyro only</strong> and lock the steer: the myth fails. Nudge lean with the slider.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <button type="button" class="chip" id="btnNudge">Nudge lean</button>
+      <button type="button" class="chip" id="btnUpright">Upright</button>
+      <label class="sl grow">
+        <span>Initial lean nudge <em id="nudgeLabel">8.0°</em></span>
+        <input type="range" id="nudge" min="2" max="18" step="0.5" value="8" aria-label="Lean nudge in degrees">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <label class="sl" style="min-width:140px">
+        <span>Slow-mo <em id="slowLabel">0.35×</em></span>
+        <input type="range" id="slow" min="0.15" max="1" step="0.05" value="0.35" aria-label="Playback speed multiplier">
+      </label>
+    </div>
+    <div class="row">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Model</span>
+      <button type="button" class="chip on" id="modeTrail" aria-pressed="true">Trail · steer into fall</button>
+      <button type="button" class="chip myth" id="modeGyro" aria-pressed="false">Gyro only (myth)</button>
+      <button type="button" class="chip" id="modeLocked" aria-pressed="false">Steer locked</button>
+      <div class="sep" aria-hidden="true"></div>
+      <span id="modeHint" style="font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.4">Caster turns the wheel under the mass. Recover.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card bike-card">
+      <div class="card-h"><b>Rear view · lean &amp; steer</b><span id="bikeMeta">illustration · not Whipple CFD</span></div>
+      <canvas id="cvBike" width="820" height="440" aria-label="Bicycle rear view showing lean angle and front wheel steering under the center of mass"></canvas>
+    </div>
+    <div class="card trail-card">
+      <div class="card-h"><b>Trail / caster</b><span>fork rake · trail length</span></div>
+      <canvas id="cvTrail" width="420" height="440" aria-label="Side sketch of bicycle trail geometry with steering axis and trail length"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Lean starts the fall</h2>
+      <p>An upright bike is an inverted pendulum. A small lean φ makes gravity pull farther off the contact line. With the steering locked, lean grows — you tip over.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Trail steers into the fall</h2>
+      <p>The steering axis hits the ground <em>ahead</em> of the contact patch (positive trail). Lean loads that geometry so the front wheel turns toward the lean — under the center of mass.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Support moves under you</h2>
+      <p>Once the wheel points into the fall, the ground contact slides under the COG. Gravity’s tipping moment shrinks and reverses. Slow-mo: lean → steer → recovery.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Gyro keeps it up”</h2>
+      <p>“Spinning wheels act like gyroscopes and hold the bike upright.” Real wheels do make a gyro torque, but it is not the main classroom stabilizer. Toggle <em>gyro only</em>: steer locked, weak spin damping — lean still grows.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Model reference numbers">
+    <div class="stat">
+      <div class="k">COG height h</div>
+      <div class="v">1.0 m</div>
+      <div class="s">lean pendulum length</div>
+    </div>
+    <div class="stat">
+      <div class="k">Trail (sketch)</div>
+      <div class="v">~5–6 cm</div>
+      <div class="s">typical road bike order</div>
+    </div>
+    <div class="stat">
+      <div class="k">Head angle</div>
+      <div class="v">~72°</div>
+      <div class="s">steering-axis sketch</div>
+    </div>
+    <div class="stat">
+      <div class="k">Kooijman 2011</div>
+      <div class="v">Science</div>
+      <div class="s">stable with ~zero net gyro</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">This is a classroom lean–steer cartoon, not the full Whipple bicycle.</strong> State is lean angle <code>φ</code>, lean rate <code>ω</code>, steer angle <code>δ</code>, steer rate <code>ν</code>. Gravity tip uses an inverted-pendulum term <code>(g/h) sin φ</code> with <code>g = 9.81 m/s²</code>, <code>h = 1.0 m</code>. No tire slip model, no rider lean control, no 3-D frame flex.</li>
+      <li><strong style="color:var(--text)">Trail / steer-into-fall mode.</strong> First-order caster lag: <code>δ̇ = (κ φ − δ) / τ</code> with <code>κ = 1.0</code>, <code>τ = 0.05 s</code> (positive <code>φ</code> → positive <code>δ</code>, into the fall). Geometric restoring when the front contact moves under the mass: <code>φ̈ = (g/h) sin φ − C δ − c ω</code> with <code>C = 30 s⁻²</code> and light lean damping <code>c = 3 s⁻¹</code> (tires / frame dissipation in the cartoon). Small initial leans decay toward upright; very large leans can still tip.</li>
+      <li><strong style="color:var(--text)">Steer locked.</strong> <code>δ ≡ 0</code>, so <code>φ̈ = (g/h) sin φ</code>. Any nonzero lean grows — unstable inverted pendulum. Same ODE the validator integrates.</li>
+      <li><strong style="color:var(--text)">Gyro-only myth.</strong> Steer stays locked. A weak rate term <code>−γ ω</code> with <code>γ = 0.45 s⁻¹</code> stands in for “spinning wheels damp the tip” without free steering. It is not enough: from a few degrees of lean, <code>|φ|</code> still grows. That is the classroom point — gyroscopic spin alone does not stabilize this model.</li>
+      <li><strong style="color:var(--text)">Cite carefully — Kooijman et al.</strong> J. D. G. Kooijman, J. P. Meijaard, J. M. Papadopoulos, A. Ruina &amp; A. L. Schwab, “A Bicycle Can Be Self-Stable Without Gyroscopic or Caster Effects,” <em>Science</em> <strong>332</strong>, 339–342 (2011). They built a riderless bike with counter-rotating wheels (near-zero net gyroscopic moment) <em>and</em> negative trail, and showed self-stability from mass distribution. Takeaway for class: spinning-wheel gyro is <em>not necessary</em> for self-stability, so it cannot be the essential “why bikes stay up” story. Ordinary bikes still use trail/caster as the intuition that matches what you feel: lean, then the bars turn into the fall.</li>
+      <li><strong style="color:var(--text)">Honest combination.</strong> Real bikes combine trail geometry, mass distribution, speed-dependent gyroscopic and inertial coupling, tire forces, and a rider who steers. Gyroscopic torque is not zero — it just is not the main middle-school explanation. This page isolates trail vs locked vs weak-gyro-only so the misconception is testable on a canvas.</li>
+      <li><strong style="color:var(--text)">Trail sketch.</strong> Side view shows head-tube angle (~72° from horizontal), steering axis extended to the ground, and trail as the horizontal gap from that intersection back to the contact patch. Numbers are typical order-of-magnitude for a road bike, not a measured fork. Rake and trail are labeled; the sketch does not solve the full steering geometry under lean.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Forces, torque, and stability. Pair with a hands-on demo: roll a bike with hands off the bars (or a scooter) and watch the front wheel chase the lean. Name the misconception out loud before the toggle. NGSS-friendly: MS-PS2 motion and stability; HS-PS2 forces and interactions.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Named formulas (same as validate-bike.js) =====
+  var G = 9.81;
+  var H = 1.0;
+  var KAPPA = 1.0;
+  var TAU = 0.05;
+  var C_RESTORE = 30.0;
+  var LEAN_DAMP = 3.0;
+  var GYRO_GAMMA = 0.45;
+  var PHI_MAX = 1.2; // rad clamp for drawing / blow-up
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  function clamp(x, a, b) {
+    return x < a ? a : (x > b ? b : x);
+  }
+
+  function deg(rad) {
+    return rad * 180 / Math.PI;
+  }
+
+  function rad(d) {
+    return d * Math.PI / 180;
+  }
+
+  /** Lean acceleration φ̈ for each classroom mode. */
+  function leanAccel(phi, omega, delta, mode) {
+    var tip = (G / H) * Math.sin(phi);
+    if (mode === 'locked') {
+      return tip;
+    }
+    if (mode === 'gyro') {
+      return tip - GYRO_GAMMA * omega;
+    }
+    // trail: tip minus restoring from steered contact under COG, plus light damping
+    return tip - C_RESTORE * delta - LEAN_DAMP * omega;
+  }
+
+  /** First-order caster: δ̇ toward κ φ. */
+  function steerRate(phi, delta) {
+    return (KAPPA * phi - delta) / TAU;
+  }
+
+  /**
+   * Semi-implicit Euler step of the lean–steer state.
+   * state: { phi, omega, delta, nu }  (nu unused in trail; kept for shape)
+   * mode: 'trail' | 'gyro' | 'locked'
+   */
+  function stepState(state, dt, mode) {
+    var phi = state.phi;
+    var omega = state.omega;
+    var delta = state.delta;
+
+    if (mode === 'locked' || mode === 'gyro') {
+      var newOmega = omega + leanAccel(phi, omega, 0, mode) * dt;
+      var newPhi = phi + newOmega * dt;
+      state.phi = clamp(newPhi, -PHI_MAX, PHI_MAX);
+      state.omega = (Math.abs(newPhi) >= PHI_MAX - 1e-6) ? 0 : newOmega;
+      state.delta = 0;
+      state.nu = 0;
+      return state;
+    }
+
+    var alpha = leanAccel(phi, omega, delta, 'trail');
+    omega = omega + alpha * dt;
+    phi = phi + omega * dt;
+    delta = delta + steerRate(phi, delta) * dt;
+    state.phi = clamp(phi, -PHI_MAX, PHI_MAX);
+    state.omega = (Math.abs(phi) >= PHI_MAX - 1e-6) ? 0 : omega;
+    state.delta = clamp(delta, -1.0, 1.0);
+    state.nu = steerRate(state.phi, state.delta);
+    return state;
+  }
+
+  /** Integrate and report |φ| growth vs recovery for validator-shared checks. */
+  function simulate(mode, phi0Deg, tEnd, dt) {
+    var st = { phi: rad(phi0Deg), omega: 0, delta: 0, nu: 0 };
+    var t = 0;
+    var maxAbs = Math.abs(st.phi);
+    var finalAbs = Math.abs(st.phi);
+    while (t < tEnd) {
+      stepState(st, dt, mode);
+      t += dt;
+      var a = Math.abs(st.phi);
+      if (a > maxAbs) maxAbs = a;
+      finalAbs = a;
+    }
+    return { finalAbs: finalAbs, maxAbs: maxAbs, phi: st.phi, delta: st.delta };
+  }
+
+  // Expose for optional console poking / parity with validator names
+  window.__bikeModel = {
+    G: G, H: H, KAPPA: KAPPA, TAU: TAU, C_RESTORE: C_RESTORE, LEAN_DAMP: LEAN_DAMP, GYRO_GAMMA: GYRO_GAMMA,
+    leanAccel: leanAccel, steerRate: steerRate, stepState: stepState, simulate: simulate
+  };
+
+  // ===== UI state =====
+  var state = {
+    phi: rad(8),
+    omega: 0,
+    delta: 0,
+    nu: 0,
+    mode: 'trail', // trail | gyro | locked
+    playing: true,
+    slow: 0.35,
+    nudgeDeg: 8,
+    time: 0,
+    lastTs: 0,
+    fallen: false
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elNudge = $('btnNudge');
+  var elUpright = $('btnUpright');
+  var elNudgeSl = $('nudge');
+  var elNudgeL = $('nudgeLabel');
+  var elSlow = $('slow');
+  var elSlowL = $('slowLabel');
+  var elModeTrail = $('modeTrail');
+  var elModeGyro = $('modeGyro');
+  var elModeLocked = $('modeLocked');
+  var elModeHint = $('modeHint');
+  var elBikeMeta = $('bikeMeta');
+  var elReadout = $('readout');
+  var cvBike = $('cvBike');
+  var cvTrail = $('cvTrail');
+
+  var surfaces = {
+    bike: { canvas: cvBike, ctx: null, w: 0, h: 0, cssH: 440 },
+    trail: { canvas: cvTrail, ctx: null, w: 0, h: 0, cssH: 440 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function fitAll() {
+    fitCanvas(surfaces.bike);
+    fitCanvas(surfaces.trail);
+  }
+
+  function resetFromNudge() {
+    state.phi = rad(state.nudgeDeg);
+    state.omega = 0;
+    state.delta = 0;
+    state.nu = 0;
+    state.fallen = false;
+    state.time = 0;
+  }
+
+  function setMode(mode) {
+    state.mode = mode;
+    elModeTrail.classList.toggle('on', mode === 'trail');
+    elModeTrail.setAttribute('aria-pressed', mode === 'trail' ? 'true' : 'false');
+    elModeGyro.classList.toggle('on', mode === 'gyro');
+    elModeGyro.classList.toggle('myth', true);
+    elModeGyro.setAttribute('aria-pressed', mode === 'gyro' ? 'true' : 'false');
+    elModeLocked.classList.toggle('on', mode === 'locked');
+    elModeLocked.setAttribute('aria-pressed', mode === 'locked' ? 'true' : 'false');
+    if (mode === 'trail') {
+      elModeHint.textContent = 'Caster turns the wheel under the mass. Recover.';
+      elModeHint.style.color = 'var(--muted)';
+      elBikeMeta.textContent = 'trail · steer into fall';
+    } else if (mode === 'gyro') {
+      elModeHint.textContent = 'Steer locked + weak spin damping. Myth fails — lean grows.';
+      elModeHint.style.color = 'var(--warm)';
+      elBikeMeta.textContent = 'gyro-only myth · no free steer';
+    } else {
+      elModeHint.textContent = 'Steer locked. Inverted pendulum — lean grows.';
+      elModeHint.style.color = 'var(--warm)';
+      elBikeMeta.textContent = 'steer locked · unstable';
+    }
+    resetFromNudge();
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  // ===== Drawing: bike rear view =====
+  function drawBike() {
+    var surf = surfaces.bike;
+    var ctx = surf.ctx;
+    var W = surf.w;
+    var Hcss = surf.h;
+    if (!ctx) return;
+    ctx.clearRect(0, 0, W, Hcss);
+
+    // ground
+    var groundY = Hcss * 0.82;
+    ctx.fillStyle = 'rgba(94,200,229,0.04)';
+    ctx.fillRect(0, groundY, W, Hcss - groundY);
+    ctx.strokeStyle = 'rgba(94,200,229,0.28)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(24, groundY);
+    ctx.lineTo(W - 24, groundY);
+    ctx.stroke();
+
+    // dashed vertical upright reference
+    var cx = W * 0.5;
+    ctx.strokeStyle = 'rgba(139,147,173,0.35)';
+    ctx.setLineDash([4, 5]);
+    ctx.beginPath();
+    ctx.moveTo(cx, groundY);
+    ctx.lineTo(cx, groundY - Hcss * 0.62);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    var phi = state.phi;
+    var delta = (state.mode === 'trail') ? state.delta : 0;
+    var bikeH = Hcss * 0.52;
+    var cogY = groundY - bikeH;
+
+    ctx.save();
+    ctx.translate(cx, groundY);
+    ctx.rotate(phi);
+
+    // rear wheel (ellipse foreshortening mild)
+    ctx.strokeStyle = 'rgba(215,222,242,0.85)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 18, 36, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(94,200,229,0.45)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, -30);
+    ctx.lineTo(0, 30);
+    ctx.moveTo(-12, 0);
+    ctx.lineTo(12, 0);
+    ctx.stroke();
+
+    // frame stick: seat tube + top
+    ctx.strokeStyle = '#d7def2';
+    ctx.lineWidth = 3.5;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(0, -8);
+    ctx.lineTo(0, -bikeH);
+    ctx.stroke();
+
+    // seat
+    ctx.beginPath();
+    ctx.moveTo(-14, -bikeH);
+    ctx.lineTo(16, -bikeH - 2);
+    ctx.stroke();
+
+    // COG marker
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath();
+    ctx.arc(0, -bikeH * 0.72, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#080b1c';
+    ctx.beginPath();
+    ctx.arc(0, -bikeH * 0.72, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // front assembly offset by steer (moves contact "under" COG in lean frame)
+    // In rear view: steer swings front wheel sideways under the leaned frame.
+    var steerVis = delta * 55; // px
+    var frontX = steerVis;
+    var frontY = -6;
+
+    // fork line to front hub
+    ctx.strokeStyle = 'rgba(94,200,229,0.9)';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(0, -bikeH * 0.55);
+    ctx.lineTo(frontX, frontY);
+    ctx.stroke();
+
+    // front wheel
+    ctx.save();
+    ctx.translate(frontX, frontY);
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 14, 32, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    // hub
+    ctx.fillStyle = '#5ec8e5';
+    ctx.beginPath();
+    ctx.arc(0, 0, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // handlebars hint
+    ctx.strokeStyle = 'rgba(255,194,74,0.7)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-22, -bikeH * 0.58);
+    ctx.lineTo(22 + steerVis * 0.15, -bikeH * 0.58);
+    ctx.stroke();
+
+    // gravity arrow from COG (world-down = opposite of lean rotation)
+    ctx.save();
+    ctx.translate(0, -bikeH * 0.72);
+    ctx.rotate(-phi); // cancel lean so arrow is world-vertical
+    ctx.strokeStyle = 'rgba(255,126,95,0.85)';
+    ctx.fillStyle = 'rgba(255,126,95,0.85)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 42);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, 48);
+    ctx.lineTo(-5, 38);
+    ctx.lineTo(5, 38);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    ctx.restore();
+
+    // lean arc annotation (world)
+    var arcR = 56;
+    ctx.strokeStyle = 'rgba(255,194,74,0.7)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(cx, groundY, arcR, -Math.PI / 2, -Math.PI / 2 + phi, phi < 0);
+    ctx.stroke();
+
+    // labels
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('φ lean ' + deg(phi).toFixed(1) + '°', cx + 64, groundY - arcR - 8);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('δ steer ' + deg(delta).toFixed(1) + '°', 28, 28);
+    ctx.fillStyle = '#8b93ad';
+    ctx.font = FONT_UI_12;
+    ctx.fillText('COG', cx + Math.sin(phi) * bikeH * 0.72 + 14, groundY - Math.cos(phi) * bikeH * 0.72 - 8);
+
+    // status chip
+    var ok = state.mode === 'trail' && Math.abs(phi) < rad(state.nudgeDeg) * 0.55 && state.time > 0.8;
+    var tip = Math.abs(phi) > 0.9;
+    ctx.font = FONT_MONO_11;
+    if (state.mode === 'trail') {
+      ctx.fillStyle = tip ? '#ff7e5f' : '#5ec8e5';
+      ctx.fillText(tip ? 'TIPPING (large lean)' : (ok ? 'RECOVERING → upright' : 'STEER INTO FALL'), 28, Hcss - 18);
+    } else if (state.mode === 'gyro') {
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('GYRO ONLY — not stabilizing', 28, Hcss - 18);
+    } else {
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('STEER LOCKED — unstable', 28, Hcss - 18);
+    }
+
+    // under-COG caption when trail and steered
+    if (state.mode === 'trail' && Math.abs(delta) > 0.04) {
+      ctx.fillStyle = 'rgba(94,200,229,0.85)';
+      ctx.font = FONT_MONO_10;
+      ctx.fillText('front contact shifts under COG', W - 220, 28);
+    }
+  }
+
+  // ===== Drawing: trail geometry sketch =====
+  function drawTrailSketch() {
+    var surf = surfaces.trail;
+    var ctx = surf.ctx;
+    var W = surf.w;
+    var Hcss = surf.h;
+    if (!ctx) return;
+    ctx.clearRect(0, 0, W, Hcss);
+
+    var gx = W * 0.42;
+    var gy = Hcss * 0.78;
+    var wheelR = Math.min(W, Hcss) * 0.16;
+
+    // ground
+    ctx.strokeStyle = 'rgba(94,200,229,0.3)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(20, gy);
+    ctx.lineTo(W - 20, gy);
+    ctx.stroke();
+
+    // wheel
+    ctx.strokeStyle = 'rgba(215,222,242,0.8)';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.arc(gx, gy - wheelR, wheelR, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(gx, gy - wheelR);
+    ctx.lineTo(gx, gy);
+    ctx.stroke();
+
+    // contact patch
+    ctx.fillStyle = '#5ec8e5';
+    ctx.beginPath();
+    ctx.arc(gx, gy, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    // steering axis ~72° from horizontal → ~18° from vertical, tilted back
+    var headFromHoriz = 72 * Math.PI / 180;
+    var axisAngle = -Math.PI / 2 + (Math.PI / 2 - headFromHoriz); // from +x; lean back
+    // axis through hub-ish, extended to ground ahead of contact
+    var trail = wheelR * 0.38;
+    var axisGroundX = gx - trail; // intersection ahead of contact → positive trail
+    var axisLen = wheelR * 3.2;
+    var ax0 = axisGroundX;
+    var ay0 = gy;
+    var ax1 = ax0 + Math.cos(axisAngle - 0.15) * axisLen;
+    var ay1 = ay0 + Math.sin(axisAngle - 0.15) * axisLen;
+    // Recalc with cleaner angle: steering axis tilts back ~18° from vertical
+    var tilt = 18 * Math.PI / 180;
+    ax1 = ax0 - Math.sin(tilt) * axisLen;
+    ay1 = ay0 - Math.cos(tilt) * axisLen;
+
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.moveTo(ax0, ay0);
+    ctx.lineTo(ax1, ay1);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // fork rake offset (hub ahead of axis)
+    ctx.strokeStyle = 'rgba(94,200,229,0.75)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(ax0 + (ax1 - ax0) * 0.45, ay0 + (ay1 - ay0) * 0.45);
+    ctx.lineTo(gx, gy - wheelR);
+    ctx.stroke();
+
+    // trail bracket
+    ctx.strokeStyle = '#ff7e5f';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(ax0, gy + 10);
+    ctx.lineTo(gx, gy + 10);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(ax0, gy + 6);
+    ctx.lineTo(ax0, gy + 14);
+    ctx.moveTo(gx, gy + 6);
+    ctx.lineTo(gx, gy + 14);
+    ctx.stroke();
+
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('trail', (ax0 + gx) / 2 - 14, gy + 28);
+
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('steering axis', ax1 - 10, ay1 - 8);
+
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('contact', gx + 10, gy - 8);
+
+    ctx.fillStyle = '#8b93ad';
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('head ≈ 72°', 20, 28);
+    ctx.fillText('axis hits ground', 20, 44);
+    ctx.fillText('ahead of patch', 20, 58);
+
+    // lean → steer caption
+    ctx.fillStyle = state.mode === 'trail' ? '#5ec8e5' : '#8b93ad';
+    ctx.font = FONT_DISPLAY;
+    ctx.fillText('lean φ → steer δ', 20, Hcss - 48);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('positive trail: caster into the fall', 20, Hcss - 28);
+
+    // live δ needle
+    var needle = state.mode === 'trail' ? state.delta : 0;
+    var nx = W * 0.78;
+    var ny = Hcss * 0.32;
+    ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+    ctx.beginPath();
+    ctx.arc(nx, ny, 36, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(nx, ny);
+    ctx.lineTo(nx + Math.sin(needle) * 32, ny - Math.cos(needle) * 32);
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('δ ' + deg(needle).toFixed(1) + '°', nx - 18, ny + 52);
+  }
+
+  function updateReadout() {
+    var phiD = deg(state.phi);
+    var delD = deg(state.mode === 'trail' ? state.delta : 0);
+    var tip = (G / H) * Math.sin(state.phi);
+    var rest = state.mode === 'trail' ? C_RESTORE * state.delta : 0;
+    var status;
+    var statusClass = '';
+    if (state.mode === 'trail') {
+      if (Math.abs(state.phi) < 0.03 && state.time > 0.5) {
+        status = 'upright';
+      } else if (Math.abs(state.phi) > 0.95) {
+        status = 'tipped';
+        statusClass = 'warm';
+      } else {
+        status = 'recovering';
+      }
+    } else if (state.mode === 'gyro') {
+      status = Math.abs(state.phi) > Math.abs(rad(state.nudgeDeg)) * 1.05 ? 'growing (fail)' : 'not recovering';
+      statusClass = 'warm';
+    } else {
+      status = 'unstable';
+      statusClass = 'warm';
+    }
+
+    elReadout.innerHTML =
+      '<div class="kv"><div class="k">Lean φ</div><div class="v' + (Math.abs(phiD) > 25 ? ' warm' : '') + '">' +
+        phiD.toFixed(2) + '°</div><div class="s">from vertical</div></div>' +
+      '<div class="kv"><div class="k">Steer δ</div><div class="v">' + delD.toFixed(2) +
+        '°</div><div class="s">' + (state.mode === 'trail' ? 'into the fall' : 'locked = 0') + '</div></div>' +
+      '<div class="kv"><div class="k">Lean rate ω</div><div class="v">' + state.omega.toFixed(3) +
+        ' rad/s</div><div class="s">φ̇</div></div>' +
+      '<div class="kv"><div class="k">Tip term</div><div class="v warm">' + tip.toFixed(3) +
+        '</div><div class="s">(g/h) sin φ</div></div>' +
+      '<div class="kv"><div class="k">Restore term</div><div class="v sun">' + rest.toFixed(3) +
+        '</div><div class="s">C δ</div></div>' +
+      '<div class="kv"><div class="k">Status</div><div class="v ' + statusClass + '">' + status +
+        '</div><div class="s">mode · ' + state.mode + '</div></div>';
+  }
+
+  function frame(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dtWall = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+
+    if (state.playing && !state.fallen) {
+      var dt = dtWall * state.slow;
+      // substep for stability
+      var sub = Math.max(1, Math.ceil(dt / 0.004));
+      var h = dt / sub;
+      var i;
+      for (i = 0; i < sub; i++) {
+        stepState(state, h, state.mode);
+        state.time += h;
+      }
+      if (Math.abs(state.phi) >= PHI_MAX - 1e-4) {
+        state.fallen = true;
+      }
+    }
+
+    drawBike();
+    drawTrailSketch();
+    updateReadout();
+    requestAnimationFrame(frame);
+  }
+
+  // ===== Events =====
+  elPlay.addEventListener('click', function () {
+    setPlaying(!state.playing);
+    state.lastTs = 0;
+  });
+  elNudge.addEventListener('click', function () {
+    resetFromNudge();
+    setPlaying(true);
+    state.lastTs = 0;
+  });
+  elUpright.addEventListener('click', function () {
+    state.phi = 0;
+    state.omega = 0;
+    state.delta = 0;
+    state.nu = 0;
+    state.fallen = false;
+    state.time = 0;
+  });
+  elNudgeSl.addEventListener('input', function () {
+    state.nudgeDeg = parseFloat(elNudgeSl.value);
+    elNudgeL.textContent = state.nudgeDeg.toFixed(1) + '°';
+  });
+  elSlow.addEventListener('input', function () {
+    state.slow = parseFloat(elSlow.value);
+    elSlowL.textContent = state.slow.toFixed(2) + '×';
+  });
+  elModeTrail.addEventListener('click', function () { setMode('trail'); });
+  elModeGyro.addEventListener('click', function () { setMode('gyro'); });
+  elModeLocked.addEventListener('click', function () { setMode('locked'); });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      setPlaying(!state.playing);
+      state.lastTs = 0;
+    }
+  });
+
+  window.addEventListener('resize', fitAll);
+  fitAll();
+  setMode('trail');
+  setPlaying(true);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
