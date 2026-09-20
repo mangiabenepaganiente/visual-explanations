@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sweat Cools You by Leaving — Evaporative Cooling, Not Cold Liquid</title>
+<meta name="description" content="Classroom explainer for teachers: sweat cools by evaporation (latent heat ~2430 kJ/kg near skin), not because the liquid is cold. Humidity raises vapor pressure and slows net flux; wind helps. Live cooling watts, RH and wind sliders, molecule escape canvas. NGSS MS-PS3 / health PE heat safety.">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.chart-card { grid-column: 1 / -1; }
+.chart-card canvas { height: 210px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .chart-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .chart-card canvas { height: 200px; }
+  .page { padding: 18px 14px 48px; }
+}
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · sweat</a></p>
+  <h1>Sweat cools you by leaving</h1>
+  <p class="lede">Sweat is usually <strong>as warm as your skin</strong> when it appears. Cooling happens when the fastest molecules <strong>escape into vapor</strong> — each kilogram that leaves carries away about 2430&nbsp;kJ of latent heat near skin temperature. Sitting wet without evaporating barely cools you; humidity and still air prove it.</p>
+
+  <p class="try"><b>Try this</b>Crank RH to 100% — cooling watts collapse. Then drop RH and raise wind; watch molecules leave and the skin ΔT sketch drop.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <label class="sl grow">
+        <span>Relative humidity <em id="rhLabel">40%</em></span>
+        <input type="range" id="rh" min="0" max="100" step="1" value="40" aria-label="Relative humidity percent">
+      </label>
+      <label class="sl grow">
+        <span>Wind speed <em id="windLabel">1.5 m/s</em></span>
+        <input type="range" id="wind" min="0" max="8" step="0.1" value="1.5" aria-label="Wind speed in meters per second">
+      </label>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Air temperature <em id="tairLabel">30.0 °C</em></span>
+        <input type="range" id="tair" min="10" max="40" step="0.5" value="30" aria-label="Air temperature in degrees Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Skin temperature <em id="tskinLabel">34.0 °C</em></span>
+        <input type="range" id="tskin" min="28" max="38" step="0.5" value="34" aria-label="Skin temperature in degrees Celsius">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="presetDry" aria-pressed="false">Dry breeze</button>
+      <button type="button" class="chip" id="presetHumid" aria-pressed="false">Humid still</button>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">wet = cold liquid</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Skin surface</b><span id="skinMeta">molecules escaping · latent heat packets</span></div>
+      <canvas id="cvSkin" width="720" height="360" aria-label="Wet skin surface with water molecules evaporating into air"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Cooling &amp; ΔT sketch</b><span id="dtMeta">P = ṁ L_v · lumped skin</span></div>
+      <canvas id="cvCool" width="520" height="360" aria-label="Cooling power bar and skin temperature change sketch"></canvas>
+    </div>
+    <div class="card chart-card">
+      <div class="card-h"><b>Driving vapor pressure</b><span id="chartMeta">e_skin − e_air · Magnus · Lewis h_e</span></div>
+      <canvas id="cvChart" width="1200" height="210" aria-label="Vapor pressure driving force versus relative humidity"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Leaving takes heat</h2>
+      <p>Evaporation is a phase change. Breaking liquid bonds costs energy — about <strong>2430&nbsp;kJ per kg</strong> near 30&nbsp;°C (vs ~2260 at 100&nbsp;°C). Cooling power is <code>P ≈ ṁ · L_v</code>. The liquid that stays behind is cooler because the hottest, fastest molecules left.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Humidity raises the ceiling</h2>
+      <p>Net flux needs a vapor-pressure gap: <code>e_skin − e_air</code>. Relative humidity sets <code>e_air = RH · e_sat(T_air)</code>. At RH&nbsp;=&nbsp;100% with air as warm as skin, the gap collapses and net evaporation (and cooling) goes to zero.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Wind thins the boundary</h2>
+      <p>Moving air raises the convective mass-transfer coefficient. More wind → larger <code>h_e</code> → more watts for the same vapor-pressure gap. A fan does not cool the room; it helps sweat leave your skin.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Not “wet = cold liquid”</h2>
+      <p>Sweat emerges near skin temperature. Feeling cool when wet is mostly evaporative cooling (and wetness cues your brain reads as cold). Toggle the myth chip: same warm liquid, no escape — almost no cooling.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Latent heat and evaporative cooling facts">
+    <div class="stat">
+      <div class="k">L_v near skin ~30 °C</div>
+      <div class="v">~2430 kJ/kg</div>
+      <div class="s">latent heat of vaporization</div>
+    </div>
+    <div class="stat">
+      <div class="k">L_v at 100 °C</div>
+      <div class="v">~2260 kJ/kg</div>
+      <div class="s">boiling textbook value</div>
+    </div>
+    <div class="stat">
+      <div class="k">1 g evaporated</div>
+      <div class="v">~2.43 kJ</div>
+      <div class="s">≈ raising 1 L water by 0.58 °C</div>
+    </div>
+    <div class="stat">
+      <div class="k">RH = 100%, T_air = T_skin</div>
+      <div class="v">P → 0</div>
+      <div class="s">no vapor-pressure drive</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Latent heat.</strong> Empirical linear fit used in meteorology and psychrometry: <code>L_v(T) = 2.501×10⁶ − 2361·T</code> J/kg with <code>T</code> in °C (valid for liquid water near ambient). Gives <code>L_v(30 °C) ≈ 2.430×10⁶</code> J/kg = 2430&nbsp;kJ/kg and <code>L_v(100 °C) ≈ 2.265×10⁶</code> ≈ 2260&nbsp;kJ/kg — matching steam-table order of magnitude. Cooling power <code>P = ṁ · L_v</code>.</li>
+      <li><strong style="color:var(--text)">Saturation vapor pressure (Magnus–Tetens).</strong> <code>e_sat(T) = 610.94 · exp(17.625·T / (T + 243.04))</code> Pa, <code>T</code> in °C (Alduchov &amp; Eskridge 1996 form). Air vapor pressure <code>e_air = RH · e_sat(T_air)</code>. Wet-skin vapor pressure for a freely sweating patch is taken as <code>e_skin = e_sat(T_skin)</code> (wetted fraction = 1 on the drawn area).</li>
+      <li><strong style="color:var(--text)">Evaporative heat flux (Lewis / ASHRAE-style).</strong> Forced-convection heat-transfer coefficient <code>h_c = max(3.5, 8.3·v<sup>0.6</sup>)</code> W/(m²·K) with wind <code>v</code> in m/s (still-air floor 3.5). Lewis relation at sea level: <code>h_e = 16.5 · h_c</code> W/(m²·kPa). Evaporative cooling on area <code>A</code>: <code>E = A · h_e · max(0, p_sk − p_a)</code> watts with pressures in kPa. Then <code>ṁ = E / L_v</code>. This is a published classroom / comfort-engineering simplification (Fanger / ISO 7730 / ASHRAE Handbook lineage), not a full multi-layer skin model.</li>
+      <li><strong style="color:var(--text)">Patch area &amp; ΔT sketch.</strong> The live “cooling watts” use <code>A = 0.10 m²</code> (forearm-scale wet patch) so classroom numbers stay readable. The ΔT sketch is a lumped first-order lag: skin thermal capacity <code>C ≈ 4×10³</code> J/K for that patch, restoring dry convection toward air temperature, plus evaporative sink <code>−E</code>. It is qualitative — not a measured thermocouple.</li>
+      <li><strong style="color:var(--text)">Myth mode.</strong> “wet = cold liquid” freezes evaporation (forces <code>E = 0</code>) while keeping a warm liquid film on the canvas. You still look wet; cooling collapses. Real still-air wet skin can also exchange heat by ordinary convection/radiation; those channels are not the sweat story.</li>
+      <li><strong style="color:var(--text)">What we omit.</strong> Clothing vapor resistance, salt in sweat (slightly lowers vapor pressure), metabolic heat, radiation, and condensation when <code>e_air &gt; e_skin</code> (clamped to zero cooling, not heating). Whole-body sweating rates (~0.5–2 L/h in heat) scale with larger area; the physics is the same.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Phase change, latent heat, humidity, and heat-safety / PE weather. Pairs with wet-bulb demos and “why a fan helps.” NGSS MS-PS3 energy; health standards on heat illness. Name the misconception out loud: sweat cools because the liquid is cold, or sitting wet cools you without evaporation.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants — same values as validate-sweat.js =====
+  var LV_A = 2.501e6;       // J/kg
+  var LV_B = 2361;          // J/(kg·°C)
+  var MAGNUS_A = 610.94;    // Pa
+  var MAGNUS_B = 17.625;
+  var MAGNUS_C = 243.04;    // °C
+  var LEWIS = 16.5;         // W/(m²·kPa) per W/(m²·K)
+  var HC_STILL = 3.5;       // W/(m²·K)
+  var HC_COEFF = 8.3;       // W/(m²·K) / (m/s)^0.6
+  var AREA = 0.10;          // m² wet patch
+  var C_SKIN = 4000;        // J/K lumped patch capacity
+  var T_REF_SKIN = 30;      // °C for L_v classroom quote
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 13px Fraunces, Georgia, serif';
+
+  function clamp(x, a, b) {
+    return x < a ? a : (x > b ? b : x);
+  }
+
+  // L_v(T) ≈ 2.501e6 − 2361·T  J/kg, T in °C
+  function latentHeat(tC) {
+    return LV_A - LV_B * tC;
+  }
+
+  // Magnus–Tetens saturation vapor pressure (Pa)
+  function eSat(tC) {
+    return MAGNUS_A * Math.exp(MAGNUS_B * tC / (tC + MAGNUS_C));
+  }
+
+  function hConv(v) {
+    var vv = Math.max(v, 0.05);
+    return Math.max(HC_STILL, HC_COEFF * Math.pow(vv, 0.6));
+  }
+
+  function hEvap(v) {
+    return LEWIS * hConv(v);
+  }
+
+  // Evaporative cooling power (W) for wet patch area A
+  function coolingPower(rh, wind, tAir, tSkin, mythBlock) {
+    if (mythBlock) return 0;
+    var pSk = eSat(tSkin) / 1000; // kPa
+    var pA = (rh / 100) * eSat(tAir) / 1000;
+    var drive = pSk - pA;
+    if (drive < 0) drive = 0;
+    return AREA * hEvap(wind) * drive;
+  }
+
+  function massFlux(powerW, tSkin) {
+    var lv = latentHeat(tSkin);
+    return powerW / lv; // kg/s
+  }
+
+  // ===== State =====
+  var state = {
+    rh: 40,
+    wind: 1.5,
+    tAir: 30,
+    tSkin: 34,
+    myth: false,
+    playing: true,
+    time: 0,
+    lastTs: 0,
+    TskinDyn: 34,
+    molecules: [],
+    packets: []
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elRh = $('rh');
+  var elWind = $('wind');
+  var elTair = $('tair');
+  var elTskin = $('tskin');
+  var elRhL = $('rhLabel');
+  var elWindL = $('windLabel');
+  var elTairL = $('tairLabel');
+  var elTskinL = $('tskinLabel');
+  var elReadout = $('readout');
+  var elSkinMeta = $('skinMeta');
+  var elDtMeta = $('dtMeta');
+  var elChartMeta = $('chartMeta');
+  var elMyth = $('chipMyth');
+  var cvSkin = $('cvSkin');
+  var cvCool = $('cvCool');
+  var cvChart = $('cvChart');
+
+  var surfaces = {
+    skin: { canvas: cvSkin, ctx: null, w: 0, h: 0, cssH: 360 },
+    cool: { canvas: cvCool, ctx: null, w: 0, h: 0, cssH: 360 },
+    chart: { canvas: cvChart, ctx: null, w: 0, h: 0, cssH: 210 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function fitAll() {
+    fitCanvas(surfaces.skin);
+    fitCanvas(surfaces.cool);
+    fitCanvas(surfaces.chart);
+  }
+
+  function mulberry32(a) {
+    return function () {
+      var t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  var rng = mulberry32(20260920);
+
+  function spawnMolecule(w, skinY) {
+    return {
+      x: 20 + rng() * (w - 40),
+      y: skinY - 2 - rng() * 8,
+      vx: (rng() - 0.5) * 20 + state.wind * 12,
+      vy: -(30 + rng() * 50 + state.wind * 18),
+      life: 0,
+      maxLife: 1.2 + rng() * 1.4,
+      r: 2.2 + rng() * 1.6,
+      packet: rng() < 0.35
+    };
+  }
+
+  function syncLabels() {
+    elRhL.textContent = Math.round(state.rh) + '%';
+    elWindL.textContent = state.wind.toFixed(1) + ' m/s';
+    elTairL.textContent = state.tAir.toFixed(1) + ' °C';
+    elTskinL.textContent = state.tSkin.toFixed(1) + ' °C';
+  }
+
+  function setPlaying(on) {
+    state.playing = on;
+    elPlay.textContent = on ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function setMyth(on) {
+    state.myth = on;
+    elMyth.classList.toggle('on', on);
+    elMyth.setAttribute('aria-pressed', on ? 'true' : 'false');
+    elSkinMeta.textContent = on
+      ? 'myth mode · warm liquid, no escape'
+      : 'molecules escaping · latent heat packets';
+  }
+
+  function currentPhysics() {
+    var P = coolingPower(state.rh, state.wind, state.tAir, state.tSkin, state.myth);
+    var Lv = latentHeat(state.tSkin);
+    var mDot = massFlux(P, state.tSkin);
+    var pSk = eSat(state.tSkin);
+    var pA = (state.rh / 100) * eSat(state.tAir);
+    var drive = Math.max(0, pSk - pA);
+    var hc = hConv(state.wind);
+    var he = hEvap(state.wind);
+    return {
+      P: P,
+      Lv: Lv,
+      mDot: mDot,
+      pSk: pSk,
+      pA: pA,
+      drive: drive,
+      hc: hc,
+      he: he,
+      dT: state.TskinDyn - state.tSkin
+    };
+  }
+
+  function updateReadout() {
+    var ph = currentPhysics();
+    var mDotMg = ph.mDot * 1e6; // mg/s
+    var dT = state.TskinDyn - state.tAir;
+    elReadout.innerHTML =
+      '<div class="kv"><div class="k">Cooling power</div><div class="v' + (ph.P < 2 ? ' warm' : '') + '">' +
+        ph.P.toFixed(1) + ' W</div><div class="s">P = ṁ · L_v · on ' + AREA.toFixed(2) + ' m²</div></div>' +
+      '<div class="kv"><div class="k">Mass leaving</div><div class="v">' +
+        (mDotMg < 0.05 ? '~0' : mDotMg.toFixed(2)) + ' mg/s</div><div class="s">ṁ = P / L_v</div></div>' +
+      '<div class="kv"><div class="k">L_v at skin</div><div class="v sun">' +
+        (ph.Lv / 1000).toFixed(0) + ' kJ/kg</div><div class="s">L_v(T) = 2501 − 2.361·T</div></div>' +
+      '<div class="kv"><div class="k">Vapor drive</div><div class="v">' +
+        (ph.drive / 1000).toFixed(2) + ' kPa</div><div class="s">e_skin − e_air · RH ' + Math.round(state.rh) + '%</div></div>' +
+      '<div class="kv"><div class="k">Skin ΔT sketch</div><div class="v' + (dT < 0 ? '' : ' warm') + '">' +
+        (dT >= 0 ? '+' : '') + dT.toFixed(2) + ' °C</div><div class="s">vs air · lumped lag</div></div>';
+    elDtMeta.textContent = 'P = ' + ph.P.toFixed(1) + ' W · h_e = ' + ph.he.toFixed(1) + ' W/(m²·kPa)';
+    elChartMeta.textContent = 'e_skin − e_air = ' + (ph.drive / 1000).toFixed(2) + ' kPa · Magnus · Lewis h_e';
+  }
+
+  // ===== Drawing =====
+  function drawSkin(ctx, w, h, dt) {
+    var skinY = h * 0.62;
+    var ph = currentPhysics();
+    var escapeRate = state.myth ? 0 : clamp(ph.P / 8, 0, 18);
+
+    // Background air
+    var g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, '#0a1028');
+    g.addColorStop(1, '#121a38');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    // Wind streaks
+    if (state.wind > 0.15 && !state.myth) {
+      ctx.strokeStyle = 'rgba(94, 200, 229, ' + clamp(0.08 + state.wind * 0.04, 0.08, 0.35) + ')';
+      ctx.lineWidth = 1;
+      var i, y;
+      for (i = 0; i < 8; i++) {
+        y = 20 + ((state.time * (20 + state.wind * 30) + i * 37) % (skinY - 30));
+        ctx.beginPath();
+        ctx.moveTo(10, y);
+        ctx.lineTo(10 + 40 + state.wind * 18, y - 2);
+        ctx.stroke();
+      }
+    }
+
+    // Tissue below skin
+    var tg = ctx.createLinearGradient(0, skinY, 0, h);
+    tg.addColorStop(0, '#3a2030');
+    tg.addColorStop(0.4, '#5a3040');
+    tg.addColorStop(1, '#2a1824');
+    ctx.fillStyle = tg;
+    ctx.fillRect(0, skinY, w, h - skinY);
+
+    // Wet film
+    ctx.fillStyle = state.myth
+      ? 'rgba(255, 126, 95, 0.35)'
+      : 'rgba(94, 200, 229, 0.45)';
+    ctx.beginPath();
+    ctx.moveTo(0, skinY);
+    var x;
+    for (x = 0; x <= w; x += 8) {
+      var wave = Math.sin(x * 0.04 + state.time * 1.5) * 2.5 + Math.sin(x * 0.09 + state.time) * 1.2;
+      ctx.lineTo(x, skinY + 6 + wave);
+    }
+    ctx.lineTo(w, skinY + 18);
+    ctx.lineTo(0, skinY + 18);
+    ctx.closePath();
+    ctx.fill();
+
+    // Skin line
+    ctx.strokeStyle = state.myth ? 'rgba(255, 126, 95, 0.7)' : 'rgba(255, 194, 74, 0.55)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, skinY);
+    for (x = 0; x <= w; x += 6) {
+      ctx.lineTo(x, skinY + Math.sin(x * 0.05 + state.time) * 1.5);
+    }
+    ctx.stroke();
+
+    // Surface molecules (liquid)
+    var nSurf = 28;
+    for (i = 0; i < nSurf; i++) {
+      var sx = 16 + (i / (nSurf - 1)) * (w - 32);
+      var sy = skinY + 4 + Math.sin(i * 1.7 + state.time * 2) * 3;
+      ctx.beginPath();
+      ctx.fillStyle = state.myth ? 'rgba(255, 160, 120, 0.85)' : 'rgba(120, 210, 235, 0.9)';
+      ctx.arc(sx, sy, 3.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Spawn evaporating molecules
+    if (state.playing && escapeRate > 0) {
+      var nSpawn = escapeRate * dt;
+      var frac = nSpawn - Math.floor(nSpawn);
+      var n = Math.floor(nSpawn) + (rng() < frac ? 1 : 0);
+      for (i = 0; i < n; i++) {
+        state.molecules.push(spawnMolecule(w, skinY));
+      }
+    }
+
+    // Update & draw vapor
+    var next = [];
+    for (i = 0; i < state.molecules.length; i++) {
+      var m = state.molecules[i];
+      m.life += dt;
+      m.x += m.vx * dt;
+      m.y += m.vy * dt;
+      m.vy += 8 * dt;
+      m.vx += state.wind * 6 * dt;
+      if (m.life < m.maxLife && m.y > -20 && m.x > -40 && m.x < w + 40) {
+        next.push(m);
+        var alpha = 1 - m.life / m.maxLife;
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(94, 200, 229, ' + (0.25 + 0.65 * alpha) + ')';
+        ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+        ctx.fill();
+        if (m.packet && alpha > 0.3) {
+          ctx.strokeStyle = 'rgba(255, 194, 74, ' + (0.4 * alpha) + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.arc(m.x, m.y, m.r + 4, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+    }
+    state.molecules = next;
+    if (state.molecules.length > 120) state.molecules = state.molecules.slice(-120);
+
+    // Labels
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('AIR', 14, 22);
+    ctx.fillStyle = state.myth ? 'var(--warm)' : '#5ec8e5';
+    ctx.fillStyle = state.myth ? '#ff7e5f' : '#5ec8e5';
+    ctx.fillText(state.myth ? 'WARM FILM · NO ESCAPE' : 'EVAPORATION', 14, skinY - 14);
+    ctx.fillStyle = '#a8b0c8';
+    ctx.fillText('SKIN / TISSUE', 14, h - 14);
+
+    if (state.myth) {
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = 'rgba(255, 126, 95, 0.9)';
+      ctx.fillText('Myth: wet liquid looks cold — but nothing leaves', 14, 48);
+    }
+  }
+
+  function drawCool(ctx, w, h) {
+    var ph = currentPhysics();
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, w, h);
+
+    var pad = 28;
+    var barMax = 120; // W scale
+    var barH = h * 0.42;
+    var barW = Math.min(64, w * 0.18);
+    var bx = pad + 20;
+    var by = pad + 36;
+    var frac = clamp(ph.P / barMax, 0, 1);
+
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('COOLING POWER', bx, by - 14);
+
+    // Bar track
+    ctx.fillStyle = 'rgba(94, 200, 229, 0.1)';
+    ctx.fillRect(bx, by, barW, barH);
+    var fillH = barH * frac;
+    var grad = ctx.createLinearGradient(0, by + barH, 0, by);
+    grad.addColorStop(0, '#5ec8e5');
+    grad.addColorStop(1, '#ffc24a');
+    ctx.fillStyle = state.myth || ph.P < 0.5 ? 'rgba(255, 126, 95, 0.55)' : grad;
+    ctx.fillRect(bx, by + barH - fillH, barW, fillH);
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.35)';
+    ctx.strokeRect(bx + 0.5, by + 0.5, barW - 1, barH - 1);
+
+    ctx.font = FONT_MONO_12;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText(ph.P.toFixed(1) + ' W', bx, by + barH + 22);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('scale 0–' + barMax + ' W', bx, by + barH + 38);
+
+    // ΔT thermometer sketch
+    var tx = w * 0.52;
+    var ty = pad + 20;
+    var th = h - pad * 2 - 40;
+    var tMin = state.tAir - 6;
+    var tMax = state.tSkin + 4;
+    var tNow = state.TskinDyn;
+
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('SKIN ΔT SKETCH', tx, ty);
+
+    var tubeX = tx + 36;
+    var tubeW = 22;
+    var tubeY = ty + 24;
+    var tubeH = th - 30;
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+    ctx.fillRect(tubeX, tubeY, tubeW, tubeH);
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.35)';
+    ctx.strokeRect(tubeX + 0.5, tubeY + 0.5, tubeW - 1, tubeH - 1);
+
+    function tToY(t) {
+      return tubeY + tubeH * (1 - (t - tMin) / (tMax - tMin));
+    }
+
+    var yNow = tToY(tNow);
+    var yAir = tToY(state.tAir);
+    var ySet = tToY(state.tSkin);
+
+    ctx.fillStyle = 'rgba(94, 200, 229, 0.75)';
+    ctx.fillRect(tubeX + 2, yNow, tubeW - 4, tubeY + tubeH - yNow);
+
+    // Markers
+    ctx.setLineDash([3, 3]);
+    ctx.strokeStyle = 'rgba(255, 194, 74, 0.6)';
+    ctx.beginPath();
+    ctx.moveTo(tubeX - 8, ySet);
+    ctx.lineTo(tubeX + tubeW + 8, ySet);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(255, 126, 95, 0.55)';
+    ctx.beginPath();
+    ctx.moveTo(tubeX - 8, yAir);
+    ctx.lineTo(tubeX + tubeW + 8, yAir);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('set ' + state.tSkin.toFixed(1) + '°', tubeX + tubeW + 12, ySet + 4);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('air ' + state.tAir.toFixed(1) + '°', tubeX + tubeW + 12, yAir + 4);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('now ' + tNow.toFixed(2) + '°', tubeX + tubeW + 12, yNow + 4);
+
+    ctx.font = FONT_UI_11;
+    ctx.fillStyle = '#a8b0c8';
+    var msg = state.myth
+      ? 'Myth on: film stays warm, P ≈ 0'
+      : (ph.P < 1 ? 'Almost no evaporation' : 'Evaporation pulls heat from skin');
+    ctx.fillText(msg, pad, h - 16);
+  }
+
+  function drawChart(ctx, w, h) {
+    var padL = 52;
+    var padR = 24;
+    var padT = 18;
+    var padB = 36;
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, w, h);
+
+    var plotW = w - padL - padR;
+    var plotH = h - padT - padB;
+
+    ctx.strokeStyle = 'rgba(94, 200, 229, 0.2)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(padL + 0.5, padT + 0.5, plotW - 1, plotH - 1);
+
+    // Curve: drive vs RH at current T_air, T_skin, wind (drive only)
+    var maxDrive = eSat(state.tSkin); // Pa at RH=0
+    var i, rh, drive, x, y;
+    ctx.beginPath();
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 2;
+    for (i = 0; i <= 100; i++) {
+      rh = i;
+      drive = Math.max(0, eSat(state.tSkin) - (rh / 100) * eSat(state.tAir));
+      x = padL + (i / 100) * plotW;
+      y = padT + plotH * (1 - drive / Math.max(maxDrive, 1));
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Cooling power curve (scaled)
+    var maxP = coolingPower(0, state.wind, state.tAir, state.tSkin, false);
+    if (maxP < 1) maxP = 1;
+    ctx.beginPath();
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 2;
+    for (i = 0; i <= 100; i++) {
+      rh = i;
+      var P = coolingPower(rh, state.wind, state.tAir, state.tSkin, false);
+      x = padL + (i / 100) * plotW;
+      y = padT + plotH * (1 - P / maxP);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Current RH marker
+    var ph = currentPhysics();
+    var cx = padL + (state.rh / 100) * plotW;
+    var cyDrive = padT + plotH * (1 - ph.drive / Math.max(maxDrive, 1));
+    ctx.fillStyle = '#ff7e5f';
+    ctx.beginPath();
+    ctx.arc(cx, cyDrive, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Axes labels
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('0%', padL, h - 12);
+    ctx.fillText('RH', padL + plotW * 0.5 - 8, h - 12);
+    ctx.fillText('100%', padL + plotW - 28, h - 12);
+    ctx.save();
+    ctx.translate(14, padT + plotH * 0.5);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('drive / power', 0, 0);
+    ctx.restore();
+
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('e_skin − e_air', padL + 8, padT + 14);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('cooling P (this wind)', padL + 8, padT + 28);
+
+    if (state.rh >= 99 && Math.abs(state.tAir - state.tSkin) < 0.6) {
+      ctx.fillStyle = '#ff7e5f';
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('RH≈100% & T_air≈T_skin → net cooling ≈ 0', padL + plotW * 0.28, padT + plotH * 0.5);
+    }
+  }
+
+  function stepPhysics(dt) {
+    var ph = currentPhysics();
+    // Lumped: C dT/dt = h_c A (T_air - T) - E + weak restore to set skin
+    var hc = hConv(state.wind);
+    var E = ph.P;
+    var T = state.TskinDyn;
+    var restore = 12 * (state.tSkin - T); // soft setpoint (blood perfusion cartoon)
+    var dTdt = (hc * AREA * (state.tAir - T) - E + restore) / C_SKIN;
+    state.TskinDyn += dTdt * dt;
+    // Keep within sane bounds
+    state.TskinDyn = clamp(state.TskinDyn, state.tAir - 8, state.tSkin + 2);
+  }
+
+  function frame(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = (ts - state.lastTs) / 1000;
+    state.lastTs = ts;
+    if (dt > 0.05) dt = 0.05;
+    if (state.playing) {
+      state.time += dt;
+      stepPhysics(dt);
+    }
+
+    var s = surfaces.skin;
+    var c = surfaces.cool;
+    var ch = surfaces.chart;
+    if (s.ctx) {
+      s.ctx.clearRect(0, 0, s.w, s.h);
+      drawSkin(s.ctx, s.w, s.h, state.playing ? dt : 0);
+    }
+    if (c.ctx) {
+      c.ctx.clearRect(0, 0, c.w, c.h);
+      drawCool(c.ctx, c.w, c.h);
+    }
+    if (ch.ctx) {
+      ch.ctx.clearRect(0, 0, ch.w, ch.h);
+      drawChart(ch.ctx, ch.w, ch.h);
+    }
+    updateReadout();
+    requestAnimationFrame(frame);
+  }
+
+  function onResize() {
+    fitAll();
+  }
+
+  // ===== Events =====
+  elPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+
+  elRh.addEventListener('input', function () {
+    state.rh = +elRh.value;
+    syncLabels();
+  });
+  elWind.addEventListener('input', function () {
+    state.wind = +elWind.value;
+    syncLabels();
+  });
+  elTair.addEventListener('input', function () {
+    state.tAir = +elTair.value;
+    syncLabels();
+  });
+  elTskin.addEventListener('input', function () {
+    state.tSkin = +elTskin.value;
+    state.TskinDyn = state.tSkin;
+    syncLabels();
+  });
+
+  elMyth.addEventListener('click', function () {
+    setMyth(!state.myth);
+  });
+
+  $('presetDry').addEventListener('click', function () {
+    state.rh = 20;
+    state.wind = 4;
+    state.tAir = 32;
+    state.tSkin = 34;
+    state.TskinDyn = 34;
+    setMyth(false);
+    elRh.value = state.rh;
+    elWind.value = state.wind;
+    elTair.value = state.tAir;
+    elTskin.value = state.tSkin;
+    syncLabels();
+    $('presetDry').classList.add('on');
+    $('presetHumid').classList.remove('on');
+  });
+
+  $('presetHumid').addEventListener('click', function () {
+    state.rh = 95;
+    state.wind = 0.2;
+    state.tAir = 33;
+    state.tSkin = 34;
+    state.TskinDyn = 34;
+    setMyth(false);
+    elRh.value = state.rh;
+    elWind.value = state.wind;
+    elTair.value = state.tAir;
+    elTskin.value = state.tSkin;
+    syncLabels();
+    $('presetHumid').classList.add('on');
+    $('presetDry').classList.remove('on');
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    }
+  });
+
+  window.addEventListener('resize', onResize);
+  if (typeof ResizeObserver !== 'undefined') {
+    var ro = new ResizeObserver(onResize);
+    ro.observe(cvSkin);
+    ro.observe(cvCool);
+    ro.observe(cvChart);
+  }
+
+  onResize();
+  syncLabels();
+  setPlaying(true);
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
