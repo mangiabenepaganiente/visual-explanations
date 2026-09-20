@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Soda Fizzes When You Open It — Dissolved CO₂, Not a Chemical Reaction</title>
+<meta name="description" content="Classroom explainer: soda fizzes because high pressure keeps CO₂ dissolved (Henry’s law: c ∝ P). Opening drops P → supersaturation → nucleation and bubbles. Shake adds nucleation sites, not CO₂. Live can, pressure gauge, dissolved vs gas meters. NGSS MS-PS1.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="soda fizz, dissolved CO2, Henry's law, nucleation, carbonation, pressure, classroom physics, misconception">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 96px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.btn.open-act {
+  min-width: 110px;
+  background: rgba(255, 126, 95, 0.12);
+  border-color: rgba(255, 126, 95, 0.4);
+  color: var(--warm);
+}
+.btn.open-act.on {
+  background: rgba(94, 200, 229, 0.14);
+  border-color: rgba(94, 200, 229, 0.5);
+  color: var(--cool);
+}
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 380px; }
+.meters-card canvas { height: 380px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas, .meters-card canvas { height: 300px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · carbonation</a></p>
+  <h1>Why soda fizzes when you open it</h1>
+  <p class="lede">The bubbles are <strong>CO₂ that was already dissolved</strong>, held in by high pressure. Open the can and pressure drops. The liquid is suddenly supersaturated, so gas leaves as bubbles. Shaking does <strong>not</strong> add CO₂ — it adds nucleation sites. This is not a new chemical reaction at the rim.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Open</strong> and watch pressure fall while dissolved CO₂ becomes gas. Then toggle <strong>Shake</strong> — nucleation rate jumps; total CO₂ stays the same.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn open-act" id="btnOpen" aria-pressed="false">Open can</button>
+      <button type="button" class="btn play" id="btnReset" title="Reseal and reset">Reseal</button>
+      <button type="button" class="chip myth" id="chipShake" aria-pressed="false">Shake</button>
+      <div class="sep" aria-hidden="true"></div>
+      <label class="sl grow">
+        <span>Sealed headspace P <em id="pSealLabel">3.00 atm</em></span>
+        <input type="range" id="pSeal" min="1.5" max="4.5" step="0.05" value="3.00" aria-label="Sealed absolute pressure in atmospheres">
+      </label>
+    </div>
+    <div class="row">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.06em;">Presets</span>
+      <button type="button" class="chip" id="chipMild">Mild 2.0 atm</button>
+      <button type="button" class="chip on" id="chipCola">Cola ~3.0 atm</button>
+      <button type="button" class="chip" id="chipFizz">Fizzy 4.0 atm</button>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Sealed can · pressure gauge</b><span id="canMeta">Henry equilibrium · then open</span></div>
+      <canvas id="cvCan" width="720" height="380" aria-label="Soda can with pressure gauge, liquid, and rising CO2 bubbles"></canvas>
+    </div>
+    <div class="card meters-card">
+      <div class="card-h"><b>Dissolved vs gas CO₂</b><span id="meterMeta">mass conserved · classroom model</span></div>
+      <canvas id="cvMeters" width="520" height="380" aria-label="Meters for dissolved CO2 fraction, gas fraction, and nucleation rate"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Pressure holds CO₂ in</h2>
+      <p>In the sealed can the headspace is a few atmospheres of mostly CO₂. Henry’s law (light touch): dissolved concentration tracks that pressure — <code>c ∝ P</code>. High P means a lot of CO₂ stays in the liquid.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Open → P drops</h2>
+      <p>Pop the seal and the headspace vents to ~1 atm. Equilibrium dissolved CO₂ falls with P. The liquid is now supersaturated: more CO₂ than the new pressure can hold.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Nucleation makes fizz</h2>
+      <p>Bubbles grow where the energy barrier is low — scratches, dust, or tiny gas pockets. Shake multiplies those sites and stirs the liquid, so the same supersaturation vents faster. Total CO₂ is unchanged.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Not air · not new chemistry</h2>
+      <p>Bubbles are mostly CO₂, not “air.” Shaking does not pump extra CO₂ into the drink. Opening is not a chemical reaction starting at the rim — it is a pressure drop that lets already-dissolved gas leave.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Typical numbers">
+    <div class="stat">
+      <div class="k">Typical cola P</div>
+      <div class="v">~2.5–3.5 atm</div>
+      <div class="s">absolute · chilled can</div>
+    </div>
+    <div class="stat">
+      <div class="k">Open to</div>
+      <div class="v">~1 atm</div>
+      <div class="s">room air · equilibrium falls</div>
+    </div>
+    <div class="stat">
+      <div class="k">Henry (light)</div>
+      <div class="v">c ∝ P</div>
+      <div class="s">same T · dilute limit</div>
+    </div>
+    <div class="stat">
+      <div class="k">Shake adds</div>
+      <div class="v">sites</div>
+      <div class="s">nucleation · not CO₂ mass</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Henry’s law (light touch).</strong> At fixed temperature, the equilibrium dissolved concentration of a sparingly soluble gas is proportional to its partial pressure above the liquid: <code>c = k_H · P</code> (or equivalently <code>c ∝ P</code>). This page uses absolute pressure in atmospheres. For CO₂ in water near 5–25 °C, <code>k_H</code> is order ~0.03 mol/(L·atm); we normalize so sealed equilibrium dissolved fraction is 1 at the chosen sealed P. Opening sets <code>P → P_atm = 1 atm</code>, so equilibrium dissolved fraction falls to <code>P_atm / P_sealed</code>.</li>
+      <li><strong style="color:var(--text)">Named formulas (same as validate-soda.js).</strong> <code>equilibriumDissolvedFraction(P, P_sealed) = clamp(P / P_sealed, 0, 1)</code>. <code>supersaturation(dissolved, P, P_sealed) = dissolved / max(eq, ε) − 1</code>. Nucleation rate (classroom): <code>nucleationRate(S, shaking) = max(0, S) · (shaking ? SHAKE_MULT : 1) · R0</code>. Outgassing transfers dissolved → free gas with rate ∝ nucleationRate · dissolved excess; mass of CO₂ is conserved: <code>dissolved + freeGas = total</code> (normalized units).</li>
+      <li><strong style="color:var(--text)">What opening does.</strong> Sealed: <code>P = P_sealed</code>, dissolved near equilibrium, free-gas headspace small, nucleation near zero. Open: <code>P</code> relaxes toward 1 atm, supersaturation rises, bubbles appear. The hiss is headspace venting; the lasting fizz is dissolved CO₂ leaving the liquid.</li>
+      <li><strong style="color:var(--text)">Shake does not add CO₂.</strong> Agitation and wetting of walls create / expose nucleation sites and mix depleted liquid away from bubble surfaces. <code>SHAKE_MULT</code> boosts nucleation rate only. Total CO₂ (dissolved + gas) is identical with shake on or off.</li>
+      <li><strong style="color:var(--text)">Misconceptions addressed.</strong> (1) Bubbles are not “air” — they are mostly CO₂ (plus a little vapor). (2) Shaking a sealed can does not dissolve extra CO₂ from nowhere; it primes nucleation so opening foams more violently. (3) Fizz is not a chemical reaction that starts when you open the can; carbonic acid ⇌ CO₂ + H₂O is a fast equilibrium that follows the partial pressure of CO₂, not a rim-sparked reaction.</li>
+      <li><strong style="color:var(--text)">Simplifications.</strong> One effective P (not a full multiphase CFD). Temperature fixed (warmer soda holds less CO₂ and fizzes harder — not modeled on the slider). Gauge drawing is schematic. Bubble count on canvas is visual, scaled to nucleation rate, not a mole-accurate particle count. Real cans also have N₂ / air traces and wall roughness that set the first sites.</li>
+      <li><strong style="color:var(--text)">Classroom constants.</strong> <code>P_ATM = 1</code> atm. Default <code>P_SEALED = 3</code> atm (cola-like). <code>R0 = 0.55</code> s⁻¹ base rate factor. <code>SHAKE_MULT = 4.5</code>. Outgas time constant ~1–3 s so the meters move on screen; real warm soda can foam in under a second once nucleation starts.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Named formulas — same as validate-soda.js =====
+  var P_ATM = 1.0;
+  var P_SEALED_DEFAULT = 3.0;
+  var R0 = 0.55;
+  var SHAKE_MULT = 4.5;
+  var OUTGAS_K = 1.15;
+  var P_OPEN_TAU = 0.35;
+
+  function clamp(x, a, b) {
+    if (x < a) return a;
+    if (x > b) return b;
+    return x;
+  }
+
+  function equilibriumDissolvedFraction(P, P_sealed) {
+    if (!(P_sealed > 0)) return 0;
+    return clamp(P / P_sealed, 0, 1);
+  }
+
+  function supersaturation(dissolved, P, P_sealed) {
+    var eq = equilibriumDissolvedFraction(P, P_sealed);
+    if (eq < 1e-9) eq = 1e-9;
+    return dissolved / eq - 1;
+  }
+
+  function nucleationRate(S, shaking) {
+    var s = S > 0 ? S : 0;
+    return s * (shaking ? SHAKE_MULT : 1) * R0;
+  }
+
+  function outgasRate(dissolved, P, P_sealed, shaking) {
+    var eq = equilibriumDissolvedFraction(P, P_sealed);
+    var excess = dissolved - eq;
+    if (excess <= 0) return 0;
+    var S = supersaturation(dissolved, P, P_sealed);
+    return OUTGAS_K * nucleationRate(S, shaking) * excess;
+  }
+
+  function stepState(state, dt, controls) {
+    var P_target = controls.open ? P_ATM : controls.P_sealed;
+    var P = state.P + (P_target - state.P) * (1 - Math.exp(-dt / P_OPEN_TAU));
+    if (!controls.open) P = controls.P_sealed;
+    var dissolved = state.dissolved;
+    var freeGas = state.freeGas;
+    var rate = outgasRate(dissolved, P, controls.P_sealed, controls.shaking);
+    var d = rate * dt;
+    if (d > dissolved - equilibriumDissolvedFraction(P, controls.P_sealed)) {
+      d = Math.max(0, dissolved - equilibriumDissolvedFraction(P, controls.P_sealed));
+    }
+    dissolved -= d;
+    freeGas += d;
+    var total = dissolved + freeGas;
+    var targetTotal = 1;
+    if (Math.abs(total - targetTotal) > 1e-9 && total > 0) {
+      dissolved *= targetTotal / total;
+      freeGas *= targetTotal / total;
+    }
+    return {
+      P: P,
+      dissolved: clamp(dissolved, 0, 1),
+      freeGas: clamp(freeGas, 0, 1),
+      nucleation: nucleationRate(supersaturation(dissolved, P, controls.P_sealed), controls.shaking),
+      eq: equilibriumDissolvedFraction(P, controls.P_sealed)
+    };
+  }
+
+  function initialState(P_sealed) {
+    return {
+      P: P_sealed,
+      dissolved: 1,
+      freeGas: 0,
+      nucleation: 0,
+      eq: 1
+    };
+  }
+
+  // Cached fonts — never rebuild inside hot loops
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_14 = '14px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_11 = '11px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  var cvCan = $('cvCan');
+  var cvMeters = $('cvMeters');
+  var ctxCan = cvCan.getContext('2d');
+  var ctxMeters = cvMeters.getContext('2d');
+
+  var open = false;
+  var shaking = false;
+  var P_sealed = P_SEALED_DEFAULT;
+  var state = initialState(P_sealed);
+  var bubbles = [];
+  var tPrev = 0;
+  var running = true;
+
+  function fitCanvas(canvas) {
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    var w = Math.max(1, Math.floor(rect.width * dpr));
+    var h = Math.max(1, Math.floor(rect.height * dpr));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+    }
+    return { w: w, h: h, dpr: dpr };
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    el.classList.toggle('on', !!on);
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function fmtAtm(p) {
+    return p.toFixed(2) + ' atm';
+  }
+
+  function fmtPct(x) {
+    return (x * 100).toFixed(1) + '%';
+  }
+
+  function updateLabels() {
+    $('pSealLabel').textContent = fmtAtm(P_sealed);
+    var btn = $('btnOpen');
+    if (open) {
+      btn.textContent = 'Opened';
+      btn.classList.add('on');
+      btn.setAttribute('aria-pressed', 'true');
+    } else {
+      btn.textContent = 'Open can';
+      btn.classList.remove('on');
+      btn.setAttribute('aria-pressed', 'false');
+    }
+    setChip($('chipShake'), shaking);
+    setChip($('chipMild'), Math.abs(P_sealed - 2) < 0.01 && !open);
+    setChip($('chipCola'), Math.abs(P_sealed - 3) < 0.01);
+    setChip($('chipFizz'), Math.abs(P_sealed - 4) < 0.01);
+    $('canMeta').textContent = open
+      ? 'P → 1 atm · supersaturated · fizzing'
+      : 'sealed · dissolved ≈ equilibrium';
+    $('meterMeta').textContent = shaking
+      ? 'shake on · nucleation ×' + SHAKE_MULT
+      : 'mass conserved · classroom model';
+  }
+
+  function renderReadout() {
+    var S = supersaturation(state.dissolved, state.P, P_sealed);
+    var nRate = state.nucleation;
+    var html =
+      '<div class="kv"><div class="k">Pressure P</div><div class="v' + (open ? ' warm' : '') + '">' + fmtAtm(state.P) + '</div><div class="s">' + (open ? 'venting to 1 atm' : 'sealed headspace') + '</div></div>' +
+      '<div class="kv"><div class="k">Dissolved CO₂</div><div class="v">' + fmtPct(state.dissolved) + '</div><div class="s">eq @ P: ' + fmtPct(state.eq) + '</div></div>' +
+      '<div class="kv"><div class="k">Free gas CO₂</div><div class="v sun">' + fmtPct(state.freeGas) + '</div><div class="s">bubbles + headspace</div></div>' +
+      '<div class="kv"><div class="k">Supersaturation</div><div class="v' + (S > 0.05 ? ' warm' : '') + '">' + (S * 100).toFixed(0) + '%</div><div class="s">dissolved / eq − 1</div></div>' +
+      '<div class="kv"><div class="k">Nucleation rate</div><div class="v">' + nRate.toFixed(2) + ' /s</div><div class="s">' + (shaking ? 'shake boost on' : 'quiet liquid') + '</div></div>';
+    $('readout').innerHTML = html;
+  }
+
+  function spawnBubbles(dt) {
+    var rate = state.nucleation;
+    var n = rate * dt * 14;
+    if (shaking) n *= 1.15;
+    var i, b, u;
+    for (i = 0; i < n; i++) {
+      u = Math.random();
+      bubbles.push({
+        x: 0.28 + Math.random() * 0.30,
+        y: 0.72 - Math.random() * 0.08,
+        r: 1.5 + Math.random() * 3.5,
+        vy: -(18 + Math.random() * 40 + rate * 8),
+        vx: (Math.random() - 0.5) * (shaking ? 28 : 10),
+        life: 0.6 + Math.random() * 1.2,
+        age: 0
+      });
+    }
+    if (bubbles.length > 220) bubbles.splice(0, bubbles.length - 220);
+  }
+
+  function stepBubbles(dt) {
+    var i, b;
+    for (i = bubbles.length - 1; i >= 0; i--) {
+      b = bubbles[i];
+      b.age += dt;
+      b.y += b.vy * dt / 380;
+      b.x += b.vx * dt / 720;
+      b.vy *= 0.995;
+      if (b.age > b.life || b.y < 0.18) bubbles.splice(i, 1);
+    }
+  }
+
+  function drawGauge(ctx, cx, cy, R, P, Pmax) {
+    var a0 = Math.PI * 0.75;
+    var a1 = Math.PI * 2.25;
+    var frac = clamp(P / Math.max(Pmax, 1.5), 0, 1);
+    var ang = a0 + (a1 - a0) * frac;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, a0, a1);
+    ctx.strokeStyle = 'rgba(94,200,229,0.22)';
+    ctx.lineWidth = 8;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, a0, ang);
+    ctx.strokeStyle = P > 1.4 ? '#ff7e5f' : '#5ec8e5';
+    ctx.lineWidth = 8;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(ang) * (R - 6), cy + Math.sin(ang) * (R - 6));
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fill();
+    ctx.fillStyle = '#8b93ad';
+    ctx.font = FONT_MONO_10;
+    ctx.textAlign = 'center';
+    ctx.fillText('P', cx, cy + R + 14);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.font = FONT_MONO_11;
+    ctx.fillText(fmtAtm(P), cx, cy + R + 28);
+    ctx.restore();
+  }
+
+  function drawCan() {
+    var dim = fitCanvas(cvCan);
+    var w = dim.w, h = dim.h, dpr = dim.dpr;
+    var ctx = ctxCan;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#0a0e22';
+    ctx.fillRect(0, 0, w, h);
+
+    // soft vignette
+    var g = ctx.createRadialGradient(w * 0.45, h * 0.4, 10, w * 0.45, h * 0.45, w * 0.55);
+    g.addColorStop(0, 'rgba(94,200,229,0.05)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    var cx = w * 0.42;
+    var canW = Math.min(w * 0.28, h * 0.32);
+    var canH = h * 0.62;
+    var canX = cx - canW / 2;
+    var canY = h * 0.18;
+    var r = 14 * dpr;
+
+    // can body
+    var body = ctx.createLinearGradient(canX, 0, canX + canW, 0);
+    body.addColorStop(0, '#1a2340');
+    body.addColorStop(0.35, '#2a3a5c');
+    body.addColorStop(0.55, '#3d5278');
+    body.addColorStop(1, '#182038');
+    roundRect(ctx, canX, canY, canW, canH, r);
+    ctx.fillStyle = body;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+    ctx.lineWidth = 1.5 * dpr;
+    ctx.stroke();
+
+    // liquid
+    var liqTop = canY + canH * 0.28;
+    var liqH = canY + canH - 6 * dpr - liqTop;
+    ctx.save();
+    roundRect(ctx, canX + 3 * dpr, canY, canW - 6 * dpr, canH, r - 2);
+    ctx.clip();
+    var lg = ctx.createLinearGradient(0, liqTop, 0, liqTop + liqH);
+    lg.addColorStop(0, 'rgba(255,126,95,0.55)');
+    lg.addColorStop(1, 'rgba(180,60,40,0.75)');
+    ctx.fillStyle = lg;
+    ctx.fillRect(canX, liqTop, canW, liqH + 20);
+
+    // dissolved sparkle (more when dissolved high)
+    var i, nSpark = Math.floor(state.dissolved * 28);
+    ctx.fillStyle = 'rgba(255,194,74,0.35)';
+    for (i = 0; i < nSpark; i++) {
+      var sx = canX + 8 * dpr + ((i * 97) % Math.max(1, canW - 16 * dpr));
+      var sy = liqTop + 10 + ((i * 53) % Math.max(1, liqH - 20));
+      ctx.beginPath();
+      ctx.arc(sx, sy, 1.2 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // bubbles
+    for (i = 0; i < bubbles.length; i++) {
+      var b = bubbles[i];
+      var bx = canX + b.x * canW;
+      var by = canY + b.y * canH;
+      if (by < liqTop - 8) continue;
+      var alpha = clamp(1 - b.age / b.life, 0, 1);
+      ctx.beginPath();
+      ctx.arc(bx, by, b.r * dpr, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(215,222,242,' + (0.25 + 0.45 * alpha) + ')';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(94,200,229,' + (0.4 * alpha) + ')';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // lid / tab
+    ctx.beginPath();
+    ctx.ellipse(cx, canY + 2, canW * 0.48, 7 * dpr, 0, 0, Math.PI * 2);
+    ctx.fillStyle = open ? '#3a4568' : '#4a5a80';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,194,74,0.4)';
+    ctx.stroke();
+
+    // open vent puff
+    if (open && state.P > 1.05) {
+      ctx.fillStyle = 'rgba(94,200,229,0.15)';
+      ctx.beginPath();
+      ctx.ellipse(cx + canW * 0.15, canY - 12 * dpr, 18 * dpr, 10 * dpr, -0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // label
+    ctx.fillStyle = '#d7def2';
+    ctx.font = FONT_DISPLAY;
+    ctx.textAlign = 'center';
+    ctx.fillText(open ? 'OPEN' : 'SEALED', cx, canY + canH * 0.18);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(shaking ? 'shaking' : 'still', cx, canY + canH * 0.18 + 16 * dpr);
+
+    // pressure gauge (right of can)
+    var gx = w * 0.78;
+    var gy = h * 0.38;
+    drawGauge(ctx, gx, gy, Math.min(w, h) * 0.12, state.P, Math.max(P_sealed, 4));
+
+    // status chip
+    ctx.font = FONT_MONO_11;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = open ? '#ff7e5f' : '#5ec8e5';
+    ctx.fillText(open ? 'headspace vented' : 'high-P equilibrium', gx, gy + Math.min(w, h) * 0.12 + 48);
+
+    // Henry hint
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'left';
+    ctx.fillText('c ∝ P  ·  Henry (fixed T)', 16 * dpr, h - 16 * dpr);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    var rr = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function drawMeterBar(ctx, x, y, w, h, frac, color, label, sub) {
+    frac = clamp(frac, 0, 1);
+    ctx.fillStyle = 'rgba(16,22,46,0.9)';
+    roundRect(ctx, x, y, w, h, 8);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(94,200,229,0.2)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    var fillH = (h - 8) * frac;
+    var grad = ctx.createLinearGradient(x, y + h, x, y);
+    grad.addColorStop(0, color);
+    grad.addColorStop(1, 'rgba(255,255,255,0.15)');
+    ctx.fillStyle = grad;
+    roundRect(ctx, x + 4, y + h - 4 - fillH, w - 8, fillH, 5);
+    ctx.fill();
+    ctx.fillStyle = '#d7def2';
+    ctx.font = FONT_MONO_12;
+    ctx.textAlign = 'center';
+    ctx.fillText(label, x + w / 2, y - 10);
+    ctx.fillStyle = color;
+    ctx.font = FONT_MONO_14;
+    ctx.fillText(fmtPct(frac), x + w / 2, y + h + 22);
+    ctx.fillStyle = '#8b93ad';
+    ctx.font = FONT_MONO_10;
+    ctx.fillText(sub, x + w / 2, y + h + 38);
+  }
+
+  function drawMeters() {
+    var dim = fitCanvas(cvMeters);
+    var w = dim.w, h = dim.h, dpr = dim.dpr;
+    var ctx = ctxMeters;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#0a0e22';
+    ctx.fillRect(0, 0, w, h);
+
+    var barW = w * 0.22;
+    var barH = h * 0.52;
+    var baseY = h * 0.18;
+    var gap = w * 0.08;
+    var x0 = w * 0.12;
+    drawMeterBar(ctx, x0, baseY, barW, barH, state.dissolved, '#5ec8e5', 'Dissolved', 'in liquid');
+    drawMeterBar(ctx, x0 + barW + gap, baseY, barW, barH, state.freeGas, '#ffc24a', 'Gas', 'bubbles+head');
+    drawMeterBar(ctx, x0 + 2 * (barW + gap), baseY, barW, barH, clamp(state.nucleation / (R0 * SHAKE_MULT * 2.5), 0, 1), '#ff7e5f', 'Nucleation', 'relative');
+
+    // eq marker on dissolved
+    var eqY = baseY + barH - 4 - (barH - 8) * state.eq;
+    ctx.strokeStyle = 'rgba(255,194,74,0.7)';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(x0 - 4, eqY);
+    ctx.lineTo(x0 + barW + 4, eqY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#ffc24a';
+    ctx.font = FONT_MONO_10;
+    ctx.textAlign = 'left';
+    ctx.fillText('eq @ P', x0 + barW + 8, eqY + 3);
+
+    // conservation line
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'center';
+    var tot = state.dissolved + state.freeGas;
+    ctx.fillText('dissolved + gas = ' + tot.toFixed(3) + ' (conserved)', w / 2, h - 18 * dpr);
+
+    ctx.font = FONT_UI_11;
+    ctx.fillStyle = '#a8b0c8';
+    ctx.fillText(shaking ? 'Shake raises nucleation only — not total CO₂' : 'Open drops P; excess dissolved → gas', w / 2, h - 36 * dpr);
+  }
+
+  function frame(t) {
+    if (!tPrev) tPrev = t;
+    var dt = Math.min(0.05, (t - tPrev) / 1000);
+    tPrev = t;
+    if (running) {
+      state = stepState(state, dt, { open: open, shaking: shaking, P_sealed: P_sealed });
+      if (open) {
+        spawnBubbles(dt);
+        stepBubbles(dt);
+      } else {
+        bubbles.length = 0;
+      }
+    }
+    drawCan();
+    drawMeters();
+    renderReadout();
+    requestAnimationFrame(frame);
+  }
+
+  function reseal() {
+    open = false;
+    shaking = false;
+    state = initialState(P_sealed);
+    bubbles.length = 0;
+    updateLabels();
+  }
+
+  $('btnOpen').addEventListener('click', function () {
+    if (!open) {
+      open = true;
+      updateLabels();
+    }
+  });
+  $('btnReset').addEventListener('click', reseal);
+  $('chipShake').addEventListener('click', function () {
+    shaking = !shaking;
+    updateLabels();
+  });
+  $('pSeal').addEventListener('input', function () {
+    P_sealed = parseFloat($('pSeal').value);
+    if (!open) {
+      state = initialState(P_sealed);
+    }
+    updateLabels();
+  });
+  function preset(p) {
+    P_sealed = p;
+    $('pSeal').value = String(p);
+    if (!open) state = initialState(P_sealed);
+    else {
+      // keep open; sealed reference changes eq target for remaining dissolved
+    }
+    updateLabels();
+  }
+  $('chipMild').addEventListener('click', function () { preset(2.0); });
+  $('chipCola').addEventListener('click', function () { preset(3.0); });
+  $('chipFizz').addEventListener('click', function () { preset(4.0); });
+
+  window.addEventListener('resize', function () {
+    drawCan();
+    drawMeters();
+  });
+
+  updateLabels();
+  renderReadout();
+  requestAnimationFrame(frame);
+
+  // Expose named formulas for debugging / parity with validator
+  window.SodaModel = {
+    P_ATM: P_ATM,
+    R0: R0,
+    SHAKE_MULT: SHAKE_MULT,
+    equilibriumDissolvedFraction: equilibriumDissolvedFraction,
+    supersaturation: supersaturation,
+    nucleationRate: nucleationRate,
+    outgasRate: outgasRate,
+    stepState: stepState,
+    initialState: initialState
+  };
+})();
+</script>
+</body>
+</html>
