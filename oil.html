@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Oil Floats (Density, Not “Lighter”) — Equal Volumes, Layer Jar</title>
+<meta name="description" content="Classroom explainer for teachers: oil floats on water because density ρ = m/V is lower (~0.91 vs 1.00 g/cm³), not because oil is “lighter.” Equal volumes make oil’s mass smaller. Live layer jar, density slider that can invert layers, and a “more oil” control that keeps ρ fixed. Myth-bust heavy things sink. NGSS MS-PS1.">
+<meta name="keywords" content="why does oil float, density, oil and water, lighter vs denser, classroom, teachers, equal volume, layer jar, NGSS MS-PS1">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="oil.html">
+<meta property="og:title" content="Why Oil Floats — Density, Not “Lighter”">
+<meta property="og:description" content="Oil floats because ρ_oil &lt; ρ_water for equal volumes — not because oil is “lighter.” Live jar, density invert, more-oil control.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 360px; }
+.bar-card { grid-column: 1 / -1; }
+.bar-card canvas { height: 200px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .bar-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .bar-card canvas { height: 180px; }
+  .page { padding: 18px 14px 48px; }
+}
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · oil</a></p>
+  <h1>Oil floats because of density — not because it’s “lighter”</h1>
+  <p class="lede">People say oil is lighter than water. That mixes up <strong>weight of a blob</strong> with <strong>density</strong>. Density is mass per volume: <strong>ρ = m / V</strong>. For the <em>same volume</em>, vegetable oil (~0.91 g/cm³) has less mass than water (1.00 g/cm³) — so it floats. Pour more oil and ρ stays the same; a huge oil spill still floats.</p>
+
+  <p class="try"><b>Try this</b>Watch the equal-volume blobs: oil’s mass is smaller. Drag density past 1.00 and the jar layers invert. Then pour “more oil” — ρ does not change.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <label class="sl grow">
+        <span>Oil density ρ<sub>oil</sub> <em id="rhoLabel">0.910 g/cm³</em></span>
+        <input type="range" id="rhoOil" min="0.70" max="1.30" step="0.005" value="0.91" aria-label="Oil density in grams per cubic centimeter">
+      </label>
+      <label class="sl grow">
+        <span>Oil volume (same ρ) <em id="volLabel">1.00 × V</em></span>
+        <input type="range" id="volOil" min="0.50" max="3.00" step="0.05" value="1.00" aria-label="Oil volume multiplier; density stays fixed">
+      </label>
+    </div>
+    <div class="row">
+      <button type="button" class="chip on" id="chipVeg" aria-pressed="true">Vegetable 0.91</button>
+      <button type="button" class="chip" id="chipOlive" aria-pressed="false">Olive ~0.91</button>
+      <button type="button" class="chip" id="chipLight" aria-pressed="false">Light 0.80</button>
+      <button type="button" class="chip myth" id="chipInvert" aria-pressed="false">Invert ρ=1.10</button>
+      <button type="button" class="chip sun" id="chipHoney" aria-pressed="false">Honey-ish 1.42→1.30</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="chipMore" aria-pressed="false">More oil ×2</button>
+      <button type="button" class="chip" id="chipEqual" aria-pressed="true">Equal V</button>
+      <span class="hint" id="layerHint">Oil on top · ρ_oil &lt; ρ_water</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Equal-volume blobs</b><span>same V · mass = ρ V</span></div>
+      <canvas id="cvBlobs" width="600" height="360" aria-label="Two equal-volume blobs of oil and water with mass labels"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Layer jar</b><span id="jarMeta">immiscible cartoon · denser settles</span></div>
+      <canvas id="cvJar" width="600" height="360" aria-label="Jar with oil and water layers that invert when oil is denser"></canvas>
+    </div>
+    <div class="card bar-card">
+      <div class="card-h"><b>Density bars · mass for equal V</b><span id="barMeta">ρ decides who sits on top</span></div>
+      <canvas id="cvBars" width="1200" height="200" aria-label="Side by side density bars and equal-volume masses for oil and water"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>ρ = m / V</h2>
+      <p>Density is mass packed into a volume. Water at room temperature is about 1.00 g/cm³. Typical vegetable oil is about 0.91 g/cm³. Compare equal volumes and oil simply has less mass.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Layers sort by density</h2>
+      <p>Immiscible liquids settle so the denser one sits below. Oil floats on water because ρ<sub>oil</sub> &lt; ρ<sub>water</sub>. Drag the slider past 1.00 and the cartoon jar flips — the rule did not change.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>More oil ≠ denser oil</h2>
+      <p>Pouring twice as much oil doubles mass <em>and</em> volume. The ratio ρ stays put. A thimble of oil and a tanker of oil both float for the same reason.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Not “because it’s lighter”</h2>
+      <p>“Heavy things sink” confuses weight with density. A steel ship can float; a tiny pebble sinks. Ask: mass <em>per volume</em>? Oil’s equal-V mass is smaller — that is the density story, not a vague “lightness.”</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Reference density facts">
+    <div class="stat">
+      <div class="k">Water (ref.)</div>
+      <div class="v">1.00 g/cm³</div>
+      <div class="s">≈ 1000 kg/m³ · classroom standard</div>
+    </div>
+    <div class="stat">
+      <div class="k">Vegetable oil</div>
+      <div class="v">~0.91 g/cm³</div>
+      <div class="s">typical · brand-dependent</div>
+    </div>
+    <div class="stat">
+      <div class="k">Equal V mass ratio</div>
+      <div class="v">0.91</div>
+      <div class="s">m_oil / m_water = ρ_oil / ρ_water</div>
+    </div>
+    <div class="stat">
+      <div class="k">Layer rule</div>
+      <div class="v">ρ decides</div>
+      <div class="s">denser liquid settles below</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Density definition.</strong> <code>ρ = m / V</code>. For a chosen volume <code>V</code>, mass is <code>m = ρ V</code>. The equal-volume panel uses the same <code>V_ref</code> for oil and water so the mass labels are a direct density comparison. Units here are g/cm³ (identical numerically to g/mL); multiply by 1000 for kg/m³.</li>
+      <li><strong style="color:var(--text)">Reference values.</strong> Liquid water is taken as <code>ρ_water = 1.00 g/cm³</code> — the usual classroom round number near 20 °C (CIPM-2001 gives ≈0.998 at 20 °C; the 1% gap is ignored). Default oil is <code>ρ_oil = 0.91 g/cm³</code>, a typical vegetable-oil handbook range (~0.91–0.93). Olive, canola, and sunflower sit in that band; exact brand values vary.</li>
+      <li><strong style="color:var(--text)">Layer rule.</strong> For two immiscible liquids that have finished separating, the denser fluid occupies the lower layer. The jar is a cartoon: no emulsifiers, no stirring, no temperature gradients. When <code>ρ_oil &gt; ρ_water</code> the oil layer is drawn below — a counterfactual for most kitchen oils, but real for some dense syrups / honey vs water.</li>
+      <li><strong style="color:var(--text)">“More oil” control.</strong> The volume slider scales oil volume as <code>V_oil = k · V_ref</code> with <code>k</code> from 0.5 to 3. Density is held fixed, so <code>m_oil = ρ_oil · V_oil</code> scales with <code>k</code> while <code>ρ_oil</code> does not. That is the point of the control: amount is not density.</li>
+      <li><strong style="color:var(--text)">Buoyancy (Archimedes).</strong> A blob floats when average density is less than the surrounding fluid. For an oil droplet fully surrounded by water, buoyancy exceeds weight when <code>ρ_oil &lt; ρ_water</code>. The page teaches the density comparison; it does not integrate surface tension or droplet shape.</li>
+      <li><strong style="color:var(--text)">Miscibility.</strong> Real oil–water systems can emulsify with soap or vigorous mixing. The explainer assumes clean, settled, immiscible layers — the salad-dressing end state after sitting, not a shaken vinaigrette.</li>
+      <li><strong style="color:var(--text)">Honey chip.</strong> Honey is often ~1.4 g/cm³; the slider caps at 1.30 so the chip clamps to the max. It is a density-invert demo, not a culinary model of honey–water mixing (honey is water-soluble).</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Density vs “heavy/light” language; equal-volume thought experiment; NGSS MS-PS1 structure and properties of matter. Pairs with the ice-floats page (lattice density) without repeating it. Say out loud: “lighter” without a volume is ambiguous — density is the precise claim.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants — same values as validate-oil.js =====
+  var RHO_WATER = 1.00;           // g/cm³, classroom reference
+  var RHO_OIL_DEFAULT = 0.91;     // g/cm³, typical vegetable oil
+  var V_REF = 100;                // cm³, equal-volume reference blob
+  var RHO_OIL_MIN = 0.70;
+  var RHO_OIL_MAX = 1.30;
+  var VOL_MIN = 0.50;
+  var VOL_MAX = 3.00;
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_14 = '14px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  function clamp(x, a, b) {
+    return x < a ? a : (x > b ? b : x);
+  }
+
+  function massFromDensity(rho, volume) {
+    return rho * volume;
+  }
+
+  function oilFloats(rhoOil, rhoWater) {
+    return rhoOil < rhoWater;
+  }
+
+  function layerOrder(rhoOil, rhoWater) {
+    // returns 'oil-on-top' | 'oil-below' | 'mixed-tie'
+    if (Math.abs(rhoOil - rhoWater) < 1e-9) return 'mixed-tie';
+    return rhoOil < rhoWater ? 'oil-on-top' : 'oil-below';
+  }
+
+  function equalVolumeMasses(rhoOil, rhoWater, V) {
+    return {
+      mOil: massFromDensity(rhoOil, V),
+      mWater: massFromDensity(rhoWater, V),
+      V: V
+    };
+  }
+
+  // ===== State =====
+  var state = {
+    rhoOil: RHO_OIL_DEFAULT,
+    volMult: 1.0,
+    playing: true,
+    lastTs: 0,
+    time: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elRho = $('rhoOil');
+  var elRhoL = $('rhoLabel');
+  var elVol = $('volOil');
+  var elVolL = $('volLabel');
+  var elReadout = $('readout');
+  var elHint = $('layerHint');
+  var elJarMeta = $('jarMeta');
+  var elBarMeta = $('barMeta');
+  var cvBlobs = $('cvBlobs');
+  var cvJar = $('cvJar');
+  var cvBars = $('cvBars');
+
+  var surfaces = {
+    blobs: { canvas: cvBlobs, ctx: null, w: 0, h: 0, cssH: 360 },
+    jar: { canvas: cvJar, ctx: null, w: 0, h: 0, cssH: 360 },
+    bars: { canvas: cvBars, ctx: null, w: 0, h: 0, cssH: 200 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function fitAll() {
+    fitCanvas(surfaces.blobs);
+    fitCanvas(surfaces.jar);
+    fitCanvas(surfaces.bars);
+  }
+
+  function fmtRho(r) {
+    return r.toFixed(3) + ' g/cm³';
+  }
+
+  function fmtMass(m) {
+    if (m >= 100) return m.toFixed(1) + ' g';
+    return m.toFixed(2) + ' g';
+  }
+
+  function fmtVol(v) {
+    return v.toFixed(1) + ' cm³';
+  }
+
+  // ===== Readout =====
+  function updateReadout() {
+    var Vw = V_REF;
+    var Vo = V_REF * state.volMult;
+    var mW = massFromDensity(RHO_WATER, Vw);
+    var mO = massFromDensity(state.rhoOil, Vo);
+    var eq = equalVolumeMasses(state.rhoOil, RHO_WATER, V_REF);
+    var floats = oilFloats(state.rhoOil, RHO_WATER);
+    var order = layerOrder(state.rhoOil, RHO_WATER);
+    var ratio = state.rhoOil / RHO_WATER;
+
+    var layerTxt = order === 'oil-on-top' ? 'oil on top' : (order === 'oil-below' ? 'oil below' : 'same ρ');
+    var layerCls = floats ? '' : ' warm';
+
+    elReadout.innerHTML =
+      '<div class="kv"><div class="k">ρ_oil</div><div class="v' + (floats ? '' : ' warm') + '">' + fmtRho(state.rhoOil) + '</div>' +
+      '<div class="s">slider · kitchen oils ~0.91</div></div>' +
+      '<div class="kv"><div class="k">ρ_water</div><div class="v">' + fmtRho(RHO_WATER) + '</div>' +
+      '<div class="s">fixed classroom reference</div></div>' +
+      '<div class="kv"><div class="k">Equal-V masses</div><div class="v sun">' + fmtMass(eq.mOil) + ' vs ' + fmtMass(eq.mWater) + '</div>' +
+      '<div class="s">same ' + fmtVol(V_REF) + ' · m = ρV</div></div>' +
+      '<div class="kv"><div class="k">Oil in jar</div><div class="v">' + fmtVol(Vo) + ' · ' + fmtMass(mO) + '</div>' +
+      '<div class="s">k = ' + state.volMult.toFixed(2) + ' · ρ unchanged</div></div>' +
+      '<div class="kv"><div class="k">Layer</div><div class="v' + layerCls + '">' + layerTxt + '</div>' +
+      '<div class="s">ρ_oil / ρ_water = ' + ratio.toFixed(3) + '</div></div>';
+
+    elHint.textContent = floats
+      ? 'Oil on top · ρ_oil < ρ_water'
+      : (order === 'mixed-tie' ? 'Same density · no preferred layer' : 'Oil sinks · ρ_oil > ρ_water');
+    elHint.style.color = floats ? '' : '#ff7e5f';
+    elJarMeta.textContent = floats ? 'oil floats · denser water below' : (order === 'mixed-tie' ? 'tie · no sort' : 'oil denser · water on top');
+    elBarMeta.textContent = 'equal-V mass ratio ' + (eq.mOil / eq.mWater).toFixed(3) + ' · ρ decides who sits on top';
+  }
+
+  // ===== Draw: equal-volume blobs =====
+  function drawBlobs() {
+    var surf = surfaces.blobs;
+    if (!surf.ctx) return;
+    var ctx = surf.ctx;
+    var w = surf.w;
+    var h = surf.h;
+    var t = state.time;
+    ctx.clearRect(0, 0, w, h);
+
+    // background wash
+    ctx.fillStyle = '#0a0e22';
+    ctx.fillRect(0, 0, w, h);
+
+    var eq = equalVolumeMasses(state.rhoOil, RHO_WATER, V_REF);
+    var floats = oilFloats(state.rhoOil, RHO_WATER);
+
+    // Equal visual size (same V) — radius fixed
+    var R = Math.min(w, h) * 0.18;
+    var y0 = h * 0.42;
+    var xOil = w * 0.28;
+    var xWat = w * 0.72;
+    var bobO = Math.sin(t * 1.1) * 3;
+    var bobW = Math.sin(t * 1.1 + 1.2) * 3;
+
+    // Platform / comparison baseline
+    ctx.strokeStyle = 'rgba(94,200,229,0.22)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(w * 0.08, y0 + R + 28);
+    ctx.lineTo(w * 0.92, y0 + R + 28);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'center';
+    ctx.fillText('same volume V = ' + fmtVol(V_REF), w * 0.5, y0 + R + 44);
+
+    function blob(cx, cy, colorFill, colorStroke, label, massLabel, sub) {
+      // soft glow
+      var g = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.3, R * 0.1, cx, cy, R * 1.15);
+      g.addColorStop(0, colorFill);
+      g.addColorStop(1, 'rgba(8,11,28,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(cx, cy, R * 1.15, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.fillStyle = colorFill;
+      ctx.fill();
+      ctx.strokeStyle = colorStroke;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // highlight
+      ctx.beginPath();
+      ctx.ellipse(cx - R * 0.28, cy - R * 0.32, R * 0.28, R * 0.18, -0.4, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.18)';
+      ctx.fill();
+
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#d7def2';
+      ctx.textAlign = 'center';
+      ctx.fillText(label, cx, cy - R - 18);
+      ctx.font = FONT_MONO_14;
+      ctx.fillStyle = colorStroke;
+      ctx.fillText(massLabel, cx, cy + 5);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#a8b0c8';
+      ctx.fillText(sub, cx, cy + 22);
+    }
+
+    var oilFill = floats ? 'rgba(255,194,74,0.55)' : 'rgba(255,126,95,0.55)';
+    var oilStroke = floats ? '#ffc24a' : '#ff7e5f';
+    blob(xOil, y0 + bobO, oilFill, oilStroke, 'Oil', fmtMass(eq.mOil), 'ρ = ' + state.rhoOil.toFixed(3));
+    blob(xWat, y0 + bobW, 'rgba(94,200,229,0.45)', '#5ec8e5', 'Water', fmtMass(eq.mWater), 'ρ = ' + RHO_WATER.toFixed(3));
+
+    // Comparison callout
+    ctx.font = FONT_MONO_11;
+    ctx.textAlign = 'center';
+    if (eq.mOil < eq.mWater) {
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('Equal V ⇒ m_oil < m_water  ·  that is density, not a vibe', w * 0.5, 28);
+    } else if (eq.mOil > eq.mWater) {
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Equal V ⇒ m_oil > m_water  ·  denser oil sinks', w * 0.5, 28);
+    } else {
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('Equal V ⇒ equal mass  ·  same density', w * 0.5, 28);
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('Blob size is locked to volume — mass labels change with ρ', w * 0.5, h - 14);
+  }
+
+  // ===== Draw: layer jar =====
+  function drawJar() {
+    var surf = surfaces.jar;
+    if (!surf.ctx) return;
+    var ctx = surf.ctx;
+    var w = surf.w;
+    var h = surf.h;
+    var t = state.time;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#0a0e22';
+    ctx.fillRect(0, 0, w, h);
+
+    var jarW = Math.min(w * 0.42, 200);
+    var jarH = h * 0.72;
+    var jarX = (w - jarW) * 0.5;
+    var jarY = h * 0.14;
+    var pad = 10;
+    var innerX = jarX + pad;
+    var innerW = jarW - pad * 2;
+    var innerTop = jarY + 18;
+    var innerBot = jarY + jarH - 8;
+    var innerH = innerBot - innerTop;
+
+    // total liquid fill fraction of jar
+    var waterFrac = 0.45;
+    var oilFrac = 0.28 * state.volMult;
+    var maxFrac = 0.88;
+    if (waterFrac + oilFrac > maxFrac) {
+      var scale = maxFrac / (waterFrac + oilFrac);
+      waterFrac *= scale;
+      oilFrac *= scale;
+    }
+
+    var order = layerOrder(state.rhoOil, RHO_WATER);
+    var floats = order === 'oil-on-top';
+    var tie = order === 'mixed-tie';
+
+    // Gentle interface bob
+    var bob = Math.sin(t * 1.3) * 2;
+
+    var oilH = oilFrac * innerH;
+    var watH = waterFrac * innerH;
+    var oilY, watY;
+
+    if (tie) {
+      // striped mix cartoon
+      oilY = innerBot - oilH - watH;
+      watY = oilY;
+    } else if (floats) {
+      watY = innerBot - watH;
+      oilY = watY - oilH + bob * 0.3;
+    } else {
+      oilY = innerBot - oilH;
+      watY = oilY - watH + bob * 0.3;
+    }
+
+    // Glass body
+    ctx.fillStyle = 'rgba(16,22,48,0.9)';
+    ctx.strokeStyle = 'rgba(94,200,229,0.45)';
+    ctx.lineWidth = 2;
+    roundRect(ctx, jarX, jarY, jarW, jarH, 12);
+    ctx.fill();
+    ctx.stroke();
+
+    // Clip liquids to jar interior
+    ctx.save();
+    roundRect(ctx, innerX, innerTop, innerW, innerH, 6);
+    ctx.clip();
+
+    if (tie) {
+      // interleaved bands
+      var y = innerBot;
+      var band = 10;
+      var i = 0;
+      while (y > innerBot - oilH - watH) {
+        ctx.fillStyle = (i % 2 === 0) ? 'rgba(94,200,229,0.55)' : 'rgba(255,194,74,0.5)';
+        ctx.fillRect(innerX, y - band, innerW, band);
+        y -= band;
+        i += 1;
+      }
+    } else {
+      // Water layer
+      ctx.fillStyle = 'rgba(94,200,229,0.55)';
+      ctx.fillRect(innerX, watY, innerW, watH + 2);
+      // Oil layer
+      ctx.fillStyle = floats ? 'rgba(255,194,74,0.62)' : 'rgba(255,126,95,0.62)';
+      ctx.fillRect(innerX, oilY, innerW, oilH + 1);
+      // Interface shimmer
+      var iface = floats ? watY : oilY;
+      ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(innerX, iface + bob);
+      ctx.bezierCurveTo(innerX + innerW * 0.3, iface + bob - 3, innerX + innerW * 0.7, iface + bob + 3, innerX + innerW, iface + bob);
+      ctx.stroke();
+    }
+
+    // Bubbles / droplets
+    var bi;
+    for (bi = 0; bi < 5; bi++) {
+      var bx = innerX + 12 + (bi * 37 + t * 8) % (innerW - 24);
+      var by = (floats ? oilY : watY) + 12 + (bi * 19) % Math.max(8, (floats ? oilH : watH) - 16);
+      ctx.beginPath();
+      ctx.arc(bx, by, 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.fill();
+    }
+
+    ctx.restore();
+
+    // Rim highlight
+    ctx.strokeStyle = 'rgba(215,222,242,0.2)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(jarX + 8, jarY + 10);
+    ctx.lineTo(jarX + jarW - 8, jarY + 10);
+    ctx.stroke();
+
+    // Labels
+    ctx.font = FONT_MONO_11;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = floats ? '#ffc24a' : '#ff7e5f';
+    ctx.fillText('oil  ρ=' + state.rhoOil.toFixed(3), jarX + jarW + 14, (tie ? innerTop + 40 : oilY + oilH * 0.55));
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('water  ρ=' + RHO_WATER.toFixed(2), jarX + jarW + 14, (tie ? innerTop + 58 : watY + watH * 0.55));
+
+    ctx.font = FONT_MONO_11;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = floats ? '#5ec8e5' : '#ff7e5f';
+    var head = floats
+      ? 'Denser water settles · oil rides on top'
+      : (tie ? 'Equal density · no preferred layer' : 'Denser oil settles · water on top');
+    ctx.fillText(head, w * 0.5, 22);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('V_oil = ' + (V_REF * state.volMult).toFixed(0) + ' cm³ cartoon  ·  immiscible, settled', w * 0.5, h - 12);
+
+    // Side annotation
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#8b93ad';
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('denser ↓', jarX - 8, innerBot - 4);
+  }
+
+  function roundRect(ctx, x, y, rw, rh, r) {
+    var rr = Math.min(r, rw / 2, rh / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + rw, y, x + rw, y + rh, rr);
+    ctx.arcTo(x + rw, y + rh, x, y + rh, rr);
+    ctx.arcTo(x, y + rh, x, y, rr);
+    ctx.arcTo(x, y, x + rw, y, rr);
+    ctx.closePath();
+  }
+
+  // ===== Draw: density bars =====
+  function drawBars() {
+    var surf = surfaces.bars;
+    if (!surf.ctx) return;
+    var ctx = surf.ctx;
+    var w = surf.w;
+    var h = surf.h;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#0a0e22';
+    ctx.fillRect(0, 0, w, h);
+
+    var eq = equalVolumeMasses(state.rhoOil, RHO_WATER, V_REF);
+    var maxRho = 1.35;
+    var left = 70;
+    var right = w - 40;
+    var barW = right - left;
+    var y1 = h * 0.28;
+    var y2 = h * 0.62;
+    var barH = 28;
+
+    function bar(y, rho, fill, label, mass) {
+      var bw = (rho / maxRho) * barW;
+      ctx.fillStyle = 'rgba(255,255,255,0.04)';
+      ctx.fillRect(left, y, barW, barH);
+      ctx.fillStyle = fill;
+      ctx.fillRect(left, y, bw, barH);
+      // water reference line
+      var xRef = left + (RHO_WATER / maxRho) * barW;
+      ctx.strokeStyle = 'rgba(94,200,229,0.5)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(xRef, y - 6);
+      ctx.lineTo(xRef, y + barH + 6);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.font = FONT_MONO_11;
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#a8b0c8';
+      ctx.fillText(label, left - 10, y + 18);
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(rho.toFixed(3) + ' g/cm³   ·   equal-V mass ' + fmtMass(mass), left + 8, y + 18);
+    }
+
+    bar(y1, state.rhoOil, oilFloats(state.rhoOil, RHO_WATER) ? 'rgba(255,194,74,0.75)' : 'rgba(255,126,95,0.75)', 'oil', eq.mOil);
+    bar(y2, RHO_WATER, 'rgba(94,200,229,0.75)', 'water', eq.mWater);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'center';
+    ctx.fillText('Dashed line = ρ_water = 1.00  ·  bar length ∝ density  ·  equal-V masses shown on bars', w * 0.5, h - 14);
+
+    // Scale ticks
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#6a7290';
+    var tick;
+    for (tick = 0.7; tick <= 1.3; tick += 0.1) {
+      var tx = left + (tick / maxRho) * barW;
+      ctx.fillRect(tx, y2 + barH + 8, 1, 4);
+      ctx.fillText(tick.toFixed(1), tx, y2 + barH + 20);
+    }
+  }
+
+  var readoutTick = 0;
+
+  function drawAll() {
+    drawBlobs();
+    drawJar();
+    drawBars();
+    readoutTick += 1;
+    if (readoutTick % 4 === 1) updateReadout();
+  }
+
+  // ===== Controls =====
+  function setRho(r, chipId) {
+    state.rhoOil = clamp(r, RHO_OIL_MIN, RHO_OIL_MAX);
+    elRho.value = String(state.rhoOil);
+    elRhoL.textContent = fmtRho(state.rhoOil);
+    syncChips(chipId);
+    updateReadout();
+  }
+
+  function setVol(k, chipId) {
+    state.volMult = clamp(k, VOL_MIN, VOL_MAX);
+    elVol.value = String(state.volMult);
+    elVolL.textContent = state.volMult.toFixed(2) + ' × V';
+    if (chipId) syncVolChips(chipId);
+    else {
+      $('chipMore').classList.toggle('on', Math.abs(state.volMult - 2) < 0.05);
+      $('chipMore').setAttribute('aria-pressed', Math.abs(state.volMult - 2) < 0.05 ? 'true' : 'false');
+      $('chipEqual').classList.toggle('on', Math.abs(state.volMult - 1) < 0.05);
+      $('chipEqual').setAttribute('aria-pressed', Math.abs(state.volMult - 1) < 0.05 ? 'true' : 'false');
+    }
+    updateReadout();
+  }
+
+  function syncChips(activeId) {
+    var ids = ['chipVeg', 'chipOlive', 'chipLight', 'chipInvert', 'chipHoney'];
+    var i;
+    for (i = 0; i < ids.length; i++) {
+      var el = $(ids[i]);
+      var on = activeId ? ids[i] === activeId : false;
+      if (!activeId) {
+        // infer from value
+        var v = state.rhoOil;
+        if (ids[i] === 'chipVeg') on = Math.abs(v - 0.91) < 0.006;
+        if (ids[i] === 'chipOlive') on = Math.abs(v - 0.915) < 0.006;
+        if (ids[i] === 'chipLight') on = Math.abs(v - 0.80) < 0.006;
+        if (ids[i] === 'chipInvert') on = Math.abs(v - 1.10) < 0.006;
+        if (ids[i] === 'chipHoney') on = Math.abs(v - RHO_OIL_MAX) < 0.006;
+      }
+      el.classList.toggle('on', on);
+      el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+  }
+
+  function syncVolChips(activeId) {
+    $('chipMore').classList.toggle('on', activeId === 'chipMore');
+    $('chipMore').setAttribute('aria-pressed', activeId === 'chipMore' ? 'true' : 'false');
+    $('chipEqual').classList.toggle('on', activeId === 'chipEqual');
+    $('chipEqual').setAttribute('aria-pressed', activeId === 'chipEqual' ? 'true' : 'false');
+  }
+
+  elRho.addEventListener('input', function () {
+    setRho(parseFloat(elRho.value), null);
+  });
+  elVol.addEventListener('input', function () {
+    setVol(parseFloat(elVol.value), null);
+  });
+
+  $('chipVeg').addEventListener('click', function () { setRho(0.91, 'chipVeg'); });
+  $('chipOlive').addEventListener('click', function () { setRho(0.915, 'chipOlive'); });
+  $('chipLight').addEventListener('click', function () { setRho(0.80, 'chipLight'); });
+  $('chipInvert').addEventListener('click', function () { setRho(1.10, 'chipInvert'); });
+  $('chipHoney').addEventListener('click', function () { setRho(1.42, 'chipHoney'); }); // clamps to max
+  $('chipMore').addEventListener('click', function () { setVol(2.0, 'chipMore'); });
+  $('chipEqual').addEventListener('click', function () { setVol(1.0, 'chipEqual'); });
+
+  function togglePlay() {
+    state.playing = !state.playing;
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    if (state.playing) state.lastTs = 0;
+  }
+  elPlay.addEventListener('click', togglePlay);
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      togglePlay();
+    }
+  });
+
+  // ===== Loop =====
+  function frame(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (state.playing) state.time += dt;
+    drawAll();
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', function () {
+    fitAll();
+    drawAll();
+  });
+
+  // boot
+  fitAll();
+  setRho(RHO_OIL_DEFAULT, 'chipVeg');
+  setVol(1.0, 'chipEqual');
+  updateReadout();
+  requestAnimationFrame(frame);
+
+  // Expose named formulas for debugging / parity with validate-oil.js
+  window.__oilPhysics = {
+    RHO_WATER: RHO_WATER,
+    RHO_OIL_DEFAULT: RHO_OIL_DEFAULT,
+    V_REF: V_REF,
+    massFromDensity: massFromDensity,
+    oilFloats: oilFloats,
+    layerOrder: layerOrder,
+    equalVolumeMasses: equalVolumeMasses
+  };
+})();
+</script>
+</body>
+</html>
