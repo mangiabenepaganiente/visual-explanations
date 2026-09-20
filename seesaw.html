@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seesaw: Torque, Not Heavier Kid Always Wins — Classroom Lever Balance</title>
+<meta name="description" content="Classroom explainer: a heavier kid does not always win on a seesaw. Torque τ = F × r (mg × lever arm) decides. Drag two kids’ masses and positions; live left/right torques and net τ show tip or balance. NGSS MS-PS2-2.">
+<meta name="keywords" content="seesaw torque, lever arm, moment of force, balance beam, heavier kid myth, classroom physics, NGSS MS-PS2-2, τ = Fr">
+<meta name="author" content="Visual Explanations">
+<meta property="og:title" content="Seesaw: torque, not heavier kid always wins">
+<meta property="og:description" content="Interactive seesaw: drag masses and distances. Balance when τ_left = τ_right, not when one kid is heavier.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+.kicker a:hover { text-decoration: underline; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 780px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on { background: rgba(255, 126, 95, 0.14); border-color: rgba(255, 126, 95, 0.5); color: var(--warm); }
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.35fr 0.75fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 420px; cursor: grab; touch-action: none; }
+.card canvas.dragging { cursor: grabbing; }
+
+.status-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px;
+  margin-bottom: 14px;
+}
+.status-bar .chip.status {
+  font-size: 12px;
+  padding: 8px 14px;
+}
+.status-bar .chip.status.bal {
+  background: rgba(94, 200, 229, 0.16);
+  border-color: rgba(94, 200, 229, 0.55);
+  color: var(--cool);
+}
+.status-bar .chip.status.tip-l {
+  background: rgba(255, 194, 74, 0.14);
+  border-color: rgba(255, 194, 74, 0.5);
+  color: var(--sun2);
+}
+.status-bar .chip.status.tip-r {
+  background: rgba(255, 126, 95, 0.12);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.status-bar p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--muted);
+  flex: 1 1 280px;
+}
+.status-bar p strong { color: var(--text); font-weight: 500; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 340px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · seesaw</a></p>
+  <h1>Seesaw: torque, not heavier kid always wins</h1>
+  <p class="lede">The playground myth says the <strong>heavier kid always wins</strong> — that force alone decides. Wrong. Rotation is decided by <strong>torque</strong> τ = F × r (weight times lever arm). A lighter kid farther out can balance a heavier kid nearer the fulcrum. Drag both kids; watch left and right torques, and the net τ.</p>
+
+  <p class="try"><b>Try this</b>Hit <strong>20 kg @ 2 m · 40 kg @ 1 m</strong>. Same torques, net τ = 0 — the plank balances even though one kid is twice as heavy. Then drag the light kid inward: the heavy side tips.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause tip</button>
+      <button type="button" class="btn" id="btnReset">Reset angle</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip sun on" id="presetBalance" aria-pressed="true">20 kg @ 2 m · 40 kg @ 1 m</button>
+      <button type="button" class="chip" id="presetMyth" aria-pressed="false">Equal arms · heavier?</button>
+      <button type="button" class="chip" id="presetSwap" aria-pressed="false">Light far wins</button>
+      <button type="button" class="chip" id="presetKids" aria-pressed="false">Playground kids</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Left mass <em id="mLLabel">20 kg</em></span>
+        <input type="range" id="mL" min="5" max="80" step="1" value="20" aria-label="Left kid mass">
+      </label>
+      <label class="sl grow">
+        <span>Left distance <em id="rLLabel">2.00 m</em></span>
+        <input type="range" id="rL" min="0.30" max="3.00" step="0.05" value="2.00" aria-label="Left kid distance from pivot">
+      </label>
+      <label class="sl grow">
+        <span>Right mass <em id="mRLabel">40 kg</em></span>
+        <input type="range" id="mR" min="5" max="80" step="1" value="40" aria-label="Right kid mass">
+      </label>
+      <label class="sl grow">
+        <span>Right distance <em id="rRLabel">1.00 m</em></span>
+        <input type="range" id="rR" min="0.30" max="3.00" step="0.05" value="1.00" aria-label="Right kid distance from pivot">
+      </label>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Seesaw</b><span id="sceneMeta">drag either kid · gold = pivot · cool/warm = sides</span></div>
+      <canvas id="cvScene" width="800" height="420" aria-label="Seesaw plank with two kids you can drag along the board"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Torque bars</b><span id="barMeta">τ = mg · r</span></div>
+      <canvas id="cvBars" width="480" height="420" aria-label="Bar chart of left torque, right torque, and net torque"></canvas>
+    </div>
+  </div>
+
+  <div class="status-bar panel">
+    <button type="button" class="chip status bal" id="statusChip" aria-live="polite">Equilibrium · net τ ≈ 0</button>
+    <p id="statusWhy"><strong>Torques match.</strong> τ<sub>L</sub> = τ<sub>R</sub>, so the plank does not tip. Mass alone did not decide — lever arms did.</p>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Torque is force × arm</h2>
+      <p>Weight F = mg pulls straight down. The lever arm r is the distance from the pivot. Torque magnitude τ = F · r = mg · r. Same weight, farther out → more twist.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Opposing sides compete</h2>
+      <p>Left weight tries to rotate one way; right weight the other. Net torque τ<sub>net</sub> = τ<sub>L</sub> − τ<sub>R</sub>. Whichever side has the larger product m · r wins the tip.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">The Pivot</div>
+      <h2>Balance when τ<sub>L</sub> = τ<sub>R</sub></h2>
+      <p>Equilibrium means zero net torque: m<sub>L</sub> r<sub>L</sub> = m<sub>R</sub> r<sub>R</sub>. A 20 kg kid at 2 m balances a 40 kg kid at 1 m. The fulcrum is the axis; arms are the decision.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Heavier kid always wins</h2>
+      <p>Force alone does not decide rotation. At equal distances the heavier side tips — but move the light kid out and the story flips. Students who only compare mass miss the lever arm.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Classroom anchors">
+    <div class="stat">
+      <div class="k">Torque</div>
+      <div class="v">τ = F · r</div>
+      <div class="s">or mg × lever arm</div>
+    </div>
+    <div class="stat">
+      <div class="k">Balance rule</div>
+      <div class="v">m<sub style="font-size:12px">L</sub> r<sub style="font-size:12px">L</sub> = m<sub style="font-size:12px">R</sub> r<sub style="font-size:12px">R</sub></div>
+      <div class="s">same g cancels</div>
+    </div>
+    <div class="stat">
+      <div class="k">Demo check</div>
+      <div class="v">20×2 = 40×1</div>
+      <div class="s">classic classroom pair</div>
+    </div>
+    <div class="stat">
+      <div class="k">NGSS</div>
+      <div class="v">MS-PS2-2</div>
+      <div class="s">sum of forces / motion</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Torque (classroom 1D seesaw).</strong> Weight of a kid is <code>F = m g</code> with <code>g = 9.81 m/s²</code>. With the plank nearly horizontal, the lever arm is the distance from the fulcrum along the plank. Magnitude <code>τ = m g r</code>. Signed convention: left-down (CCW on this side view) is positive, so <code>τ_net = τ_L − τ_R</code> with <code>τ_L = m_L g r_L</code> and <code>τ_R = m_R g r_R</code>.</li>
+      <li><strong style="color:var(--text)">Equilibrium.</strong> The plank balances when <code>|τ_net| ≈ 0</code>, i.e. <code>m_L r_L = m_R r_R</code> (g cancels). The page flags equilibrium when <code>|τ_net| ≤ 2 N·m</code> (a small classroom tolerance so slider steps still “count” as balanced). Example: <code>20 kg × 2 m</code> balances <code>40 kg × 1 m</code>.</li>
+      <li><strong style="color:var(--text)">Tip animation.</strong> Visual tilt integrates a damped <code>α ≈ τ_net / I</code> with a soft plank inertia and angle clamp (~±18°). It is a teaching motion, not a full rigid-body contact sim — no bounce off stops, no seat friction, no kid sliding.</li>
+      <li><strong style="color:var(--text)">What this is not.</strong> Not a 3D playground with bent knees. Not including plank self-weight (assumed balanced about the pivot) or air drag. Distances are horizontal lever arms for a nearly flat board; at large tip angles a true model would use the perpendicular moment arm — we keep the classroom <code>τ = mg r</code> form so the myth stays clear.</li>
+      <li><strong style="color:var(--text)">Interaction.</strong> Drag either kid along the plank, or use the mass/distance sliders. Presets set the classic balance, equal-arm myth case, light-far win, and a typical playground pair. Pause tip freezes the visual angle without changing the live torques.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants / named formulas (same as validate-seesaw.js) =====
+  var G_ACCEL = 9.81;
+  var EQ_EPS_NM = 2.0; // N·m classroom tolerance
+  var R_MIN = 0.30;
+  var R_MAX = 3.00;
+  var M_MIN = 5;
+  var M_MAX = 80;
+  var THETA_MAX = 18 * Math.PI / 180;
+  var I_PLANK = 180; // kg·m² soft visual inertia
+  var DAMP = 4.2;
+
+  function torqueMagnitude(m, r, g) {
+    if (g == null) g = G_ACCEL;
+    return m * g * r;
+  }
+
+  /** Signed torque for a weight at signed plank coordinate x (m). Left x<0 → positive (CCW). */
+  function signedTorque(m, x, g) {
+    if (g == null) g = G_ACCEL;
+    return -m * g * x;
+  }
+
+  function netTorque(mL, rL, mR, rR, g) {
+    if (g == null) g = G_ACCEL;
+    return torqueMagnitude(mL, rL, g) - torqueMagnitude(mR, rR, g);
+  }
+
+  function isEquilibrium(tauNet, eps) {
+    if (eps == null) eps = EQ_EPS_NM;
+    return Math.abs(tauNet) <= eps;
+  }
+
+  function balanceDistance(mKnown, rKnown, mOther) {
+    if (mOther <= 0) return NaN;
+    return (mKnown * rKnown) / mOther;
+  }
+
+  function product(m, r) {
+    return m * r;
+  }
+
+  function tipStatus(tauNet, eps) {
+    if (isEquilibrium(tauNet, eps)) return 'balance';
+    return tauNet > 0 ? 'tip-left' : 'tip-right';
+  }
+
+  function clamp(x, a, b) {
+    return Math.max(a, Math.min(b, x));
+  }
+
+  // Expose for validators / console checks
+  window.VESeesaw = {
+    G_ACCEL: G_ACCEL,
+    EQ_EPS_NM: EQ_EPS_NM,
+    torqueMagnitude: torqueMagnitude,
+    signedTorque: signedTorque,
+    netTorque: netTorque,
+    isEquilibrium: isEquilibrium,
+    balanceDistance: balanceDistance,
+    product: product,
+    tipStatus: tipStatus
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  var state = {
+    mL: 20,
+    rL: 2.00,
+    mR: 40,
+    rR: 1.00,
+    theta: 0,
+    omega: 0,
+    tipOn: true,
+    drag: null, // 'L' | 'R' | null
+    preset: 'balance'
+  };
+
+  var cvScene = $('cvScene');
+  var cvBars = $('cvBars');
+  var ctxS = cvScene.getContext('2d');
+  var ctxB = cvBars.getContext('2d');
+
+  var elML = $('mL'), elRL = $('rL'), elMR = $('mR'), elRR = $('rR');
+  var elPlay = $('btnPlay'), elReset = $('btnReset');
+  var elStatus = $('statusChip'), elWhy = $('statusWhy');
+  var elReadout = $('readout');
+  var elSceneMeta = $('sceneMeta');
+
+  function setChip(el, on) {
+    if (!el) return;
+    el.classList.toggle('on', !!on);
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function syncLabels() {
+    $('mLLabel').textContent = state.mL.toFixed(0) + ' kg';
+    $('rLLabel').textContent = state.rL.toFixed(2) + ' m';
+    $('mRLabel').textContent = state.mR.toFixed(0) + ' kg';
+    $('rRLabel').textContent = state.rR.toFixed(2) + ' m';
+    elML.value = String(state.mL);
+    elRL.value = String(state.rL);
+    elMR.value = String(state.mR);
+    elRR.value = String(state.rR);
+  }
+
+  function clearPresetChips() {
+    setChip($('presetBalance'), false);
+    setChip($('presetMyth'), false);
+    setChip($('presetSwap'), false);
+    setChip($('presetKids'), false);
+    $('presetBalance').classList.remove('sun');
+  }
+
+  function applyPreset(name) {
+    clearPresetChips();
+    state.preset = name;
+    if (name === 'balance') {
+      state.mL = 20; state.rL = 2.00; state.mR = 40; state.rR = 1.00;
+      setChip($('presetBalance'), true);
+      $('presetBalance').classList.add('sun');
+    } else if (name === 'myth') {
+      state.mL = 25; state.rL = 1.50; state.mR = 45; state.rR = 1.50;
+      setChip($('presetMyth'), true);
+    } else if (name === 'swap') {
+      state.mL = 15; state.rL = 2.80; state.mR = 50; state.rR = 0.70;
+      setChip($('presetSwap'), true);
+    } else {
+      state.mL = 30; state.rL = 1.80; state.mR = 35; state.rR = 1.60;
+      setChip($('presetKids'), true);
+    }
+    state.theta = 0;
+    state.omega = 0;
+    syncLabels();
+    updateUI();
+  }
+
+  function fitCanvas(cv, ctx) {
+    var dpr = window.devicePixelRatio || 1;
+    var rect = cv.getBoundingClientRect();
+    var w = Math.max(1, Math.floor(rect.width * dpr));
+    var h = Math.max(1, Math.floor(rect.height * dpr));
+    if (cv.width !== w || cv.height !== h) {
+      cv.width = w;
+      cv.height = h;
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { w: rect.width, h: rect.height };
+  }
+
+  function live() {
+    var tL = torqueMagnitude(state.mL, state.rL, G_ACCEL);
+    var tR = torqueMagnitude(state.mR, state.rR, G_ACCEL);
+    var net = netTorque(state.mL, state.rL, state.mR, state.rR, G_ACCEL);
+    var st = tipStatus(net, EQ_EPS_NM);
+    return {
+      tL: tL,
+      tR: tR,
+      net: net,
+      status: st,
+      FL: state.mL * G_ACCEL,
+      FR: state.mR * G_ACCEL,
+      pL: product(state.mL, state.rL),
+      pR: product(state.mR, state.rR)
+    };
+  }
+
+  function fmtTau(x) {
+    var a = Math.abs(x);
+    if (a >= 1000) return (x / 1000).toFixed(2) + ' kN·m';
+    if (a >= 100) return x.toFixed(0) + ' N·m';
+    return x.toFixed(1) + ' N·m';
+  }
+
+  function updateUI() {
+    var L = live();
+    var chip = elStatus;
+    chip.classList.remove('bal', 'tip-l', 'tip-r');
+    if (L.status === 'balance') {
+      chip.classList.add('bal');
+      chip.textContent = 'Equilibrium · net τ ≈ 0';
+      elWhy.innerHTML = '<strong>Torques match.</strong> τ<sub>L</sub> = τ<sub>R</sub> (' +
+        fmtTau(L.tL) + '), so the plank does not tip. Mass alone did not decide — lever arms did.';
+      elSceneMeta.textContent = 'balanced · m_L r_L = m_R r_R';
+    } else if (L.status === 'tip-left') {
+      chip.classList.add('tip-l');
+      chip.textContent = 'Tips left · τ_L > τ_R';
+      elWhy.innerHTML = '<strong>Left wins the twist.</strong> Larger m·r on the left (cool side). Heavier is not required — distance counts.';
+      elSceneMeta.textContent = 'net τ = ' + fmtTau(L.net) + ' · left-down';
+    } else {
+      chip.classList.add('tip-r');
+      chip.textContent = 'Tips right · τ_R > τ_L';
+      elWhy.innerHTML = '<strong>Right wins the twist.</strong> Larger m·r on the right (warm side). Move the light kid out to fight back.';
+      elSceneMeta.textContent = 'net τ = ' + fmtTau(L.net) + ' · right-down';
+    }
+
+    elReadout.innerHTML =
+      '<div class="kv"><div class="k">Left force</div><div class="v">' + L.FL.toFixed(0) + ' N</div><div class="s">m<sub>L</sub> g = ' + state.mL + ' × 9.81</div></div>' +
+      '<div class="kv"><div class="k">Left τ</div><div class="v sun">' + fmtTau(L.tL) + '</div><div class="s">mg · r<sub>L</sub> · r = ' + state.rL.toFixed(2) + ' m</div></div>' +
+      '<div class="kv"><div class="k">Right force</div><div class="v warm">' + L.FR.toFixed(0) + ' N</div><div class="s">m<sub>R</sub> g = ' + state.mR + ' × 9.81</div></div>' +
+      '<div class="kv"><div class="k">Right τ</div><div class="v warm">' + fmtTau(L.tR) + '</div><div class="s">mg · r<sub>R</sub> · r = ' + state.rR.toFixed(2) + ' m</div></div>' +
+      '<div class="kv"><div class="k">Net τ</div><div class="v' + (L.status === 'balance' ? '' : (L.net > 0 ? ' sun' : ' warm')) + '">' +
+        (L.status === 'balance' ? '≈ 0' : fmtTau(L.net)) + '</div><div class="s">τ<sub>L</sub> − τ<sub>R</sub> · + = left-down</div></div>' +
+      '<div class="kv"><div class="k">m · r products</div><div class="v">' + L.pL.toFixed(1) + ' · ' + L.pR.toFixed(1) + '</div><div class="s">kg·m · equal ⇒ balance</div></div>';
+  }
+
+  // Geometry helpers in CSS pixels for scene
+  function sceneLayout(W, H) {
+    var pivotX = W * 0.5;
+    var pivotY = H * 0.58;
+    var halfPx = Math.min(W * 0.42, 340);
+    var mPerPx = R_MAX / halfPx;
+    return { pivotX: pivotX, pivotY: pivotY, halfPx: halfPx, mPerPx: mPerPx };
+  }
+
+  function kidScreen(layout, side, r, theta) {
+    var signed = side === 'L' ? -r : r;
+    var x0 = signed / layout.mPerPx;
+    var y0 = 0;
+    var c = Math.cos(theta), s = Math.sin(theta);
+    return {
+      x: layout.pivotX + x0 * c - y0 * s,
+      y: layout.pivotY + x0 * s + y0 * c,
+      signed: signed
+    };
+  }
+
+  function drawKid(ctx, x, y, mass, color, label, scale) {
+    var h = 28 + mass * 0.35;
+    var w = 16 + mass * 0.12;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    // seat
+    ctx.fillStyle = 'rgba(16, 22, 48, 0.9)';
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(-w * 0.7, -6, w * 1.4, 10, 3);
+    ctx.fill();
+    ctx.stroke();
+    // body
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.92;
+    ctx.beginPath();
+    ctx.ellipse(0, -h * 0.45, w * 0.45, h * 0.38, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // head
+    ctx.beginPath();
+    ctx.arc(0, -h * 0.85, w * 0.32, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    // label
+    ctx.fillStyle = '#d7def2';
+    ctx.font = '600 11px "IBM Plex Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(label, 0, -h - 8);
+    ctx.fillStyle = color;
+    ctx.font = '500 10px "IBM Plex Mono", monospace';
+    ctx.fillText(mass.toFixed(0) + ' kg', 0, 18);
+    ctx.restore();
+  }
+
+  function drawScene() {
+    var dim = fitCanvas(cvScene, ctxS);
+    var W = dim.w, H = dim.h;
+    var L = live();
+    var layout = sceneLayout(W, H);
+    var theta = state.theta;
+
+    ctxS.clearRect(0, 0, W, H);
+
+    // soft ground
+    var grd = ctxS.createLinearGradient(0, H * 0.72, 0, H);
+    grd.addColorStop(0, 'rgba(94, 200, 229, 0.03)');
+    grd.addColorStop(1, 'rgba(8, 11, 28, 0)');
+    ctxS.fillStyle = grd;
+    ctxS.fillRect(0, H * 0.65, W, H * 0.35);
+
+    // fulcrum triangle
+    ctxS.save();
+    ctxS.translate(layout.pivotX, layout.pivotY);
+    ctxS.fillStyle = '#ffc24a';
+    ctxS.globalAlpha = 0.95;
+    ctxS.beginPath();
+    ctxS.moveTo(0, 0);
+    ctxS.lineTo(-28, 58);
+    ctxS.lineTo(28, 58);
+    ctxS.closePath();
+    ctxS.fill();
+    ctxS.globalAlpha = 0.25;
+    ctxS.fillStyle = '#080b1c';
+    ctxS.fillRect(-36, 56, 72, 8);
+    ctxS.restore();
+
+    // plank
+    ctxS.save();
+    ctxS.translate(layout.pivotX, layout.pivotY);
+    ctxS.rotate(theta);
+    var plankHalf = layout.halfPx;
+    var plankH = 14;
+    ctxS.fillStyle = '#1a2344';
+    ctxS.strokeStyle = 'rgba(94, 200, 229, 0.45)';
+    ctxS.lineWidth = 2;
+    ctxS.beginPath();
+    ctxS.roundRect(-plankHalf, -plankH / 2, plankHalf * 2, plankH, 4);
+    ctxS.fill();
+    ctxS.stroke();
+    // center mark
+    ctxS.strokeStyle = '#ffc24a';
+    ctxS.lineWidth = 2;
+    ctxS.beginPath();
+    ctxS.moveTo(0, -10);
+    ctxS.lineTo(0, 10);
+    ctxS.stroke();
+    // distance ticks every 0.5 m
+    ctxS.strokeStyle = 'rgba(139, 147, 173, 0.45)';
+    ctxS.fillStyle = 'rgba(139, 147, 173, 0.7)';
+    ctxS.lineWidth = 1;
+    ctxS.font = '500 9px "IBM Plex Mono", monospace';
+    ctxS.textAlign = 'center';
+    var tick;
+    for (tick = 0.5; tick <= R_MAX + 0.01; tick += 0.5) {
+      var px = tick / layout.mPerPx;
+      [-1, 1].forEach(function (sgn) {
+        ctxS.beginPath();
+        ctxS.moveTo(sgn * px, -plankH / 2);
+        ctxS.lineTo(sgn * px, -plankH / 2 - 6);
+        ctxS.stroke();
+        if (Math.abs(tick - Math.round(tick)) < 0.01) {
+          ctxS.fillText(tick.toFixed(0) + ' m', sgn * px, -plankH / 2 - 10);
+        }
+      });
+    }
+    ctxS.restore();
+
+    // kids (in world after rotation)
+    var kL = kidScreen(layout, 'L', state.rL, theta);
+    var kR = kidScreen(layout, 'R', state.rR, theta);
+    drawKid(ctxS, kL.x, kL.y - 4, state.mL, '#5ec8e5', 'LEFT', 1);
+    drawKid(ctxS, kR.x, kR.y - 4, state.mR, '#ff7e5f', 'RIGHT', 1);
+
+    // weight arrows
+    function drawWeightArrow(x, y, force, color) {
+      var len = 28 + force * 0.02;
+      ctxS.strokeStyle = color;
+      ctxS.fillStyle = color;
+      ctxS.lineWidth = 2;
+      ctxS.globalAlpha = 0.85;
+      ctxS.beginPath();
+      ctxS.moveTo(x, y + 22);
+      ctxS.lineTo(x, y + 22 + len);
+      ctxS.stroke();
+      ctxS.beginPath();
+      ctxS.moveTo(x, y + 22 + len);
+      ctxS.lineTo(x - 5, y + 22 + len - 8);
+      ctxS.lineTo(x + 5, y + 22 + len - 8);
+      ctxS.closePath();
+      ctxS.fill();
+      ctxS.globalAlpha = 1;
+      ctxS.font = '500 10px "IBM Plex Mono", monospace';
+      ctxS.textAlign = 'center';
+      ctxS.fillText('mg', x, y + 22 + len + 14);
+    }
+    drawWeightArrow(kL.x, kL.y, L.FL, '#5ec8e5');
+    drawWeightArrow(kR.x, kR.y, L.FR, '#ff7e5f');
+
+    // lever-arm brackets (horizontal, unrotated reference when nearly flat)
+    ctxS.save();
+    ctxS.strokeStyle = 'rgba(255, 194, 74, 0.55)';
+    ctxS.fillStyle = 'rgba(255, 194, 74, 0.85)';
+    ctxS.lineWidth = 1.5;
+    ctxS.setLineDash([4, 4]);
+    var armY = layout.pivotY + 72;
+    ctxS.beginPath();
+    ctxS.moveTo(layout.pivotX, armY);
+    ctxS.lineTo(kL.x, armY);
+    ctxS.moveTo(layout.pivotX, armY);
+    ctxS.lineTo(kR.x, armY);
+    ctxS.stroke();
+    ctxS.setLineDash([]);
+    ctxS.font = '500 11px "IBM Plex Mono", monospace';
+    ctxS.textAlign = 'center';
+    ctxS.fillText('r_L = ' + state.rL.toFixed(2) + ' m', (layout.pivotX + kL.x) / 2, armY + 16);
+    ctxS.fillText('r_R = ' + state.rR.toFixed(2) + ' m', (layout.pivotX + kR.x) / 2, armY + 16);
+    // pivot glow
+    ctxS.beginPath();
+    ctxS.arc(layout.pivotX, layout.pivotY, 5, 0, Math.PI * 2);
+    ctxS.fillStyle = '#ffc24a';
+    ctxS.fill();
+    ctxS.restore();
+
+    // formula strip
+    ctxS.font = '500 12px "IBM Plex Mono", monospace';
+    ctxS.fillStyle = 'rgba(215, 222, 242, 0.7)';
+    ctxS.textAlign = 'left';
+    ctxS.fillText('τ = F × r   ·   τ_net = τ_L − τ_R', 16, 28);
+    ctxS.fillStyle = L.status === 'balance' ? '#5ec8e5' : (L.net > 0 ? '#ffc24a' : '#ff7e5f');
+    ctxS.fillText(
+      L.status === 'balance' ? 'net τ ≈ 0  →  equilibrium' :
+        (L.net > 0 ? 'net τ > 0  →  tips left' : 'net τ < 0  →  tips right'),
+      16, 48
+    );
+
+    // stash hit targets
+    state._hits = {
+      L: { x: kL.x, y: kL.y - 30, r: 36 },
+      R: { x: kR.x, y: kR.y - 30, r: 36 },
+      layout: layout
+    };
+  }
+
+  function drawBars() {
+    var dim = fitCanvas(cvBars, ctxB);
+    var W = dim.w, H = dim.h;
+    var L = live();
+    ctxB.clearRect(0, 0, W, H);
+
+    ctxB.font = '500 11px "IBM Plex Mono", monospace';
+    ctxB.fillStyle = 'rgba(139, 147, 173, 0.9)';
+    ctxB.textAlign = 'left';
+    ctxB.fillText('Live torques', 18, 28);
+
+    var maxTau = Math.max(L.tL, L.tR, 50);
+    var barMax = W - 56;
+    var baseY = 70;
+    var rowH = 78;
+
+    function bar(y, label, value, color, sub) {
+      var w = (value / maxTau) * barMax;
+      ctxB.fillStyle = 'rgba(139, 147, 173, 0.85)';
+      ctxB.font = '500 11px "IBM Plex Mono", monospace';
+      ctxB.textAlign = 'left';
+      ctxB.fillText(label, 18, y);
+      ctxB.fillStyle = color;
+      ctxB.font = '600 14px "IBM Plex Mono", monospace';
+      ctxB.fillText(fmtTau(value), 18, y + 20);
+      ctxB.fillStyle = 'rgba(16, 22, 48, 0.9)';
+      ctxB.strokeStyle = color;
+      ctxB.lineWidth = 1.5;
+      ctxB.beginPath();
+      ctxB.roundRect(18, y + 30, barMax, 16, 4);
+      ctxB.fill();
+      ctxB.stroke();
+      ctxB.fillStyle = color;
+      ctxB.globalAlpha = 0.85;
+      ctxB.beginPath();
+      ctxB.roundRect(18, y + 30, Math.max(2, w), 16, 4);
+      ctxB.fill();
+      ctxB.globalAlpha = 1;
+      if (sub) {
+        ctxB.fillStyle = 'rgba(139, 147, 173, 0.75)';
+        ctxB.font = '500 10px "IBM Plex Mono", monospace';
+        ctxB.fillText(sub, 18, y + 62);
+      }
+    }
+
+    bar(baseY, 'LEFT  τ_L = m_L g r_L', L.tL, '#5ec8e5',
+      state.mL + ' kg × 9.81 × ' + state.rL.toFixed(2) + ' m');
+    bar(baseY + rowH, 'RIGHT  τ_R = m_R g r_R', L.tR, '#ff7e5f',
+      state.mR + ' kg × 9.81 × ' + state.rR.toFixed(2) + ' m');
+
+    // net
+    var netY = baseY + rowH * 2 + 10;
+    ctxB.fillStyle = 'rgba(139, 147, 173, 0.85)';
+    ctxB.font = '500 11px "IBM Plex Mono", monospace';
+    ctxB.fillText('NET  τ_L − τ_R', 18, netY);
+    var netColor = L.status === 'balance' ? '#5ec8e5' : (L.net > 0 ? '#ffc24a' : '#ff7e5f');
+    ctxB.fillStyle = netColor;
+    ctxB.font = '600 16px "IBM Plex Mono", monospace';
+    ctxB.fillText(L.status === 'balance' ? '≈ 0 N·m' : fmtTau(L.net), 18, netY + 22);
+
+    // bipolar net meter
+    var midX = 18 + barMax / 2;
+    var meterY = netY + 40;
+    ctxB.strokeStyle = 'rgba(94, 200, 229, 0.28)';
+    ctxB.lineWidth = 3;
+    ctxB.beginPath();
+    ctxB.moveTo(18, meterY);
+    ctxB.lineTo(18 + barMax, meterY);
+    ctxB.stroke();
+    ctxB.strokeStyle = 'rgba(255, 194, 74, 0.5)';
+    ctxB.beginPath();
+    ctxB.moveTo(midX, meterY - 8);
+    ctxB.lineTo(midX, meterY + 8);
+    ctxB.stroke();
+    var span = Math.max(maxTau, 1);
+    var nx = midX + (L.net / span) * (barMax / 2);
+    nx = clamp(nx, 18, 18 + barMax);
+    ctxB.fillStyle = netColor;
+    ctxB.beginPath();
+    ctxB.arc(nx, meterY, 7, 0, Math.PI * 2);
+    ctxB.fill();
+    ctxB.fillStyle = 'rgba(139, 147, 173, 0.7)';
+    ctxB.font = '500 10px "IBM Plex Mono", monospace';
+    ctxB.textAlign = 'left';
+    ctxB.fillText('left-down', 18, meterY + 22);
+    ctxB.textAlign = 'right';
+    ctxB.fillText('right-down', 18 + barMax, meterY + 22);
+
+    // balance cue
+    var cueY = H - 70;
+    ctxB.textAlign = 'left';
+    ctxB.fillStyle = 'rgba(215, 222, 242, 0.75)';
+    ctxB.font = '500 11px "IBM Plex Mono", monospace';
+    ctxB.fillText('Balance test', 18, cueY);
+    ctxB.font = '600 13px "IBM Plex Mono", monospace';
+    ctxB.fillStyle = L.status === 'balance' ? '#5ec8e5' : '#d7def2';
+    ctxB.fillText(
+      'm_L r_L = ' + L.pL.toFixed(2) + '   ·   m_R r_R = ' + L.pR.toFixed(2),
+      18, cueY + 22
+    );
+    ctxB.font = '500 11px "IBM Plex Mono", monospace';
+    ctxB.fillStyle = 'rgba(139, 147, 173, 0.8)';
+    ctxB.fillText(
+      L.status === 'balance' ? 'products equal → τ_L = τ_R' : 'unequal products → net torque',
+      18, cueY + 42
+    );
+  }
+
+  function render() {
+    drawScene();
+    drawBars();
+  }
+
+  function step(dt) {
+    if (!state.tipOn) return;
+    var L = live();
+    if (L.status === 'balance') {
+      // gently settle to flat
+      state.omega += (-2.8 * state.theta - 3.5 * state.omega) * dt;
+      state.theta += state.omega * dt;
+      if (Math.abs(state.theta) < 0.001 && Math.abs(state.omega) < 0.001) {
+        state.theta = 0;
+        state.omega = 0;
+      }
+      return;
+    }
+    var alpha = L.net / I_PLANK - DAMP * state.omega;
+    state.omega += alpha * dt;
+    state.theta += state.omega * dt;
+    if (state.theta > THETA_MAX) {
+      state.theta = THETA_MAX;
+      state.omega *= -0.15;
+    } else if (state.theta < -THETA_MAX) {
+      state.theta = -THETA_MAX;
+      state.omega *= -0.15;
+    }
+  }
+
+  var lastT = 0;
+  function frame(t) {
+    if (!lastT) lastT = t;
+    var dt = Math.min(0.033, (t - lastT) / 1000);
+    lastT = t;
+    step(dt);
+    updateUI();
+    render();
+    requestAnimationFrame(frame);
+  }
+
+  // Pointer drag
+  function canvasPos(ev) {
+    var rect = cvScene.getBoundingClientRect();
+    return { x: ev.clientX - rect.left, y: ev.clientY - rect.top };
+  }
+
+  function hitTest(p) {
+    var h = state._hits;
+    if (!h) return null;
+    function near(side) {
+      var o = h[side];
+      var dx = p.x - o.x, dy = p.y - o.y;
+      return dx * dx + dy * dy <= o.r * o.r;
+    }
+    if (near('L')) return 'L';
+    if (near('R')) return 'R';
+    return null;
+  }
+
+  function dragTo(p) {
+    var layout = state._hits && state._hits.layout;
+    if (!layout || !state.drag) return;
+    // Inverse-rotate pointer into plank frame
+    var dx = p.x - layout.pivotX;
+    var dy = p.y - layout.pivotY;
+    var c = Math.cos(-state.theta), s = Math.sin(-state.theta);
+    var xPlank = dx * c - dy * s;
+    var r = Math.abs(xPlank) * layout.mPerPx;
+    r = clamp(r, R_MIN, R_MAX);
+    // Snap to 0.05 m like the slider
+    r = Math.round(r / 0.05) * 0.05;
+    if (state.drag === 'L') {
+      // left kid stays on left
+      if (xPlank > 0) r = R_MIN;
+      state.rL = r;
+    } else {
+      if (xPlank < 0) r = R_MIN;
+      state.rR = r;
+    }
+    state.preset = 'custom';
+    clearPresetChips();
+    syncLabels();
+  }
+
+  cvScene.addEventListener('pointerdown', function (ev) {
+    var p = canvasPos(ev);
+    var hit = hitTest(p);
+    if (!hit) return;
+    state.drag = hit;
+    cvScene.classList.add('dragging');
+    try { cvScene.setPointerCapture(ev.pointerId); } catch (e) {}
+    dragTo(p);
+  });
+  cvScene.addEventListener('pointermove', function (ev) {
+    if (!state.drag) return;
+    dragTo(canvasPos(ev));
+  });
+  function endDrag(ev) {
+    state.drag = null;
+    cvScene.classList.remove('dragging');
+    try { cvScene.releasePointerCapture(ev.pointerId); } catch (e) {}
+  }
+  cvScene.addEventListener('pointerup', endDrag);
+  cvScene.addEventListener('pointercancel', endDrag);
+
+  // Sliders
+  function onMass(side, el) {
+    el.addEventListener('input', function () {
+      var v = clamp(parseFloat(el.value), M_MIN, M_MAX);
+      if (side === 'L') state.mL = v; else state.mR = v;
+      state.preset = 'custom';
+      clearPresetChips();
+      syncLabels();
+    });
+  }
+  function onDist(side, el) {
+    el.addEventListener('input', function () {
+      var v = clamp(parseFloat(el.value), R_MIN, R_MAX);
+      if (side === 'L') state.rL = v; else state.rR = v;
+      state.preset = 'custom';
+      clearPresetChips();
+      syncLabels();
+    });
+  }
+  onMass('L', elML); onMass('R', elMR);
+  onDist('L', elRL); onDist('R', elRR);
+
+  elPlay.addEventListener('click', function () {
+    state.tipOn = !state.tipOn;
+    elPlay.textContent = state.tipOn ? 'Pause tip' : 'Play tip';
+    elPlay.setAttribute('aria-pressed', state.tipOn ? 'true' : 'false');
+  });
+  elReset.addEventListener('click', function () {
+    state.theta = 0;
+    state.omega = 0;
+  });
+
+  $('presetBalance').addEventListener('click', function () { applyPreset('balance'); });
+  $('presetMyth').addEventListener('click', function () { applyPreset('myth'); });
+  $('presetSwap').addEventListener('click', function () { applyPreset('swap'); });
+  $('presetKids').addEventListener('click', function () { applyPreset('kids'); });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      elPlay.click();
+    }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  // Polyfill roundRect if needed
+  if (!CanvasRenderingContext2D.prototype.roundRect) {
+    CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+      if (typeof r === 'number') r = { tl: r, tr: r, br: r, bl: r };
+      this.moveTo(x + r.tl, y);
+      this.lineTo(x + w - r.tr, y);
+      this.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+      this.lineTo(x + w, y + h - r.br);
+      this.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+      this.lineTo(x + r.bl, y + h);
+      this.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+      this.lineTo(x, y + r.tl);
+      this.quadraticCurveTo(x, y, x + r.tl, y);
+      this.closePath();
+    };
+  }
+
+  syncLabels();
+  updateUI();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
