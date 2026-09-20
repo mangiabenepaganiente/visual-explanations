@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Helium Balloon Gets Heavier — and Still Rises | Classroom</title>
+<meta name="description" content="Teacher explainer: helium has mass. Filling a balloon makes the scale reading go up, yet it rises because average density of balloon + He + skin is less than air. Archimedes buoyancy, live ρ_avg vs ρ_air.">
+<meta name="keywords" content="helium balloon, buoyancy, Archimedes, density, helium mass, classroom, teachers, misconception, negative mass">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 780px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.55);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.myth-hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.4;
+  flex: 1 1 200px;
+}
+.myth-hint.bust { color: var(--warm); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 420px; }
+.force-card canvas { height: 420px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .force-card { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .page { padding: 18px 14px 48px; }
+}
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · helium</a></p>
+  <h1>A helium balloon gets heavier — and still rises</h1>
+  <p class="lede">Helium is not anti-gravity. Filling a balloon <strong>adds mass</strong> — the scale reading goes up. It rises anyway because the average density of latex + helium is less than the density of the air it displaces. Buoyancy is Archimedes, not negative mass.</p>
+
+  <p class="try"><b>Try this</b>Drag the fill slider. Watch the scale mass climb while the balloon lifts. Compare live ρ<sub>avg</sub> to ρ<sub>air</sub>. Tap a myth chip to name the misconception out loud.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Play</button>
+      <label class="sl grow">
+        <span>Helium fill <em id="fillLabel">60%</em></span>
+        <input type="range" id="fill" min="0" max="100" step="0.5" value="60" aria-label="Helium fill fraction percent">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="chipEmpty" aria-pressed="false">Empty</button>
+      <button type="button" class="chip" id="chipHalf" aria-pressed="false">Half</button>
+      <button type="button" class="chip on" id="chipParty" aria-pressed="true">Party full</button>
+      <button type="button" class="chip sun" id="chipOver" aria-pressed="false">Max V</button>
+    </div>
+    <div class="row">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase">Myth chips</span>
+      <button type="button" class="chip myth" id="mythNeg" aria-pressed="false">“Negative mass”</button>
+      <button type="button" class="chip myth" id="mythNone" aria-pressed="false">“No mass”</button>
+      <button type="button" class="chip myth" id="mythLight" aria-pressed="false">“Makes things lighter”</button>
+      <span class="myth-hint" id="mythHint">Tap a myth. The scale still climbs with fill.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Balloon · scale · tether</b><span id="sceneMeta">Archimedes in air</span></div>
+      <canvas id="cvScene" width="720" height="420" aria-label="Helium balloon on a scale with tether force and buoyancy arrows"></canvas>
+    </div>
+    <div class="card force-card">
+      <div class="card-h"><b>Density &amp; forces</b><span id="forceMeta">ρ_avg vs ρ_air · F_b vs weight</span></div>
+      <canvas id="cvForce" width="520" height="420" aria-label="Average density versus air density and buoyant force versus weight"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Helium has mass</h2>
+      <p>He atoms have mass (~4 u). At STP, ρ<sub>He</sub> ≈ 0.1785 kg/m³. Adding helium to the balloon increases the scale reading: m = m<sub>skin</sub> + ρ<sub>He</sub> V.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Archimedes in air</h2>
+      <p>The buoyant force equals the weight of the displaced fluid: F<sub>b</sub> = ρ<sub>air</sub> V g. Air is denser than helium (~1.225 vs 0.1785), so the push up can beat the balloon’s weight.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Average density decides</h2>
+      <p>The balloon rises when ρ<sub>avg</sub> = (m<sub>skin</sub> + ρ<sub>He</sub> V) / V &lt; ρ<sub>air</sub>. Same rule as ships: hollow things float when the average is light enough.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Not negative mass</h2>
+      <p>Helium does not weigh less than nothing. It does not cancel mass. The balloon gets heavier as you fill it — and still rises — because buoyancy from denser air wins.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Helium and air density facts">
+    <div class="stat">
+      <div class="k">ρ_air (STP)</div>
+      <div class="v">1.225 kg/m³</div>
+      <div class="s">dry air · ISA sea level</div>
+    </div>
+    <div class="stat">
+      <div class="k">ρ_He (STP)</div>
+      <div class="v">0.1785 kg/m³</div>
+      <div class="s">~7× lighter than air</div>
+    </div>
+    <div class="stat">
+      <div class="k">ρ_air − ρ_He</div>
+      <div class="v">1.0465</div>
+      <div class="s">kg/m³ net lift density</div>
+    </div>
+    <div class="stat">
+      <div class="k">Latex skin (model)</div>
+      <div class="v">2.5 g</div>
+      <div class="s">party balloon · footnote</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">STP / ISA densities.</strong> Dry air at International Standard Atmosphere sea level is taken as <code>ρ_air = 1.225 kg/m³</code> (15 °C, 101 325 Pa). Helium at 0 °C / 1 atm (classic STP) is <code>ρ_He ≈ 0.1785 kg/m³</code> from the ideal-gas molar mass 4.0026 g/mol and V<sub>m</sub> ≈ 22.414 L/mol; classroom tables round to 0.179. Real party-balloon fill is nearer room temperature; the ratio ρ<sub>air</sub>/ρ<sub>He</sub> ≈ 6.9 is what matters for the rise condition.</li>
+      <li><strong style="color:var(--text)">Mass and forces.</strong> With volume V (m³) of helium inside: <code>m_He = ρ_He · V</code>, <code>m_total = m_skin + m_He</code>, <code>F_b = ρ_air · V · g</code>, <code>W = m_total · g</code>, with <code>g = 9.80665 m/s²</code>. Net tether tension (string holding the balloon down) is <code>T = F_b − W</code> when positive. The balloon rises freely when <code>F_b &gt; W</code>, equivalently <code>ρ_avg = m_total / V &lt; ρ_air</code> (for V &gt; 0).</li>
+      <li><strong style="color:var(--text)">Latex mass.</strong> The model skin is a fixed <code>m_skin = 2.5 g</code> — a typical empty party-balloon mass (real latex balloons run ~1.5–4 g depending on size and brand). Skin mass does not grow with fill here; real latex stretches a little and the string/tape add grams. Those extras only raise the fill needed to lift off.</li>
+      <li><strong style="color:var(--text)">Volume model.</strong> Fill fraction f ∈ [0, 1] maps to <code>V = f · V_max</code> with <code>V_max = 0.014 m³</code> (~30 cm diameter sphere). An empty balloon is treated as V → 0 with mass = m_skin only (collapsed, no buoyancy). The drawn sphere is schematic; real balloons are teardrop-shaped under gravity and tether.</li>
+      <li><strong style="color:var(--text)">What the scale shows.</strong> The “scale” readout is the gravitational mass m_total. On Earth that is what a balance reports. Helium does not reduce mass. If you weigh a sealed tank before and after releasing He into a balloon, the tank loses mass and the balloon+He system gains that same mass (minus any leak).</li>
+      <li><strong style="color:var(--text)">Not modeled.</strong> No diffusion through latex (helium really does leak over hours/days), no temperature change on expansion, no humidity, no altitude change of ρ_air, no string mass, no aerodynamic drag while rising. Hot-air balloons use the same Archimedes rule with heated air instead of helium.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Density, buoyancy, and gases-have-mass. Name the misconception out loud: “helium has negative mass / no mass / makes things lighter.” Pair with a sealed-balloon-on-a-scale demo if you can. NGSS MS-PS1 / MS-PS2 style density and forces.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants — same values as validate-helium.js =====
+  var RHO_AIR = 1.225;      // kg/m³, ISA sea level
+  var RHO_HE = 0.1785;      // kg/m³, He at STP
+  var G = 9.80665;          // m/s²
+  var M_SKIN = 0.0025;      // kg, latex party balloon
+  var V_MAX = 0.014;        // m³ at fill = 1
+  var PLAY_FPS = 18;        // fill % per second while playing
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13 = '13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  function clamp(x, a, b) {
+    return x < a ? a : (x > b ? b : x);
+  }
+
+  function volumeFromFill(fill01) {
+    return clamp(fill01, 0, 1) * V_MAX;
+  }
+
+  function heliumMass(V) {
+    return RHO_HE * V;
+  }
+
+  function totalMass(V) {
+    return M_SKIN + heliumMass(V);
+  }
+
+  function buoyantForce(V) {
+    return RHO_AIR * V * G;
+  }
+
+  function weightForce(V) {
+    return totalMass(V) * G;
+  }
+
+  function avgDensity(V) {
+    if (V <= 0) return Infinity;
+    return totalMass(V) / V;
+  }
+
+  function rises(V) {
+    if (V <= 0) return false;
+    return avgDensity(V) < RHO_AIR;
+  }
+
+  function tetherForce(V) {
+    return buoyantForce(V) - weightForce(V);
+  }
+
+  // Fill needed for lift-off: m_skin + ρ_He V = ρ_air V  =>  V = m_skin / (ρ_air − ρ_He)
+  function liftoffVolume() {
+    return M_SKIN / (RHO_AIR - RHO_HE);
+  }
+
+  function liftoffFill() {
+    return clamp(liftoffVolume() / V_MAX, 0, 1);
+  }
+
+  var state = {
+    fill: 0.60,
+    playing: false,
+    playDir: 1,
+    lastTs: 0,
+    time: 0,
+    myth: null, // 'neg' | 'none' | 'light' | null
+    bob: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elFill = $('fill');
+  var elFillL = $('fillLabel');
+  var elReadout = $('readout');
+  var elSceneMeta = $('sceneMeta');
+  var elForceMeta = $('forceMeta');
+  var elMythHint = $('mythHint');
+  var cvScene = $('cvScene');
+  var cvForce = $('cvForce');
+
+  var surfaces = {
+    scene: { canvas: cvScene, ctx: null, w: 0, h: 0, cssH: 420 },
+    force: { canvas: cvForce, ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function fmtG(kg) {
+    var g = kg * 1000;
+    if (g < 10) return g.toFixed(2) + ' g';
+    return g.toFixed(1) + ' g';
+  }
+
+  function fmtN(n) {
+    if (Math.abs(n) < 0.001) return (n * 1000).toFixed(2) + ' mN';
+    return n.toFixed(3) + ' N';
+  }
+
+  function fmtRho(r) {
+    if (!isFinite(r)) return '— (empty)';
+    return r.toFixed(3) + ' kg/m³';
+  }
+
+  function fmtV(v) {
+    if (v < 0.001) return (v * 1e6).toFixed(0) + ' cm³';
+    return (v * 1000).toFixed(2) + ' L';
+  }
+
+  function setFill(f01, fromPlay) {
+    state.fill = clamp(f01, 0, 1);
+    elFill.value = String(+(state.fill * 100).toFixed(1));
+    elFillL.textContent = Math.round(state.fill * 100) + '%';
+    if (!fromPlay) syncChips();
+    updateReadout();
+  }
+
+  function syncChips() {
+    var f = state.fill;
+    var pairs = [
+      ['chipEmpty', Math.abs(f - 0) < 0.005],
+      ['chipHalf', Math.abs(f - 0.5) < 0.02],
+      ['chipParty', Math.abs(f - 0.6) < 0.02],
+      ['chipOver', Math.abs(f - 1) < 0.005]
+    ];
+    var i;
+    for (i = 0; i < pairs.length; i++) {
+      var el = $(pairs[i][0]);
+      var on = pairs[i][1];
+      el.classList.toggle('on', on);
+      el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+  }
+
+  function updateReadout() {
+    var V = volumeFromFill(state.fill);
+    var mHe = heliumMass(V);
+    var mTot = totalMass(V);
+    var Fb = buoyantForce(V);
+    var W = weightForce(V);
+    var T = tetherForce(V);
+    var rhoA = avgDensity(V);
+    var up = rises(V);
+
+    elSceneMeta.textContent = up
+      ? 'rising · tether holds it down'
+      : (V <= 0 ? 'empty latex on the pan' : 'too dense · sits on scale');
+    elForceMeta.textContent = up
+      ? 'ρ_avg < ρ_air · F_b > weight'
+      : 'ρ_avg ≥ ρ_air · no lift yet';
+
+    var scaleClass = 'v sun';
+    var tetherClass = up ? 'v' : 'v warm';
+    var densClass = up ? 'v' : 'v warm';
+
+    elReadout.innerHTML =
+      '<div class="kv"><div class="k">He mass</div><div class="v">' + fmtG(mHe) + '</div>' +
+        '<div class="s">ρ_He · V · grows with fill</div></div>' +
+      '<div class="kv"><div class="k">Scale mass</div><div class="' + scaleClass + '">' + fmtG(mTot) + '</div>' +
+        '<div class="s">m_skin + m_He · always ↑ with fill</div></div>' +
+      '<div class="kv"><div class="k">Volume</div><div class="v">' + fmtV(V) + '</div>' +
+        '<div class="s">f · V_max = f · 14 L</div></div>' +
+      '<div class="kv"><div class="k">ρ_avg vs ρ_air</div><div class="' + densClass + '">' +
+        (isFinite(rhoA) ? rhoA.toFixed(3) : '∞') + ' / 1.225</div>' +
+        '<div class="s">' + (up ? 'lighter than air → rises' : 'heavier or empty → no rise') + '</div></div>' +
+      '<div class="kv"><div class="k">Buoyancy F_b</div><div class="v">' + fmtN(Fb) + '</div>' +
+        '<div class="s">ρ_air · V · g</div></div>' +
+      '<div class="kv"><div class="k">Tether</div><div class="' + tetherClass + '">' +
+        (up ? ('+' + fmtN(T) + ' up') : (V <= 0 ? '0 · empty' : fmtN(T) + ' · no lift')) + '</div>' +
+        '<div class="s">F_b − weight</div></div>';
+  }
+
+  function setMyth(kind) {
+    var ids = { neg: 'mythNeg', none: 'mythNone', light: 'mythLight' };
+    var hints = {
+      neg: 'Busted: He has positive mass (~4 u). Scale rises with fill — no negative mass.',
+      none: 'Busted: gases have mass. Empty → full adds ρ_He·V grams you can weigh.',
+      light: 'Busted: “lighter” means lower density than air, not less mass on the scale.'
+    };
+    if (state.myth === kind) {
+      state.myth = null;
+    } else {
+      state.myth = kind;
+    }
+    var k;
+    for (k in ids) {
+      if (!Object.prototype.hasOwnProperty.call(ids, k)) continue;
+      var on = state.myth === k;
+      var el = $(ids[k]);
+      el.classList.toggle('on', on);
+      el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+    if (state.myth) {
+      elMythHint.textContent = hints[state.myth];
+      elMythHint.classList.add('bust');
+    } else {
+      elMythHint.textContent = 'Tap a myth. The scale still climbs with fill.';
+      elMythHint.classList.remove('bust');
+    }
+  }
+
+  function drawArrow(ctx, x0, y0, x1, y1, color, label) {
+    var dx = x1 - x0;
+    var dy = y1 - y0;
+    var len = Math.hypot(dx, dy);
+    if (len < 4) return;
+    var ux = dx / len;
+    var uy = dy / len;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+    var ah = 9;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x1 - ah * ux + ah * 0.45 * uy, y1 - ah * uy - ah * 0.45 * ux);
+    ctx.lineTo(x1 - ah * ux - ah * 0.45 * uy, y1 - ah * uy + ah * 0.45 * ux);
+    ctx.closePath();
+    ctx.fill();
+    if (label) {
+      ctx.font = FONT_MONO_10;
+      ctx.fillText(label, x1 + 8, y1 + 3);
+    }
+  }
+
+  function drawScene() {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx;
+    var W = surf.w;
+    var H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+
+    // room gradient
+    var gdbg = ctx.createLinearGradient(0, 0, 0, H);
+    gdbg.addColorStop(0, '#0a1028');
+    gdbg.addColorStop(1, '#060814');
+    ctx.fillStyle = gdbg;
+    ctx.fillRect(0, 0, W, H);
+
+    // air speckles
+    var i;
+    ctx.fillStyle = 'rgba(94,200,229,0.08)';
+    for (i = 0; i < 40; i++) {
+      var ax = (i * 97 + state.time * 12) % W;
+      var ay = (i * 53 + 20) % (H * 0.72);
+      ctx.beginPath();
+      ctx.arc(ax, ay, 1.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    var V = volumeFromFill(state.fill);
+    var up = rises(V);
+    var fill = state.fill;
+    var rMax = Math.min(W, H) * 0.18;
+    var r = Math.max(6, Math.pow(fill, 1 / 3) * rMax);
+    var floorY = H * 0.82;
+    var cx = W * 0.42;
+
+    // bob when rising
+    var bob = up ? Math.sin(state.time * 2.2) * 4 : 0;
+    state.bob = bob;
+    var cy = up
+      ? floorY - 70 - r - 28 + bob
+      : floorY - 18 - r * 0.15 - (fill > 0.02 ? r : 8);
+
+    // scale pan
+    var panY = floorY;
+    var panW = Math.min(160, W * 0.28);
+    ctx.fillStyle = '#121a36';
+    ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(cx - panW / 2, panY);
+    ctx.lineTo(cx + panW / 2, panY);
+    ctx.lineTo(cx + panW / 2 - 10, panY + 14);
+    ctx.lineTo(cx - panW / 2 + 10, panY + 14);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // scale body
+    ctx.fillStyle = '#0e152c';
+    ctx.fillRect(cx - 28, panY + 14, 56, 36);
+    ctx.strokeStyle = 'rgba(255,194,74,0.35)';
+    ctx.strokeRect(cx - 28, panY + 14, 56, 36);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#ffc24a';
+    ctx.textAlign = 'center';
+    ctx.fillText(fmtG(totalMass(V)), cx, panY + 36);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('SCALE', cx, panY + 48);
+
+    // string / tether
+    if (fill > 0.02) {
+      ctx.strokeStyle = up ? 'rgba(94,200,229,0.7)' : 'rgba(139,147,173,0.35)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy + r);
+      ctx.lineTo(cx, panY);
+      ctx.stroke();
+    }
+
+    // balloon body
+    if (fill < 0.02) {
+      // collapsed floppy
+      ctx.fillStyle = 'rgba(255,126,95,0.55)';
+      ctx.beginPath();
+      ctx.ellipse(cx, panY - 8, 22, 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#8b93ad';
+      ctx.textAlign = 'center';
+      ctx.fillText('empty latex · ' + fmtG(M_SKIN), cx, panY - 22);
+    } else {
+      var grd = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.4, r * 0.1, cx, cy, r);
+      grd.addColorStop(0, 'rgba(180, 230, 255, 0.55)');
+      grd.addColorStop(0.45, 'rgba(94, 200, 229, 0.35)');
+      grd.addColorStop(1, 'rgba(40, 90, 140, 0.5)');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(94,200,229,0.65)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      // knot
+      ctx.fillStyle = 'rgba(255,126,95,0.8)';
+      ctx.beginPath();
+      ctx.moveTo(cx - 4, cy + r - 2);
+      ctx.lineTo(cx + 4, cy + r - 2);
+      ctx.lineTo(cx, cy + r + 10);
+      ctx.closePath();
+      ctx.fill();
+
+      // He label inside
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = 'rgba(215,222,242,0.85)';
+      ctx.textAlign = 'center';
+      ctx.fillText('He', cx, cy + 4);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = 'rgba(139,147,173,0.9)';
+      ctx.fillText(fmtV(V), cx, cy + 18);
+    }
+
+    // force arrows on balloon
+    if (fill > 0.05) {
+      var Fb = buoyantForce(V);
+      var Wt = weightForce(V);
+      var maxF = Math.max(Fb, Wt, 0.01);
+      var aScale = Math.min(H * 0.22, 90) / maxF;
+      var ax0 = cx + r + 28;
+      drawArrow(ctx, ax0, cy, ax0, cy - Fb * aScale, '#5ec8e5', 'F_b');
+      drawArrow(ctx, ax0 + 22, cy, ax0 + 22, cy + Wt * aScale, '#ff7e5f', 'W');
+      if (up) {
+        var Tt = tetherForce(V);
+        drawArrow(ctx, cx - r - 20, cy + r * 0.2, cx - r - 20, cy + r * 0.2 + Math.min(50, Tt * aScale * 0.9), '#ffc24a', 'T');
+      }
+    }
+
+    // myth overlay callout
+    if (state.myth) {
+      ctx.fillStyle = 'rgba(255,126,95,0.12)';
+      ctx.fillRect(10, 10, W - 20, 44);
+      ctx.strokeStyle = 'rgba(255,126,95,0.45)';
+      ctx.strokeRect(10, 10, W - 20, 44);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.textAlign = 'left';
+      var title = state.myth === 'neg' ? 'Myth: negative mass'
+        : state.myth === 'none' ? 'Myth: helium has no mass'
+        : 'Myth: helium makes things lighter';
+      ctx.fillText(title, 22, 30);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText('Scale still reads ' + fmtG(totalMass(V)) + ' — mass went up with fill.', 22, 46);
+    }
+
+    // status chip
+    ctx.textAlign = 'left';
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = up ? '#5ec8e5' : '#ff7e5f';
+    ctx.fillText(up ? '● RISES  (ρ_avg < ρ_air)' : '● NO LIFT YET', 16, H - 16);
+
+    // liftoff marker hint
+    var lf = liftoffFill();
+    ctx.fillStyle = '#8b93ad';
+    ctx.font = FONT_MONO_10;
+    ctx.textAlign = 'right';
+    ctx.fillText('lift-off ≈ ' + Math.round(lf * 100) + '% fill', W - 14, H - 16);
+  }
+
+  function drawForce() {
+    var surf = surfaces.force;
+    fitCanvas(surf);
+    var ctx = surf.ctx;
+    var W = surf.w;
+    var H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+
+    ctx.fillStyle = '#0a0e22';
+    ctx.fillRect(0, 0, W, H);
+
+    var V = volumeFromFill(state.fill);
+    var rhoA = avgDensity(V);
+    var Fb = buoyantForce(V);
+    var Wt = weightForce(V);
+    var up = rises(V);
+
+    // --- density bars ---
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'left';
+    ctx.fillText('DENSITY', 18, 28);
+
+    var barX = 18;
+    var barW = W - 36;
+    var barH = 28;
+    var y1 = 48;
+    var y2 = 100;
+    var rhoMax = 2.0; // display scale
+
+    function densBar(y, rho, color, label) {
+      var w = isFinite(rho) ? clamp(rho / rhoMax, 0, 1) * barW : barW;
+      ctx.fillStyle = 'rgba(16,22,48,0.9)';
+      ctx.fillRect(barX, y, barW, barH);
+      ctx.fillStyle = color;
+      ctx.fillRect(barX, y, w, barH);
+      ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+      ctx.strokeRect(barX, y, barW, barH);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#d7def2';
+      ctx.textAlign = 'left';
+      ctx.fillText(label, barX + 8, y + 19);
+      ctx.textAlign = 'right';
+      ctx.fillText(isFinite(rho) ? rho.toFixed(3) : '∞', barX + barW - 8, y + 19);
+    }
+
+    densBar(y1, isFinite(rhoA) ? rhoA : rhoMax, up ? 'rgba(94,200,229,0.55)' : 'rgba(255,126,95,0.55)', 'ρ_avg');
+    densBar(y2, RHO_AIR, 'rgba(255,194,74,0.45)', 'ρ_air');
+
+    // threshold line note
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'left';
+    ctx.fillText(up ? 'ρ_avg is below the air line → buoyant rise' : 'ρ_avg must drop below 1.225 to rise', 18, 148);
+
+    // --- force comparison ---
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('FORCES', 18, 180);
+
+    var maxF = Math.max(Fb, Wt, 0.05);
+    var fBarW = barW;
+    var fH = 26;
+    var fy1 = 200;
+    var fy2 = 246;
+
+    function forceBar(y, F, color, label) {
+      var w = clamp(F / maxF, 0, 1) * fBarW;
+      ctx.fillStyle = 'rgba(16,22,48,0.9)';
+      ctx.fillRect(barX, y, fBarW, fH);
+      ctx.fillStyle = color;
+      ctx.fillRect(barX, y, w, fH);
+      ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+      ctx.strokeRect(barX, y, fBarW, fH);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#d7def2';
+      ctx.textAlign = 'left';
+      ctx.fillText(label, barX + 8, y + 18);
+      ctx.textAlign = 'right';
+      ctx.fillText(fmtN(F), barX + fBarW - 8, y + 18);
+    }
+
+    forceBar(fy1, Fb, 'rgba(94,200,229,0.55)', 'F_b = ρ_air V g');
+    forceBar(fy2, Wt, 'rgba(255,126,95,0.55)', 'W = m_total g');
+
+    // net
+    var net = tetherForce(V);
+    ctx.font = FONT_DISPLAY;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = up ? '#5ec8e5' : '#ff7e5f';
+    ctx.fillText(up ? 'Net up: ' + fmtN(net) : (V <= 0 ? 'No volume yet' : 'Net down / no lift'), 18, 310);
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('Rise condition: F_b > W  ⇔  ρ_avg < ρ_air', 18, 332);
+
+    // mass-vs-fill mini sparkline
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('MASS vs FILL (proof He adds mass)', 18, 360);
+
+    var sx0 = 18;
+    var sy0 = H - 28;
+    var sW = W - 36;
+    var sH = 50;
+    ctx.strokeStyle = 'rgba(94,200,229,0.2)';
+    ctx.beginPath();
+    ctx.moveTo(sx0, sy0);
+    ctx.lineTo(sx0 + sW, sy0);
+    ctx.stroke();
+
+    var mMax = totalMass(V_MAX);
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    var j;
+    for (j = 0; j <= 40; j++) {
+      var ff = j / 40;
+      var mm = totalMass(volumeFromFill(ff));
+      var px = sx0 + ff * sW;
+      var py = sy0 - (mm / mMax) * sH;
+      if (j === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    // current point
+    var cx = sx0 + state.fill * sW;
+    var cy = sy0 - (totalMass(V) / mMax) * sH;
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath();
+    ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#a8b0c8';
+    ctx.textAlign = 'left';
+    ctx.fillText('m_skin', sx0, sy0 + 14);
+    ctx.textAlign = 'right';
+    ctx.fillText('m_skin+ρ_He V_max', sx0 + sW, sy0 + 14);
+  }
+
+  function render() {
+    drawScene();
+    drawForce();
+  }
+
+  function frame(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.time += dt;
+
+    if (state.playing) {
+      var next = state.fill + state.playDir * (PLAY_FPS / 100) * dt;
+      if (next >= 1) { next = 1; state.playDir = -1; }
+      if (next <= 0) { next = 0; state.playDir = 1; }
+      setFill(next, true);
+    }
+
+    render();
+    requestAnimationFrame(frame);
+  }
+
+  // controls
+  elFill.addEventListener('input', function () {
+    setFill(parseFloat(elFill.value) / 100, false);
+  });
+
+  elPlay.addEventListener('click', function () {
+    state.playing = !state.playing;
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+  });
+
+  $('chipEmpty').addEventListener('click', function () { setFill(0, false); });
+  $('chipHalf').addEventListener('click', function () { setFill(0.5, false); });
+  $('chipParty').addEventListener('click', function () { setFill(0.6, false); });
+  $('chipOver').addEventListener('click', function () { setFill(1, false); });
+
+  $('mythNeg').addEventListener('click', function () { setMyth('neg'); });
+  $('mythNone').addEventListener('click', function () { setMyth('none'); });
+  $('mythLight').addEventListener('click', function () { setMyth('light'); });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      elPlay.click();
+    }
+  });
+
+  window.addEventListener('resize', function () { render(); });
+
+  setFill(0.6, false);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
