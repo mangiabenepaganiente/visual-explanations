@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sugar Doesn’t Disappear When It Dissolves — Mass Conserved, Molecules Disperse</title>
+<meta name="description" content="Classroom explainer for teachers: dissolving sugar is a physical change. Crystals disperse as sucrose molecules in water; mass is conserved in a closed system. Live beaker, scale, and particle model. Busts the myth that dissolved sugar is gone. NGSS MS-PS1.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="dissolve, sugar, conservation of mass, physical change, solution, classroom, teachers, NGSS MS-PS1, misconception">
+<meta name="author" content="Visual Explanations">
+<meta property="og:title" content="Sugar Doesn’t Disappear When It Dissolves">
+<meta property="og:description" content="Crystals disperse as molecules; the scale reading stays put. Live beaker + particle model for the classroom mass-conservation myth.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sugar Doesn’t Disappear When It Dissolves">
+<meta name="twitter:description" content="Dissolving is a physical change. Mass conserved. Molecules still there — just too small to see as crystals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 780px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 420px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · dissolve</a></p>
+  <h1>Sugar doesn’t disappear when it dissolves</h1>
+  <p class="lede">Stir sugar into water and the crystals vanish. Students conclude the sugar is <strong>gone</strong> — destroyed, evaporated, or somehow lighter. It is not. Dissolving is a <strong>physical change</strong>: sucrose molecules leave the crystal lattice and disperse among water molecules. In a closed system the <strong>scale reading stays put</strong>.</p>
+
+  <p class="try"><b>Try this</b>Hit Play and watch crystals become particles. Keep an eye on the scale — it should not drop. Then flip the myth chip and see the fake “vanishing mass” story.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Play</button>
+      <label class="sl grow">
+        <span>Dissolve progress <em id="progLabel">0%</em></span>
+        <input type="range" id="prog" min="0" max="1" step="0.005" value="0" aria-label="Dissolve progress from crystals to solution">
+      </label>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="btnReset">Reset</button>
+      <button type="button" class="chip" id="btnFull">Fully dissolved</button>
+    </div>
+    <div class="row">
+      <button type="button" class="chip" id="btnStir" aria-pressed="false">Stir OFF</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="btnMyth" aria-pressed="false">Myth: sugar gone</button>
+      <span id="modeHint" style="font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.4">Truth: mass conserved · particles still counted</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Beaker on a scale</b><span id="beakerMeta">closed system · contents only</span></div>
+      <canvas id="cvBeaker" width="760" height="420" aria-label="Beaker of water with sugar crystals dissolving into particles on a digital scale"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Mass before / after</b><span id="massMeta">Δm = 0 within rounding</span></div>
+      <canvas id="cvMass" width="520" height="420" aria-label="Bar chart of water, sugar, and total mass before and after dissolving"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Physical, not chemical</h2>
+      <p>Sucrose (C<sub>12</sub>H<sub>22</sub>O<sub>11</sub>) does not break into new substances when it dissolves. Water surrounds the molecules and pulls them from the crystal. Same formula, new arrangement — a solution, not a reaction product.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Molecules disperse</h2>
+      <p>What “vanishes” is the crystal — a lattice big enough to scatter light. The sugar units are still there, too small to see as grains, mixed through the water. Taste and a closed-system weighing both prove it.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Mass is conserved</h2>
+      <p>In a closed beaker (no splash-out, no evaporation modeled here): <code style="font-family:var(--mono);color:#8fd4e8;font-size:12px">m_water + m_sugar = m_solution</code>. The scale reads the same before and after. “Gone” would require open-system loss.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“It’s gone / lighter”</h2>
+      <p>Invisible ≠ destroyed. Dissolved sugar is still sugar. Toggle the myth chip: the fake scale drops as crystals clear. The true readout never does. That drop is the misconception drawn in neon.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Model masses and particle count">
+    <div class="stat">
+      <div class="k">Water (model)</div>
+      <div class="v">100.0 g</div>
+      <div class="s">closed beaker contents</div>
+    </div>
+    <div class="stat">
+      <div class="k">Sugar (model)</div>
+      <div class="v">10.0 g</div>
+      <div class="s">added as crystals</div>
+    </div>
+    <div class="stat">
+      <div class="k">Total (truth)</div>
+      <div class="v">110.0 g</div>
+      <div class="s">before = after</div>
+    </div>
+    <div class="stat">
+      <div class="k">Sugar units</div>
+      <div class="v">48</div>
+      <div class="s">conserved in the model</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Conservation of mass.</strong> For a closed system with no chemical reaction that exchanges mass with the surroundings: <code>m_before = m_water + m_sugar</code> and <code>m_after = m_solution = m_water + m_sugar</code>. The live scale uses that identity. Displayed grams are rounded to 0.1 g; the underlying floats stay exact so Δm is zero within rounding.</li>
+      <li><strong style="color:var(--text)">Physical change.</strong> Ordinary table sugar in water is a molecular solution of sucrose. No covalent bonds in C<sub>12</sub>H<sub>22</sub>O<sub>11</sub> are broken by dissolving; hydration and lattice breakup are intermolecular. (Ionic salts dissolve as ions — still a physical change in the classroom sense, different particle cartoon. This page models sucrose.)</li>
+      <li><strong style="color:var(--text)">Particle model.</strong> <code>N_SUGAR = 48</code> cartoon units stand in for ~1.8×10<sup>22</sup> real sucrose molecules in 10 g. Crystal clusters and free Brownian dots are the same units relocated. Particle count is conserved at every progress value: <code>n_crystal + n_free = N_SUGAR</code>.</li>
+      <li><strong style="color:var(--text)">Progress parameter.</strong> Slider <code>p ∈ [0, 1]</code> is the dissolved fraction of sugar mass / units. Crystal mass remaining = <code>(1 − p) · m_sugar</code>; dissolved mass = <code>p · m_sugar</code>. Play advances <code>p</code> at a fixed rate; Stir adds a swirl velocity field to free particles only.</li>
+      <li><strong style="color:var(--text)">Myth chip.</strong> When “Myth: sugar gone” is on, the drawn scale displays <code>m_water + (1 − p) · m_sugar</code> — the false story that dissolved sugar leaves the system. True mass readouts and the before/after chart stay at 110.0 g. The chip is a teaching overlay, not physics.</li>
+      <li><strong style="color:var(--text)">What we omit.</strong> Evaporation, splash-out, temperature, solubility limits (~200 g sucrose / 100 mL water at 20 °C — 10 g in 100 g water is well undersaturated), density rise of the solution, and osmotic effects. The beaker glass tare is omitted so the scale shows contents only.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Pairs with a sealed-bottle weigh-before/weigh-after lab. NGSS MS-PS1-2 / MS-PS1-5 (conservation of mass; physical vs chemical). Name the misconception out loud: “If I can’t see the crystals, the sugar is gone.”</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants — same values as validate-dissolve.js =====
+  var M_WATER = 100.0; // g
+  var M_SUGAR = 10.0;  // g
+  var N_SUGAR = 48;    // cartoon sugar units
+  var PLAY_RATE = 0.18; // progress per second
+  var ROUND_G = 0.1;   // display rounding
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_14 = '14px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_22 = '500 22px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  var COL_COOL = '#5ec8e5';
+  var COL_WARM = '#ff7e5f';
+  var COL_SUN = '#ffc24a';
+  var COL_SUGAR = '#e8d4a8';
+  var COL_WATER = 'rgba(94, 200, 229, 0.22)';
+
+  function clamp(x, a, b) {
+    return x < a ? a : (x > b ? b : x);
+  }
+
+  function roundMass(g) {
+    return Math.round(g / ROUND_G) * ROUND_G;
+  }
+
+  /** True closed-system total (always conserved). */
+  function trueTotalMass() {
+    return M_WATER + M_SUGAR;
+  }
+
+  /** Mass still in crystal form. */
+  function crystalMass(p) {
+    return (1 - p) * M_SUGAR;
+  }
+
+  /** Mass dispersed in solution. */
+  function dissolvedMass(p) {
+    return p * M_SUGAR;
+  }
+
+  /**
+   * Scale reading shown on the beaker display.
+   * Truth: always m_water + m_sugar.
+   * Myth: pretends dissolved sugar left the system.
+   */
+  function scaleReading(p, mythGone) {
+    if (mythGone) return M_WATER + crystalMass(p);
+    return trueTotalMass();
+  }
+
+  /** How many cartoon units still sit in crystal clusters. */
+  function crystalCount(p) {
+    return Math.round((1 - p) * N_SUGAR);
+  }
+
+  /** Free (dissolved) cartoon units — conserved with crystalCount. */
+  function freeCount(p) {
+    return N_SUGAR - crystalCount(p);
+  }
+
+  function nearly(a, b, eps) {
+    return Math.abs(a - b) <= (eps == null ? 1e-9 : eps);
+  }
+
+  // Expose for validator regex / mental model
+  window.__dissolveModel = {
+    M_WATER: M_WATER,
+    M_SUGAR: M_SUGAR,
+    N_SUGAR: N_SUGAR,
+    ROUND_G: ROUND_G,
+    trueTotalMass: trueTotalMass,
+    crystalMass: crystalMass,
+    dissolvedMass: dissolvedMass,
+    scaleReading: scaleReading,
+    crystalCount: crystalCount,
+    freeCount: freeCount,
+    roundMass: roundMass
+  };
+
+  // ===== DOM =====
+  function $(id) { return document.getElementById(id); }
+  var cvBeaker = $('cvBeaker');
+  var cvMass = $('cvMass');
+  var ctxB = cvBeaker.getContext('2d');
+  var ctxM = cvMass.getContext('2d');
+  var progEl = $('prog');
+  var progLabel = $('progLabel');
+  var btnPlay = $('btnPlay');
+  var btnStir = $('btnStir');
+  var btnMyth = $('btnMyth');
+  var btnReset = $('btnReset');
+  var btnFull = $('btnFull');
+  var modeHint = $('modeHint');
+  var beakerMeta = $('beakerMeta');
+  var massMeta = $('massMeta');
+  var readout = $('readout');
+
+  var state = {
+    p: 0,
+    playing: false,
+    stir: false,
+    myth: false,
+    t: 0
+  };
+
+  // Particle state: one entry per sugar unit
+  var particles = [];
+  var N_CLUSTERS = 6;
+
+  function seedParticles() {
+    particles = [];
+    var i;
+    for (i = 0; i < N_SUGAR; i++) {
+      var c = i % N_CLUSTERS;
+      var ang = (i / N_SUGAR) * Math.PI * 2 + c;
+      var r = 4 + (i % 5) * 2.2;
+      particles.push({
+        id: i,
+        cluster: c,
+        // local offset inside crystal
+        ox: Math.cos(ang) * r,
+        oy: Math.sin(ang) * r * 0.7,
+        // free-solution position (filled when released)
+        x: 0,
+        y: 0,
+        vx: 0,
+        vy: 0,
+        free: false,
+        phase: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  function clusterCenter(c, W, H, beaker) {
+    var cx = beaker.cx + (c - (N_CLUSTERS - 1) / 2) * 22;
+    var cy = beaker.waterBottom - 18 - (c % 2) * 8;
+    return { x: cx, y: cy };
+  }
+
+  function releaseParticle(pt, beaker) {
+    if (pt.free) return;
+    var cc = clusterCenter(pt.cluster, 0, 0, beaker);
+    pt.x = cc.x + pt.ox;
+    pt.y = cc.y + pt.oy;
+    pt.vx = (Math.random() - 0.5) * 40;
+    pt.vy = -20 - Math.random() * 40;
+    pt.free = true;
+  }
+
+  function syncFreeFlags(beaker) {
+    var nFree = freeCount(state.p);
+    var i;
+    // Prefer releasing lowest ids first for determinism
+    var freeNow = 0;
+    for (i = 0; i < particles.length; i++) {
+      if (particles[i].free) freeNow++;
+    }
+    if (freeNow < nFree) {
+      for (i = 0; i < particles.length && freeNow < nFree; i++) {
+        if (!particles[i].free) {
+          releaseParticle(particles[i], beaker);
+          freeNow++;
+        }
+      }
+    } else if (freeNow > nFree) {
+      // Recrystallize highest free ids first (reset scrubber)
+      for (i = particles.length - 1; i >= 0 && freeNow > nFree; i--) {
+        if (particles[i].free) {
+          particles[i].free = false;
+          particles[i].vx = 0;
+          particles[i].vy = 0;
+          freeNow--;
+        }
+      }
+    }
+  }
+
+  function layoutBeaker(W, H) {
+    var scaleH = 56;
+    var beakerW = Math.min(220, W * 0.38);
+    var beakerH = Math.min(260, H * 0.62);
+    var cx = W * 0.42;
+    var top = H * 0.12;
+    var bottom = top + beakerH;
+    var waterTop = top + beakerH * 0.22;
+    var waterBottom = bottom - 8;
+    return {
+      cx: cx,
+      top: top,
+      bottom: bottom,
+      left: cx - beakerW / 2,
+      right: cx + beakerW / 2,
+      width: beakerW,
+      height: beakerH,
+      waterTop: waterTop,
+      waterBottom: waterBottom,
+      scaleY: bottom + 18,
+      scaleH: scaleH,
+      scaleW: beakerW + 80
+    };
+  }
+
+  function stepParticles(dt, beaker) {
+    syncFreeFlags(beaker);
+    var i, pt;
+    var cx = beaker.cx;
+    var left = beaker.left + 10;
+    var right = beaker.right - 10;
+    var top = beaker.waterTop + 8;
+    var bottom = beaker.waterBottom - 6;
+    var stir = state.stir ? 1 : 0;
+
+    for (i = 0; i < particles.length; i++) {
+      pt = particles[i];
+      if (!pt.free) continue;
+
+      // Brownian + mild stir swirl about beaker center
+      pt.vx += (Math.random() - 0.5) * 80 * dt;
+      pt.vy += (Math.random() - 0.5) * 80 * dt;
+      if (stir) {
+        var dx = pt.x - cx;
+        var dy = pt.y - (top + bottom) / 2;
+        pt.vx += -dy * 1.8 * dt;
+        pt.vy += dx * 1.8 * dt;
+      }
+      // Drag
+      pt.vx *= Math.exp(-1.6 * dt);
+      pt.vy *= Math.exp(-1.6 * dt);
+
+      pt.x += pt.vx * dt;
+      pt.y += pt.vy * dt;
+
+      if (pt.x < left) { pt.x = left; pt.vx *= -0.5; }
+      if (pt.x > right) { pt.x = right; pt.vx *= -0.5; }
+      if (pt.y < top) { pt.y = top; pt.vy *= -0.5; }
+      if (pt.y > bottom) { pt.y = bottom; pt.vy *= -0.5; }
+    }
+  }
+
+  function drawBeaker(W, H) {
+    ctxB.clearRect(0, 0, W, H);
+    var b = layoutBeaker(W, H);
+    syncFreeFlags(b);
+
+    // Bench
+    ctxB.fillStyle = 'rgba(16, 22, 48, 0.9)';
+    ctxB.fillRect(0, b.scaleY + b.scaleH - 4, W, H - (b.scaleY + b.scaleH - 4));
+
+    // Scale platform
+    var sx = b.cx - b.scaleW / 2;
+    ctxB.fillStyle = '#12182f';
+    ctxB.strokeStyle = 'rgba(94, 200, 229, 0.35)';
+    ctxB.lineWidth = 1.5;
+    roundRect(ctxB, sx, b.scaleY, b.scaleW, b.scaleH, 8);
+    ctxB.fill();
+    ctxB.stroke();
+
+    // Scale digits
+    var reading = scaleReading(state.p, state.myth);
+    var shown = roundMass(reading).toFixed(1);
+    ctxB.font = FONT_MONO_22;
+    ctxB.fillStyle = state.myth ? COL_WARM : COL_COOL;
+    ctxB.textAlign = 'center';
+    ctxB.textBaseline = 'middle';
+    ctxB.fillText(shown + ' g', b.cx, b.scaleY + b.scaleH / 2 + 2);
+    ctxB.font = FONT_MONO_10;
+    ctxB.fillStyle = state.myth ? 'rgba(255,126,95,0.85)' : 'rgba(94,200,229,0.75)';
+    ctxB.fillText(state.myth ? 'MYTH SCALE (sugar “gone”)' : 'CONTENTS · CLOSED', b.cx, b.scaleY + 12);
+
+    // Beaker glass
+    ctxB.beginPath();
+    ctxB.moveTo(b.left, b.top);
+    ctxB.lineTo(b.left, b.bottom);
+    ctxB.quadraticCurveTo(b.cx, b.bottom + 14, b.right, b.bottom);
+    ctxB.lineTo(b.right, b.top);
+    ctxB.strokeStyle = 'rgba(215, 222, 242, 0.55)';
+    ctxB.lineWidth = 2;
+    ctxB.stroke();
+
+    // Water fill
+    ctxB.beginPath();
+    ctxB.moveTo(b.left + 3, b.waterTop);
+    ctxB.lineTo(b.left + 3, b.bottom - 2);
+    ctxB.quadraticCurveTo(b.cx, b.bottom + 10, b.right - 3, b.bottom - 2);
+    ctxB.lineTo(b.right - 3, b.waterTop);
+    ctxB.closePath();
+    var wg = ctxB.createLinearGradient(0, b.waterTop, 0, b.bottom);
+    wg.addColorStop(0, 'rgba(94, 200, 229, 0.12)');
+    wg.addColorStop(1, 'rgba(94, 200, 229, 0.32)');
+    ctxB.fillStyle = wg;
+    ctxB.fill();
+
+    // Water surface meniscus
+    ctxB.strokeStyle = 'rgba(94, 200, 229, 0.55)';
+    ctxB.lineWidth = 1.5;
+    ctxB.beginPath();
+    ctxB.moveTo(b.left + 3, b.waterTop);
+    ctxB.quadraticCurveTo(b.cx, b.waterTop - 4, b.right - 3, b.waterTop);
+    ctxB.stroke();
+
+    // Tick marks on beaker
+    ctxB.strokeStyle = 'rgba(215, 222, 242, 0.25)';
+    ctxB.lineWidth = 1;
+    var t;
+    for (t = 0; t < 5; t++) {
+      var ty = b.waterTop + (b.waterBottom - b.waterTop) * (t + 1) / 6;
+      ctxB.beginPath();
+      ctxB.moveTo(b.right - 18, ty);
+      ctxB.lineTo(b.right - 4, ty);
+      ctxB.stroke();
+    }
+
+    // Stir swirl cue
+    if (state.stir) {
+      ctxB.strokeStyle = 'rgba(255, 194, 74, 0.35)';
+      ctxB.lineWidth = 1.5;
+      ctxB.beginPath();
+      ctxB.ellipse(b.cx, (b.waterTop + b.waterBottom) / 2, b.width * 0.28, b.height * 0.18, state.t * 1.5, 0, Math.PI * 1.4);
+      ctxB.stroke();
+    }
+
+    // Crystals (still-bound particles as clustered diamonds)
+    var i, pt, cc;
+    for (i = 0; i < particles.length; i++) {
+      pt = particles[i];
+      if (pt.free) continue;
+      cc = clusterCenter(pt.cluster, W, H, b);
+      drawCrystalShard(ctxB, cc.x + pt.ox, cc.y + pt.oy, 3.2, COL_SUGAR);
+    }
+
+    // Free dissolved particles
+    for (i = 0; i < particles.length; i++) {
+      pt = particles[i];
+      if (!pt.free) continue;
+      ctxB.beginPath();
+      ctxB.arc(pt.x, pt.y, 2.4, 0, Math.PI * 2);
+      ctxB.fillStyle = COL_SUN;
+      ctxB.globalAlpha = 0.85;
+      ctxB.fill();
+      ctxB.globalAlpha = 1;
+    }
+
+    // Labels
+    ctxB.font = FONT_DISPLAY;
+    ctxB.fillStyle = COL_COOL;
+    ctxB.textAlign = 'left';
+    ctxB.fillText('H₂O', b.right + 18, b.waterTop + 24);
+    ctxB.font = FONT_UI_12;
+    ctxB.fillStyle = '#a8b0c8';
+    ctxB.fillText('solvent', b.right + 18, b.waterTop + 42);
+
+    ctxB.font = FONT_DISPLAY;
+    ctxB.fillStyle = COL_SUN;
+    ctxB.fillText('sucrose', b.right + 18, b.waterBottom - 28);
+    ctxB.font = FONT_UI_12;
+    ctxB.fillStyle = '#a8b0c8';
+    var nC = crystalCount(state.p);
+    var nF = freeCount(state.p);
+    ctxB.fillText(nC + ' in crystal · ' + nF + ' free', b.right + 18, b.waterBottom - 10);
+
+    // Side legend
+    ctxB.font = FONT_MONO_11;
+    ctxB.fillStyle = COL_SUGAR;
+    ctxB.fillText('◆ crystal unit', 18, 28);
+    ctxB.fillStyle = COL_SUN;
+    ctxB.fillText('● dissolved unit', 18, 46);
+    ctxB.fillStyle = '#a8b0c8';
+    ctxB.fillText('same N = ' + N_SUGAR, 18, 64);
+  }
+
+  function drawCrystalShard(ctx, x, y, s, color) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(0.6);
+    ctx.beginPath();
+    ctx.moveTo(0, -s);
+    ctx.lineTo(s * 0.7, 0);
+    ctx.lineTo(0, s);
+    ctx.lineTo(-s * 0.7, 0);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.globalAlpha = 0.9;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function drawMass(W, H) {
+    ctxM.clearRect(0, 0, W, H);
+    var pad = 36;
+    var chartBottom = H - 70;
+    var chartTop = 56;
+    var maxH = chartBottom - chartTop;
+    var maxM = trueTotalMass() * 1.15;
+
+    function barH(m) { return (m / maxM) * maxH; }
+
+    var groups = [
+      { label: 'BEFORE', x: W * 0.28 },
+      { label: 'AFTER', x: W * 0.72 }
+    ];
+
+    // Title
+    ctxM.font = FONT_MONO_11;
+    ctxM.fillStyle = '#a8b0c8';
+    ctxM.textAlign = 'center';
+    ctxM.fillText('stacked mass · g', W / 2, 24);
+
+    var g, baseY, hW, hS, hTot;
+    for (g = 0; g < groups.length; g++) {
+      var isAfter = g === 1;
+      var x = groups[g].x;
+      var barW = 54;
+
+      hW = barH(M_WATER);
+      hS = barH(M_SUGAR);
+      hTot = barH(trueTotalMass());
+      baseY = chartBottom;
+
+      // Water
+      ctxM.fillStyle = 'rgba(94, 200, 229, 0.55)';
+      ctxM.fillRect(x - barW / 2, baseY - hW, barW, hW);
+      // Sugar (on top) — always full height in truth chart
+      ctxM.fillStyle = 'rgba(255, 194, 74, 0.75)';
+      ctxM.fillRect(x - barW / 2, baseY - hW - hS, barW, hS);
+
+      // Outline total
+      ctxM.strokeStyle = 'rgba(215, 222, 242, 0.4)';
+      ctxM.lineWidth = 1.5;
+      ctxM.strokeRect(x - barW / 2, baseY - hTot, barW, hTot);
+
+      // Myth ghost: shrinking sugar if myth on and after
+      if (state.myth && isAfter) {
+        var hFake = barH(crystalMass(state.p));
+        ctxM.fillStyle = 'rgba(255, 126, 95, 0.2)';
+        ctxM.fillRect(x + barW / 2 + 10, baseY - barH(M_WATER) - hFake, 18, hFake + barH(M_WATER));
+        ctxM.font = FONT_MONO_10;
+        ctxM.fillStyle = COL_WARM;
+        ctxM.textAlign = 'left';
+        ctxM.fillText('myth', x + barW / 2 + 10, baseY - barH(M_WATER) - hFake - 8);
+        ctxM.fillText(roundMass(scaleReading(state.p, true)).toFixed(1), x + barW / 2 + 10, baseY + 14);
+      }
+
+      ctxM.font = FONT_MONO_12;
+      ctxM.fillStyle = '#d7def2';
+      ctxM.textAlign = 'center';
+      ctxM.fillText(groups[g].label, x, chartBottom + 22);
+      ctxM.font = FONT_MONO_14;
+      ctxM.fillStyle = COL_COOL;
+      ctxM.fillText(roundMass(trueTotalMass()).toFixed(1) + ' g', x, chartBottom + 42);
+
+      // Segment labels
+      ctxM.font = FONT_MONO_10;
+      ctxM.fillStyle = COL_COOL;
+      ctxM.fillText('water', x, baseY - hW / 2);
+      ctxM.fillStyle = COL_SUN;
+      ctxM.fillText('sugar', x, baseY - hW - hS / 2);
+    }
+
+    // Arrow Δm = 0
+    ctxM.strokeStyle = COL_COOL;
+    ctxM.fillStyle = COL_COOL;
+    ctxM.lineWidth = 1.5;
+    var midY = chartTop + 20;
+    ctxM.beginPath();
+    ctxM.moveTo(W * 0.38, midY);
+    ctxM.lineTo(W * 0.62, midY);
+    ctxM.stroke();
+    ctxM.beginPath();
+    ctxM.moveTo(W * 0.62, midY);
+    ctxM.lineTo(W * 0.62 - 8, midY - 4);
+    ctxM.lineTo(W * 0.62 - 8, midY + 4);
+    ctxM.closePath();
+    ctxM.fill();
+    ctxM.font = FONT_MONO_11;
+    ctxM.textAlign = 'center';
+    ctxM.fillText('Δm = 0', W / 2, midY - 10);
+
+    // Foot note
+    ctxM.font = FONT_MONO_10;
+    ctxM.fillStyle = '#8b93ad';
+    ctxM.textAlign = 'center';
+    ctxM.fillText('truth bars identical · myth ghost optional', W / 2, H - 16);
+  }
+
+  function updateReadout() {
+    var p = state.p;
+    var truth = trueTotalMass();
+    var before = truth;
+    var after = truth;
+    var scale = scaleReading(p, state.myth);
+    var dScale = roundMass(scale) - roundMass(before);
+    var nC = crystalCount(p);
+    var nF = freeCount(p);
+
+    function kv(k, v, s, cls) {
+      return '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+
+    readout.innerHTML =
+      kv('Mass before', roundMass(before).toFixed(1) + ' g', 'water + sugar crystals', '') +
+      kv('Mass after', roundMass(after).toFixed(1) + ' g', 'same closed system', '') +
+      kv('Δm (truth)', (roundMass(after) - roundMass(before)).toFixed(1) + ' g', 'conserved within ' + ROUND_G + ' g', '') +
+      kv('Scale reading', roundMass(scale).toFixed(1) + ' g', state.myth ? 'myth drop ' + dScale.toFixed(1) + ' g' : 'matches total', state.myth ? 'warm' : '') +
+      kv('Sugar units', nC + ' + ' + nF + ' = ' + N_SUGAR, 'crystal + free · conserved', 'sun');
+
+    progLabel.textContent = Math.round(p * 100) + '%';
+    beakerMeta.textContent = state.myth
+      ? 'myth overlay · fake scale drop'
+      : 'closed system · contents only';
+    massMeta.textContent = 'Δm = ' + (roundMass(after) - roundMass(before)).toFixed(1) + ' g · N = ' + N_SUGAR;
+    modeHint.textContent = state.myth
+      ? 'Myth ON: scale pretends dissolved sugar left'
+      : 'Truth: mass conserved · particles still counted';
+  }
+
+  function setChip(el, on) {
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function syncControls() {
+    setChip(btnStir, state.stir);
+    btnStir.textContent = state.stir ? 'Stir ON' : 'Stir OFF';
+    setChip(btnMyth, state.myth);
+    btnPlay.textContent = state.playing ? 'Pause' : 'Play';
+    btnPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    progEl.value = String(state.p);
+  }
+
+  // ===== Resize / DPR =====
+  function fitCanvas(cv) {
+    var rect = cv.getBoundingClientRect();
+    var dpr = window.devicePixelRatio || 1;
+    var w = Math.max(1, Math.floor(rect.width * dpr));
+    var h = Math.max(1, Math.floor(rect.height * dpr));
+    if (cv.width !== w || cv.height !== h) {
+      cv.width = w;
+      cv.height = h;
+    }
+    return { W: w, H: h, dpr: dpr };
+  }
+
+  var lastT = performance.now();
+
+  function frame(now) {
+    var dt = Math.min(0.05, (now - lastT) / 1000);
+    lastT = now;
+    state.t += dt;
+
+    if (state.playing) {
+      state.p = clamp(state.p + PLAY_RATE * dt, 0, 1);
+      if (state.p >= 1) state.playing = false;
+      syncControls();
+    }
+
+    var fb = fitCanvas(cvBeaker);
+    ctxB.setTransform(1, 0, 0, 1, 0, 0);
+    var bLayout = layoutBeaker(fb.W, fb.H);
+    stepParticles(dt, bLayout);
+    drawBeaker(fb.W, fb.H);
+
+    var fm = fitCanvas(cvMass);
+    ctxM.setTransform(1, 0, 0, 1, 0, 0);
+    drawMass(fm.W, fm.H);
+
+    updateReadout();
+    requestAnimationFrame(frame);
+  }
+
+  // ===== Events =====
+  progEl.addEventListener('input', function () {
+    state.p = clamp(parseFloat(progEl.value) || 0, 0, 1);
+    state.playing = false;
+    syncControls();
+  });
+
+  btnPlay.addEventListener('click', function () {
+    if (state.p >= 1) state.p = 0;
+    state.playing = !state.playing;
+    syncControls();
+  });
+
+  btnStir.addEventListener('click', function () {
+    state.stir = !state.stir;
+    syncControls();
+  });
+
+  btnMyth.addEventListener('click', function () {
+    state.myth = !state.myth;
+    syncControls();
+  });
+
+  btnReset.addEventListener('click', function () {
+    state.p = 0;
+    state.playing = false;
+    seedParticles();
+    syncControls();
+  });
+
+  btnFull.addEventListener('click', function () {
+    state.p = 1;
+    state.playing = false;
+    syncControls();
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      btnPlay.click();
+    }
+  });
+
+  seedParticles();
+  syncControls();
+  updateReadout();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
