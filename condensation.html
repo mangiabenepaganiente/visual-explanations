@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foggy Mirror = Water Leaving the Air — Condensation, Not Cold Leaking Through Glass</title>
+<meta name="description" content="Classroom explainer: bathroom-mirror fog is water vapor already in warm moist air condensing when the glass is colder than the dew point — not cold leaking through, not fog coming through the mirror, not coldness turning into water. Live Magnus–Tetens dew point, air T / RH / glass T sliders, vapor particles that stick only below T_dew. NGSS MS-PS1 / MS-ESS2 water cycle.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="condensation, dew point, bathroom mirror fog, water vapor, relative humidity, Magnus Tetens, misconception, through the glass, classroom physics">
+<link rel="canonical" href="condensation.html">
+<meta property="og:title" content="Foggy Mirror = Water Leaving the Air">
+<meta property="og:description" content="Fog isn’t leaking through the glass. Water vapor already in the air condenses when the surface is below the dew point. Live dew-point toy for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 780px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 200px; min-width: 160px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 380px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+.try {
+  max-width: 760px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 300px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · condensation</a></p>
+  <h1>Foggy mirror = water leaving the air</h1>
+  <p class="lede">The fog on a cold bathroom mirror is not cold leaking through the glass, not fog coming through the mirror, and not “coldness turning into water.” <strong>Water vapor is already in the warm moist air.</strong> When that vapor meets a surface colder than the <strong>dew point</strong>, it leaves the gas and becomes liquid droplets on the glass.</p>
+
+  <p class="try"><b>Try this</b>Hit Shower. Watch vapor stick. Warm the glass above the live dew point — fog stops forming. Flip the myth chip: nothing comes through from behind the mirror.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <label class="sl grow">
+        <span>Air temperature <em id="airLabel">25.0 °C</em></span>
+        <input type="range" id="airT" min="5" max="40" step="0.1" value="25" aria-label="Air temperature in degrees Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Relative humidity <em id="rhLabel">70%</em></span>
+        <input type="range" id="rh" min="5" max="100" step="1" value="70" aria-label="Relative humidity percent">
+      </label>
+      <label class="sl grow">
+        <span>Glass temperature <em id="glassLabel">15.0 °C</em></span>
+        <input type="range" id="glassT" min="0" max="40" step="0.1" value="15" aria-label="Mirror glass temperature in degrees Celsius">
+      </label>
+    </div>
+    <div class="row">
+      <button type="button" class="chip" id="chipShower" aria-pressed="false">Shower</button>
+      <button type="button" class="chip" id="chipDry" aria-pressed="false">Cool dry day</button>
+      <button type="button" class="chip" id="chipColdGlass" aria-pressed="false">Iced drink glass</button>
+      <button type="button" class="chip sun" id="chipWarmGlass" aria-pressed="false">Warm glass</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="mythThrough" aria-pressed="false">Myth: through the glass</button>
+      <span class="hint" id="eqLine">condenses when T_glass &lt; T_dew(T_air, RH)</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Bathroom mirror</b><span id="mirrorMeta">vapor sticks only if T_glass &lt; T_dew</span></div>
+      <canvas id="cvMirror" width="720" height="380" aria-label="Bathroom mirror with vapor particles that stick as fog when the glass is below the dew point"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Air · glass cross-section</b><span id="gateMeta">dew-point gate</span></div>
+      <canvas id="cvGate" width="480" height="380" aria-label="Cross-section showing air vapor, glass surface, and condensation only when surface is colder than dew point"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Vapor was already there</h2>
+      <p>Warm shower air holds invisible H₂O molecules as a gas. Relative humidity says how close that air is to saturation at its temperature — not how much liquid is “hiding.”</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Dew point is the gate</h2>
+      <p>The dew point T_dew is the temperature where that same moisture would saturate. Cool a surface below T_dew and the air next to it cannot hold all its vapor — liquid appears.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Glass only sets the surface T</h2>
+      <p>A cold mirror or iced drink wall is a heat sink. It does not invent water. Raise the glass above T_dew and new fog stops; warm dry air never fogs a warm glass.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>Nothing comes through the glass</h2>
+      <p>Osborne &amp; Cosgrove interviews: kids say fog “comes through” or that “coldness turns into water.” Toggle the myth chip — arrows from behind the mirror never add droplets. The water was on the air side all along.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Reference condensation numbers">
+    <div class="stat">
+      <div class="k">Magnus a, b</div>
+      <div class="v">17.625 · 243.04</div>
+      <div class="s">°C form · Lawrence 2005</div>
+    </div>
+    <div class="stat">
+      <div class="k">20 °C · 50% RH</div>
+      <div class="v">T_dew ≈ 9.3 °C</div>
+      <div class="s">check value on this page</div>
+    </div>
+    <div class="stat">
+      <div class="k">Fog rule</div>
+      <div class="v">T_s &lt; T_dew</div>
+      <div class="s">surface colder than dew point</div>
+    </div>
+    <div class="stat">
+      <div class="k">Classroom myth</div>
+      <div class="v">“through glass”</div>
+      <div class="s">~20% Year 10 · NZCER ARB</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Dew point from T and RH (Magnus / Tetens style).</strong> Saturation vapor pressure over liquid water uses the August–Roche–Magnus form <code>e_s(T) = 6.1094 · exp(a T / (b + T))</code> with <code>a = 17.625</code>, <code>b = 243.04 °C</code> (hPa, T in °C). Dew point: <code>γ = ln(RH/100) + a T_air/(b + T_air)</code>, then <code>T_dew = b γ / (a − γ)</code>. Coefficients and the closed-form dew-point inversion are those recommended by Lawrence, M. G. (2005), “The Relationship between Relative Humidity and the Dewpoint Temperature in Moist Air,” <em>Bull. Amer. Meteor. Soc.</em> 86, 225–233 (building on Magnus 1844; Tetens 1930; Alduchov &amp; Eskridge 1996). This page uses that equation and no other psychrometric chart.</li>
+      <li><strong style="color:var(--text)">Condensation rule in the toy.</strong> Droplets stick on the mirror only when <code>T_glass &lt; T_dew</code>. Fog opacity rises with undershoot <code>T_dew − T_glass</code> (full cartoon fog by ~8 °C). When <code>T_glass ≥ T_dew</code>, new sticks stop and existing fog clears — matching “warm the mirror with your hand.” Absolute humidity is held by the RH and T_air pair; we do not model mixing ratios changing from steam jets separately.</li>
+      <li><strong style="color:var(--text)">What this is not.</strong> No nucleation kinetics, no filmwise vs dropwise regimes, no latent-heat feedback on glass temperature, no boundary-layer CFD. Glass T is a slider (as if the wall is a large heat bath). Particle dots are countable classroom glyphs, not molecular dynamics. Pressure is fixed near 1 atm; the Magnus fit is for liquid water, not ice.</li>
+      <li><strong style="color:var(--text)">Misconception sources.</strong> Osborne, R. J. &amp; Cosgrove, M. M. (1983), “Children’s conceptions of the changes of state of water,” <em>J. Res. Sci. Teach.</em> 20, 825–838 — “through the glass,” “coldness comes through,” recombination myths. Beyond Penguins (Ohio State) condensation probes; RSC Education changes-of-state interviews; NZCER ARB “What is happening II?” (~20% of Year 10 still choose “through the glass”).</li>
+      <li><strong style="color:var(--text)">Drawings are cartoons.</strong> The bathroom scene and cross-section gate are schematic. Myth-mode arrows from behind the glass are pedagogical falsehoods drawn on purpose; they never feed the fog counter. Clear the chip to restore the air-side-only truth.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Magnus–Tetens / August–Roche–Magnus (Lawrence 2005) =====
+  var MAGNUS_A = 17.625;
+  var MAGNUS_B = 243.04; // °C
+  var ES0 = 6.1094;      // hPa at 0 °C reference in this fit
+  var FOG_FULL_UNDERSHOOT = 8; // °C below dew point → full cartoon fog
+
+  function satVaporPressure_hPa(tC) {
+    return ES0 * Math.exp((MAGNUS_A * tC) / (MAGNUS_B + tC));
+  }
+
+  function dewPointC(tC, rhPct) {
+    var rh = rhPct;
+    if (rh < 0.01) rh = 0.01;
+    if (rh > 100) rh = 100;
+    var gamma = Math.log(rh / 100) + (MAGNUS_A * tC) / (MAGNUS_B + tC);
+    return (MAGNUS_B * gamma) / (MAGNUS_A - gamma);
+  }
+
+  function willCondense(tSurfaceC, tDewC) {
+    return tSurfaceC < tDewC;
+  }
+
+  function fogOpacity(tGlassC, tDewC) {
+    if (tGlassC >= tDewC) return 0;
+    var u = tDewC - tGlassC;
+    if (u >= FOG_FULL_UNDERSHOOT) return 1;
+    return u / FOG_FULL_UNDERSHOOT;
+  }
+
+  function climateState(airTC, rhPct, glassTC) {
+    var td = dewPointC(airTC, rhPct);
+    var es = satVaporPressure_hPa(airTC);
+    var e = (rhPct / 100) * es;
+    var fog = willCondense(glassTC, td);
+    var opacity = fogOpacity(glassTC, td);
+    return {
+      airT: airTC,
+      rh: rhPct,
+      glassT: glassTC,
+      dewT: td,
+      es_hPa: es,
+      e_hPa: e,
+      undershoot: td - glassTC,
+      condensing: fog,
+      fogOpacity: opacity
+    };
+  }
+
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var COL_SUN = '#ffc24a';
+  var COL_WARM = '#ff7e5f';
+  var COL_COOL = '#5ec8e5';
+  var COL_TEXT = '#d7def2';
+  var COL_MUTED = '#8b93ad';
+
+  var state = {
+    airT: 25,
+    rh: 70,
+    glassT: 15,
+    playing: true,
+    mythThrough: false,
+    t: 0,
+    fogCover: 0,
+    stuck: []
+  };
+
+  var N_VAPOR = 90;
+  var vapors = [];
+  function seedVapors() {
+    vapors = [];
+    var i;
+    for (i = 0; i < N_VAPOR; i++) {
+      vapors.push({
+        x: Math.random(),
+        y: Math.random(),
+        vx: (Math.random() - 0.5) * 0.08,
+        vy: (Math.random() - 0.5) * 0.06,
+        r: 1.5 + Math.random() * 2,
+        phase: Math.random() * Math.PI * 2
+      });
+    }
+  }
+  seedVapors();
+
+  var airEl = document.getElementById('airT');
+  var rhEl = document.getElementById('rh');
+  var glassEl = document.getElementById('glassT');
+  var airLabel = document.getElementById('airLabel');
+  var rhLabel = document.getElementById('rhLabel');
+  var glassLabel = document.getElementById('glassLabel');
+  var btnPlay = document.getElementById('btnPlay');
+  var mythBtn = document.getElementById('mythThrough');
+  var mirrorMeta = document.getElementById('mirrorMeta');
+  var gateMeta = document.getElementById('gateMeta');
+  var eqLine = document.getElementById('eqLine');
+
+  var cvMirror = document.getElementById('cvMirror');
+  var cvGate = document.getElementById('cvGate');
+  var ctxM = cvMirror.getContext('2d');
+  var ctxG = cvGate.getContext('2d');
+
+  function surfacesOf(canvas) {
+    var dpr = window.devicePixelRatio || 1;
+    var cssW = canvas.clientWidth;
+    var cssH = canvas.clientHeight;
+    var w = Math.max(1, Math.round(cssW * dpr));
+    var h = Math.max(1, Math.round(cssH * dpr));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+    }
+    return { ctx: canvas.getContext('2d'), w: w, h: h, dpr: dpr, cssW: cssW, cssH: cssH };
+  }
+
+  (function buildReadout() {
+    var root = document.getElementById('readout');
+    var keys = [
+      { id: 'kvAir', k: 'Air T', s: 'bathroom air' },
+      { id: 'kvRh', k: 'RH', s: 'relative humidity' },
+      { id: 'kvDew', k: 'T_dew', s: 'Magnus–Tetens' },
+      { id: 'kvGlass', k: 'Glass T', s: 'mirror surface' },
+      { id: 'kvDelta', k: 'T_dew − T_glass', s: 'undershoot' },
+      { id: 'kvFog', k: 'Fog', s: 'model gate' }
+    ];
+    keys.forEach(function (item) {
+      var d = document.createElement('div');
+      d.className = 'kv';
+      d.id = item.id;
+      d.innerHTML = '<div class="k">' + item.k + '</div><div class="v">—</div><div class="s">' + item.s + '</div>';
+      root.appendChild(d);
+    });
+  })();
+
+  function fmtT(x) {
+    return (x >= 0 ? '' : '−') + Math.abs(x).toFixed(1) + ' °C';
+  }
+
+  function updateLabels() {
+    airLabel.textContent = state.airT.toFixed(1) + ' °C';
+    rhLabel.textContent = Math.round(state.rh) + '%';
+    glassLabel.textContent = state.glassT.toFixed(1) + ' °C';
+  }
+
+  function updateReadout() {
+    var c = climateState(state.airT, state.rh, state.glassT);
+    function set(id, val, cls) {
+      var el = document.getElementById(id);
+      var v = el.querySelector('.v');
+      v.textContent = val;
+      v.className = 'v' + (cls ? ' ' + cls : '');
+    }
+    set('kvAir', fmtT(c.airT));
+    set('kvRh', Math.round(c.rh) + '%');
+    set('kvDew', fmtT(c.dewT), 'sun');
+    set('kvGlass', fmtT(c.glassT), c.condensing ? 'warm' : '');
+    set('kvDelta', (c.undershoot >= 0 ? '+' : '') + c.undershoot.toFixed(1) + ' °C', c.condensing ? 'warm' : '');
+    set('kvFog', c.condensing ? 'forming' : 'none', c.condensing ? 'warm' : '');
+    mirrorMeta.textContent = c.condensing
+      ? 'T_glass < T_dew · vapor sticks'
+      : 'T_glass ≥ T_dew · no new fog';
+    gateMeta.textContent = c.condensing ? 'gate OPEN · condensing' : 'gate CLOSED · dry glass';
+    eqLine.textContent = 'T_dew = ' + c.dewT.toFixed(2) + ' °C · ' +
+      (c.condensing ? 'condensing' : 'no condensation');
+  }
+
+  function syncChips() {
+    var presets = [
+      { id: 'chipShower', air: 30, rh: 92, glass: 18 },
+      { id: 'chipDry', air: 18, rh: 28, glass: 16 },
+      { id: 'chipColdGlass', air: 22, rh: 55, glass: 4 },
+      { id: 'chipWarmGlass', air: 30, rh: 92, glass: 32 }
+    ];
+    presets.forEach(function (p) {
+      var el = document.getElementById(p.id);
+      var on = Math.abs(state.airT - p.air) < 0.15 &&
+        Math.abs(state.rh - p.rh) < 0.5 &&
+        Math.abs(state.glassT - p.glass) < 0.15;
+      el.classList.toggle('on', on);
+      el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    mythBtn.classList.toggle('on', state.mythThrough);
+    mythBtn.setAttribute('aria-pressed', state.mythThrough ? 'true' : 'false');
+  }
+
+  function applyPreset(air, rh, glass) {
+    state.airT = air;
+    state.rh = rh;
+    state.glassT = glass;
+    airEl.value = String(air);
+    rhEl.value = String(rh);
+    glassEl.value = String(glass);
+    updateLabels();
+    syncChips();
+    updateReadout();
+  }
+
+  airEl.addEventListener('input', function () {
+    state.airT = parseFloat(airEl.value);
+    updateLabels(); syncChips(); updateReadout();
+  });
+  rhEl.addEventListener('input', function () {
+    state.rh = parseFloat(rhEl.value);
+    updateLabels(); syncChips(); updateReadout();
+  });
+  glassEl.addEventListener('input', function () {
+    state.glassT = parseFloat(glassEl.value);
+    updateLabels(); syncChips(); updateReadout();
+  });
+
+  document.getElementById('chipShower').addEventListener('click', function () {
+    applyPreset(30, 92, 18);
+  });
+  document.getElementById('chipDry').addEventListener('click', function () {
+    applyPreset(18, 28, 16);
+  });
+  document.getElementById('chipColdGlass').addEventListener('click', function () {
+    applyPreset(22, 55, 4);
+  });
+  document.getElementById('chipWarmGlass').addEventListener('click', function () {
+    applyPreset(30, 92, 32);
+  });
+
+  mythBtn.addEventListener('click', function () {
+    state.mythThrough = !state.mythThrough;
+    syncChips();
+  });
+
+  function setPlaying(on) {
+    state.playing = on;
+    btnPlay.textContent = on ? 'Pause' : 'Play';
+    btnPlay.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  btnPlay.addEventListener('click', function () { setPlaying(!state.playing); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      setPlaying(!state.playing);
+    }
+  });
+
+  function stepPhysics(dt) {
+    var c = climateState(state.airT, state.rh, state.glassT);
+    var target = c.fogOpacity;
+    // fog cover lags toward target
+    var rate = target > state.fogCover ? 0.55 : 0.35;
+    state.fogCover += (target - state.fogCover) * Math.min(1, rate * dt);
+
+    var dens = 0.35 + 0.65 * (state.rh / 100);
+    var i, p, nx, ny;
+    for (i = 0; i < vapors.length; i++) {
+      p = vapors[i];
+      p.phase += dt * 1.2;
+      p.x += p.vx * dt * dens;
+      p.y += p.vy * dt * dens + 0.01 * Math.sin(p.phase) * dt;
+      // soft bounce in unit square; mirror face is right third
+      if (p.x < 0.02) { p.x = 0.02; p.vx = Math.abs(p.vx); }
+      if (p.x > 0.98) { p.x = 0.98; p.vx = -Math.abs(p.vx); }
+      if (p.y < 0.02) { p.y = 0.02; p.vy = Math.abs(p.vy); }
+      if (p.y > 0.98) { p.y = 0.98; p.vy = -Math.abs(p.vy); }
+
+      // stick attempt near mirror face (x > 0.72)
+      if (p.x > 0.72 && c.condensing && Math.random() < 0.08 * dens * dt * 10) {
+        if (state.stuck.length < 180) {
+          state.stuck.push({
+            x: 0.08 + Math.random() * 0.84,
+            y: 0.08 + Math.random() * 0.84,
+            r: 1.2 + Math.random() * 2.8,
+            life: 1
+          });
+        }
+        // respawn vapor in air
+        p.x = 0.1 + Math.random() * 0.5;
+        p.y = Math.random();
+      }
+    }
+
+    // evaporate stuck droplets when not condensing
+    if (!c.condensing) {
+      for (i = state.stuck.length - 1; i >= 0; i--) {
+        state.stuck[i].life -= dt * 0.7;
+        if (state.stuck[i].life <= 0) state.stuck.splice(i, 1);
+      }
+    } else {
+      // slowly cap stuck count with fog cover
+      while (state.stuck.length > Math.floor(20 + 160 * state.fogCover)) {
+        state.stuck.shift();
+      }
+    }
+
+    // myth mode does not add stuck from "behind"
+    state.t += dt;
+  }
+
+  function drawMirror() {
+    var S = surfacesOf(cvMirror);
+    var ctx = S.ctx;
+    var w = S.w;
+    var h = S.h;
+    var dpr = S.dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    // bathroom wall
+    var g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, '#12182e');
+    g.addColorStop(1, '#0a0e1c');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    // tiles left
+    ctx.strokeStyle = 'rgba(94,200,229,0.08)';
+    ctx.lineWidth = 1 * dpr;
+    var tx, ty;
+    for (tx = 0; tx < w * 0.55; tx += 28 * dpr) {
+      ctx.beginPath(); ctx.moveTo(tx, 0); ctx.lineTo(tx, h); ctx.stroke();
+    }
+    for (ty = 0; ty < h; ty += 28 * dpr) {
+      ctx.beginPath(); ctx.moveTo(0, ty); ctx.lineTo(w * 0.55, ty); ctx.stroke();
+    }
+
+    // mirror frame (right)
+    var mx = w * 0.58;
+    var my = h * 0.08;
+    var mw = w * 0.36;
+    var mh = h * 0.78;
+    ctx.fillStyle = '#1a2238';
+    roundRect(ctx, mx - 8 * dpr, my - 8 * dpr, mw + 16 * dpr, mh + 16 * dpr, 6 * dpr);
+    ctx.fill();
+    // glass face
+    var glassGrad = ctx.createLinearGradient(mx, my, mx + mw, my + mh);
+    var c = climateState(state.airT, state.rh, state.glassT);
+    var coolN = Math.max(0, Math.min(1, (25 - state.glassT) / 25));
+    glassGrad.addColorStop(0, 'rgba(40, 70, 100, 0.55)');
+    glassGrad.addColorStop(1, 'rgba(20, 35, 55, 0.75)');
+    ctx.fillStyle = glassGrad;
+    roundRect(ctx, mx, my, mw, mh, 3 * dpr);
+    ctx.fill();
+
+    // faint "reflection" silhouette
+    ctx.save();
+    ctx.beginPath();
+    roundRectPath(ctx, mx, my, mw, mh, 3 * dpr);
+    ctx.clip();
+    ctx.fillStyle = 'rgba(215,222,242,0.06)';
+    ctx.beginPath();
+    ctx.ellipse(mx + mw * 0.5, my + mh * 0.42, mw * 0.18, mh * 0.12, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillRect(mx + mw * 0.38, my + mh * 0.52, mw * 0.24, mh * 0.32);
+
+    // fog overlay
+    var fogA = state.fogCover * 0.72;
+    if (fogA > 0.01) {
+      ctx.fillStyle = 'rgba(210, 225, 240,' + fogA + ')';
+      ctx.fillRect(mx, my, mw, mh);
+      // soft blotches
+      var bi;
+      for (bi = 0; bi < 12; bi++) {
+        var bx = mx + ((bi * 97) % 100) / 100 * mw;
+        var by = my + ((bi * 53) % 100) / 100 * mh;
+        var br = (20 + (bi % 5) * 8) * dpr * (0.5 + state.fogCover);
+        var rg = ctx.createRadialGradient(bx, by, 0, bx, by, br);
+        rg.addColorStop(0, 'rgba(230,240,250,' + (0.35 * state.fogCover) + ')');
+        rg.addColorStop(1, 'rgba(230,240,250,0)');
+        ctx.fillStyle = rg;
+        ctx.fillRect(bx - br, by - br, br * 2, br * 2);
+      }
+    }
+
+    // stuck droplets
+    var si, s;
+    for (si = 0; si < state.stuck.length; si++) {
+      s = state.stuck[si];
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(180, 220, 240,' + (0.35 + 0.5 * s.life) + ')';
+      ctx.arc(mx + s.x * mw, my + s.y * mh, s.r * dpr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // vapor particles in air (left of mirror)
+    var vi, v, px, py;
+    ctx.fillStyle = COL_COOL;
+    for (vi = 0; vi < vapors.length; vi++) {
+      v = vapors[vi];
+      px = v.x * w * 0.58;
+      py = v.y * h;
+      ctx.globalAlpha = 0.25 + 0.45 * (state.rh / 100);
+      ctx.beginPath();
+      ctx.arc(px, py, v.r * dpr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // myth arrows from behind glass
+    if (state.mythThrough) {
+      ctx.save();
+      ctx.strokeStyle = COL_WARM;
+      ctx.fillStyle = COL_WARM;
+      ctx.lineWidth = 2 * dpr;
+      ctx.setLineDash([6 * dpr, 5 * dpr]);
+      var ay;
+      for (ay = 0; ay < 5; ay++) {
+        var y0 = my + mh * (0.2 + ay * 0.15);
+        var x0 = mx + mw + 10 * dpr;
+        var x1 = mx + mw * 0.55;
+        ctx.beginPath();
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y0);
+        ctx.stroke();
+        // arrow head
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.moveTo(x1, y0);
+        ctx.lineTo(x1 + 8 * dpr, y0 - 4 * dpr);
+        ctx.lineTo(x1 + 8 * dpr, y0 + 4 * dpr);
+        ctx.closePath();
+        ctx.fill();
+        ctx.setLineDash([6 * dpr, 5 * dpr]);
+      }
+      ctx.setLineDash([]);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = COL_WARM;
+      ctx.fillText('myth: from behind →', mx + mw * 0.15, my + mh - 12 * dpr);
+      ctx.font = FONT_UI_12;
+      ctx.fillStyle = COL_WARM;
+      ctx.fillText('these arrows never add fog', mx + 10 * dpr, my + 22 * dpr);
+      ctx.restore();
+    }
+
+    // labels
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = COL_MUTED;
+    ctx.fillText('air · vapor H₂O', 14 * dpr, 22 * dpr);
+    ctx.fillStyle = c.condensing ? COL_WARM : COL_COOL;
+    ctx.fillText(
+      c.condensing ? 'mirror · fog forming' : 'mirror · clear',
+      mx, my + mh + 22 * dpr
+    );
+
+    // live dew readout on canvas
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = COL_SUN;
+    ctx.fillText('T_dew ' + c.dewT.toFixed(1) + ' °C', 14 * dpr, h - 36 * dpr);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = COL_MUTED;
+    ctx.fillText('T_glass ' + state.glassT.toFixed(1) + ' °C', 14 * dpr, h - 16 * dpr);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    roundRectPath(ctx, x, y, w, h, r);
+    ctx.fill();
+  }
+  function roundRectPath(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function drawGate() {
+    var S = surfacesOf(cvGate);
+    var ctx = S.ctx;
+    var w = S.w;
+    var h = S.h;
+    var dpr = S.dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.fillStyle = '#0c1024';
+    ctx.fillRect(0, 0, w, h);
+
+    var c = climateState(state.airT, state.rh, state.glassT);
+    var pad = 28 * dpr;
+    var airX0 = pad;
+    var airX1 = w * 0.55;
+    var glassX0 = w * 0.58;
+    var glassX1 = w - pad;
+    var y0 = pad + 30 * dpr;
+    var y1 = h - pad - 40 * dpr;
+
+    // air region
+    ctx.fillStyle = 'rgba(94,200,229,0.08)';
+    ctx.fillRect(airX0, y0, airX1 - airX0, y1 - y0);
+    // glass region
+    var gCol = c.condensing ? 'rgba(255,126,95,0.12)' : 'rgba(94,200,229,0.12)';
+    ctx.fillStyle = gCol;
+    ctx.fillRect(glassX0, y0, glassX1 - glassX0, y1 - y0);
+
+    ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+    ctx.lineWidth = 1.5 * dpr;
+    ctx.strokeRect(airX0, y0, airX1 - airX0, y1 - y0);
+    ctx.strokeStyle = c.condensing ? 'rgba(255,126,95,0.45)' : 'rgba(94,200,229,0.35)';
+    ctx.strokeRect(glassX0, y0, glassX1 - glassX0, y1 - y0);
+
+    // temperature scale marks
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = COL_MUTED;
+    ctx.fillText('AIR', airX0 + 8 * dpr, y0 - 10 * dpr);
+    ctx.fillText('GLASS', glassX0 + 8 * dpr, y0 - 10 * dpr);
+
+    // dew-point threshold line across
+    var tMin = 0;
+    var tMax = 40;
+    function YofT(t) {
+      return y1 - ((t - tMin) / (tMax - tMin)) * (y1 - y0);
+    }
+    var yDew = YofT(c.dewT);
+    var yAir = YofT(c.airT);
+    var yGlass = YofT(c.glassT);
+
+    ctx.setLineDash([5 * dpr, 4 * dpr]);
+    ctx.strokeStyle = COL_SUN;
+    ctx.lineWidth = 1.5 * dpr;
+    ctx.beginPath();
+    ctx.moveTo(airX0, yDew);
+    ctx.lineTo(glassX1, yDew);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = COL_SUN;
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('T_dew ' + c.dewT.toFixed(1) + '°', airX0 + 6 * dpr, yDew - 6 * dpr);
+
+    // air T marker
+    ctx.fillStyle = COL_COOL;
+    ctx.beginPath();
+    ctx.arc(airX0 + (airX1 - airX0) * 0.35, yAir, 6 * dpr, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('T_air', airX0 + (airX1 - airX0) * 0.35 + 10 * dpr, yAir + 4 * dpr);
+
+    // glass T marker
+    ctx.fillStyle = c.condensing ? COL_WARM : COL_COOL;
+    ctx.beginPath();
+    ctx.arc(glassX0 + (glassX1 - glassX0) * 0.5, yGlass, 7 * dpr, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillText('T_glass', glassX0 + 8 * dpr, yGlass - 10 * dpr);
+
+    // vapor dots in air column
+    var i, vx, vy;
+    ctx.fillStyle = COL_COOL;
+    for (i = 0; i < 40; i++) {
+      vx = airX0 + 12 * dpr + ((i * 37 + state.t * 40) % (airX1 - airX0 - 24 * dpr));
+      vy = y0 + 10 * dpr + ((i * 61 + state.t * 25) % (y1 - y0 - 20 * dpr));
+      ctx.globalAlpha = 0.3 + 0.4 * (state.rh / 100);
+      ctx.beginPath();
+      ctx.arc(vx, vy, 2 * dpr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // condensation droplets on glass side of interface
+    if (c.condensing) {
+      ctx.fillStyle = 'rgba(200,230,250,0.85)';
+      for (i = 0; i < Math.floor(8 + 30 * state.fogCover); i++) {
+        vx = glassX0 + 10 * dpr + (i * 19 % (glassX1 - glassX0 - 20 * dpr));
+        vy = yDew + 8 * dpr + (i * 29 % Math.max(8, y1 - yDew - 16 * dpr));
+        if (vy > y1 - 4 * dpr) continue;
+        ctx.beginPath();
+        ctx.arc(vx, vy, (2 + (i % 3)) * dpr, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // gate verdict
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = c.condensing ? COL_WARM : COL_COOL;
+    ctx.fillText(c.condensing ? 'GATE OPEN' : 'GATE CLOSED', pad, h - 18 * dpr);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = COL_MUTED;
+    ctx.fillText(
+      c.condensing
+        ? 'T_glass < T_dew · water leaves the air'
+        : 'T_glass ≥ T_dew · vapor stays gas',
+      pad, h - 4 * dpr
+    );
+
+    // myth note
+    if (state.mythThrough) {
+      ctx.fillStyle = 'rgba(255,126,95,0.15)';
+      ctx.fillRect(glassX0, y0, glassX1 - glassX0, y1 - y0);
+      ctx.fillStyle = COL_WARM;
+      ctx.font = FONT_MONO_10;
+      ctx.fillText('behind glass ≠ source', glassX0 + 6 * dpr, y1 - 8 * dpr);
+    }
+  }
+
+  function paint() {
+    drawMirror();
+    drawGate();
+  }
+
+  var lastTs = 0;
+  function frame(ts) {
+    if (!lastTs) lastTs = ts;
+    var dt = Math.min(0.05, (ts - lastTs) / 1000);
+    lastTs = ts;
+    if (state.playing) stepPhysics(dt);
+    paint();
+    requestAnimationFrame(frame);
+  }
+
+  updateLabels();
+  syncChips();
+  updateReadout();
+  requestAnimationFrame(frame);
+
+  // expose for validator / console checks (same names as footnotes)
+  window.__condensation = {
+    MAGNUS_A: MAGNUS_A,
+    MAGNUS_B: MAGNUS_B,
+    ES0: ES0,
+    satVaporPressure_hPa: satVaporPressure_hPa,
+    dewPointC: dewPointC,
+    willCondense: willCondense,
+    fogOpacity: fogOpacity,
+    climateState: climateState
+  };
+})();
+</script>
+</body>
+</html>
