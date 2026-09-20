@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Fridge Doesn't Make Cold — Heat Pumps Move Heat, They Don't Create It</title>
+<meta name="description" content="Classroom fridge explainer: vapor-compression moves heat; COP=Qc/W; Carnot Tc/(Th−Tc); open door warms the kitchen. Live Qc, W, Qh. NGSS MS-PS3.">
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · fridge</a></p>
+  <h1>Your fridge doesn’t make cold</h1>
+  <p class="lede">A refrigerator is a <strong>heat pump</strong>. The vapor-compression cycle <strong>moves heat</strong> from the cold box to the warm room and adds compressor work <strong>W</strong>, so <strong>Q<sub>h</sub> = Q<sub>c</sub> + W</strong>. Opening the door does not cool the kitchen — it short-circuits the machine and dumps that heat (plus motor heat) into the room.</p>
+
+  <p class="try"><b>Try this</b>Open the door with the compressor on. Watch Q<sub>h</sub> at the coils and the room thermometer climb — cold air at your knees is not a cooler kitchen.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <button type="button" class="btn" id="btnReset">Reset room</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="chipDoorClosed" aria-pressed="true">Door closed</button>
+      <button type="button" class="chip myth" id="chipDoorOpen" aria-pressed="false">Door open</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="chipCompOn" aria-pressed="true">Compressor on</button>
+      <button type="button" class="chip" id="chipCompOff" aria-pressed="false">Compressor off</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Cold box T<sub>c</sub> <em id="tcLabel">−5.0 °C</em></span>
+        <input type="range" id="tc" min="-18" max="8" step="0.5" value="-5" aria-label="Cold box temperature in Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Room / coils T<sub>h</sub> <em id="thLabel">25.0 °C</em></span>
+        <input type="range" id="th" min="15" max="40" step="0.5" value="25" aria-label="Hot-side room temperature in Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Efficiency η vs Carnot <em id="etaLabel">0.40</em></span>
+        <input type="range" id="eta" min="0.20" max="0.60" step="0.01" value="0.40" aria-label="Fraction of Carnot COP">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint">Door closed · compressor on · heat leaves the box at the evaporator and is rejected at the condenser coils.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Fridge cross-section</b><span id="fridgeMeta">evaporator · compressor · condenser</span></div>
+      <canvas id="cvFridge" width="760" height="400" aria-label="Cross-section of a refrigerator showing heat flow arrows"></canvas>
+    </div>
+    <div class="card cycle-card">
+      <div class="card-h"><b>Energy + room</b><span id="cycleMeta">Qh = Qc + W · thermometer</span></div>
+      <canvas id="cvCycle" width="520" height="400" aria-label="Energy flow bars and room thermometer"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Heat is moved, not deleted</h2>
+      <p>The evaporator absorbs Q<sub>c</sub> from the food compartment. The condenser rejects Q<sub>h</sub> into the kitchen. Cold is the absence of that heat in the box — not a substance the fridge manufactures.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Work makes Q<sub>h</sub> bigger</h2>
+      <p>The compressor adds electrical work W. Energy balance on the cycle requires <strong>Q<sub>h</sub> = Q<sub>c</sub> + W</strong>. The coils always dump more heat than the box removes.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>COP and the Carnot bound</h2>
+      <p>Cooling COP = Q<sub>c</sub> / W. An ideal Carnot fridge cannot beat <strong>T<sub>c</sub> / (T<sub>h</sub> − T<sub>c</sub>)</strong> with absolute temperatures. Real machines sit well below that ceiling.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Makes cold” / cools the room</h2>
+      <p>Open the door and you feel cold air spill out — but the condenser still rejects Q<sub>c</sub> + W into the same room. Net kitchen heat rises with W (and more when the compressor works harder). A fridge is not an air conditioner for the kitchen.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Fridge heat-pump facts">
+    <div class="stat">
+      <div class="k">Energy balance</div>
+      <div class="v">Q<sub>h</sub> = Q<sub>c</sub> + W</div>
+      <div class="s">first law on the cycle</div>
+    </div>
+    <div class="stat">
+      <div class="k">COP (cooling)</div>
+      <div class="v">Q<sub>c</sub> / W</div>
+      <div class="s">heat removed per work in</div>
+    </div>
+    <div class="stat">
+      <div class="k">Carnot fridge</div>
+      <div class="v">T<sub>c</sub>/(T<sub>h</sub>−T<sub>c</sub>)</div>
+      <div class="s">ideal upper bound (K)</div>
+    </div>
+    <div class="stat">
+      <div class="k">Open door</div>
+      <div class="v">net +W</div>
+      <div class="s">to a sealed kitchen</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Idealized vapor-compression toy.</strong> The page shows evaporator (cold), compressor (work in), and condenser coils (hot) with live heat arrows. It is a teaching schematic — not a pressure–enthalpy Mollier chart, not a throttling-valve animation, and not a chemical model of the refrigerant.</li>
+      <li><strong style="color:var(--text)">Powers.</strong> With the compressor on, cooling power is a fixed classroom base <code>Q<sub>c</sub> = 100 W</code> (door closed) or <code>150 W</code> (door open — larger load). Work is <code>W = Q<sub>c</sub> / COP</code> with <code>COP = η · COP<sub>Carnot</sub></code>. Then <code>Q<sub>h</sub> = Q<sub>c</sub> + W</code> by construction. Units are watts (energy per time).</li>
+      <li><strong style="color:var(--text)">Carnot COP.</strong> For a fridge between cold and hot reservoirs, the reversible upper bound is <code>COP<sub>Carnot</sub> = T<sub>c</sub> / (T<sub>h</sub> − T<sub>c</sub>)</code> with absolute temperatures in kelvin. Cited in every undergrad thermo text (e.g. Cengel &amp; Boles; Fermi). It is an <em>ideal ceiling</em>, not a claim about your kitchen appliance.</li>
+      <li><strong style="color:var(--text)">η slider.</strong> Default <code>η = 0.40</code> (40% of Carnot) is a round classroom stand-in. Real domestic fridges often land roughly in that ballpark depending on T<sub>c</sub>, T<sub>h</sub>, and age — real COP is lower than Carnot, and the page says so on purpose.</li>
+      <li><strong style="color:var(--text)">Open door → room warms.</strong> In a sealed kitchen, steady energy bookkeeping says net heat to the room equals compressor work W (door closed: Q<sub>c</sub> leaked in from the room and returned as part of Q<sub>h</sub>; door open: evaporator also pulls from room air, condenser returns Q<sub>c</sub>+W). Opening the door raises load → larger W → faster room warming. Feeling cold air at shin height is not whole-room cooling.</li>
+      <li><strong style="color:var(--text)">Room thermometer.</strong> A toy thermal mass integrates net power; it is not a CFD room model. Reset returns the dial to the T<sub>h</sub> setpoint. Insulation leak when the door is closed is implied by the steady Q<sub>c</sub>, not drawn as a separate conduction equation.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Heat, work, and energy conservation (NGSS MS-PS3); pairs with “why is the back of the fridge warm?” lab demos. Name the misconception out loud: fridges make cold / an open fridge cools the kitchen.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Constants — same values as validate-fridge.js =====
+  var QC_CLOSED = 100; // W, door closed
+  var QC_OPEN = 150;   // W, door open (harder load)
+  var ETA_DEFAULT = 0.40;
+  var ROOM_C_TH = 4.0e4; // J/K toy thermal mass for thermometer
+
+  function toKelvin(tC) {
+    return tC + 273.15;
+  }
+
+  function carnotCOP(TcK, ThK) {
+    if (!(ThK > TcK) || !(TcK > 0)) return 0;
+    return TcK / (ThK - TcK);
+  }
+
+  function actualCOP(TcK, ThK, eta) {
+    return eta * carnotCOP(TcK, ThK);
+  }
+
+  function fridgePowers(TcC, ThC, compressorOn, doorOpen, eta) {
+    var TcK = toKelvin(TcC);
+    var ThK = toKelvin(ThC);
+    var copCarnot = carnotCOP(TcK, ThK);
+    var cop = actualCOP(TcK, ThK, eta);
+    var Qc = 0;
+    var W = 0;
+    var Qh = 0;
+    if (compressorOn && cop > 1e-12) {
+      Qc = doorOpen ? QC_OPEN : QC_CLOSED;
+      W = Qc / cop;
+      Qh = Qc + W;
+    }
+    // Sealed-kitchen net heat to room equals work input when running
+    var QnetRoom = W;
+    return {
+      TcC: TcC,
+      ThC: ThC,
+      TcK: TcK,
+      ThK: ThK,
+      eta: eta,
+      copCarnot: copCarnot,
+      cop: cop,
+      Qc: Qc,
+      W: W,
+      Qh: Qh,
+      QnetRoom: QnetRoom,
+      compressorOn: compressorOn,
+      doorOpen: doorOpen
+    };
+  }
+
+  // ===== Fonts cached outside hot loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13 = '13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_UI_13 = '13px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  // ===== State =====
+  var state = {
+    TcC: -5,
+    ThC: 25,
+    eta: ETA_DEFAULT,
+    doorOpen: false,
+    compressorOn: true,
+    playing: true,
+    roomTC: 25,
+    lastTs: 0,
+    time: 0,
+    phase: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elReset = $('btnReset');
+  var elTc = $('tc');
+  var elTh = $('th');
+  var elEta = $('eta');
+  var elTcL = $('tcLabel');
+  var elThL = $('thLabel');
+  var elEtaL = $('etaLabel');
+  var elReadout = $('readout');
+  var elHint = $('modeHint');
+  var elFridgeMeta = $('fridgeMeta');
+  var elCycleMeta = $('cycleMeta');
+  var chipDoorClosed = $('chipDoorClosed');
+  var chipDoorOpen = $('chipDoorOpen');
+  var chipCompOn = $('chipCompOn');
+  var chipCompOff = $('chipCompOff');
+  var cvFridge = $('cvFridge');
+  var cvCycle = $('cvCycle');
+
+  var surfaces = {
+    fridge: { canvas: cvFridge, ctx: null, w: 0, h: 0, cssH: 400 },
+    cycle: { canvas: cvCycle, ctx: null, w: 0, h: 0, cssH: 400 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on');
+    else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function fmt1(x) {
+    return (Math.round(x * 10) / 10).toFixed(1);
+  }
+
+  function fmt0(x) {
+    return String(Math.round(x));
+  }
+
+  function currentPowers() {
+    return fridgePowers(state.TcC, state.ThC, state.compressorOn, state.doorOpen, state.eta);
+  }
+
+  function updateLabels() {
+    elTcL.textContent = (state.TcC >= 0 ? '+' : '') + fmt1(state.TcC) + ' °C';
+    elThL.textContent = fmt1(state.ThC) + ' °C';
+    elEtaL.textContent = state.eta.toFixed(2);
+    var p = currentPowers();
+    var door = state.doorOpen ? 'Door open' : 'Door closed';
+    var comp = state.compressorOn ? 'compressor on' : 'compressor off';
+    if (!state.compressorOn) {
+      elHint.textContent = door + ' · ' + comp + ' · no heat pumped; room drifts toward Th.';
+    } else if (state.doorOpen) {
+      elHint.textContent = door + ' · ' + comp + ' · evaporator pulls from room air; coils reject Qc+W — net kitchen heat = W (larger).';
+    } else {
+      elHint.textContent = door + ' · ' + comp + ' · heat leaves the box at the evaporator and is rejected at the condenser coils.';
+    }
+    elFridgeMeta.textContent = state.doorOpen ? 'door ajar · short circuit' : 'evaporator · compressor · condenser';
+    elCycleMeta.textContent = 'Qh=' + fmt0(p.Qh) + ' W · COP=' + (p.cop > 0 ? p.cop.toFixed(2) : '—');
+  }
+
+  function renderReadout(p) {
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Q<sub>c</sub> (cold)', p.compressorOn ? fmt0(p.Qc) + ' W' : '0 W', 'heat leaving food box', '');
+    kv('W (work)', p.compressorOn ? fmt0(p.W) + ' W' : '0 W', 'compressor electrical', 'sun');
+    kv('Q<sub>h</sub> (hot)', p.compressorOn ? fmt0(p.Qh) + ' W' : '0 W', 'rejected at coils · = Qc+W', 'warm');
+    kv('COP', p.cop > 0 ? p.cop.toFixed(2) : '—', 'Qc/W · η×Carnot', '');
+    kv('Carnot COP', p.copCarnot > 0 ? p.copCarnot.toFixed(2) : '—', 'Tc/(Th−Tc) ideal bound', 'sun');
+    elReadout.innerHTML = html;
+  }
+
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw) {
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    var len = Math.hypot(dx, dy) || 1;
+    var ux = dx / len;
+    var uy = dy / len;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = lw || 2.2;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    var ah = 8;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.55, y2 - uy * ah + ux * ah * 0.55);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.55, y2 - uy * ah - ux * ah * 0.55);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function drawFridge(p) {
+    var surf = surfaces.fridge;
+    fitCanvas(surf);
+    var ctx = surf.ctx;
+    var W = surf.w;
+    var H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+
+    // Background room wash
+    var bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, '#0a1028');
+    bg.addColorStop(1, '#0c1226');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    var fx = W * 0.18;
+    var fy = H * 0.10;
+    var fw = W * 0.46;
+    var fh = H * 0.78;
+    var doorGap = state.doorOpen ? Math.min(70, fw * 0.22) : 0;
+
+    // Floor / wall hint
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(16, H - 28);
+    ctx.lineTo(W - 16, H - 28);
+    ctx.stroke();
+
+    // Condenser coils (back / side)
+    var coilX = fx + fw + 10;
+    var coilY = fy + fh * 0.18;
+    var coilH = fh * 0.55;
+    var ci;
+    ctx.strokeStyle = p.compressorOn ? 'rgba(255,126,95,0.85)' : 'rgba(139,147,173,0.45)';
+    ctx.lineWidth = 2;
+    for (ci = 0; ci < 7; ci++) {
+      var cy = coilY + (coilH * ci) / 6;
+      ctx.beginPath();
+      ctx.moveTo(coilX, cy);
+      ctx.bezierCurveTo(coilX + 18, cy - 6, coilX + 18, cy + 6, coilX + 36, cy);
+      ctx.stroke();
+    }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = p.compressorOn ? '#ff7e5f' : '#8b93ad';
+    ctx.fillText('CONDENSER', coilX, coilY - 10);
+    ctx.fillText('coils', coilX, coilY - 10 + 12);
+
+    // Fridge body
+    ctx.fillStyle = '#121a36';
+    ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+    ctx.lineWidth = 1.5;
+    roundRect(ctx, fx, fy, fw, fh, 10);
+    ctx.fill();
+    ctx.stroke();
+
+    // Interior cold box
+    var ix = fx + 14;
+    var iy = fy + 36;
+    var iw = fw - 28 - (state.doorOpen ? 8 : 0);
+    var ih = fh * 0.62;
+    var coldG = ctx.createLinearGradient(ix, iy, ix, iy + ih);
+    coldG.addColorStop(0, 'rgba(94,200,229,0.28)');
+    coldG.addColorStop(1, 'rgba(30,60,90,0.55)');
+    ctx.fillStyle = coldG;
+    roundRect(ctx, ix, iy, iw, ih, 6);
+    ctx.fill();
+
+    // Evaporator plate (top of interior)
+    ctx.fillStyle = p.compressorOn ? 'rgba(94,200,229,0.55)' : 'rgba(94,200,229,0.22)';
+    ctx.fillRect(ix + 10, iy + 8, iw - 20, 14);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('EVAPORATOR', ix + 14, iy + 48);
+
+    // Shelves + food icons
+    ctx.strokeStyle = 'rgba(215,222,242,0.18)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(ix + 8, iy + ih * 0.45);
+    ctx.lineTo(ix + iw - 8, iy + ih * 0.45);
+    ctx.moveTo(ix + 8, iy + ih * 0.72);
+    ctx.lineTo(ix + iw - 8, iy + ih * 0.72);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,194,74,0.55)';
+    roundRect(ctx, ix + 18, iy + ih * 0.48, 28, 18, 3);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255,126,95,0.5)';
+    roundRect(ctx, ix + 56, iy + ih * 0.50, 22, 14, 3);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(94,200,229,0.4)';
+    roundRect(ctx, ix + 20, iy + ih * 0.76, 40, 16, 3);
+    ctx.fill();
+
+    // Interior temp badge
+    ctx.font = FONT_MONO_12;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('Tc  ' + fmt1(state.TcC) + ' °C', ix + 12, iy + ih - 12);
+
+    // Door
+    if (state.doorOpen) {
+      var dx0 = fx + fw;
+      var dy0 = fy + 8;
+      var dw = doorGap;
+      var dh = fh - 16;
+      ctx.save();
+      ctx.translate(dx0, dy0);
+      ctx.rotate(-0.55);
+      ctx.fillStyle = '#152040';
+      ctx.strokeStyle = 'rgba(255,126,95,0.45)';
+      ctx.lineWidth = 1.5;
+      roundRect(ctx, 0, 0, dw * 0.85, dh, 6);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      // Cold spill wisps
+      var t = state.time;
+      ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+      ctx.lineWidth = 1.5;
+      var wisp;
+      for (wisp = 0; wisp < 4; wisp++) {
+        var wx = fx + fw + 8 + wisp * 10;
+        var wy = iy + ih * 0.55 + Math.sin(t * 2 + wisp) * 6;
+        ctx.beginPath();
+        ctx.moveTo(fx + fw - 4, iy + ih * 0.4 + wisp * 12);
+        ctx.quadraticCurveTo(wx + 20, wy, wx + 40, wy + 30 + wisp * 8);
+        ctx.stroke();
+      }
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('DOOR OPEN', fx + fw + 8, fy + 22);
+    } else {
+      ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(fx + fw - 10, fy + 20);
+      ctx.lineTo(fx + fw - 10, fy + fh - 20);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(94,200,229,0.5)';
+      ctx.beginPath();
+      ctx.arc(fx + fw - 10, fy + fh * 0.45, 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Compressor housing (bottom)
+    var cx = fx + 20;
+    var cy = fy + fh * 0.72;
+    var cw = fw - 40;
+    var ch = fh * 0.22;
+    ctx.fillStyle = '#0e1530';
+    ctx.strokeStyle = 'rgba(255,194,74,0.35)';
+    ctx.lineWidth = 1.2;
+    roundRect(ctx, cx, cy, cw, ch, 6);
+    ctx.fill();
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('COMPRESSOR', cx + 10, cy + 18);
+    if (p.compressorOn) {
+      // Pulse ring
+      var pulse = 0.5 + 0.5 * Math.sin(state.time * 6);
+      ctx.strokeStyle = 'rgba(255,194,74,' + (0.25 + 0.35 * pulse).toFixed(2) + ')';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(cx + cw - 28, cy + ch * 0.55, 8 + pulse * 3, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = '#ffc24a';
+      ctx.beginPath();
+      ctx.arc(cx + cw - 28, cy + ch * 0.55, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('W in', cx + 10, cy + ch - 10);
+    } else {
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText('off', cx + 10, cy + ch - 10);
+    }
+
+    // Heat arrows
+    if (p.compressorOn && p.Qc > 0) {
+      var bob = Math.sin(state.time * 3) * 3;
+      // Qc: from food up into evaporator (heat leaving cold box)
+      drawArrow(ctx, ix + iw * 0.55, iy + ih * 0.35 + bob, ix + iw * 0.55, iy + 28, '#5ec8e5', 2.4);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('Qc  ' + fmt0(p.Qc) + ' W', ix + iw * 0.55 + 10, iy + ih * 0.22);
+
+      // Qh: from coils into room
+      drawArrow(ctx, coilX + 40, coilY + coilH * 0.35, coilX + 78, coilY + coilH * 0.15 - bob, '#ff7e5f', 2.4);
+      drawArrow(ctx, coilX + 40, coilY + coilH * 0.55, coilX + 78, coilY + coilH * 0.55 - bob * 0.5, '#ff7e5f', 2.0);
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Qh  ' + fmt0(p.Qh) + ' W', coilX + 44, coilY + coilH * 0.72);
+
+      // W arrow into compressor
+      drawArrow(ctx, cx + 8, cy + ch + 18, cx + 8, cy + ch - 2, '#ffc24a', 2.0);
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('W  ' + fmt0(p.W) + ' W', cx + 18, cy + ch + 16);
+    }
+
+    // Caption
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText('cross-section cartoon · not a P–h chart · refrigerant chemistry not modeled', 14, H - 12);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    var rr = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function drawCycle(p) {
+    var surf = surfaces.cycle;
+    fitCanvas(surf);
+    var ctx = surf.ctx;
+    var W = surf.w;
+    var H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+
+    // Title
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Energy bookkeeping', 16, 28);
+    ctx.font = FONT_UI_12;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('Qh = Qc + W  ·  sealed kitchen net = W', 16, 48);
+
+    // Bars
+    var maxQ = Math.max(p.Qh, QC_OPEN * 1.2, 1);
+    var barMaxH = H * 0.38;
+    var baseY = 70 + barMaxH;
+    var bx = 28;
+    var gap = 18;
+    var bw = Math.min(52, (W - 80) / 3 - gap);
+
+    function bar(x, val, color, label, sub) {
+      var h = (val / maxQ) * barMaxH;
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.85;
+      roundRect(ctx, x, baseY - h, bw, Math.max(h, val > 0 ? 2 : 0), 4);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = color;
+      ctx.fillText(label, x, baseY + 16);
+      ctx.font = FONT_MONO_12;
+      ctx.fillText(fmt0(val) + ' W', x, baseY + 32);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText(sub, x, baseY + 46);
+    }
+
+    bar(bx, p.Qc, '#5ec8e5', 'Qc', 'from cold');
+    bar(bx + bw + gap, p.W, '#ffc24a', 'W', 'work in');
+    bar(bx + 2 * (bw + gap), p.Qh, '#ff7e5f', 'Qh', 'to room');
+
+    // Equality check chip
+    var ok = Math.abs(p.Qh - (p.Qc + p.W)) < 1e-6;
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = ok ? '#5ec8e5' : '#ff7e5f';
+    ctx.fillText(ok ? '✓  Qh = Qc + W' : '✗  energy mismatch', 16, baseY + 68);
+
+    // COP readout strip
+    var stripY = baseY + 88;
+    ctx.fillStyle = 'rgba(16,22,48,0.9)';
+    ctx.strokeStyle = 'rgba(94,200,229,0.2)';
+    roundRect(ctx, 16, stripY, W - 32, 52, 8);
+    ctx.fill();
+    ctx.stroke();
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('COP actual', 28, stripY + 20);
+    ctx.fillText('COP Carnot', 28 + (W - 32) * 0.5, stripY + 20);
+    ctx.font = FONT_MONO_13;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText(p.cop > 0 ? p.cop.toFixed(2) : '—', 28, stripY + 40);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText(p.copCarnot > 0 ? p.copCarnot.toFixed(2) : '—', 28 + (W - 32) * 0.5, stripY + 40);
+
+    // Room thermometer
+    var thermX = W - 70;
+    var thermTop = 64;
+    var thermBot = H - 36;
+    var thermH = thermBot - thermTop;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('ROOM', thermX - 10, thermTop - 14);
+
+    // Stem
+    ctx.strokeStyle = 'rgba(215,222,242,0.25)';
+    ctx.lineWidth = 10;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(thermX, thermTop);
+    ctx.lineTo(thermX, thermBot);
+    ctx.stroke();
+
+    var tMin = state.ThC - 1;
+    var tMax = state.ThC + 8;
+    var frac = (state.roomTC - tMin) / (tMax - tMin);
+    if (frac < 0) frac = 0;
+    if (frac > 1) frac = 1;
+    var fillTop = thermBot - frac * (thermH - 8);
+    var mercury = ctx.createLinearGradient(0, fillTop, 0, thermBot);
+    mercury.addColorStop(0, '#ffc24a');
+    mercury.addColorStop(1, '#ff7e5f');
+    ctx.strokeStyle = mercury;
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.moveTo(thermX, thermBot);
+    ctx.lineTo(thermX, fillTop);
+    ctx.stroke();
+    ctx.fillStyle = '#ff7e5f';
+    ctx.beginPath();
+    ctx.arc(thermX, thermBot + 2, 10, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.font = FONT_MONO_12;
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText(fmt1(state.roomTC) + '°', thermX - 34, fillTop + 4);
+
+    // Rising cue
+    if (p.QnetRoom > 0.5) {
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = 'rgba(255,126,95,0.9)';
+      ctx.fillText('↑ net +' + fmt0(p.QnetRoom) + ' W', thermX - 42, thermTop + 8);
+    } else {
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText('idle', thermX - 14, thermTop + 8);
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText('toy thermal mass · not CFD', 16, H - 12);
+  }
+
+  function render() {
+    var p = currentPowers();
+    updateLabels();
+    renderReadout(p);
+    drawFridge(p);
+    drawCycle(p);
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (state.playing) {
+      state.time += dt;
+      state.phase += dt;
+      var p = currentPowers();
+      // Room integrates net heat; relax toward Th when idle
+      var dT = p.QnetRoom / ROOM_C_TH;
+      if (p.QnetRoom < 0.5) {
+        dT += (state.ThC - state.roomTC) * 0.15;
+      } else {
+        // slight pull of setpoint when door closed (Th slider is coil/room ambient)
+        dT += (state.ThC - state.roomTC) * 0.02;
+      }
+      state.roomTC += dT * dt;
+      // Clamp runaway
+      if (state.roomTC > state.ThC + 12) state.roomTC = state.ThC + 12;
+      if (state.roomTC < state.ThC - 2) state.roomTC = state.ThC - 2;
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function syncDoorChips() {
+    setChip(chipDoorClosed, !state.doorOpen);
+    setChip(chipDoorOpen, state.doorOpen);
+    if (state.doorOpen) chipDoorOpen.classList.add('myth');
+  }
+
+  function syncCompChips() {
+    setChip(chipCompOn, state.compressorOn);
+    setChip(chipCompOff, !state.compressorOn);
+  }
+
+  elPlay.addEventListener('click', function () {
+    state.playing = !state.playing;
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    if (state.playing) state.lastTs = 0;
+  });
+
+  elReset.addEventListener('click', function () {
+    state.roomTC = state.ThC;
+  });
+
+  elTc.addEventListener('input', function () {
+    state.TcC = parseFloat(elTc.value);
+    // Keep Tc < Th - 1
+    if (state.TcC >= state.ThC - 1) {
+      state.TcC = state.ThC - 1;
+      elTc.value = String(state.TcC);
+    }
+    updateLabels();
+  });
+
+  elTh.addEventListener('input', function () {
+    var prev = state.ThC;
+    state.ThC = parseFloat(elTh.value);
+    if (state.TcC >= state.ThC - 1) {
+      state.TcC = state.ThC - 1;
+      elTc.value = String(state.TcC);
+    }
+    state.roomTC += (state.ThC - prev);
+    updateLabels();
+  });
+
+  elEta.addEventListener('input', function () {
+    state.eta = parseFloat(elEta.value);
+    updateLabels();
+  });
+
+  chipDoorClosed.addEventListener('click', function () {
+    state.doorOpen = false;
+    syncDoorChips();
+    updateLabels();
+  });
+  chipDoorOpen.addEventListener('click', function () {
+    state.doorOpen = true;
+    syncDoorChips();
+    updateLabels();
+  });
+  chipCompOn.addEventListener('click', function () {
+    state.compressorOn = true;
+    syncCompChips();
+    updateLabels();
+  });
+  chipCompOff.addEventListener('click', function () {
+    state.compressorOn = false;
+    syncCompChips();
+    updateLabels();
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      elPlay.click();
+    }
+  });
+
+  window.addEventListener('resize', function () { render(); });
+
+  syncDoorChips();
+  syncCompChips();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  // Export physics for debugging / parity with validator
+  window.__fridgePhysics = {
+    toKelvin: toKelvin,
+    carnotCOP: carnotCOP,
+    actualCOP: actualCOP,
+    fridgePowers: fridgePowers,
+    QC_CLOSED: QC_CLOSED,
+    QC_OPEN: QC_OPEN,
+    ETA_DEFAULT: ETA_DEFAULT
+  };
+})();
+</script>
+</body>
+</html>
