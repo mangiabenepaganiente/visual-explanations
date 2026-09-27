@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Popcorn Pops — Steam Pressure in a Sealed Hull, Not Expanding Air | Classroom</title>
+<meta name="description" content="Classroom popcorn explainer: kernel water turns to steam, the hull fails near 180 °C at ~9 atm, starch puffs. Dry or cracked kernels won’t pop. Live T and P.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why popcorn pops, popcorn steam pressure, pericarp, kernel moisture, old maids, vapor pressure, Antoine equation, classroom physics, misconception">
+<link rel="canonical" href="popcorn.html">
+<meta property="og:title" content="Why Popcorn Pops — Steam, Not Air">
+<meta property="og:description" content="About 14% water turns to steam inside a sealed hull. Near 180 °C and ~9 atm the hull fails and the starch puffs. Trapped air alone can’t do it.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 410px; }
+@media (max-width: 720px) { .card canvas { height: 330px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · popcorn</a></p>
+  <h1>Why popcorn pops</h1>
+  <p class="lede">It is not air bursting out. A popcorn kernel holds about <strong>14% water</strong> sealed inside a hard, nearly airtight hull (the <strong>pericarp</strong>). Heat turns that water into <strong>steam</strong>, and the pressure climbs with temperature until, near <strong>180 °C and roughly 9 atm</strong>, the hull fails. The hot, softened starch flashes into foam and sets as the fluffy flake.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Heat pan</strong>, then drag <strong>moisture</strong> down to 9% and heat again. Notice the pressure curve never reaches the hull line — dry kernels just sit there.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false" title="Spacebar">Heat pan</button>
+      <button type="button" class="btn" id="btnReset">New batch</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="chipIntact" aria-pressed="true">Intact hulls</button>
+      <button type="button" class="chip" id="chipCracked" aria-pressed="false">Cracked hulls</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: air-only kernel</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Heat rate <em id="rateLabel">2.0 °C/s</em></span>
+        <input type="range" id="rate" min="0.5" max="5" step="0.1" value="2" aria-label="Kernel heating rate in degrees Celsius per second">
+      </label>
+      <label class="sl grow">
+        <span>Kernel moisture <em id="moistLabel">14.0 %</em></span>
+        <input type="range" id="moist" min="6" max="20" step="0.5" value="14" aria-label="Kernel moisture content, percent by mass">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint">Presets</span>
+      <button type="button" class="chip" id="preDry">Stale 9%</button>
+      <button type="button" class="chip on" id="preFresh">Fresh 14%</button>
+      <button type="button" class="chip" id="preWet">Damp 18%</button>
+      <span class="hint" id="modeHint">Steam model · hull holds until internal pressure exceeds its strength.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Inside one kernel · the pan</b><span id="panMeta">time ×1</span></div>
+      <canvas id="cvPan" width="740" height="410" aria-label="Cutaway of a popcorn kernel with a pressure gauge, and a pan of kernels that pop into flakes"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Pressure vs temperature</b><span id="chartMeta">steam + trapped air vs hull</span></div>
+      <canvas id="cvChart" width="520" height="410" aria-label="Chart of internal kernel pressure versus temperature with the hull strength line"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Water becomes steam</h2>
+      <p>The starchy endosperm holds roughly 13–14% water. Heated in a sealed hull, that water cannot boil off at 100 °C; its vapor pressure keeps climbing — about 10 atm for pure water at 180 °C (steam tables).</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>The hull is a pressure vessel</h2>
+      <p>The pericarp is tough and low-permeability. It holds until the internal pressure passes its strength — reported around <code>~0.9 MPa ≈ 9 atm</code> near 180 °C. Then it fails suddenly: the “pop.”</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Starch flashes into foam</h2>
+      <p>By then the starch is hot, wet, and gelatinized. When the pressure drops to 1 atm, the steam expands it into a foam that cools and sets in a fraction of a second — the white flake is 20–40× the kernel’s volume.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“The air inside expands”</h2>
+      <p>Air trapped at 1 atm and heated from 20 to 180 °C at fixed volume only reaches <code>453/293 ≈ 1.5 atm</code> — far short of ~9 atm. Toggle the myth: an air-only kernel never pops. It’s the water. Dry kernels (below ~10%) and cracked hulls fail.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Popcorn numbers">
+    <div class="stat">
+      <div class="k">Ideal moisture</div>
+      <div class="v">~13–14.5%</div>
+      <div class="s">by mass · commercial popcorn</div>
+    </div>
+    <div class="stat">
+      <div class="k">Pops near</div>
+      <div class="v">~180 °C</div>
+      <div class="s">Virot &amp; Ponomarenko 2015</div>
+    </div>
+    <div class="stat">
+      <div class="k">Hull fails at</div>
+      <div class="v">~9 atm</div>
+      <div class="s">≈ 0.9 MPa · approximate</div>
+    </div>
+    <div class="stat">
+      <div class="k">Air alone</div>
+      <div class="v">~1.5 atm</div>
+      <div class="s">at 180 °C, fixed volume</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Steam pressure.</strong> Saturation vapor pressure of water from the Antoine equation, <code>log₁₀ p[mmHg] = A − B/(C + T)</code>, with A = 8.07131, B = 1730.63, C = 233.426 below 99 °C and A = 8.14019, B = 1810.94, C = 244.485 above (standard fitted constants). It matches IAPWS steam tables to within about 1% from 25 to 220 °C (e.g. 1.00 MPa at 180 °C).</li>
+      <li><strong>Bound water (the big simplification).</strong> Water held in starch has a lower vapor pressure than free water. The page scales steam pressure by a toy water-activity curve <code>a<sub>w</sub> = 1 / (1 + (11.5 / M)<sup>6</sup>)</code>, M in % moisture. That gives a<sub>w</sub> ≈ 0.77 at 14%, which is roughly the humidity that grain at 14% moisture comes to equilibrium with at room temperature. The curve is a teaching fit, not a measured isotherm, and it ignores how a<sub>w</sub> changes with temperature. It is what makes dry kernels fail in this model.</li>
+      <li><strong>Trapped air.</strong> Pore air starts at 1 atm and is treated as an ideal gas at fixed volume: <code>p = 1 atm × T/T₀</code> (kelvin). Internal pressure = air + <code>a<sub>w</sub> · p<sub>sat</sub>(T)</code>, relaxing toward that value with a 1 s lag.</li>
+      <li><strong>Hull strength.</strong> The nominal failure pressure is 0.93 MPa (≈ 9.2 atm), with ±8% kernel-to-kernel scatter. Published estimates cluster near 0.9–1.0 MPa at about 180 °C (Hoseney et al., <em>Cereal Chem.</em> 1983; Virot &amp; Ponomarenko, <em>J. R. Soc. Interface</em> 12, 2015, which measured a critical popping temperature near 180 °C). Treat these numbers as approximate.</li>
+      <li><strong>Leaks and moisture loss.</strong> About 5% of each batch has micro-cracked hulls. Cracked hulls vent steam (leak rate 4 s⁻¹ against a 1 s build-up lag), so the excess pressure stalls at a fifth of the sealed value or less. Intact hulls also lose a little water as the pressure rises (0.01 percentage points per second per MPa), so very slow heating costs a few pops. Both rates are illustrative, not measured.</li>
+      <li><strong>Temperature.</strong> Kernel temperature ramps at the chosen rate from 20 °C and is capped at 220 °C (hot oil or air-popper range). Heat conduction inside the kernel, starch chemistry, and burning are not modeled. Flake size is decorative.</li>
+      <li><strong>For teachers.</strong> This covers phase change, vapor pressure vs temperature, and pressure vessels (NGSS MS-PS1-4 and HS-PS3). Try a lab: weigh kernels before and after oven-drying them to measure moisture, then compare pop yields. Say the misconception out loud: “the air inside expands.”</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored and checked by validate-popcorn.js =====
+  var T_AMBIENT = 20;        // °C, starting kernel temperature
+  var T_CAP = 220;           // °C, maximum kernel temperature (hot oil / air popper)
+  var P_ATM = 101325;        // Pa
+  var MMHG_PA = 133.322368;  // Pa per mmHg
+  var P_HULL = 0.93e6;       // Pa, nominal pericarp failure pressure (~9.2 atm)
+  var HULL_SCATTER = 0.08;   // 1σ fractional kernel-to-kernel scatter
+  var M_C = 11.5;            // % moisture where toy a_w = 0.5
+  var N_AW = 6;              // toy sorption steepness
+  var TAU_P = 1.0;           // s, pressure relaxation lag
+  var LEAK_CRACKED = 4.0;    // 1/s, steam vent rate through a cracked hull
+  var K_LOSS = 0.01;         // %-points per s per MPa of steam (intact hull)
+  var K_LOSS_CRACKED = 0.25; // %-points per s per MPa of steam (cracked hull)
+  var NATURAL_CRACK_FRAC = 0.05;
+  var M_SCATTER = 0.5;       // %-points 1σ moisture scatter
+
+  // Antoine equation for water (mmHg, °C) → Pa
+  function psatWaterPa(tC) {
+    var A, B, C;
+    if (tC < 99) { A = 8.07131; B = 1730.63; C = 233.426; }
+    else { A = 8.14019; B = 1810.94; C = 244.485; }
+    return Math.pow(10, A - B / (C + tC)) * MMHG_PA;
+  }
+
+  // Toy sorption curve: water activity of kernel water at moisture M (%)
+  function waterActivity(M) {
+    if (!(M > 0)) return 0;
+    return 1 / (1 + Math.pow(M_C / M, N_AW));
+  }
+
+  // Trapped pore air at fixed volume, starting at 1 atm and T_AMBIENT
+  function airPressurePa(tC) {
+    return P_ATM * (tC + 273.15) / (T_AMBIENT + 273.15);
+  }
+
+  // Equilibrium internal pressure: air + a_w · p_sat(T)
+  function equilibriumPressurePa(tC, M) {
+    return airPressurePa(tC) + waterActivity(M) * psatWaterPa(tC);
+  }
+
+  function kernelTemperature(t, rate) {
+    var T = T_AMBIENT + rate * t;
+    return T > T_CAP ? T_CAP : T;
+  }
+
+  function makeKernel(M, strength, cracked) {
+    return { M: M, M0: M, strength: strength, cracked: !!cracked, p: P_ATM, T: T_AMBIENT,
+      popped: false, Tpop: 0, ppop: 0, tpop: 0 };
+  }
+
+  // Advance one kernel by dt seconds; T = kernel temperature (°C) at the end of the step, t = time
+  function stepKernel(k, T, t, dt) {
+    if (k.popped) return k;
+    k.T = T;
+    var peq = equilibriumPressurePa(k.T, k.M);
+    var leak = k.cracked ? LEAK_CRACKED : 0;
+    k.p += ((peq - k.p) / TAU_P - leak * (k.p - P_ATM)) * dt;
+    if (k.p < P_ATM) k.p = P_ATM;
+    var pSteamMPa = Math.max(0, k.p - airPressurePa(k.T)) / 1e6;
+    var loss = (k.cracked ? K_LOSS_CRACKED : K_LOSS) * pSteamMPa * dt;
+    if (k.cracked) loss += K_LOSS_CRACKED * waterActivity(k.M) * psatWaterPa(k.T) / 1e6 * dt * 0.5;
+    k.M = Math.max(0, k.M - loss);
+    if (!k.cracked && k.p >= k.strength) {
+      k.popped = true;
+      k.Tpop = k.T;
+      k.ppop = k.p;
+      k.tpop = t;
+    }
+    return k;
+  }
+
+  // Run one kernel to completion (used by validator and chart forecasts)
+  function simulateKernel(M, strength, cracked, rate, dt) {
+    dt = dt || 0.05;
+    var k = makeKernel(M, strength, cracked);
+    var tCap = (T_CAP - T_AMBIENT) / rate;
+    var tEnd = tCap + 60;
+    var t = 0;
+    var pMax = k.p;
+    while (t < tEnd && !k.popped) {
+      t += dt;
+      stepKernel(k, kernelTemperature(t, rate), t, dt);
+      if (k.p > pMax) pMax = k.p;
+    }
+    k.pMax = pMax;
+    return k;
+  }
+
+  // Deterministic PRNG (mulberry32) + Gaussian
+  function rng(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function gauss(r) {
+    var u = Math.max(1e-9, r());
+    var v = r();
+    var g = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    return Math.max(-2.5, Math.min(2.5, g));
+  }
+
+  function makeBatch(n, Mset, allCracked, seed) {
+    var r = rng(seed);
+    var ks = [];
+    for (var i = 0; i < n; i++) {
+      var s = P_HULL * (1 + HULL_SCATTER * gauss(r));
+      var m = Math.max(0, Mset + M_SCATTER * gauss(r));
+      var natural = r() < NATURAL_CRACK_FRAC;
+      ks.push(makeKernel(m, s, allCracked || natural));
+    }
+    return ks;
+  }
+
+  function batchYield(Mset, allCracked, rate, n, seed) {
+    var r = rng(seed);
+    var popped = 0;
+    for (var i = 0; i < n; i++) {
+      var s = P_HULL * (1 + HULL_SCATTER * gauss(r));
+      var m = Math.max(0, Mset + M_SCATTER * gauss(r));
+      var natural = r() < NATURAL_CRACK_FRAC;
+      var k = simulateKernel(m, s, allCracked || natural, rate, 0.1);
+      if (k.popped) popped++;
+    }
+    return popped / n;
+  }
+
+  // ===== Fonts cached outside hot loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_14 = '500 14px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_POP = '700 22px Fraunces, Georgia, serif';
+
+  var N_KERNELS = 42;
+  var SIM_DT = 0.05;
+
+  var state = {
+    rate: 2, M: 14, cracked: false, myth: false, playing: false,
+    t: 0, panT: 20, seed: 7, batch: null, focus: null, trail: [], flakes: [],
+    lastTs: 0, anim: 0, holdAtCap: 0, done: false, flash: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay'), elReset = $('btnReset');
+  var chipIntact = $('chipIntact'), chipCracked = $('chipCracked'), chipMyth = $('chipMyth');
+  var elRate = $('rate'), elMoist = $('moist'), elRateL = $('rateLabel'), elMoistL = $('moistLabel');
+  var preDry = $('preDry'), preFresh = $('preFresh'), preWet = $('preWet');
+  var elHint = $('modeHint'), elPanMeta = $('panMeta'), elChartMeta = $('chartMeta');
+  var elReadout = $('readout');
+  var surfaces = {
+    pan: { canvas: $('cvPan'), ctx: null, w: 0, h: 0, cssH: 410 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 410 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  function atm(pPa) { return pPa / P_ATM; }
+
+  function simSpeed() {
+    // Heating to ~180 °C takes ~12 s of screen time at any rate
+    return Math.max(1, (160 / state.rate) / 12);
+  }
+
+  function resetBatch(newSeed) {
+    if (newSeed) state.seed = (state.seed * 1664525 + 1013904223) >>> 0;
+    var Mb = state.myth ? 0 : state.M;
+    state.batch = makeBatch(N_KERNELS, Mb, state.cracked, state.seed);
+    state.focus = makeKernel(Mb, P_HULL, state.cracked);
+    // Lay kernels out on the pan floor (unit coords)
+    var r = rng(state.seed ^ 0x9e3779b9);
+    for (var i = 0; i < state.batch.length; i++) {
+      var k = state.batch[i];
+      k.u = 0.06 + 0.88 * r();
+      k.v = r();
+      k.rot = r() * Math.PI * 2;
+      k.jig = r() * 10;
+    }
+    state.batch.sort(function (a, b) { return a.v - b.v; });
+    state.t = 0; state.panT = T_AMBIENT; state.trail = []; state.flakes = []; state.holdAtCap = 0; state.done = false; state.flash = 0;
+  }
+
+  function stepSim(simDt) {
+    var n = Math.max(1, Math.ceil(simDt / SIM_DT));
+    var h = simDt / n;
+    for (var s = 0; s < n; s++) {
+      state.t += h;
+      state.panT = Math.min(T_CAP, state.panT + state.rate * h);
+      for (var i = 0; i < state.batch.length; i++) {
+        var k = state.batch[i];
+        var was = k.popped;
+        stepKernel(k, state.panT, state.t, h);
+        if (!was && k.popped) spawnFlake(k);
+      }
+      var fwas = state.focus.popped;
+      stepKernel(state.focus, state.panT, state.t, h);
+      if (!fwas && state.focus.popped) state.flash = 1;
+      if (state.panT >= T_CAP) state.holdAtCap += h;
+    }
+    if (!state.focus.popped) state.trail.push([state.focus.T, state.focus.p]);
+    if (state.trail.length > 1500) state.trail.splice(0, state.trail.length - 1500);
+    var allDone = true;
+    for (var j = 0; j < state.batch.length; j++) if (!state.batch[j].popped) { allDone = false; break; }
+    if ((allDone && state.focus.popped) || state.holdAtCap > 30) {
+      state.done = true;
+      state.playing = false;
+      syncPlay();
+    }
+  }
+
+  function spawnFlake(k) {
+    var sizeF = Math.exp(-Math.pow((k.M0 - 14) / 4, 2));
+    state.flakes.push({ k: k, u: k.u, y: 0, vy: 0.9 + 0.6 * ((k.jig * 7.3) % 1), vx: (((k.jig * 3.1) % 1) - 0.5) * 0.25,
+      age: 0, size: 0.75 + 0.45 * sizeF, rot: k.rot, settled: false });
+  }
+
+  function countPopped() {
+    var c = 0;
+    for (var i = 0; i < state.batch.length; i++) if (state.batch[i].popped) c++;
+    return c;
+  }
+
+  function statusText(k) {
+    if (state.myth) return state.panT >= T_CAP ? 'NO POP — air alone' : 'heating (air only)';
+    if (k.popped) return 'POP at ' + fmt(k.Tpop, 0) + ' °C';
+    if (k.cracked) return k.T > 100 ? 'NO POP — leaking' : 'heating';
+    if (state.done || (state.panT >= T_CAP && state.holdAtCap > 4)) return 'NO POP — too dry';
+    return k.T > 100 ? 'building pressure' : 'heating';
+  }
+
+  function renderReadout() {
+    var k = state.focus;
+    var html = '';
+    function kv(key, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + key + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    var T = k.popped ? k.Tpop : k.T;
+    var p = k.popped ? k.ppop : k.p;
+    var air = airPressurePa(T);
+    kv('Kernel temperature', fmt(T, 0) + ' °C', 'ramp ' + fmt(state.rate, 1) + ' °C/s · cap ' + T_CAP + ' °C', T > 150 ? 'warm' : '');
+    kv('Internal pressure', fmt(p / 1e6, 2) + ' MPa · ' + fmt(atm(p), 1) + ' atm',
+      'steam ' + fmt(Math.max(0, p - air) / 1e6, 2) + ' + air ' + fmt(air / 1e6, 2) + ' MPa', 'sun');
+    kv('Hull strength', k.cracked ? 'cracked · leaks' : fmt(k.strength / 1e6, 2) + ' MPa · ' + fmt(atm(k.strength), 1) + ' atm',
+      k.cracked ? 'steam vents out' : 'nominal pericarp ±8% scatter', k.cracked ? 'warm' : '');
+    var st = statusText(k);
+    kv('Pop / no pop', st, 'moisture now ' + fmt(k.M, 1) + '% · a_w ' + fmt(waterActivity(k.M), 2),
+      k.popped ? 'ok' : (st.indexOf('NO POP') === 0 ? 'warm' : ''));
+    var c = countPopped();
+    kv('Batch popped', c + ' / ' + state.batch.length + ' · ' + fmt(100 * c / state.batch.length, 0) + '%',
+      'unpopped “old maids” ' + (state.batch.length - c), c / state.batch.length > 0.8 ? 'ok' : '');
+    elReadout.innerHTML = html;
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    var rr = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function kernelPath(ctx, s) {
+    // Teardrop kernel, tip down, centered at origin, size s
+    ctx.beginPath();
+    ctx.moveTo(0, s * 0.95);
+    ctx.bezierCurveTo(s * 0.55, s * 0.55, s * 0.78, -s * 0.2, s * 0.62, -s * 0.62);
+    ctx.bezierCurveTo(s * 0.42, -s * 1.0, -s * 0.42, -s * 1.0, -s * 0.62, -s * 0.62);
+    ctx.bezierCurveTo(-s * 0.78, -s * 0.2, -s * 0.55, s * 0.55, 0, s * 0.95);
+    ctx.closePath();
+  }
+
+  function flakePath(ctx, s) {
+    ctx.beginPath();
+    var lobes = [[0, 0, 0.62], [0.55, -0.25, 0.48], [-0.55, -0.2, 0.5], [0.3, 0.45, 0.45], [-0.35, 0.42, 0.44], [0.05, -0.6, 0.42]];
+    for (var i = 0; i < lobes.length; i++) {
+      var L = lobes[i];
+      ctx.moveTo(L[0] * s + L[2] * s, L[1] * s);
+      ctx.arc(L[0] * s, L[1] * s, L[2] * s, 0, Math.PI * 2);
+    }
+  }
+
+  function heatColor(T) {
+    var f = Math.max(0, Math.min(1, (T - T_AMBIENT) / (T_CAP - T_AMBIENT)));
+    var r = Math.round(40 + 215 * f), g = Math.round(50 + 76 * f), b = Math.round(80 - 20 * f);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+  }
+
+  function drawPan() {
+    var surf = surfaces.pan;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var k = state.focus;
+    var narrow = W < 560;
+
+    // ---- Kernel cutaway (left) ----
+    var cutW = narrow ? W * 0.44 : W * 0.40;
+    var cx = cutW * 0.46, cy = H * 0.44;
+    var s = Math.min(cutW * 0.36, H * 0.26);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('ONE KERNEL · CUTAWAY', 12, 20);
+
+    if (k.popped) {
+      var age = Math.min(1, (state.t - k.tpop) / 3);
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.fillStyle = '#f4efe2';
+      ctx.globalAlpha = 0.95;
+      flakePath(ctx, s * (0.5 + 0.12 * age));
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = 'rgba(214,160,74,0.9)';
+      ctx.save();
+      ctx.translate(s * 0.22, s * 0.32);
+      ctx.rotate(0.6);
+      kernelPath(ctx, s * 0.2);
+      ctx.fill();
+      ctx.restore();
+      ctx.restore();
+      ctx.font = FONT_POP;
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('POP!', cx - 26, cy - s * 1.25);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(fmt(k.Tpop, 0) + ' °C · ' + fmt(atm(k.ppop), 1) + ' atm', cx - s * 0.95, cy + s * 1.35);
+    } else {
+      ctx.save();
+      ctx.translate(cx, cy);
+      // Hull (pericarp)
+      kernelPath(ctx, s);
+      ctx.fillStyle = '#b8742a';
+      ctx.fill();
+      // Endosperm interior
+      kernelPath(ctx, s * 0.84);
+      var g = ctx.createRadialGradient(0, -s * 0.2, s * 0.1, 0, 0, s);
+      g.addColorStop(0, '#f6dc8a');
+      g.addColorStop(1, '#d9a94c');
+      ctx.fillStyle = g;
+      ctx.fill();
+      // Germ
+      ctx.fillStyle = 'rgba(245,235,200,0.65)';
+      ctx.beginPath();
+      ctx.ellipse(0, s * 0.45, s * 0.16, s * 0.3, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Water → steam bubbles
+      var steamFrac = Math.max(0, Math.min(1, (k.T - 100) / 80));
+      var nDots = state.myth ? 0 : Math.round(8 + 22 * Math.min(1, k.M / 14));
+      var jitter = 0.5 + 2.5 * steamFrac;
+      for (var i = 0; i < nDots; i++) {
+        var a = i * 2.39996;
+        var rr = s * 0.62 * Math.sqrt((i + 0.5) / nDots);
+        var px = Math.cos(a) * rr * 0.78 + Math.sin(state.anim * 6 + i) * jitter;
+        var py = Math.sin(a) * rr - s * 0.12 + Math.cos(state.anim * 5 + i * 1.7) * jitter;
+        if (i / nDots < steamFrac) {
+          ctx.fillStyle = 'rgba(255,255,255,0.75)';
+          ctx.beginPath();
+          ctx.arc(px, py, 2.4 + 1.8 * steamFrac, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = 'rgba(94,200,229,0.85)';
+          ctx.beginPath();
+          ctx.arc(px, py, 2.1, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      if (state.myth) {
+        ctx.fillStyle = 'rgba(255,126,95,0.8)';
+        for (var ai = 0; ai < 10; ai++) {
+          var aa = ai * 2.39996;
+          ctx.beginPath();
+          ctx.arc(Math.cos(aa) * s * 0.4 + Math.sin(state.anim * 4 + ai) * 2, Math.sin(aa) * s * 0.45 - s * 0.1, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      // Crack + venting steam
+      if (k.cracked) {
+        ctx.strokeStyle = '#1a1206';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(s * 0.58, -s * 0.55);
+        ctx.lineTo(s * 0.45, -s * 0.38);
+        ctx.lineTo(s * 0.6, -s * 0.25);
+        ctx.lineTo(s * 0.5, -s * 0.1);
+        ctx.stroke();
+        if (k.T > 100) {
+          ctx.strokeStyle = 'rgba(220,230,245,0.45)';
+          ctx.lineWidth = 1.5;
+          for (var w = 0; w < 3; w++) {
+            var ph = (state.anim * 0.8 + w / 3) % 1;
+            ctx.beginPath();
+            ctx.moveTo(s * 0.62, -s * 0.35);
+            ctx.quadraticCurveTo(s * (0.8 + 0.2 * ph), -s * (0.5 + ph * 0.5), s * (0.9 + 0.3 * ph), -s * (0.8 + ph * 0.6));
+            ctx.stroke();
+          }
+        }
+      }
+      ctx.restore();
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d6a04a';
+      ctx.fillText('hull (pericarp)', cx - s * 0.95, cy + s * 1.28);
+      ctx.fillStyle = state.myth ? '#ff7e5f' : '#5ec8e5';
+      ctx.fillText(state.myth ? '● air only (myth)' : '● water  ○ steam', cx - s * 0.95, cy + s * 1.28 + 14);
+    }
+
+    // Pressure gauge
+    var gx = cutW * 0.5, gy = H - 46, gr = Math.min(40, cutW * 0.22);
+    var pShown = k.popped ? k.ppop : k.p;
+    var pMaxG = 1.6e6;
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = 'rgba(94,200,229,0.2)';
+    ctx.beginPath();
+    ctx.arc(gx, gy, gr, Math.PI, 2 * Math.PI);
+    ctx.stroke();
+    var hullA = Math.PI + Math.PI * Math.min(1, P_HULL / pMaxG);
+    ctx.strokeStyle = 'rgba(255,126,95,0.6)';
+    ctx.beginPath();
+    ctx.arc(gx, gy, gr, hullA, 2 * Math.PI);
+    ctx.stroke();
+    var na = Math.PI + Math.PI * Math.min(1, pShown / pMaxG);
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(gx, gy);
+    ctx.lineTo(gx + Math.cos(na) * (gr - 4), gy + Math.sin(na) * (gr - 4));
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText(fmt(atm(pShown), 1) + ' atm', gx - 22, gy + 16);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('hull', gx + Math.cos(hullA) * (gr + 6) - 4, gy + Math.sin(hullA) * (gr + 6) - 3);
+
+    // ---- Pan (right) ----
+    var px0 = cutW + 8, pw = W - cutW - 20;
+    var floorY = H - 58;
+    var panTop = floorY - (narrow ? 140 : 190);
+    // Burner glow
+    var Tglow = state.panT;
+    var glow = ctx.createLinearGradient(0, floorY, 0, H);
+    glow.addColorStop(0, heatColor(Tglow));
+    glow.addColorStop(1, 'rgba(10,16,40,0)');
+    ctx.fillStyle = glow;
+    ctx.globalAlpha = 0.35 + 0.5 * Math.max(0, (Tglow - T_AMBIENT) / (T_CAP - T_AMBIENT));
+    ctx.fillRect(px0 + 10, floorY, pw - 20, H - floorY);
+    ctx.globalAlpha = 1;
+    // Pan walls
+    ctx.strokeStyle = 'rgba(215,222,242,0.5)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(px0 + 6, panTop);
+    ctx.lineTo(px0 + 22, floorY);
+    ctx.lineTo(px0 + pw - 22, floorY);
+    ctx.lineTo(px0 + pw - 6, panTop);
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('THE PAN · ' + state.batch.length + ' KERNELS', px0 + 10, 20);
+    ctx.fillStyle = heatColor(state.panT);
+    if (narrow) ctx.fillText('pan ' + fmt(state.panT, 0) + ' °C', px0 + 10, 34);
+    else ctx.fillText('pan ' + fmt(state.panT, 0) + ' °C', px0 + pw - 80, 20);
+
+    var innerX = px0 + 26, innerW = pw - 52;
+    var ks = Math.max(5, Math.min(8, innerW / 34));
+    // Unpopped kernels on the floor
+    for (var j = 0; j < state.batch.length; j++) {
+      var kk = state.batch[j];
+      if (kk.popped) continue;
+      var kx = innerX + kk.u * innerW;
+      var ky = floorY - 6 - kk.v * 10;
+      var shake = kk.T > 150 && !kk.cracked ? Math.sin(state.anim * 30 + kk.jig) * Math.min(1.5, (kk.p / kk.strength) * 1.5) : 0;
+      ctx.save();
+      ctx.translate(kx + shake, ky);
+      ctx.rotate(kk.rot);
+      kernelPath(ctx, ks);
+      ctx.fillStyle = kk.cracked ? '#8a5a26' : '#d99a3a';
+      ctx.fill();
+      if (kk.cracked) {
+        ctx.strokeStyle = '#2a1a08';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(-ks * 0.2, -ks * 0.5);
+        ctx.lineTo(ks * 0.1, 0);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    // Popped flakes pile
+    var fs = ks * 1.9;
+    for (var f = 0; f < state.flakes.length; f++) {
+      var fl = state.flakes[f];
+      var fx = innerX + Math.max(0, Math.min(1, fl.u)) * innerW;
+      var fy = floorY - 8 - fl.y * (floorY - panTop - 20);
+      ctx.save();
+      ctx.translate(fx, fy);
+      ctx.rotate(fl.rot + fl.age * 2);
+      ctx.fillStyle = '#f4efe2';
+      flakePath(ctx, fs * fl.size);
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText(narrow ? 'toy model · a_w · p_sat(T) + air' : 'toy model · steam = a_w · p_sat(T) + trapped air · not a heat-transfer sim', 12, H - 10);
+  }
+
+  function updateFlakes(dt) {
+    for (var i = 0; i < state.flakes.length; i++) {
+      var f = state.flakes[i];
+      f.age += dt;
+      if (f.settled) continue;
+      var rest = 0.02 + 0.5 * ((i % 7) / 7) * Math.min(1, state.flakes.length / 40);
+      f.vy -= 2.6 * dt;
+      f.y += f.vy * dt;
+      f.u += f.vx * dt;
+      if (f.u < 0.02 || f.u > 0.98) f.vx = -f.vx;
+      if (f.y <= rest && f.vy < 0) {
+        f.y = rest;
+        f.vy = -f.vy * 0.35;
+        f.vx *= 0.6;
+        if (Math.abs(f.vy) < 0.12) { f.vy = 0; f.settled = true; }
+      }
+    }
+  }
+
+  // Chart mapping
+  var CH_TMIN = 20, CH_TMAX = 230, CH_PMAX = 2.4e6;
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var L = 52, R = W - 46, T = 52, B = H - 46;
+    function X(tc) { return L + (tc - CH_TMIN) / (CH_TMAX - CH_TMIN) * (R - L); }
+    function Y(p) { return B - Math.min(1.08, p / CH_PMAX) * (B - T); }
+
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Inside the kernel', 14, 22);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(94,200,229,0.08)';
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    var tc, p;
+    for (tc = 20; tc <= 220; tc += 40) {
+      ctx.beginPath(); ctx.moveTo(X(tc), T); ctx.lineTo(X(tc), B); ctx.stroke();
+      ctx.fillText(tc + '°', X(tc) - 10, B + 14);
+    }
+    for (p = 0; p <= CH_PMAX + 1; p += 0.4e6) {
+      ctx.beginPath(); ctx.moveTo(L, Y(p)); ctx.lineTo(R, Y(p)); ctx.stroke();
+      ctx.fillText(fmt(p / 1e6, 1), L - 28, Y(p) + 3);
+      ctx.fillText(fmt(atm(p), 0), R + 6, Y(p) + 3);
+    }
+    ctx.fillText('MPa', L - 28, T - 12);
+    ctx.fillText('atm', R + 6, T - 12);
+    ctx.fillText('kernel temperature (°C)', (L + R) / 2 - 64, B + 30);
+
+    // Hull strength band
+    ctx.fillStyle = 'rgba(255,126,95,0.12)';
+    ctx.fillRect(L, Y(P_HULL * (1 + HULL_SCATTER)), R - L, Y(P_HULL * (1 - HULL_SCATTER)) - Y(P_HULL * (1 + HULL_SCATTER)));
+    ctx.strokeStyle = '#ff7e5f';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath(); ctx.moveTo(L, Y(P_HULL)); ctx.lineTo(R, Y(P_HULL)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText(state.cracked ? 'intact-hull strength (yours leak)' : 'hull strength ~9 atm', L + 6, Y(P_HULL) - 6);
+
+    // Clip curves to the plot box
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(L, T - 6, R - L, B - T + 6);
+    ctx.clip();
+    // Pure-water saturation curve
+    ctx.strokeStyle = 'rgba(255,194,74,0.55)';
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath();
+    for (tc = 20; tc <= CH_TMAX; tc += 2) {
+      var yy = Y(psatWaterPa(tc));
+      if (tc === 20) ctx.moveTo(X(tc), yy); else ctx.lineTo(X(tc), yy);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,194,74,0.8)';
+    ctx.fillText('pure water', X(201) - 72, Y(1.6e6));
+
+    // Air-only curve
+    ctx.strokeStyle = state.myth ? '#ff7e5f' : 'rgba(255,126,95,0.55)';
+    ctx.lineWidth = state.myth ? 2.4 : 1.4;
+    ctx.beginPath();
+    ctx.moveTo(X(20), Y(airPressurePa(20)));
+    ctx.lineTo(X(T_CAP), Y(airPressurePa(T_CAP)));
+    ctx.stroke();
+    ctx.fillStyle = state.myth ? '#ff7e5f' : 'rgba(255,126,95,0.8)';
+    ctx.textAlign = 'right';
+    ctx.fillText('air only · ' + fmt(atm(airPressurePa(T_CAP)), 1) + ' atm at ' + T_CAP + '°', X(T_CAP) - 4, Y(airPressurePa(T_CAP)) - 6);
+    ctx.textAlign = 'left';
+
+    // Equilibrium curve for current moisture (intact)
+    if (!state.myth) {
+      ctx.strokeStyle = '#5ec8e5';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (tc = 20; tc <= T_CAP; tc += 2) {
+        var ye = Y(equilibriumPressurePa(tc, state.M));
+        if (tc === 20) ctx.moveTo(X(tc), ye); else ctx.lineTo(X(tc), ye);
+      }
+      ctx.stroke();
+      ctx.fillStyle = '#5ec8e5';
+      var lblY = Math.max(T + 12, Y(equilibriumPressurePa(T_CAP, state.M)) - 6);
+      ctx.fillText('sealed, ' + fmt(state.M, 1) + '% water', X(T_CAP) - 118, lblY);
+    }
+    ctx.restore();
+    // Pan limit
+    ctx.strokeStyle = 'rgba(215,222,242,0.25)';
+    ctx.beginPath(); ctx.moveTo(X(T_CAP), T); ctx.lineTo(X(T_CAP), B); ctx.stroke();
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('max', X(T_CAP) + 3, T + 10);
+
+    // Trail of focus kernel
+    var tr = state.trail;
+    if (tr.length > 1) {
+      ctx.strokeStyle = '#ffc24a';
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.moveTo(X(tr[0][0]), Y(tr[0][1]));
+      for (var i = 1; i < tr.length; i++) ctx.lineTo(X(tr[i][0]), Y(tr[i][1]));
+      ctx.stroke();
+    }
+    var k = state.focus;
+    var dT = k.popped ? k.Tpop : k.T, dp = k.popped ? k.ppop : k.p;
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath();
+    ctx.arc(X(dT), Y(dp), k.popped ? 7 : 4.5, 0, Math.PI * 2);
+    ctx.fill();
+    if (k.popped) {
+      ctx.font = FONT_MONO_14;
+      ctx.fillText('POP', X(dT) - 44, Y(dp) - 10);
+    } else if (!state.myth && (k.cracked || (state.panT >= T_CAP && state.holdAtCap > 4))) {
+      ctx.font = FONT_MONO_12;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('stalls below hull', L + 6, Y(P_HULL * (1 - HULL_SCATTER)) + 16);
+    }
+  }
+
+  function updateLabels() {
+    elRateL.textContent = fmt(state.rate, 1) + ' °C/s';
+    elMoistL.textContent = fmt(state.M, 1) + ' %';
+    setChip(preDry, Math.abs(state.M - 9) < 0.01);
+    setChip(preFresh, Math.abs(state.M - 14) < 0.01);
+    setChip(preWet, Math.abs(state.M - 18) < 0.01);
+    elPanMeta.textContent = '×' + fmt(simSpeed(), 1) + ' · ' + fmt(state.t, 0) + ' s';
+    if (state.myth) {
+      elHint.textContent = 'Myth mode · no water, only trapped air (ideal gas p ∝ T). Max ≈ 1.7 atm — the hull never fails.';
+    } else if (state.cracked) {
+      elHint.textContent = 'Cracked hulls · steam leaks out as fast as it forms; pressure stalls far below hull strength.';
+    } else if (state.M < 10.5) {
+      elHint.textContent = 'Too dry · not enough free water to reach ~9 atm before the kernel hits the pan’s max temperature.';
+    } else {
+      elHint.textContent = 'Steam model · hull holds until internal pressure exceeds its strength (~9 atm near 180 °C).';
+    }
+    elChartMeta.textContent = state.myth ? 'air-only myth: p = 1 atm × T/T₀' : 'a_w(' + fmt(state.M, 1) + '%) = ' + fmt(waterActivity(state.M), 2);
+  }
+
+  function render() {
+    updateLabels();
+    renderReadout();
+    drawPan();
+    drawChart();
+  }
+
+  function syncPlay() {
+    elPlay.textContent = state.playing ? 'Pause' : (state.t > 0 && !state.done ? 'Resume' : 'Heat pan');
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    if (state.playing) stepSim(dt * simSpeed());
+    updateFlakes(dt);
+    if (state.flash > 0) state.flash = Math.max(0, state.flash - dt);
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function restartWith(fn) {
+    fn();
+    resetBatch(false);
+    updateLabels();
+  }
+
+  elPlay.addEventListener('click', function () {
+    if (state.done) { resetBatch(false); state.done = false; }
+    state.playing = !state.playing;
+    syncPlay();
+  });
+  elReset.addEventListener('click', function () {
+    state.playing = false;
+    resetBatch(true);
+    syncPlay();
+  });
+  chipIntact.addEventListener('click', function () {
+    restartWith(function () { state.cracked = false; });
+    setChip(chipIntact, true); setChip(chipCracked, false);
+    syncPlay();
+  });
+  chipCracked.addEventListener('click', function () {
+    restartWith(function () { state.cracked = true; });
+    setChip(chipIntact, false); setChip(chipCracked, true);
+    syncPlay();
+  });
+  chipMyth.addEventListener('click', function () {
+    restartWith(function () { state.myth = !state.myth; });
+    setChip(chipMyth, state.myth);
+    syncPlay();
+  });
+  elRate.addEventListener('input', function () {
+    state.rate = parseFloat(elRate.value);
+    updateLabels();
+  });
+  elMoist.addEventListener('input', function () {
+    var v = parseFloat(elMoist.value);
+    restartWith(function () { state.M = v; });
+    syncPlay();
+  });
+  function preset(M) {
+    elMoist.value = String(M);
+    restartWith(function () { state.M = M; });
+    syncPlay();
+  }
+  preDry.addEventListener('click', function () { preset(9); });
+  preFresh.addEventListener('click', function () { preset(14); });
+  preWet.addEventListener('click', function () { preset(18); });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      elPlay.click();
+    }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  resetBatch(false);
+  syncPlay();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  // Export physics for validator parity
+  window.__popcornPhysics = {
+    psatWaterPa: psatWaterPa, waterActivity: waterActivity, airPressurePa: airPressurePa,
+    equilibriumPressurePa: equilibriumPressurePa, kernelTemperature: kernelTemperature,
+    makeKernel: makeKernel, stepKernel: stepKernel, simulateKernel: simulateKernel,
+    makeBatch: makeBatch, batchYield: batchYield,
+    T_AMBIENT: T_AMBIENT, T_CAP: T_CAP, P_ATM: P_ATM, P_HULL: P_HULL, HULL_SCATTER: HULL_SCATTER,
+    M_C: M_C, N_AW: N_AW, LEAK_CRACKED: LEAK_CRACKED
+  };
+  window.__popcornState = state;
+})();
+</script>
+</body>
+</html>
