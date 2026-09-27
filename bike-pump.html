@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why a Bike Pump Gets Warm — Compressing Air Heats It (Not Just Friction)</title>
+<meta name="description" content="Classroom bike-pump explainer: squeezing air does work on it, so it heats up. Live P–V diagram, T₂ = T₁(P₂/P₁)^((γ−1)/γ), and friction vs compression heat.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="bike pump warm, adiabatic compression, work on a gas, first law of thermodynamics, PV diagram, gamma 1.4, friction misconception, isothermal, classroom physics">
+<meta property="og:title" content="Why a Bike Pump Gets Warm">
+<meta property="og:description" content="It isn’t mostly friction. Pushing the piston does work on the air and heats it, and the valve end gets hottest. Live P–V diagram and barrel thermometer for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+.lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · compression heating</a></p>
+  <h1>Why a bike pump gets warm</h1>
+  <p class="lede">Rubbing plays a small part. The big effect is that <strong>pushing the piston does work on the air</strong>. That energy goes into the air molecules, which then move faster — the air gets <strong>hotter</strong>. For a quick push with no time to lose heat, <strong>T₂ = T₁·(P₂/P₁)<sup>(γ−1)/γ</sup></strong>. Squeezing room air to 7 atm could, in the ideal case, heat it past 200 °C. The hot air sits at the <strong>valve end</strong>, which is why the bottom of the pump warms first.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>+20 strokes</strong>, then look at the barrel thermometer. Notice the valve end is far warmer than the top, even though the piston seal rubs along the whole barrel.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPump" aria-pressed="true" title="Spacebar">Stop pumping</button>
+      <button type="button" class="btn" id="btnFast">+20 strokes</button>
+      <button type="button" class="btn" id="btnCool">Cool pump</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="chipFric" aria-pressed="true">Seal friction on</button>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: friction only</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Tire pressure (gauge) <em id="pLabel">88 psi</em></span>
+        <input type="range" id="press" min="20" max="160" step="1" value="88" aria-label="Target tire gauge pressure in psi">
+      </label>
+      <label class="sl grow">
+        <span>Push time per stroke <em id="sLabel">0.50 s</em></span>
+        <input type="range" id="speed" min="0" max="1" step="0.001" value="0.5" aria-label="Duration of each downstroke, logarithmic from 0.1 to 4 seconds">
+      </label>
+      <label class="sl grow">
+        <span>Gas-to-barrel heat transfer h <em id="hLabel">40 W/m²K</em></span>
+        <input type="range" id="hcoef" min="0" max="200" step="1" value="40" aria-label="Heat transfer coefficient between air and barrel">
+      </label>
+    </div>
+    <div class="row">
+      <span class="lbl">Presets</span>
+      <button type="button" class="chip" id="preMTB">MTB 30 psi</button>
+      <button type="button" class="chip on" id="preEx">1 → 7 atm (88 psi)</button>
+      <button type="button" class="chip" id="preRoad">Road 110 psi</button>
+      <span class="hint" id="modeHint"></span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Floor pump</b><span id="pumpMeta">32 mm bore · 500 mm stroke</span></div>
+      <canvas id="cvPump" width="760" height="440" aria-label="Floor pump with moving piston, air coloured by temperature, barrel wall temperatures and pressure gauge"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>P–V diagram + barrel heat</b><span id="chartMeta">this stroke vs ideal curves</span></div>
+      <canvas id="cvChart" width="520" height="440" aria-label="Pressure-volume diagram of the stroke with adiabatic and isothermal reference curves, and barrel wall temperature rise by position"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Work in → energy in the air</h2>
+      <p>The piston pushes molecules that bounce off it, and they rebound faster, like a ball off an advancing bat. By the first law, <code>ΔU = W − Q</code>. The work you do (<code>W = −∫P dV</code>) raises the air’s internal energy, which for a gas means its temperature.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Fast = hot, slow = cool</h2>
+      <p>Push quickly and the heat has no time to leak away (adiabatic): <code>T₂ = T₁(P₂/P₁)<sup>0.286</sup></code> for air (γ = 1.4). Push slowly and the barrel soaks it up, keeping the air near room temperature (isothermal). Real strokes fall in between. The P–V diagram shows exactly where.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>The valve end gets it</h2>
+      <p>The air is hottest at the end of the stroke, squeezed into the bottom of the barrel beside the valve and hose. That is where the metal picks up most of the heat. After a few dozen strokes, the base of the pump is warm to the touch.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“It’s just the piston rubbing”</h2>
+      <p>Seal friction is real, but it spreads along the whole length the piston travels. It predicts a gently, evenly warm barrel. The measured pattern is a hot bottom and a cool top, which only compression explains. Toggle the myth to see how badly friction alone under-predicts the valve end. The same heating happens in diesel engines, where compression alone ignites the fuel.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Compression heating reference numbers">
+    <div class="stat">
+      <div class="k">Adiabatic, air</div>
+      <div class="v">T₂ = T₁(P₂/P₁)^0.286</div>
+      <div class="s">γ = 1.4 · no heat loss</div>
+    </div>
+    <div class="stat">
+      <div class="k">1 → 7 atm from 293 K</div>
+      <div class="v">≈ 511 K (238 °C)</div>
+      <div class="s">ideal upper bound</div>
+    </div>
+    <div class="stat">
+      <div class="k">Isothermal work</div>
+      <div class="v">nRT·ln(V₁/V₂)</div>
+      <div class="s">slow limit, least work</div>
+    </div>
+    <div class="stat">
+      <div class="k">Real pump air</div>
+      <div class="v">far cooler</div>
+      <div class="s">heat to barrel · partial strokes</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Air as an ideal diatomic gas.</strong> <code>PV = nRT</code>, <code>c<sub>v</sub> = R/(γ−1)</code>, <code>γ = 1.4</code>, <code>R = 8.314 J/(mol·K)</code>. Ideal limits: adiabatic <code>T₂ = T₁(P₂/P₁)<sup>(γ−1)/γ</sup></code> (1 → 7 atm from 293 K gives 511 K) with work <code>(P₂V₂ − P₁V₁)/(γ−1)</code>. Isothermal work is <code>nRT·ln(V₁/V₂)</code>. Both are checked in validate-bike-pump.js.</li>
+      <li><strong style="color:var(--text)">One stroke, integrated in time.</strong> Piston motion <code>x(t) = S(1 − cos πt/t<sub>s</sub>)/2</code>. The barrel (32 mm bore, 500 mm stroke, 15 mL dead volume in the hose and valve) starts each stroke full of room air at 1 atm. With the valve shut: <code>n·c<sub>v</sub>·dT/dt = −P·dV/dt − h·A<sub>wet</sub>·(T − T<sub>wall</sub>)</code>. Once P reaches tire pressure, the check valve opens and air flows out at constant P (open-system energy balance: <code>n·c<sub>p</sub>·dT/dt = −h·A·(T − T<sub>wall</sub>)</code>). The tire is treated as a large reservoir already at the target pressure, like the last, hardest strokes. The first-law balance W = ΔU + H<sub>out</sub> + Q closes to &lt;0.5%.</li>
+      <li><strong style="color:var(--text)">Heat-loss parameter.</strong> A single convective coefficient <code>h</code> (default 40 W/m²·K, an order-of-magnitude guess) between air and barrel sets how adiabatic a stroke is. The ratio of the air’s thermal time constant to the push time matters. The readout “polytropic n” (<code>PV<sup>n</sup></code> fitted up to valve opening) shows it: 1.0 = isothermal, 1.4 = adiabatic. Set h = 0 for the ideal adiabatic case.</li>
+      <li><strong style="color:var(--text)">Barrel thermometer.</strong> The aluminium barrel (250 g, c = 900 J/kg·K) is split into 8 segments. Air-to-wall heat lands only on the segments below the piston (plus the base). Conduction along the tube (k = 200 W/m·K, 1.5 mm wall) and slow cooling to 20 °C room air (h = 10 W/m²·K) smooth it. The metal is heavy compared with ~0.5 g of air per stroke, which is why the barrel warms by degrees, not hundreds of degrees. The air itself is briefly much hotter.</li>
+      <li><strong style="color:var(--text)">Friction estimate.</strong> The cup seal drags with <code>F = 8 N + 0.15 × (P − P<sub>atm</sub>) × contact band (π·D·3 mm)</code>. The pressure term is included on purpose: a pressurized seal presses harder, so friction is also somewhat larger near the bottom. The friction heat <code>∫F|dx|</code> (down and up strokes) goes into the segment at the seal. “Friction only” runs a second barrel with <em>only</em> that heat, which is the myth’s prediction.</li>
+      <li><strong style="color:var(--text)">What’s left out.</strong> Real pumps rarely finish full strokes at high pressure. Air also heats the hose, valve and tire, and leaks past the seal. Refill air is taken at room temperature (re-expansion of the dead volume is ignored). The tire’s own pressure rise stroke by stroke is not modeled. Real pump air stays far below the ideal 511 K because heat flows to the barrel and strokes are partial. The trend (fast strokes run hotter, the valve end heats most, friction is the smaller share) is robust. Individual degrees are not.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Energy transfer and the first law (NGSS HS-PS3-1, HS-PS3-2), plus kinetic theory (MS-PS1-4). Classic companions are the fire syringe (fire piston) and a diesel engine’s compression ignition. Name the misconception: “the pump gets hot from friction.”</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics (exported; checked by validate-bike-pump.js) =====
+  var GAMMA = 1.4;
+  var R_GAS = 8.314462618;
+  var P_ATM = 101325;
+  var T_AMB = 293.15;
+  var PSI = 6894.757;
+  var CV = R_GAS / (GAMMA - 1), CP = CV + R_GAS;
+  var BORE = 0.032, STROKE = 0.50, V_DEAD = 15e-6;
+  var AREA = Math.PI * BORE * BORE / 4;
+  var F0 = 8, MU_SEAL = 0.15, SEAL_BAND = Math.PI * BORE * 0.003;
+  var N_SEG = 8, M_BARREL = 0.25, C_AL = 900, H_OUT = 10, D_OUT = 0.038, K_AL = 200, WALL_THK = 0.0015;
+  var C_SEG = M_BARREL * C_AL / N_SEG;
+  var G_OUT_SEG = H_OUT * Math.PI * D_OUT * STROKE / N_SEG;
+  var G_AX = K_AL * Math.PI * (BORE + WALL_THK) * WALL_THK / (STROKE / N_SEG);
+
+  function adiabaticT(T1, P1, P2, g) {
+    g = g || GAMMA;
+    return T1 * Math.pow(P2 / P1, (g - 1) / g);
+  }
+  function adiabaticV(V1, P1, P2, g) {
+    return V1 * Math.pow(P1 / P2, 1 / (g || GAMMA));
+  }
+  function adiabaticWork(P1, V1, P2, V2, g) {
+    return (P2 * V2 - P1 * V1) / ((g || GAMMA) - 1);
+  }
+  function isothermalWork(n, T, V1, V2) {
+    return n * R_GAS * T * Math.log(V1 / V2);
+  }
+  function pistonX(t, ts) {
+    var u = Math.max(0, Math.min(1, t / ts));
+    return STROKE * (1 - Math.cos(Math.PI * u)) / 2;
+  }
+  function pistonVel(t, ts) {
+    var u = t / ts;
+    if (u <= 0 || u >= 1) return 0;
+    return STROKE * Math.PI / (2 * ts) * Math.sin(Math.PI * u);
+  }
+  function gasVolume(x) {
+    return V_DEAD + AREA * (STROKE - x);
+  }
+  function segAt(x) {
+    return Math.max(0, Math.min(N_SEG - 1, Math.floor(x / STROKE * N_SEG)));
+  }
+  function sealFriction(P, on) {
+    return on ? F0 + MU_SEAL * Math.max(0, P - P_ATM) * SEAL_BAND : 0;
+  }
+  function makeWall(T) {
+    var w = new Float64Array(N_SEG);
+    for (var i = 0; i < N_SEG; i++) w[i] = T === undefined ? T_AMB : T;
+    return w;
+  }
+  // wetted wall: segments below the piston (x = distance of piston from the top)
+  function wetInfo(x, wall) {
+    var lat = Math.PI * BORE * (STROKE - x);
+    var area = lat + AREA + 2e-4; // + base cap + hose/valve bore (~2 cm²)
+    var s0 = segAt(x);
+    var sum = 0, wsum = 0;
+    for (var i = s0; i < N_SEG; i++) {
+      var top = Math.max(x, i * STROKE / N_SEG), bot = (i + 1) * STROKE / N_SEG;
+      var wgt = Math.max(0, bot - top) + (i === N_SEG - 1 ? (AREA + 2e-4) / (Math.PI * BORE) : 0);
+      sum += wgt * wall[i]; wsum += wgt;
+    }
+    return { area: area, Tw: wsum > 0 ? sum / wsum : wall[N_SEG - 1], s0: s0 };
+  }
+  function distributeHeat(q, x, qSeg) {
+    var s0 = segAt(x), wsum = 0, i, wts = [];
+    for (i = s0; i < N_SEG; i++) {
+      var top = Math.max(x, i * STROKE / N_SEG), bot = (i + 1) * STROKE / N_SEG;
+      var wgt = Math.max(0, bot - top) + (i === N_SEG - 1 ? (AREA + 2e-4) / (Math.PI * BORE) : 0);
+      wts.push(wgt); wsum += wgt;
+    }
+    for (i = s0; i < N_SEG; i++) qSeg[i] += q * wts[i - s0] / wsum;
+  }
+
+  // One downstroke. opts: Ptire (Pa abs), ts (s), h (W/m²K), friction (bool), wall (Float64Array), steps
+  function simulateStroke(opts) {
+    var ts = opts.ts, h = opts.h, P2 = opts.Ptire;
+    var wall = opts.wall || makeWall();
+    var steps = opts.steps || 3000;
+    var T = opts.T1 || T_AMB, V = gasVolume(0), P = P_ATM;
+    var n = P * V / (R_GAS * T);
+    var n0 = n, T0 = T, U0 = n * CV * T;
+    var open = false, t = 0, dt = ts / steps;
+    var W = 0, Q = 0, Hout = 0, Wf = 0, Tpeak = T, Pmax = P;
+    var qSeg = new Float64Array(N_SEG), fSeg = new Float64Array(N_SEG);
+    var trace = [], valve = null;
+    var SAMPLE = Math.max(1, Math.floor(steps / 240));
+    function rhs(tt, TT, isOpen) {
+      var x = pistonX(tt, ts), VV = gasVolume(x), dV = -AREA * pistonVel(tt, ts);
+      var wi = wetInfo(x, wall);
+      var qdot = h * wi.area * (TT - wi.Tw);
+      if (isOpen) return -qdot / ((P2 * VV / (R_GAS * TT)) * CP);
+      var PP = n * R_GAS * TT / VV;
+      return (-PP * dV - qdot) / (n * CV);
+    }
+    function rk4(tt, TT, hh, isOpen) {
+      var k1 = rhs(tt, TT, isOpen), k2 = rhs(tt + hh / 2, TT + hh * k1 / 2, isOpen);
+      var k3 = rhs(tt + hh / 2, TT + hh * k2 / 2, isOpen), k4 = rhs(tt + hh, TT + hh * k3, isOpen);
+      return TT + hh * (k1 + 2 * k2 + 2 * k3 + k4) / 6;
+    }
+    trace.push(0, 0, V, P, T, 0);
+    for (var s = 0; s < steps; s++) {
+      var hstep = dt, Tn, Vn, Pn, xn;
+      var x0 = pistonX(t, ts), wi0 = wetInfo(x0, wall);
+      if (!open) {
+        Tn = rk4(t, T, hstep, false);
+        xn = pistonX(t + hstep, ts); Vn = gasVolume(xn); Pn = n * R_GAS * Tn / Vn;
+        if (Pn >= P2) {
+          // bisect to land exactly on the valve-opening point
+          var lo = 0, hi = hstep;
+          for (var b = 0; b < 40; b++) {
+            var mid = 0.5 * (lo + hi), Tm = rk4(t, T, mid, false);
+            if (n * R_GAS * Tm / gasVolume(pistonX(t + mid, ts)) >= P2) hi = mid; else lo = mid;
+          }
+          hstep = hi;
+          Tn = rk4(t, T, hstep, false);
+          xn = pistonX(t + hstep, ts); Vn = gasVolume(xn); Pn = P2;
+          open = true;
+          valve = { t: t + hstep, V: Vn, T: Tn, x: xn };
+          s--; // redo the remainder of this step in open mode
+        }
+      } else {
+        Tn = rk4(t, T, hstep, true);
+        xn = pistonX(t + hstep, ts); Vn = gasVolume(xn); Pn = P2;
+      }
+      var nn = open ? P2 * Vn / (R_GAS * Tn) : n;
+      var dW = -0.5 * (P + Pn) * (Vn - V);
+      var wiMid = wetInfo(0.5 * (x0 + xn), wall);
+      var dQ = h * wiMid.area * (0.5 * (T + Tn) - wiMid.Tw) * hstep;
+      if (open && nn < n) Hout += (n - nn) * CP * 0.5 * (T + Tn);
+      W += dW; Q += dQ;
+      distributeHeat(dQ, 0.5 * (x0 + xn), qSeg);
+      var fr = sealFriction(0.5 * (P + Pn), opts.friction) * Math.abs(xn - x0);
+      Wf += fr; fSeg[segAt(0.5 * (x0 + xn))] += fr;
+      t += hstep; T = Tn; V = Vn; P = Pn; n = nn;
+      if (T > Tpeak) Tpeak = T;
+      if (P > Pmax) Pmax = P;
+      if (s % SAMPLE === 0 || s === steps - 1) trace.push(t, xn, V, P, T, open ? 1 : 0);
+      if (t >= ts - 1e-12) break;
+    }
+    // upstroke: seal drags back up at F0 over the full stroke (refill at ~1 atm)
+    if (opts.friction) {
+      for (var i = 0; i < N_SEG; i++) { fSeg[i] += F0 * STROKE / N_SEG; }
+      Wf += F0 * STROKE;
+    }
+    var dU = n * CV * T - U0;
+    var nEff;
+    if (valve) nEff = Math.log(P2 / P_ATM) / Math.log(gasVolume(0) / valve.V);
+    else nEff = Math.log(P / P_ATM) / Math.log(gasVolume(0) / V);
+    return {
+      n0: n0, T0: T0, trace: trace, valve: valve, Tend: T, Pend: P, Vend: V, nEnd: n,
+      Tpeak: Tpeak, Pmax: Pmax, W: W, Q: Q, Hout: Hout, dU: dU, Wfric: Wf,
+      energyError: (W - dU - Hout - Q) / Math.max(1e-9, W),
+      qSeg: qSeg, fSeg: fSeg, nEff: nEff, nDelivered: n0 - n
+    };
+  }
+  // Barrel wall: axial conduction + cooling to room air (explicit, stable for the small G/C here)
+  function stepWallTemps(wall, dt, Tamb) {
+    Tamb = Tamb === undefined ? T_AMB : Tamb;
+    var sub = Math.max(1, Math.ceil(dt / 0.5));
+    var h = dt / sub, i, flux = new Float64Array(N_SEG);
+    for (var k = 0; k < sub; k++) {
+      for (i = 0; i < N_SEG; i++) flux[i] = -G_OUT_SEG * (wall[i] - Tamb);
+      for (i = 0; i < N_SEG - 1; i++) { var q = G_AX * (wall[i + 1] - wall[i]); flux[i] += q; flux[i + 1] -= q; }
+      for (i = 0; i < N_SEG; i++) wall[i] += flux[i] * h / C_SEG;
+    }
+  }
+  function addHeat(wall, seg) {
+    for (var i = 0; i < N_SEG; i++) wall[i] += seg[i] / C_SEG;
+  }
+  function speedFromSlider(s) {
+    return 0.1 * Math.pow(40, s); // 0.1 s … 4 s
+  }
+
+  // ===== Fonts cached outside draw loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  var state = {
+    psi: 88, s: 0.5, ts: speedFromSlider(0.5), h: 40, friction: true, myth: false,
+    pumping: true, phase: 'down', tPhase: 0, lastTs: 0, strokes: 0,
+    wall: makeWall(), wallMyth: makeWall(), stroke: null, lastStroke: null, peakT: T_AMB
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPump = $('btnPump'), elFast = $('btnFast'), elCool = $('btnCool'), elFric = $('chipFric'), elMyth = $('chipMyth');
+  var elP = $('press'), elS = $('speed'), elH = $('hcoef');
+  var elPL = $('pLabel'), elSL = $('sLabel'), elHL = $('hLabel');
+  var elHint = $('modeHint'), elReadout = $('readout'), elPumpMeta = $('pumpMeta'), elChartMeta = $('chartMeta');
+  var presets = { preMTB: { el: $('preMTB'), psi: 30 }, preEx: { el: $('preEx'), psi: 88 }, preRoad: { el: $('preRoad'), psi: 110 } };
+  var surfaces = {
+    pump: { canvas: $('cvPump'), ctx: null, w: 0, h: 0, cssH: 440 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 440 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function ptire() { return P_ATM + state.psi * PSI; }
+  function newStroke() {
+    return simulateStroke({ Ptire: ptire(), ts: state.ts, h: state.h, friction: state.friction, wall: state.wall, steps: 1500 });
+  }
+  function finishStroke(st) {
+    addHeat(state.wall, st.qSeg);
+    addHeat(state.wall, st.fSeg);
+    addHeat(state.wallMyth, st.fSeg.length ? frictionOnlySeg(st) : st.fSeg);
+    state.strokes++;
+    state.lastStroke = st;
+  }
+  // myth barrel always gets friction heat (even when the real-model friction chip is off, the myth assumes friction)
+  function frictionOnlySeg(st) {
+    if (state.friction) return st.fSeg;
+    var f = new Float64Array(N_SEG), tr = st.trace;
+    for (var k = 6; k < tr.length; k += 6) {
+      var dx = Math.abs(tr[k + 1] - tr[k - 5]);
+      f[segAt(0.5 * (tr[k + 1] + tr[k - 5]))] += sealFriction(0.5 * (tr[k + 3] + tr[k - 3]), true) * dx;
+    }
+    for (var i = 0; i < N_SEG; i++) f[i] += F0 * STROKE / N_SEG;
+    return f;
+  }
+  function refresh() {
+    state.stroke = newStroke();
+    state.phase = 'down';
+    state.tPhase = 0;
+    state.peakT = T_AMB;
+  }
+
+  function sampleTrace(st, t) {
+    var tr = st.trace, n = tr.length / 6, o, p;
+    if (t <= tr[0]) return { x: tr[1], V: tr[2], P: tr[3], T: tr[4], open: tr[5] };
+    for (var i = 1; i < n; i++) {
+      if (tr[i * 6] >= t) {
+        var a = (t - tr[(i - 1) * 6]) / Math.max(1e-12, tr[i * 6] - tr[(i - 1) * 6]);
+        o = (i - 1) * 6; p = i * 6;
+        return { x: tr[o + 1] + a * (tr[p + 1] - tr[o + 1]), V: tr[o + 2] + a * (tr[p + 2] - tr[o + 2]), P: tr[o + 3] + a * (tr[p + 3] - tr[o + 3]), T: tr[o + 4] + a * (tr[p + 4] - tr[o + 4]), open: tr[p + 5] };
+      }
+    }
+    o = (n - 1) * 6;
+    return { x: tr[o + 1], V: tr[o + 2], P: tr[o + 3], T: tr[o + 4], open: tr[o + 5] };
+  }
+  function liveGas() {
+    var st = state.stroke;
+    if (state.phase === 'down') return sampleTrace(st, state.tPhase);
+    var u = Math.min(1, state.tPhase / state.ts);
+    var x = STROKE * (1 + Math.cos(Math.PI * u)) / 2;
+    return { x: x, V: gasVolume(x), P: P_ATM, T: T_AMB + (st.Tend - T_AMB) * Math.exp(-u * 12), open: 0 };
+  }
+
+  function updateLabels() {
+    elPL.textContent = state.psi.toFixed(0) + ' psi';
+    elSL.textContent = state.ts.toFixed(2) + ' s';
+    elHL.textContent = state.h.toFixed(0) + ' W/m²K';
+    setChip(elFric, state.friction);
+    elFric.textContent = state.friction ? 'Seal friction on' : 'Seal friction off';
+    setChip(elMyth, state.myth);
+    Object.keys(presets).forEach(function (k) { setChip(presets[k].el, presets[k].psi === state.psi); });
+    elPump.textContent = state.pumping ? 'Stop pumping' : 'Pump';
+    elPump.setAttribute('aria-pressed', state.pumping ? 'true' : 'false');
+    var st = state.stroke;
+    var P2 = ptire(), Tad = adiabaticT(T_AMB, P_ATM, P2);
+    elHint.textContent = 'Ideal adiabatic: ' + Tad.toFixed(0) + ' K (' + (Tad - 273.15).toFixed(0) + ' °C) at ' + (P2 / P_ATM).toFixed(2) + ' atm. This stroke: peak ' + (st.Tpeak - 273.15).toFixed(0) + ' °C, n = ' + st.nEff.toFixed(2) + (st.valve ? '' : ' · valve never opens (dead volume)') + '.';
+    elPumpMeta.textContent = '32 mm bore · 500 mm stroke · strokes: ' + state.strokes;
+    elChartMeta.textContent = state.myth ? 'myth: friction-only barrel shown' : 'this stroke vs ideal curves';
+  }
+
+  function renderReadout(g) {
+    var st = state.lastStroke || state.stroke, html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Gas pressure', ((g.P - P_ATM) / PSI).toFixed(0) + ' psi', (g.P / P_ATM).toFixed(2) + ' atm abs · valve ' + (g.open ? 'OPEN' : 'shut'), g.open ? 'warm' : '');
+    kv('Gas temperature', (g.T - 273.15).toFixed(0) + ' °C', 'peak ' + (state.stroke.Tpeak - 273.15).toFixed(0) + ' °C · ideal ' + (adiabaticT(T_AMB, P_ATM, ptire()) - 273.15).toFixed(0) + ' °C', g.T > 330 ? 'warm' : 'sun');
+    kv('Work per stroke', st.W.toFixed(0) + ' J', '−∫P dV on the air · heat to barrel ' + st.Q.toFixed(0) + ' J', 'sun');
+    kv('Friction heat', st.Wfric.toFixed(1) + ' J', state.friction ? 'seal drag, down + up stroke' : 'friction switched off', '');
+    var bot = state.wall[N_SEG - 1] - T_AMB, top = state.wall[0] - T_AMB;
+    var botM = state.wallMyth[N_SEG - 1] - T_AMB;
+    kv('Barrel: valve end / top', '+' + bot.toFixed(1) + ' / +' + top.toFixed(1) + ' K', state.myth ? 'friction-only predicts +' + botM.toFixed(1) + ' K at valve end' : state.strokes + ' strokes · warms slowly (metal mass)', bot > 3 ? 'warm' : '');
+    elReadout.innerHTML = html;
+  }
+
+  function tempColor(TK, a) {
+    var f = Math.max(0, Math.min(1, (TK - T_AMB) / 200));
+    var r = Math.round(94 + f * (255 - 94)), gg = Math.round(200 + f * (126 - 200)), b = Math.round(229 + f * (95 - 229));
+    return 'rgba(' + r + ',' + gg + ',' + b + ',' + (a === undefined ? 1 : a) + ')';
+  }
+  function wallColor(TK) {
+    var f = Math.max(0, Math.min(1, (TK - T_AMB) / 15));
+    return 'rgba(' + Math.round(120 + 135 * f) + ',' + Math.round(130 - 20 * f) + ',' + Math.round(160 - 90 * f) + ',0.95)';
+  }
+  function roundRect(ctx, x, y, w, h, r) {
+    var rr = Math.max(0, Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function drawPump(g) {
+    var surf = surfaces.pump;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0a1028'); bg.addColorStop(1, '#0c1226');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    var narrow = W < 560;
+    var bx = narrow ? W * 0.3 : W * 0.26, bw = 54, top = 70, bot = H - 60, len = bot - top;
+    var wallW = 10;
+    // wall segments (left and right)
+    var i, wall = state.myth ? state.wallMyth : state.wall;
+    for (i = 0; i < N_SEG; i++) {
+      var y0 = top + len * i / N_SEG, y1 = top + len * (i + 1) / N_SEG;
+      ctx.fillStyle = wallColor(wall[i]);
+      ctx.fillRect(bx - bw / 2 - wallW, y0, wallW, y1 - y0 + 0.5);
+      ctx.fillRect(bx + bw / 2, y0, wallW, y1 - y0 + 0.5);
+    }
+    // gas below the piston
+    var py = top + len * (g.x / STROKE);
+    ctx.fillStyle = tempColor(g.T, 0.75);
+    ctx.fillRect(bx - bw / 2, py, bw, bot - py);
+    // molecule dots jiggle faster when hot
+    var speed = Math.sqrt(g.T / T_AMB);
+    ctx.fillStyle = 'rgba(255,255,255,0.75)';
+    var clock = state.clockT || 0;
+    for (i = 0; i < 26; i++) {
+      var fx = ((i * 0.618 + clock * speed * (0.6 + (i % 5) * 0.2)) % 1);
+      var fy = ((i * 0.377 + clock * speed * (0.5 + (i % 3) * 0.25)) % 1);
+      var tx = fx < 0.5 ? fx * 2 : 2 - fx * 2, ty = fy < 0.5 ? fy * 2 : 2 - fy * 2;
+      ctx.beginPath(); ctx.arc(bx - bw / 2 + 5 + tx * (bw - 10), py + 5 + ty * Math.max(1, bot - py - 10), 1.6, 0, Math.PI * 2); ctx.fill();
+    }
+    // piston + rod + handle
+    ctx.fillStyle = '#39436a';
+    ctx.fillRect(bx - bw / 2, py - 10, bw, 10);
+    ctx.fillStyle = state.friction ? '#ff7e5f' : '#8b93ad';
+    ctx.fillRect(bx - bw / 2, py - 3, bw, 3);
+    ctx.fillStyle = '#8a93b8';
+    ctx.fillRect(bx - 3, py - 10 - (len * 0.7), 6, len * 0.7);
+    var hy = py - 10 - len * 0.7;
+    ctx.fillStyle = '#1f2a52';
+    ctx.strokeStyle = 'rgba(94,200,229,0.5)';
+    roundRect(ctx, bx - 60, hy - 12, 120, 14, 7); ctx.fill(); ctx.stroke();
+    // barrel outline
+    ctx.strokeStyle = 'rgba(215,222,242,0.35)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(bx - bw / 2 - wallW, top, bw + 2 * wallW, len);
+    // base + hose + valve
+    ctx.fillStyle = '#1a2446';
+    ctx.fillRect(bx - 70, bot, 140, 14);
+    ctx.fillStyle = g.open ? '#ff7e5f' : '#39436a';
+    ctx.beginPath(); ctx.arc(bx + bw / 2 + wallW + 10, bot - 8, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = g.open ? tempColor(g.T, 0.95) : 'rgba(139,147,173,0.7)';
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(bx + bw / 2 + wallW + 16, bot - 8);
+    ctx.bezierCurveTo(bx + 150, bot + 10, bx + 150, top + 40, bx + 190, top + 60);
+    ctx.stroke();
+    ctx.lineWidth = 1;
+    // tire
+    var tx0 = Math.min(W - 70, bx + 250), ty0 = top + 90, tr = narrow ? 44 : 60;
+    ctx.strokeStyle = '#2b2f3f';
+    ctx.lineWidth = 14;
+    ctx.beginPath(); ctx.arc(tx0, ty0, tr, 0, Math.PI * 2); ctx.stroke();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(215,222,242,0.25)';
+    for (i = 0; i < 12; i++) { var a = i * Math.PI / 6; ctx.beginPath(); ctx.moveTo(tx0, ty0); ctx.lineTo(tx0 + Math.cos(a) * (tr - 8), ty0 + Math.sin(a) * (tr - 8)); ctx.stroke(); }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('tire at ' + state.psi + ' psi', tx0 - 40, narrow ? ty0 - tr - 14 : ty0 + tr + 22);
+    // pressure gauge
+    var gx = narrow ? W - 44 : bx - 130, gy = narrow ? bot - 20 : bot - 50, gr = narrow ? 24 : 34;
+    ctx.fillStyle = '#0e1530'; ctx.strokeStyle = 'rgba(94,200,229,0.5)';
+    ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    var maxPsi = 160, gp = (g.P - P_ATM) / PSI;
+    var ang = Math.PI * 0.75 + Math.PI * 1.5 * Math.max(0, Math.min(1, gp / maxPsi));
+    var tAng = Math.PI * 0.75 + Math.PI * 1.5 * Math.min(1, state.psi / maxPsi);
+    ctx.strokeStyle = 'rgba(255,194,74,0.6)';
+    ctx.beginPath(); ctx.moveTo(gx + Math.cos(tAng) * (gr - 10), gy + Math.sin(tAng) * (gr - 10)); ctx.lineTo(gx + Math.cos(tAng) * gr, gy + Math.sin(tAng) * gr); ctx.stroke();
+    ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(gx + Math.cos(ang) * (gr - 6), gy + Math.sin(ang) * (gr - 6)); ctx.stroke();
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText(gp.toFixed(0) + ' psi', gx - 18, gy + gr + 14);
+    // labels
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = tempColor(g.T);
+    ctx.fillText('air ' + (g.T - 273.15).toFixed(0) + ' °C', bx + bw / 2 + wallW + 8, Math.min(bot - 30, (py + bot) / 2));
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(state.myth ? 'MYTH barrel: friction heat only' : 'valve end ↓', bx - bw / 2 - wallW, bot + 30);
+    if (state.myth) {
+      ctx.fillStyle = 'rgba(8,11,28,0.88)';
+      ctx.fillRect(12, 28, Math.min(W - 24, 420), 44);
+      ctx.strokeStyle = 'rgba(255,126,95,0.5)';
+      ctx.strokeRect(12, 28, Math.min(W - 24, 420), 44);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Friction only: valve end +' + (state.wallMyth[N_SEG - 1] - T_AMB).toFixed(1) + ' K, top +' + (state.wallMyth[0] - T_AMB).toFixed(1) + ' K', 22, 46);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('Compression model: valve end +' + (state.wall[N_SEG - 1] - T_AMB).toFixed(1) + ' K, top +' + (state.wall[0] - T_AMB).toFixed(1) + ' K', 22, 63);
+    }
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText(narrow ? 'wall colour = metal temperature' : 'schematic · wall colour = metal temperature (warms by degrees)', 14, H - 10);
+  }
+
+  function drawChart(g) {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, st = state.stroke;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var px = 46, pw = W - px - 16, y1 = 34, h1 = H * 0.44, y2 = y1 + h1 + 72, h2 = H - y2 - 26;
+    var V1 = gasVolume(0), P2 = ptire(), Pmax = Math.max(P2, st.Pmax) * 1.08;
+    function X(V) { return px + (V / V1) * pw; }
+    function Y(P) { return y1 + (1 - P / Pmax) * h1; }
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Pressure vs volume (one stroke)', 14, 22);
+    ctx.fillText('Barrel warming by position', 14, y2 - 34);
+    ctx.strokeStyle = 'rgba(94,200,229,0.18)';
+    ctx.strokeRect(px, y1, pw, h1);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    ctx.fillText((Pmax / P_ATM).toFixed(1), px - 4, y1 + 8);
+    ctx.fillText('atm', px - 4, y1 + 20);
+    ctx.fillText('1', px - 4, Y(P_ATM) + 3);
+    ctx.fillText('0', px - 4, y1 + h1);
+    ctx.fillText((V1 * 1e6).toFixed(0) + ' mL', px + pw, y1 + h1 + 13);
+    ctx.textAlign = 'left';
+    ctx.fillText('0', px, y1 + h1 + 13);
+    // reference curves: adiabat and isotherm from (V1, P_atm)
+    var k, V, P;
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(255,126,95,0.7)';
+    ctx.beginPath();
+    for (k = 0; k <= 80; k++) {
+      V = V1 - (V1 - V_DEAD) * k / 80; P = P_ATM * Math.pow(V1 / V, GAMMA);
+      if (P > Pmax) break;
+      if (k === 0) ctx.moveTo(X(V), Y(P)); else ctx.lineTo(X(V), Y(P));
+    }
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(94,200,229,0.7)';
+    ctx.beginPath();
+    for (k = 0; k <= 80; k++) {
+      V = V1 - (V1 - V_DEAD) * k / 80; P = P_ATM * V1 / V;
+      if (P > Pmax) break;
+      if (k === 0) ctx.moveTo(X(V), Y(P)); else ctx.lineTo(X(V), Y(P));
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // tire pressure line
+    ctx.strokeStyle = 'rgba(255,194,74,0.4)';
+    ctx.beginPath(); ctx.moveTo(px, Y(P2)); ctx.lineTo(px + pw, Y(P2)); ctx.stroke();
+    ctx.fillStyle = 'rgba(255,194,74,0.8)';
+    ctx.fillText('tire ' + (P2 / P_ATM).toFixed(2) + ' atm → valve opens', px + pw * 0.45, Y(P2) - 4);
+    // stroke path so far (shaded work area), with the whole stroke as a faint ghost
+    var tr = st.trace, n = tr.length / 6, tNow = state.phase === 'down' ? state.tPhase : 1e9;
+    ctx.strokeStyle = 'rgba(255,194,74,0.25)';
+    ctx.beginPath();
+    for (k = 0; k < n; k++) { if (k === 0) ctx.moveTo(X(tr[2]), Y(tr[3])); else ctx.lineTo(X(tr[k * 6 + 2]), Y(tr[k * 6 + 3])); }
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,194,74,0.12)';
+    ctx.beginPath();
+    ctx.moveTo(X(tr[2]), Y(0));
+    for (k = 0; k < n && tr[k * 6] <= tNow; k++) ctx.lineTo(X(tr[k * 6 + 2]), Y(tr[k * 6 + 3]));
+    ctx.lineTo(X(g.V), Y(g.P));
+    ctx.lineTo(X(g.V), Y(0));
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    for (k = 0; k < n && tr[k * 6] <= tNow; k++) { if (k === 0) ctx.moveTo(X(tr[2]), Y(tr[3])); else ctx.lineTo(X(tr[k * 6 + 2]), Y(tr[k * 6 + 3])); }
+    ctx.lineTo(X(g.V), Y(g.P));
+    ctx.stroke();
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath(); ctx.arc(X(g.V), Y(g.P), 4, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.textAlign = 'right';
+    var ly = Math.max(y1 + 14, Y(P2) + 16);
+    ctx.fillStyle = 'rgba(255,126,95,0.9)'; ctx.fillText('- - adiabatic (fast)', px + pw - 6, ly);
+    ctx.fillStyle = 'rgba(94,200,229,0.9)'; ctx.fillText('- - isothermal (slow)', px + pw - 6, ly + 13);
+    ctx.fillStyle = '#ffc24a'; ctx.fillText('this stroke · area = work', px + pw - 6, ly + 26);
+    ctx.textAlign = 'left';
+
+    // barrel bars: top → valve end, real (and myth ghost)
+    var bw = pw / N_SEG;
+    var maxRise = 3;
+    for (k = 0; k < N_SEG; k++) maxRise = Math.max(maxRise, state.wall[k] - T_AMB, state.wallMyth[k] - T_AMB);
+    maxRise *= 1.15;
+    ctx.strokeStyle = 'rgba(94,200,229,0.18)';
+    ctx.strokeRect(px, y2, pw, h2);
+    for (k = 0; k < N_SEG; k++) {
+      var r1 = (state.wall[k] - T_AMB) / maxRise * h2, r2 = (state.wallMyth[k] - T_AMB) / maxRise * h2;
+      ctx.fillStyle = state.myth ? 'rgba(94,200,229,0.35)' : 'rgba(255,126,95,0.8)';
+      ctx.fillRect(px + k * bw + 4, y2 + h2 - Math.max(0, r1), bw * 0.45 - 4, Math.max(0, r1));
+      ctx.fillStyle = state.myth ? 'rgba(255,126,95,0.85)' : 'rgba(215,222,242,0.25)';
+      ctx.fillRect(px + k * bw + bw * 0.5, y2 + h2 - Math.max(0, r2), bw * 0.45 - 4, Math.max(0, r2));
+    }
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    ctx.fillText('+' + maxRise.toFixed(1) + ' K', px - 4, y2 + 8);
+    ctx.fillText('0', px - 4, y2 + h2);
+    ctx.textAlign = 'left';
+    ctx.fillText('top', px, y2 + h2 + 13);
+    ctx.textAlign = 'right';
+    ctx.fillText('valve end', px + pw, y2 + h2 + 13);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = state.myth ? '#5ec8e5' : '#ff7e5f';
+    ctx.fillText('■ compression+friction', 14, y2 - 12);
+    ctx.fillStyle = state.myth ? '#ff7e5f' : 'rgba(215,222,242,0.6)';
+    ctx.fillText('■ friction only (myth)', 170, y2 - 12);
+  }
+
+  function render() {
+    var g = liveGas();
+    renderReadout(g);
+    drawPump(g);
+    drawChart(g);
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.clockT = (state.clockT || 0) + dt;
+    stepWallTemps(state.wall, dt);
+    stepWallTemps(state.wallMyth, dt);
+    if (state.pumping) {
+      state.tPhase += dt;
+      if (state.phase === 'down' && state.tPhase >= state.ts) {
+        finishStroke(state.stroke);
+        state.phase = 'up';
+        state.tPhase = 0;
+      } else if (state.phase === 'up' && state.tPhase >= state.ts) {
+        state.stroke = newStroke();
+        state.phase = 'down';
+        state.tPhase = 0;
+      }
+      updateLabels();
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function fastStrokes(k) {
+    for (var i = 0; i < k; i++) {
+      var st = newStroke();
+      finishStroke(st);
+      stepWallTemps(state.wall, 2 * state.ts);
+      stepWallTemps(state.wallMyth, 2 * state.ts);
+    }
+    refresh();
+    updateLabels();
+  }
+
+  elPump.addEventListener('click', function () {
+    state.pumping = !state.pumping;
+    if (state.pumping) state.lastTs = 0;
+    updateLabels();
+  });
+  elFast.addEventListener('click', function () { fastStrokes(20); });
+  elCool.addEventListener('click', function () {
+    state.wall = makeWall(); state.wallMyth = makeWall(); state.strokes = 0; state.lastStroke = null; refresh(); updateLabels();
+  });
+  elFric.addEventListener('click', function () { state.friction = !state.friction; refresh(); updateLabels(); });
+  elMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elP.addEventListener('input', function () { state.psi = parseFloat(elP.value); refresh(); updateLabels(); });
+  elS.addEventListener('input', function () { state.s = parseFloat(elS.value); state.ts = speedFromSlider(state.s); refresh(); updateLabels(); });
+  elH.addEventListener('input', function () { state.h = parseFloat(elH.value); refresh(); updateLabels(); });
+  Object.keys(presets).forEach(function (k) {
+    presets[k].el.addEventListener('click', function () { state.psi = presets[k].psi; elP.value = String(state.psi); refresh(); updateLabels(); });
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elPump.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  refresh();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__pumpPhysics = {
+    GAMMA: GAMMA, R_GAS: R_GAS, P_ATM: P_ATM, T_AMB: T_AMB, PSI: PSI, CV: CV, CP: CP,
+    BORE: BORE, STROKE: STROKE, V_DEAD: V_DEAD, AREA: AREA, N_SEG: N_SEG, F0: F0,
+    adiabaticT: adiabaticT, adiabaticV: adiabaticV, adiabaticWork: adiabaticWork, isothermalWork: isothermalWork,
+    pistonX: pistonX, gasVolume: gasVolume, sealFriction: sealFriction, makeWall: makeWall,
+    simulateStroke: simulateStroke, stepWallTemps: stepWallTemps, addHeat: addHeat, speedFromSlider: speedFromSlider
+  };
+})();
+</script>
+</body>
+</html>
