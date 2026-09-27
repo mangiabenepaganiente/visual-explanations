@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Bread Rises — Yeast Makes CO₂ Gas, Gluten Traps It (Not Swelling Yeast)</title>
+<meta name="description" content="Classroom bread explainer: yeast doesn’t swell. It ferments sugar into CO₂ (C₆H₁₂O₆ → 2 C₂H₅OH + 2 CO₂) that gluten traps. Live gas, rise, temperature.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why bread rises, yeast fermentation, carbon dioxide, gluten, dough proofing, ideal gas law, oven spring, misconception, classroom chemistry">
+<meta property="og:title" content="Why Bread Rises">
+<meta property="og:description" content="The yeast doesn’t puff up. It turns sugar into CO₂ gas, and stretchy gluten traps it in bubbles. Live fermentation, ideal-gas volume and temperature curve for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+.lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+.btn.bake { background: rgba(255, 194, 74, 0.1); color: var(--sun2); border-color: rgba(255, 194, 74, 0.4); }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · fermentation</a></p>
+  <h1>Why bread rises</h1>
+  <p class="lede">Yeast cells don’t swell up, and the yeast isn’t the air. Each cell is a tiny sugar-eating factory. It <strong>ferments sugar into carbon dioxide and alcohol</strong>: <strong>C₆H₁₂O₆ → 2 C₂H₅OH + 2 CO₂</strong>. The CO₂ gas seeps into bubbles that kneading left in the dough. <strong>Gluten</strong>, a stretchy protein network, holds those bubbles in like millions of tiny balloons.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Play</strong>, then drag the temperature from 27 °C up to 60 °C. The rise stops dead. Heat doesn’t shrink the bubbles; it kills the gas-makers.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <button type="button" class="btn" id="btnReset">New dough</button>
+      <button type="button" class="btn bake" id="btnBake">Bake (oven spring)</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: yeast swells</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Dough temperature <em id="tLabel">27 °C</em></span>
+        <input type="range" id="temp" min="0" max="70" step="1" value="27" aria-label="Dough temperature in Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Instant yeast <em id="yLabel">7 g</em></span>
+        <input type="range" id="yeast" min="0" max="14" step="0.5" value="7" aria-label="Instant yeast in grams per 500 g flour">
+      </label>
+      <label class="sl grow">
+        <span>Added sugar <em id="sLabel">0 g</em></span>
+        <input type="range" id="sugar" min="0" max="100" step="1" value="0" aria-label="Added sugar in grams per 500 g flour">
+      </label>
+    </div>
+    <div class="row">
+      <span class="lbl">Flour / gluten</span>
+      <button type="button" class="chip" id="flCake">Cake flour (weak)</button>
+      <button type="button" class="chip on" id="flAP">All-purpose</button>
+      <button type="button" class="chip" id="flBread">Bread flour (strong)</button>
+      <span class="hint" id="modeHint"></span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Dough + a zoom inside</b><span id="sceneMeta">500 g flour · 65% water</span></div>
+      <canvas id="cvScene" width="760" height="420" aria-label="Bowl of dough rising, with a magnified view of yeast cells releasing CO2 into gluten-trapped bubbles"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Rise + temperature</b><span id="chartMeta">volume vs time · activity vs T</span></div>
+      <canvas id="cvChart" width="520" height="420" aria-label="Chart of dough volume versus time and yeast activity versus temperature"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Yeast makes gas from sugar</h2>
+      <p>Without much oxygen, yeast ferments glucose (and maltose from starch) into ethanol and CO₂. By mass, <strong>180 g of glucose → 88 g of CO₂</strong>, which is 2 mol, or about <strong>49 L</strong> of gas at 25 °C and 1 atm (<code>V = nRT/P</code>). A few grams of sugar are enough to inflate a loaf.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Gluten traps the bubbles</h2>
+      <p>Kneading wheat flour with water builds gluten, a stretchy protein film. It also traps tiny air pockets that seed bubbles. CO₂ diffuses into those pockets and inflates them. Strong bread flour holds more gas and stretches further. Weak cake flour leaks and tears sooner.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Warm speeds it — until it kills</h2>
+      <p>Fermentation is enzyme chemistry, so it speeds up with warmth to a peak near <strong>35–38 °C</strong>. Hotter than ~45 °C it falters, and at <strong>55–60 °C</strong> yeast dies within minutes. In the oven the last burst of gas plus expansion and steam gives <strong>oven spring</strong>, until the crumb sets near 75 °C.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“The yeast puffs up”</h2>
+      <p>A yeast cell is about 5 µm across and stays that size. All the yeast in a loaf is about a teaspoon (~7 mL). A risen loaf holds <em>hundreds</em> of mL of gas. Yeast isn’t the air, either: the bubbles are mostly CO₂ the yeast <em>made</em>. Turn on the myth toggle to see how little the cells themselves could account for.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Fermentation reference numbers">
+    <div class="stat">
+      <div class="k">Stoichiometry</div>
+      <div class="v">1 glucose → 2 CO₂</div>
+      <div class="s">+ 2 ethanol</div>
+    </div>
+    <div class="stat">
+      <div class="k">180 g glucose</div>
+      <div class="v">88 g CO₂ ≈ 49 L</div>
+      <div class="s">2 mol at 25 °C, 1 atm</div>
+    </div>
+    <div class="stat">
+      <div class="k">Fastest</div>
+      <div class="v">~35–38 °C</div>
+      <div class="s">proofing sweet spot</div>
+    </div>
+    <div class="stat">
+      <div class="k">Yeast dies</div>
+      <div class="v">~55–60 °C</div>
+      <div class="s">within minutes</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Chemistry is exact, growth is simplified.</strong> The mole bookkeeping is exact: each mole of glucose-equivalent sugar gives 2 mol CO₂ and 2 mol ethanol (<code>M = 180.16, 44.01, 46.07 g/mol</code>). Gas volume uses the ideal-gas law <code>V = nRT/P</code> with <code>R = 8.314 J/(mol·K)</code> and <code>P = 1 atm</code>. Check: 180 g glucose → 88.0 g CO₂ = 2.00 mol → 48.9 L at 25 °C. Bubbles also hold saturated water vapour (Buck 1996 formula), which is included.</li>
+      <li><strong style="color:var(--text)">Temperature activity curve (a labeled simplification).</strong> Gas-production rate × the cardinal-temperature model of Rosso et al. (1993): zero below <code>T<sub>min</sub> = 2 °C</code>, peak at <code>T<sub>opt</sub> = 37 °C</code>, zero at <code>T<sub>max</sub> = 52 °C</code>. Heat death is first-order with a decimal time <code>D = 3 min at 55 °C, z = 6 °C</code> (D shrinks 10× per 6 °C hotter, applied above 40 °C). Real strains, doughs and published values vary. These round numbers give the right shape, not strain-specific data.</li>
+      <li><strong style="color:var(--text)">Rate calibration.</strong> The peak rate is set so a standard dough (500 g flour, 325 g water, 7 g instant yeast, 27 °C) roughly doubles in about an hour, a common baking rule of thumb. It scales with yeast mass. Sugar supply uses a Monod-style limit, with ~15 g of fermentable sugar from the flour itself (free sugars plus amylase working on starch, lumped together) plus any added sugar. Above roughly 5–10% sugar (baker’s %) the syrup osmotically slows yeast. A simple penalty <code>1/(1 + (sugar%/14)³)</code> models that, which is why very sweet doughs rise slowly.</li>
+      <li><strong style="color:var(--text)">Where the CO₂ goes.</strong> The first CO₂ dissolves in the dough water (Henry’s law, ~0.034 mol/L·atm at 25 °C, less when warm) before bubbles grow. After that, a flour-dependent fraction is retained by gluten (cake 45%, all-purpose 60%, bread 75%) and the rest leaks out. Each flour has a maximum stretch (2.2×, 2.8×, 3.4× the starting volume). Past it the gluten tears, gas escapes and the dough slumps (over-proofed).</li>
+      <li><strong style="color:var(--text)">Bake.</strong> The dough warms toward 98 °C (time constant 6 min). Gas expands with T (Charles’s law) and water-vapour pressure climbs steeply, while the dying yeast adds a last burst. The crumb sets at 75 °C and the volume freezes. Oven spring is capped at 1.15× the flour’s proofing stretch limit (warm dough stretches further before it sets). That cap is a simplification. Real ovens add crust formation, ethanol boil-off and gelatinizing starch, which are not modeled.</li>
+      <li><strong style="color:var(--text)">The dough is at the slider temperature.</strong> Real dough lags its surroundings and warms a little from fermentation. Salt (2%) is assumed, and its mild slowing effect is folded into the calibration. The on-screen “yeast cells” are drawn huge so you can see them. Bubbles are schematic.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Chemical reactions and conservation of atoms (NGSS MS-PS1-2, MS-PS1-5), gas laws (HS-PS1), and living cells’ energy use (MS-LS1-7). Pairs with the balloon-on-a-bottle yeast demo: warm vs cold vs hot water. Name the misconception: “the yeast swells” / “yeast is air.”</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics / chemistry (exported; checked by validate-bread.js) =====
+  var R_GAS = 8.314462618;   // J/(mol·K)
+  var P_ATM = 101325;        // Pa
+  var M_GLUCOSE = 180.156;   // g/mol
+  var M_CO2 = 44.0095;       // g/mol
+  var M_ETOH = 46.068;       // g/mol
+  var FLOUR_G = 500, WATER_G = 325, SALT_G = 10;
+  var FLOUR_SUGAR_G = 15;    // fermentable sugar supplied by the flour (lumped)
+  var MATRIX_DENSITY = 1.20; // g/mL, bubble-free dough
+  var AIR0_FRAC = 0.05;      // entrained air from kneading, fraction of matrix volume
+  var T_MIN = 2, T_OPT = 37, T_MAX = 52; // °C, Rosso cardinal temperatures for gas production
+  var D55 = 180, Z_VAL = 6;  // s, °C — thermal death
+  var Q_MAX = 3.3e-6;        // mol CO₂ per g instant yeast per s at T_opt
+  var KS_SUGAR = 1.0;        // g, Monod half-saturation
+  var KH25 = 0.034;          // mol/(L·atm), CO₂ Henry constant at 25 °C
+  var KH_VANT_HOFF = 2400;   // K
+  var BAKE_T = 98, BAKE_TAU = 360, SET_T = 75, BAKE_STRETCH = 1.15;
+  var FLOURS = {
+    cake:  { name: 'Cake flour',   retention: 0.45, maxMult: 2.2 },
+    ap:    { name: 'All-purpose',  retention: 0.60, maxMult: 2.8 },
+    bread: { name: 'Bread flour',  retention: 0.75, maxMult: 3.4 }
+  };
+
+  function toK(tC) { return tC + 273.15; }
+  // Ideal gas: V (m³) = nRT/P
+  function gasVolume(n, tC, P) { return n * R_GAS * toK(tC) / (P || P_ATM); }
+  // Fermentation stoichiometry: grams glucose → mol / grams CO₂, ethanol
+  function fermentGlucose(g) {
+    var mol = g / M_GLUCOSE;
+    return { molCO2: 2 * mol, gCO2: 2 * mol * M_CO2, molEtOH: 2 * mol, gEtOH: 2 * mol * M_ETOH };
+  }
+  // Buck (1996) saturation vapour pressure over water, Pa (good from 0 to 100 °C)
+  function satVapor(tC) { return 611.21 * Math.exp((18.678 - tC / 234.5) * (tC / (257.14 + tC))); }
+  // Rosso cardinal-temperature model, normalized to 1 at T_opt
+  function ctmi(tC) {
+    if (tC <= T_MIN || tC >= T_MAX) return 0;
+    var num = (tC - T_MAX) * (tC - T_MIN) * (tC - T_MIN);
+    var den = (T_OPT - T_MIN) * ((T_OPT - T_MIN) * (tC - T_OPT) - (T_OPT - T_MAX) * (T_OPT + T_MIN - 2 * tC));
+    var v = num / den;
+    return v > 0 ? v : 0;
+  }
+  // First-order thermal death rate (1/s): k = ln10 / D(T), D(T) = D55·10^((55−T)/z)
+  // (applied above 40 °C only; the log-linear z-model is not meant to be extrapolated to proofing temperatures)
+  function deathRate(tC) { return tC < 40 ? 0 : Math.LN10 / (D55 * Math.pow(10, (55 - tC) / Z_VAL)); }
+  function kHenry(tC) { return KH25 * Math.exp(KH_VANT_HOFF * (1 / toK(tC) - 1 / 298.15)); }
+  function sugarLimit(sugarG) { return sugarG > 0 ? sugarG / (KS_SUGAR + sugarG) : 0; }
+  // Osmotic slow-down from added sugar (baker's % of flour)
+  function osmoticFactor(addedSugarG) { var bp = 100 * addedSugarG / FLOUR_G; return 1 / (1 + Math.pow(bp / 14, 3)); }
+
+  function newDough(opts) {
+    var mass = FLOUR_G + WATER_G + SALT_G + opts.yeastG + opts.sugarG;
+    var Vm = mass / MATRIX_DENSITY * 1e-6; // m³
+    var Vair0 = AIR0_FRAC * Vm;
+    return {
+      t: 0, tC: opts.tC, yeastG: opts.yeastG, addedSugarG: opts.sugarG, flour: opts.flour,
+      sugarG: FLOUR_SUGAR_G + opts.sugarG, sugar0: FLOUR_SUGAR_G + opts.sugarG,
+      viable: 1, nCO2: 0, nLost: 0, nRetained: 0,
+      Vmatrix: Vm, nAir: Vair0 / gasFactor(opts.tC),
+      V0: Vm + Vair0, V: Vm + Vair0, peakMult: 1,
+      overproofed: false, overT: 0, baking: false, bakeT: 0, set: false, setMult: 0, T0bake: opts.tC
+    };
+  }
+  function activity(d) {
+    return ctmi(d.tC) * d.viable * sugarLimit(d.sugarG) * osmoticFactor(d.addedSugarG);
+  }
+  function gasFactor(tC) { // m³ per mol of dry gas in a bubble saturated with water vapour at 1 atm
+    var pw = Math.min(satVapor(tC), 0.95 * P_ATM);
+    return R_GAS * toK(tC) / (P_ATM - pw);
+  }
+  // Advance dough state by dt seconds (explicit, small steps)
+  function stepDough(d, dt) {
+    var F = FLOURS[d.flour];
+    if (d.baking) {
+      d.bakeT += dt;
+      d.tC = BAKE_T - (BAKE_T - d.T0bake) * Math.exp(-d.bakeT / BAKE_TAU);
+    }
+    d.viable *= Math.exp(-deathRate(d.tC) * dt);
+    var rate = Q_MAX * d.yeastG * activity(d); // mol/s
+    var dn = rate * dt;
+    var sugarUse = dn / 2 * M_GLUCOSE;
+    if (sugarUse > d.sugarG) { sugarUse = d.sugarG; dn = 2 * sugarUse / M_GLUCOSE; }
+    d.sugarG -= sugarUse;
+    d.nCO2 += dn;
+    var nDiss = kHenry(d.tC) * (WATER_G / 1000); // mol dissolvable at ~1 atm CO₂
+    var free = Math.max(0, d.nCO2 - nDiss);
+    var capMult = d.baking ? F.maxMult * BAKE_STRETCH : F.maxMult; // warm dough in the oven stretches further before it sets
+    var cap = (capMult * d.V0 - d.Vmatrix) / gasFactor(d.tC) - d.nAir; // mol of CO₂ the gluten can hold
+    var want = F.retention * free - d.nLost;
+    if (!d.set) {
+      if (want > cap) {
+        d.nLost += want - cap;
+        want = cap;
+        if (!d.overproofed && !d.baking) { d.overproofed = true; d.overT = d.t; }
+      }
+      d.nRetained = Math.max(0, want);
+    }
+    var Vg = (d.nAir + d.nRetained) * gasFactor(d.tC);
+    var V = d.Vmatrix + Vg;
+    if (d.overproofed && !d.baking) {
+      // torn gluten: slow slump toward 80% of the peak gas volume
+      var slump = 1 - 0.2 * (1 - Math.exp(-(d.t - d.overT) / 900));
+      V = d.Vmatrix + Vg * slump;
+    }
+    if (d.baking && !d.set && d.tC >= SET_T) { d.set = true; d.setMult = V / d.V0; }
+    if (d.set) V = d.setMult * d.V0;
+    d.V = V;
+    d.t += dt;
+    if (V / d.V0 > d.peakMult) d.peakMult = V / d.V0;
+    return d;
+  }
+  function advanceDough(d, span, maxDt) {
+    var h = maxDt || 5;
+    var n = Math.max(1, Math.ceil(span / h));
+    for (var i = 0; i < n; i++) stepDough(d, span / n);
+    return d;
+  }
+  // Time (s) to reach a volume multiple at constant temperature; Infinity if never within tMax
+  function timeToMultiple(opts, mult, tMax) {
+    var d = newDough(opts);
+    tMax = tMax || 6 * 3600;
+    while (d.t < tMax) {
+      stepDough(d, 5);
+      if (d.V / d.V0 >= mult) return d.t;
+    }
+    return Infinity;
+  }
+
+  // ===== Fonts cached outside draw loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  var WARP = 360;         // 1 s on screen = 6 min of proofing
+  var T_WINDOW = 4 * 3600;
+
+  var state = {
+    tC: 27, yeastG: 7, sugarG: 0, flour: 'ap', myth: false, playing: true, lastTs: 0,
+    dough: null, hist: [], clock: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay'), elReset = $('btnReset'), elBake = $('btnBake'), elMyth = $('chipMyth');
+  var elTemp = $('temp'), elYeast = $('yeast'), elSugar = $('sugar');
+  var elTL = $('tLabel'), elYL = $('yLabel'), elSL = $('sLabel');
+  var elHint = $('modeHint'), elReadout = $('readout'), elSceneMeta = $('sceneMeta'), elChartMeta = $('chartMeta');
+  var flChips = { cake: $('flCake'), ap: $('flAP'), bread: $('flBread') };
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 420 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmtClock(s) {
+    var m = Math.floor(s / 60), h = Math.floor(m / 60);
+    return h + ' h ' + (m % 60 < 10 ? '0' : '') + (m % 60) + ' min';
+  }
+
+  function resetDough() {
+    state.dough = newDough({ tC: state.tC, yeastG: state.yeastG, sugarG: state.sugarG, flour: state.flour });
+    state.hist = [0, 1];
+  }
+
+  // particles for the zoom view (fixed seeds, no per-frame allocation)
+  var YEAST = [], BUBBLES = [], FIBERS = [], DOTS = [];
+  (function () {
+    var s = 11;
+    function rnd() { s = (s * 16807) % 2147483647; return s / 2147483647; }
+    var i;
+    for (i = 0; i < 14; i++) BUBBLES.push({ x: rnd() * 2 - 1, y: rnd() * 2 - 1, r0: 0.05 + rnd() * 0.05 });
+    for (i = 0; i < 16; i++) YEAST.push({ x: rnd() * 2 - 1, y: rnd() * 2 - 1, a: rnd() * Math.PI, bud: rnd() > 0.6 });
+    for (i = 0; i < 22; i++) FIBERS.push({ x: rnd() * 2 - 1, y: rnd() * 2 - 1, a: rnd() * Math.PI, l: 0.3 + rnd() * 0.5, c: rnd() - 0.5 });
+    for (i = 0; i < 40; i++) DOTS.push({ yi: i % 16, bi: Math.floor(rnd() * 14), p: rnd() });
+  })();
+
+  function updateLabels() {
+    var d = state.dough, F = FLOURS[state.flour];
+    elTL.textContent = Math.round(state.tC) + ' °C';
+    elYL.textContent = state.yeastG.toFixed(1).replace('.0', '') + ' g';
+    elSL.textContent = Math.round(state.sugarG) + ' g';
+    Object.keys(flChips).forEach(function (k) { setChip(flChips[k], k === state.flour); });
+    setChip(elMyth, state.myth);
+    elSceneMeta.textContent = F.name + ' · ' + (d.baking ? 'baking' : 'proofing') + ' · ' + fmtClock(d.t);
+    elChartMeta.textContent = 'playback: 1 s = ' + (WARP / 60) + ' min';
+    var tC = d.tC, msg;
+    if (d.set) msg = 'Crumb set at 75 °C — oven spring over. Final ' + (d.V / d.V0).toFixed(2) + '× the dough you mixed.';
+    else if (d.baking) msg = 'Baking: gas expands with heat and steam; yeast dies above ~55 °C; crumb sets at 75 °C.';
+    else if (d.viable < 0.01) msg = 'Yeast is dead (' + Math.round(tC) + ' °C). No more CO₂ — cooling it back down won’t revive it.';
+    else if (tC >= 50) msg = 'Too hot: yeast is dying fast (D ≈ ' + (D55 * Math.pow(10, (55 - tC) / Z_VAL) / 60).toFixed(1) + ' min to lose 90%).';
+    else if (d.overproofed) msg = 'Over-proofed: gluten stretched past ' + F.maxMult + '× and tore; gas escapes, dough slumps.';
+    else if (state.yeastG === 0) msg = 'No yeast, no gas — the dough just sits there.';
+    else if (tC < 8) msg = 'Fridge-cold: fermentation crawls (bakers use this to slow-proof overnight).';
+    else msg = 'Yeast activity ' + Math.round(100 * activity(d)) + '% of peak. Gluten keeps ' + Math.round(F.retention * 100) + '% of the free CO₂.';
+    elHint.textContent = msg;
+  }
+
+  function renderReadout() {
+    var d = state.dough, html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    var vCO2 = gasVolume(d.nCO2, d.tC) * 1e6;
+    kv('CO₂ produced', (d.nCO2 * 1000).toFixed(1) + ' mmol', '= ' + (d.nCO2 * M_CO2).toFixed(2) + ' g ≈ ' + (vCO2 >= 1000 ? (vCO2 / 1000).toFixed(2) + ' L' : vCO2.toFixed(0) + ' mL') + ' at ' + Math.round(d.tC) + ' °C', 'sun');
+    kv('Gas in bubbles', ((d.V - d.Vmatrix) * 1e6).toFixed(0) + ' mL', 'trapped by gluten · ' + (d.nLost * 1000).toFixed(1) + ' mmol leaked', '');
+    kv('Dough volume', (d.V / d.V0).toFixed(2) + '×', (d.V * 1e6).toFixed(0) + ' mL · ' + fmtClock(d.t), d.V / d.V0 >= 2 ? 'warm' : '');
+    kv('Yeast activity', Math.round(100 * activity(d)) + '%', 'alive ' + (100 * d.viable).toFixed(d.viable < 0.995 && d.viable > 0.005 ? 1 : 0) + '% · T-curve ' + Math.round(100 * ctmi(d.tC)) + '%', d.viable < 0.5 ? 'warm' : '');
+    kv('Sugar → ethanol', (d.sugar0 - d.sugarG).toFixed(2) + ' g used', (d.nCO2 * M_ETOH).toFixed(2) + ' g ethanol · ' + d.sugarG.toFixed(1) + ' g left', '');
+    elReadout.innerHTML = html;
+  }
+
+  function drawScene() {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, d = state.dough;
+    ctx.clearRect(0, 0, W, H);
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0a1028'); bg.addColorStop(1, '#0c1226');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    var narrow = W < 560;
+    var mult = d.V / d.V0;
+
+    // --- Bowl + dough (left) ---
+    var cx = narrow ? W * 0.26 : W * 0.24, bowlY = H * 0.72, bowlR = Math.min(W * (narrow ? 0.22 : 0.19), 130);
+    // 2× line for reference: dough area ∝ V^(2/3)
+    var baseR = bowlR * 0.62;
+    function domeH(m) { return baseR * 0.55 * Math.pow(m, 2 / 3); }
+    var r2 = domeH(2);
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(255,194,74,0.45)';
+    ctx.beginPath();
+    ctx.moveTo(cx - bowlR * 1.05, bowlY - r2 - bowlR * 0.12); ctx.lineTo(cx + bowlR * 1.05, bowlY - r2 - bowlR * 0.12);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(255,194,74,0.75)';
+    ctx.fillText('doubled', cx + bowlR * 0.7, bowlY - r2 - bowlR * 0.12 - 5);
+    // dough dome
+    var dh = domeH(mult), dw = Math.min(bowlR * 1.02, baseR * Math.pow(mult, 1 / 3) * 1.25);
+    var doughCol = d.set ? '#c98a4a' : (d.baking ? '#e7c08a' : '#efdcb5');
+    var dg = ctx.createRadialGradient(cx - dw * 0.3, bowlY - dh, 4, cx, bowlY - dh * 0.4, dw * 1.4);
+    dg.addColorStop(0, '#fff4dc');
+    dg.addColorStop(1, doughCol);
+    ctx.fillStyle = dg;
+    ctx.beginPath();
+    ctx.moveTo(cx - dw, bowlY - bowlR * 0.12);
+    ctx.bezierCurveTo(cx - dw, bowlY - dh * 1.25 - bowlR * 0.12, cx + dw, bowlY - dh * 1.25 - bowlR * 0.12, cx + dw, bowlY - bowlR * 0.12);
+    ctx.closePath();
+    ctx.fill();
+    // bowl
+    ctx.fillStyle = '#1a2446';
+    ctx.strokeStyle = 'rgba(94,200,229,0.4)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(cx - bowlR * 1.1, bowlY - bowlR * 0.12);
+    ctx.quadraticCurveTo(cx - bowlR * 1.05, bowlY + bowlR * 0.75, cx, bowlY + bowlR * 0.75);
+    ctx.quadraticCurveTo(cx + bowlR * 1.05, bowlY + bowlR * 0.75, cx + bowlR * 1.1, bowlY - bowlR * 0.12);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    ctx.font = FONT_MONO_12;
+    ctx.fillStyle = mult >= 2 ? '#ff7e5f' : '#ffc24a';
+    ctx.fillText(mult.toFixed(2) + '× volume', cx - 40, bowlY + bowlR * 0.45);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(Math.round(d.tC) + ' °C' + (d.baking ? ' (oven)' : ''), cx - 22, bowlY + bowlR * 0.62);
+    // zoom circle marker
+    var mx = cx + dw * 0.25, my = bowlY - dh * 0.55 - bowlR * 0.12;
+    ctx.strokeStyle = 'rgba(94,200,229,0.8)';
+    ctx.beginPath(); ctx.arc(mx, my, 8, 0, Math.PI * 2); ctx.stroke();
+
+    // --- Zoom (right) ---
+    var zr = Math.min(narrow ? W * 0.22 : W * 0.25, H * 0.36);
+    var zx = narrow ? W * 0.74 : W * 0.7, zy = H * 0.44;
+    ctx.strokeStyle = 'rgba(94,200,229,0.3)';
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath(); ctx.moveTo(mx + 8, my - 4); ctx.lineTo(zx - zr * 0.7, zy - zr * 0.7); ctx.moveTo(mx + 8, my + 4); ctx.lineTo(zx - zr * 0.7, zy + zr * 0.7); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.save();
+    ctx.beginPath(); ctx.arc(zx, zy, zr, 0, Math.PI * 2); ctx.clip();
+    ctx.fillStyle = '#e9d4a8';
+    ctx.fillRect(zx - zr, zy - zr, 2 * zr, 2 * zr);
+    // gluten strands
+    var F = FLOURS[d.flour];
+    ctx.strokeStyle = 'rgba(160,110,60,' + (0.25 + 0.5 * (F.retention - 0.4)).toFixed(2) + ')';
+    ctx.lineWidth = d.flour === 'bread' ? 2.2 : d.flour === 'ap' ? 1.6 : 1.0;
+    var i, f, b;
+    for (i = 0; i < FIBERS.length; i++) {
+      f = FIBERS[i];
+      var fx = zx + f.x * zr, fy = zy + f.y * zr, ll = f.l * zr;
+      ctx.beginPath();
+      ctx.moveTo(fx - Math.cos(f.a) * ll / 2, fy - Math.sin(f.a) * ll / 2);
+      ctx.quadraticCurveTo(fx + f.c * 20, fy - f.c * 20, fx + Math.cos(f.a) * ll / 2, fy + Math.sin(f.a) * ll / 2);
+      ctx.stroke();
+    }
+    // bubbles: radius ∝ (gas fraction)^(1/3)
+    var gasFrac = (d.V - d.Vmatrix) / d.V;
+    var gas0 = (d.V0 - d.Vmatrix) / d.V0;
+    var grow = state.myth ? 1 : Math.pow(gasFrac / gas0, 1 / 3);
+    for (i = 0; i < BUBBLES.length; i++) {
+      b = BUBBLES[i];
+      var br = Math.min(zr * 0.3, b.r0 * zr * grow);
+      ctx.fillStyle = 'rgba(10,16,40,0.55)';
+      ctx.strokeStyle = 'rgba(140,90,40,0.7)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(zx + b.x * zr * 0.85, zy + b.y * zr * 0.85, br, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    }
+    // CO₂ dots drifting from yeast into bubbles (only when active)
+    var act = activity(d);
+    if (!state.myth && act > 0.01) {
+      ctx.fillStyle = 'rgba(94,200,229,0.9)';
+      for (i = 0; i < DOTS.length; i++) {
+        var dt0 = DOTS[i], yc = YEAST[dt0.yi], bb = BUBBLES[dt0.bi];
+        var p = (dt0.p + state.clock * (0.15 + 0.6 * act)) % 1;
+        var x0 = zx + yc.x * zr * 0.85, y0 = zy + yc.y * zr * 0.85;
+        var x1 = zx + bb.x * zr * 0.85, y1 = zy + bb.y * zr * 0.85;
+        ctx.beginPath(); ctx.arc(x0 + (x1 - x0) * p, y0 + (y1 - y0) * p, 1.8, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    // yeast cells: same size always (unless myth)
+    var yeastR = state.myth ? 6 * Math.min(4, Math.pow(mult, 1.5)) : 6;
+    for (i = 0; i < YEAST.length; i++) {
+      var yy = YEAST[i];
+      var yx = zx + yy.x * zr * 0.85, yyy = zy + yy.y * zr * 0.85;
+      ctx.fillStyle = d.viable > 0.5 ? (state.myth ? 'rgba(255,126,95,0.75)' : '#b77b3d') : '#6a6a6a';
+      ctx.beginPath(); ctx.ellipse(yx, yyy, yeastR, yeastR * 0.8, yy.a, 0, Math.PI * 2); ctx.fill();
+      if (yy.bud && !state.myth) { ctx.beginPath(); ctx.arc(yx + Math.cos(yy.a) * 7, yyy + Math.sin(yy.a) * 7, 3, 0, Math.PI * 2); ctx.fill(); }
+    }
+    ctx.restore();
+    ctx.strokeStyle = 'rgba(94,200,229,0.6)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(zx, zy, zr, 0, Math.PI * 2); ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(state.myth ? 'MYTH VIEW: cells balloon, no gas made' : 'yeast (fixed size) · CO₂ → bubbles · gluten', zx - zr, zy + zr + 16);
+
+    if (state.myth) {
+      var cellsML = state.yeastG * 1.0; // ~1 mL per g dry yeast
+      var gasML = (d.V - d.Vmatrix) * 1e6;
+      ctx.fillStyle = 'rgba(8,11,28,0.88)';
+      ctx.fillRect(12, 10, Math.min(W - 24, 470), 46);
+      ctx.strokeStyle = 'rgba(255,126,95,0.5)';
+      ctx.strokeRect(12, 10, Math.min(W - 24, 470), 46);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth: the yeast swells. All ' + state.yeastG + ' g of cells ≈ ' + cellsML.toFixed(0) + ' mL total.', 22, 28);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('Gas actually in the dough now: ' + gasML.toFixed(0) + ' mL — ~' + Math.max(1, Math.round(gasML / Math.max(cellsML, 0.5))) + '× more.', 22, 46);
+    }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText('schematic · cells and bubbles not to scale', 14, H - 10);
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, d = state.dough, F = FLOURS[d.flour];
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var px = 46, pw = W - px - 16, y1 = 34, h1 = H * 0.4, y2 = y1 + h1 + 56, h2 = H - y2 - 34;
+    var tSpan = Math.max(T_WINDOW, d.t);
+    var mMax = Math.max(3.6, F.maxMult + 0.3);
+    function X(t) { return px + (t / tSpan) * pw; }
+    function Y(m) { return y1 + (1 - (m - 0.8) / (mMax - 0.8)) * h1; }
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Dough volume ×', 14, 22);
+    ctx.fillText('Yeast activity vs temperature', 14, y2 - 14);
+    ctx.strokeStyle = 'rgba(94,200,229,0.18)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(px, y1, pw, h1);
+    ctx.strokeRect(px, y2, pw, h2);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    var m;
+    for (m = 1; m <= mMax; m += 1) {
+      ctx.fillText(m + '×', px - 4, Y(m) + 3);
+    }
+    ctx.textAlign = 'left';
+    for (var hh = 0; hh <= tSpan / 3600 + 1e-9; hh++) ctx.fillText(hh + 'h', X(hh * 3600) - 6, y1 + h1 + 13);
+    // 2× line + gluten limit
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(255,194,74,0.5)';
+    ctx.beginPath(); ctx.moveTo(px, Y(2)); ctx.lineTo(px + pw, Y(2)); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,126,95,0.5)';
+    ctx.beginPath(); ctx.moveTo(px, Y(F.maxMult)); ctx.lineTo(px + pw, Y(F.maxMult)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,126,95,0.8)';
+    ctx.fillText('gluten tears ≈ ' + F.maxMult + '×', px + 6, Y(F.maxMult) - 4);
+    ctx.fillStyle = 'rgba(255,194,74,0.8)';
+    ctx.fillText('doubled', px + 6, Y(2) - 4);
+    // history
+    var hs = state.hist;
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    for (var k = 0; k < hs.length; k += 2) {
+      if (k === 0) ctx.moveTo(X(hs[k]), Y(hs[k + 1])); else ctx.lineTo(X(hs[k]), Y(hs[k + 1]));
+    }
+    ctx.stroke();
+    ctx.lineWidth = 1;
+
+    // Activity curve vs T (0–70 °C): CTMI × survival over 10 min
+    function XT(T) { return px + (T / 70) * pw; }
+    function YA(a) { return y2 + (1 - a) * h2; }
+    ctx.fillStyle = 'rgba(255,126,95,0.12)';
+    ctx.fillRect(XT(55), y2, XT(70) - XT(55), h2);
+    ctx.fillStyle = 'rgba(255,126,95,0.8)';
+    ctx.fillText('kills yeast', XT(56), y2 + 12);
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (var T = 0; T <= 70; T += 0.5) {
+      var a = ctmi(T);
+      if (T === 0) ctx.moveTo(XT(T), YA(a)); else ctx.lineTo(XT(T), YA(a));
+    }
+    ctx.stroke();
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#8b93ad';
+    for (var tt = 0; tt <= 70; tt += 10) ctx.fillText(tt + '°', XT(tt) - 6, y2 + h2 + 13);
+    ctx.textAlign = 'right';
+    ctx.fillText('100%', px - 4, y2 + 8);
+    ctx.fillText('0', px - 4, y2 + h2);
+    ctx.textAlign = 'left';
+    // current marker
+    var cur = Math.max(0, Math.min(70, d.tC));
+    ctx.strokeStyle = 'rgba(255,194,74,0.6)';
+    ctx.beginPath(); ctx.moveTo(XT(cur), y2); ctx.lineTo(XT(cur), y2 + h2); ctx.stroke();
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath(); ctx.arc(XT(cur), YA(activity(d)), 4.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillText('now ' + Math.round(100 * activity(d)) + '%', Math.min(XT(cur) + 6, px + pw - 60), YA(activity(d)) - 6 < y2 + 10 ? y2 + 22 : YA(activity(d)) - 6);
+  }
+
+  function render() {
+    renderReadout();
+    drawScene();
+    drawChart();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (state.playing) {
+      state.clock += dt;
+      var d = state.dough;
+      if (!d.set && d.t < 12 * 3600) {
+        advanceDough(d, dt * WARP, 5);
+        state.hist.push(d.t, d.V / d.V0);
+        if (state.hist.length > 6000) {
+          // decimate by index, keeping (t, v) pairs aligned
+          var out = [];
+          for (var i = 0; i < state.hist.length; i += 4) out.push(state.hist[i], state.hist[i + 1]);
+          state.hist = out;
+        }
+      }
+      updateLabels();
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  elPlay.addEventListener('click', function () {
+    state.playing = !state.playing;
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    if (state.playing) state.lastTs = 0;
+  });
+  elReset.addEventListener('click', function () { resetDough(); updateLabels(); });
+  elBake.addEventListener('click', function () {
+    var d = state.dough;
+    if (d.baking) return;
+    d.baking = true; d.bakeT = 0; d.T0bake = d.tC;
+    if (!state.playing) elPlay.click();
+    updateLabels();
+  });
+  elMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elTemp.addEventListener('input', function () {
+    state.tC = parseFloat(elTemp.value);
+    if (!state.dough.baking) state.dough.tC = state.tC;
+    updateLabels();
+  });
+  elYeast.addEventListener('input', function () { state.yeastG = parseFloat(elYeast.value); resetDough(); updateLabels(); });
+  elSugar.addEventListener('input', function () { state.sugarG = parseFloat(elSugar.value); resetDough(); updateLabels(); });
+  Object.keys(flChips).forEach(function (k) {
+    flChips[k].addEventListener('click', function () { state.flour = k; resetDough(); updateLabels(); });
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elPlay.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  resetDough();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__breadPhysics = {
+    R_GAS: R_GAS, P_ATM: P_ATM, M_GLUCOSE: M_GLUCOSE, M_CO2: M_CO2, M_ETOH: M_ETOH,
+    T_MIN: T_MIN, T_OPT: T_OPT, T_MAX: T_MAX, D55: D55, Z_VAL: Z_VAL, FLOURS: FLOURS, FLOUR_SUGAR_G: FLOUR_SUGAR_G,
+    toK: toK, gasVolume: gasVolume, fermentGlucose: fermentGlucose, satVapor: satVapor, ctmi: ctmi,
+    deathRate: deathRate, kHenry: kHenry, sugarLimit: sugarLimit, osmoticFactor: osmoticFactor,
+    newDough: newDough, activity: activity, stepDough: stepDough, advanceDough: advanceDough, timeToMultiple: timeToMultiple
+  };
+})();
+</script>
+</body>
+</html>
