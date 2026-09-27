@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Tuning a Guitar Changes Pitch — Tension, Length and Mass Set f = (1/2L)√(T/μ)</title>
+<meta name="description" content="Classroom string-wave explainer: tuning pegs set pitch via tension, f = (1/2L)√(T/μ). Live standing wave, tuner, frets and a pluck sound. NGSS MS-PS4.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="guitar tuning, string vibration, standing waves, frequency, tension, linear density, Mersenne's laws, wave speed, frets, pitch, misconception, classroom physics">
+<meta property="og:title" content="Why Tuning a Guitar Changes Pitch">
+<meta property="og:description" content="Pitch isn’t loudness and it doesn’t come from the body. Tension, length and string mass set the wave speed and the note. Live standing wave, tuner and pluck for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+.lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+.btn.pluck { background: rgba(255, 194, 74, 0.12); color: var(--sun2); border-color: rgba(255, 194, 74, 0.45); min-width: 92px; }
+#cvString { cursor: pointer; }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · string waves</a></p>
+  <h1>Why tuning a guitar changes pitch</h1>
+  <p class="lede">Turning a tuning peg changes the string’s <strong>tension</strong>. Tension sets how fast a wave runs along the string: <strong>v = √(T/μ)</strong>, where μ is the mass per metre. The string only rings at waves that fit exactly between its two fixed ends. So the note is <strong>f = v / 2L = (1/2L)·√(T/μ)</strong>. Tighter means faster waves, which means a higher note — not a louder one.</p>
+
+  <p class="try"><b>Try this</b>Drag <strong>tension</strong> until the tuner reads <strong>E4 ±0 cents</strong>, then press <strong>Pluck</strong>. Notice it takes about 70 N, roughly the weight of a 7 kg bag, just for the thinnest string.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn pluck" id="btnPluck" title="Plays a short synthesized pluck (sound on)">Pluck ♪</button>
+      <button type="button" class="btn" id="btnTune">Snap to nearest note</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: harder / body = higher</button>
+      <span class="hint">Sound plays only when you press Pluck or click the string.</span>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Tension T <em id="tLabel">60.0 N</em></span>
+        <input type="range" id="tension" min="10" max="140" step="0.1" value="60" aria-label="String tension in newtons">
+      </label>
+      <label class="sl grow">
+        <span>Scale length L <em id="lLabel">648 mm</em></span>
+        <input type="range" id="scale" min="430" max="700" step="1" value="648" aria-label="Scale length in millimetres">
+      </label>
+      <label class="sl grow">
+        <span>Fret <em id="fLabel">open</em></span>
+        <input type="range" id="fret" min="0" max="24" step="1" value="0" aria-label="Fret number, 0 is open string">
+      </label>
+    </div>
+    <div class="row">
+      <span class="lbl">String (gauge → μ)</span>
+      <button type="button" class="chip on" id="s1">E4 · .010 plain</button>
+      <button type="button" class="chip" id="s2">B3 · .013 plain</button>
+      <button type="button" class="chip" id="s3">G3 · .017 plain</button>
+      <button type="button" class="chip" id="s4">D3 · .026 wound</button>
+      <button type="button" class="chip" id="s5">A2 · .036 wound</button>
+      <button type="button" class="chip" id="s6">E2 · .046 wound</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Pluck strength <em id="aLabel">medium</em></span>
+        <input type="range" id="amp" min="0.1" max="1" step="0.01" value="0.5" aria-label="Pluck strength (loudness)">
+      </label>
+      <span class="lbl">Body</span>
+      <button type="button" class="chip on" id="bAcoustic">Acoustic</button>
+      <button type="button" class="chip" id="bSolid">Solid-body</button>
+      <button type="button" class="chip" id="bBare">Bare string</button>
+      <span class="hint" id="modeHint"></span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>String between fret and bridge</b><span id="stringMeta">standing wave · slowed down</span></div>
+      <canvas id="cvString" width="760" height="400" aria-label="Guitar neck with frets and a vibrating string showing its standing wave; click to pluck"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Tuner + harmonics</b><span id="tunerMeta">A4 = 440 Hz</span></div>
+      <canvas id="cvTuner" width="520" height="400" aria-label="Tuner needle with nearest note and cents, and harmonic spectrum bars"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Tension sets the wave speed</h2>
+      <p>A kink on a string travels at <code>v = √(T/μ)</code>. Pull harder (bigger T) and the string snaps back faster. A heavier string (bigger μ) is sluggish. Quadruple the tension and the speed, and so the pitch, doubles.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Only waves that fit survive</h2>
+      <p>Both ends are pinned, so the string rings in standing waves that fit a whole number of half-wavelengths: <code>λ<sub>n</sub> = 2L/n</code>. The lowest (fundamental) is <code>f = v/2L</code>. The overtones <code>2f, 3f, 4f…</code> ring too and colour the tone.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Frets shorten L by 2<sup>1/12</sup></h2>
+      <p>Pressing fret n leaves a vibrating length of <code>L / 2<sup>n/12</sup></code>, so each fret raises the pitch one equal-tempered semitone. Fret 12 halves the length and doubles the frequency, which is one octave up.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Tighter = louder” · “the body makes the note”</h2>
+      <p>Loudness is how far the string swings (amplitude). Pitch is how often it swings (frequency). Pluck harder and the note stays put. The guitar body is an amplifier and tone filter: it changes <em>how</em> the harmonics are balanced, not <em>which</em> frequencies the string makes. Try the body and strength controls — the tuner doesn’t budge.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="String reference numbers">
+    <div class="stat">
+      <div class="k">Mersenne / Taylor</div>
+      <div class="v">f = (1/2L)√(T/μ)</div>
+      <div class="s">ideal flexible string</div>
+    </div>
+    <div class="stat">
+      <div class="k">E4 on 648 mm, .010</div>
+      <div class="v">≈ 72 N (16 lbf)</div>
+      <div class="s">329.63 Hz · μ ≈ 4.0×10⁻⁴ kg/m</div>
+    </div>
+    <div class="stat">
+      <div class="k">Octave</div>
+      <div class="v">fret 12 → 2f</div>
+      <div class="s">half the length</div>
+    </div>
+    <div class="stat">
+      <div class="k">Semitone</div>
+      <div class="v">× 2<sup>1/12</sup> ≈ 1.0595</div>
+      <div class="s">100 cents · A4 = 440 Hz</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Ideal string (Mersenne’s laws / Taylor).</strong> Wave speed <code>v = √(T/μ)</code>, fundamental <code>f₁ = v/(2L)</code>, harmonics <code>fₙ = n·f₁</code>. It assumes a perfectly flexible string with rigid ends and small amplitude. Real steel strings have a little bending stiffness, so high overtones run slightly sharp (inharmonicity), and very hard plucks stretch the string and raise the pitch by a few cents. Neither effect is modeled.</li>
+      <li><strong style="color:var(--text)">Linear density μ.</strong> Plain steel: <code>μ = ρ·πd²/4</code> with <code>ρ = 7850 kg/m³</code>. A .010″ (0.254 mm) string gives μ ≈ 3.98×10⁻⁴ kg/m. The presets use unit weights for a D’Addario EXL110 (10–46) set, back-calculated from D’Addario’s published tension chart: .010 plain 3.96×10⁻⁴, .013 plain 6.70×10⁻⁴, .017 plain 1.15×10⁻³, .026 wound 2.26×10⁻³, .036 wound 4.17×10⁻³, .046 wound 6.61×10⁻³ kg/m. Wound strings are heavier than their core but not solid steel of the outer diameter, so their μ is not <code>ρπd²/4</code>.</li>
+      <li><strong style="color:var(--text)">Check.</strong> E4 = 329.63 Hz on a 648 mm (25.5″) scale with μ = 3.98×10⁻⁴ kg/m needs <code>T = μ(2Lf)² ≈ 72.6 N ≈ 16.3 lbf</code>, matching D’Addario’s chart (16.22 lb for PL010). Source: D’Addario EXL110 tension chart at 25.5″, standard tuning: 16.22 / 15.39 / 16.58 / 18.38 / 19.04 / 16.91 lb (E4→E2), total 102.52 lb as printed on the pack; see <a href="https://www.daddario.com/blogs/guitar/all-about-string-tension" style="color:var(--cool)">D’Addario: What is guitar string tension?</a> for the formula <code>T = UW·(2LF)²/386.4</code>. The six presets tuned to E2–E4 reproduce the chart within 0.1%, about 46.5 kg-force for the whole set.</li>
+      <li><strong style="color:var(--text)">Notes and cents.</strong> Twelve-tone equal temperament with A4 = 440 Hz: <code>n = 69 + 12·log₂(f/440)</code> (MIDI number), nearest note = round(n), and <code>cents = 100·(n − round(n))</code>. Frets use the ideal rule <code>L<sub>n</sub> = L/2<sup>n/12</sup></code>. Real guitars add compensation at the saddle because fretting stretches the string slightly.</li>
+      <li><strong style="color:var(--text)">The sound.</strong> A short additive synthesis, only after you click: harmonic n has amplitude ∝ <code>|sin(nπβ)|/n²</code> for a pluck at fraction β of the length (the ideal plucked-string spectrum). Higher harmonics decay faster, and there is a simple per-body tone weighting. It is a sketch of a guitar, not a recording. Clicking the string plucks at that spot, and plucking near the bridge sounds brighter.</li>
+      <li><strong style="color:var(--text)">Slowed animation.</strong> The drawn string moves hundreds of times slower than the real one (a 330 Hz string completes 330 cycles per second). Higher notes are drawn visibly faster, and the harmonic mix matches the pluck point.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Waves and their properties: frequency, wavelength, speed (NGSS MS-PS4-1, HS-PS4-1). Try the classic check: fret 12 = octave, and 4× tension = octave. Name the misconceptions: “tighter strings are louder” and “the pitch comes from the body.”</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics (exported; checked by validate-guitar.js) =====
+  var A4 = 440;
+  var RHO_STEEL = 7850; // kg/m³
+  var KG_PER_M_PER_LB_PER_IN = 0.45359237 / 0.0254;
+  var NOTE_NAMES = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+  var STRINGS = [
+    { id: 's1', label: 'E4', gauge: '.010 plain', mu: 0.00002218 * KG_PER_M_PER_LB_PER_IN, target: 329.628 },
+    { id: 's2', label: 'B3', gauge: '.013 plain', mu: 0.00003749 * KG_PER_M_PER_LB_PER_IN, target: 246.942 },
+    { id: 's3', label: 'G3', gauge: '.017 plain', mu: 0.00006412 * KG_PER_M_PER_LB_PER_IN, target: 195.998 },
+    { id: 's4', label: 'D3', gauge: '.026 wound', mu: 0.00012665 * KG_PER_M_PER_LB_PER_IN, target: 146.832 },
+    { id: 's5', label: 'A2', gauge: '.036 wound', mu: 0.00023376 * KG_PER_M_PER_LB_PER_IN, target: 110.000 },
+    { id: 's6', label: 'E2', gauge: '.046 wound', mu: 0.00036992 * KG_PER_M_PER_LB_PER_IN, target: 82.407 }
+  ];
+  var N_TO_LBF = 1 / 4.4482216;
+
+  function plainSteelMu(diameterM) {
+    return RHO_STEEL * Math.PI * diameterM * diameterM / 4;
+  }
+  function waveSpeed(T, mu) {
+    return Math.sqrt(T / mu);
+  }
+  function effectiveLength(L, fret) {
+    return L / Math.pow(2, fret / 12);
+  }
+  // f = (1/2L)·√(T/μ)
+  function fundamental(T, mu, L) {
+    return waveSpeed(T, mu) / (2 * L);
+  }
+  function harmonic(n, T, mu, L) {
+    return n * fundamental(T, mu, L);
+  }
+  function tensionFor(f, L, mu) {
+    return mu * Math.pow(2 * L * f, 2);
+  }
+  function midiFromFreq(f) {
+    return 69 + 12 * Math.log(f / A4) / Math.LN2;
+  }
+  function freqFromMidi(m) {
+    return A4 * Math.pow(2, (m - 69) / 12);
+  }
+  function noteInfo(f) {
+    var m = midiFromFreq(f);
+    var n = Math.round(m);
+    var name = NOTE_NAMES[((n % 12) + 12) % 12] + (Math.floor(n / 12) - 1);
+    return { midi: m, nearest: n, name: name, cents: 100 * (m - n), ref: freqFromMidi(n) };
+  }
+  // Ideal plucked-string harmonic amplitudes (pluck at fraction beta of the length)
+  function pluckSpectrum(beta, count) {
+    var out = [];
+    for (var n = 1; n <= count; n++) out.push(Math.abs(Math.sin(n * Math.PI * beta)) / (n * n));
+    return out;
+  }
+
+  // Body tone weighting per harmonic frequency (a tone colour, never a pitch change)
+  var BODIES = {
+    acoustic: { name: 'Acoustic', gain: 1.0, weight: function (fr) { return 0.55 + 0.9 * Math.exp(-Math.pow(Math.log(fr / 110) / 0.5, 2)) + 0.6 * Math.exp(-Math.pow(Math.log(fr / 220) / 0.45, 2)) + 0.35 * Math.exp(-Math.pow(Math.log(fr / 2500) / 0.8, 2)); } },
+    solid:    { name: 'Solid-body', gain: 0.8, weight: function (fr) { return 1.0 - 0.25 * Math.min(1, fr / 6000); } },
+    bare:     { name: 'Bare string', gain: 0.25, weight: function (fr) { return Math.min(1, fr / 600); } }
+  };
+
+  // ===== Fonts cached outside draw loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_NOTE = '600 44px Fraunces, Georgia, serif';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  var N_HARM = 10;
+  var state = {
+    T: 60, Lmm: 648, fret: 0, si: 0, amp: 0.5, body: 'acoustic', myth: false,
+    beta: 0.2, pluckAt: -10, clock: 0, lastTs: 0, needle: 0
+  };
+  var audioCtx = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPluck = $('btnPluck'), elTune = $('btnTune'), elMyth = $('chipMyth');
+  var elT = $('tension'), elL = $('scale'), elF = $('fret'), elA = $('amp');
+  var elTL = $('tLabel'), elLL = $('lLabel'), elFL = $('fLabel'), elAL = $('aLabel');
+  var elHint = $('modeHint'), elReadout = $('readout'), elStringMeta = $('stringMeta'), elTunerMeta = $('tunerMeta');
+  var bodyChips = { acoustic: $('bAcoustic'), solid: $('bSolid'), bare: $('bBare') };
+  var strChips = STRINGS.map(function (s) { return $(s.id); });
+  var cvString = $('cvString');
+  var surfaces = {
+    string: { canvas: cvString, ctx: null, w: 0, h: 0, cssH: 400 },
+    tuner: { canvas: $('cvTuner'), ctx: null, w: 0, h: 0, cssH: 400 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function current() {
+    var s = STRINGS[state.si];
+    var L = state.Lmm / 1000;
+    var Leff = effectiveLength(L, state.fret);
+    var v = waveSpeed(state.T, s.mu);
+    var f = fundamental(state.T, s.mu, Leff);
+    return { s: s, L: L, Leff: Leff, v: v, f: f, note: noteInfo(f), lambda: 2 * Leff };
+  }
+
+  function harmonicAmps(c) {
+    var spec = pluckSpectrum(state.beta, N_HARM);
+    var body = BODIES[state.body];
+    var out = [], mx = 0, n;
+    for (n = 0; n < N_HARM; n++) { out.push(spec[n] * body.weight((n + 1) * c.f)); mx = Math.max(mx, out[n]); }
+    for (n = 0; n < N_HARM; n++) out[n] = mx > 0 ? out[n] / mx : 0;
+    return out;
+  }
+
+  // ===== Sound: user-initiated only =====
+  function playPluck() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return false;
+    if (!audioCtx) audioCtx = new AC();
+    if (audioCtx.state === 'suspended' && audioCtx.resume) audioCtx.resume();
+    var c = current();
+    var body = BODIES[state.body];
+    var now = audioCtx.currentTime + 0.01;
+    var nyq = (audioCtx.sampleRate || 44100) / 2;
+    var spec = pluckSpectrum(state.beta, 16);
+    var master = audioCtx.createGain();
+    master.gain.value = 0.9;
+    var comp = audioCtx.createDynamicsCompressor ? audioCtx.createDynamicsCompressor() : null;
+    if (comp) { master.connect(comp); comp.connect(audioCtx.destination); } else master.connect(audioCtx.destination);
+    var base = 0.28 * state.amp * body.gain;
+    for (var n = 1; n <= 16; n++) {
+      var fn = n * c.f;
+      if (fn > Math.min(9000, nyq * 0.9)) break;
+      var a = base * spec[n - 1] * body.weight(fn);
+      if (a < 0.0004) continue;
+      var dur = Math.max(0.25, 2.8 / (1 + 0.45 * (n - 1)) * Math.min(1.4, 220 / c.f + 0.5));
+      var osc = audioCtx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = fn;
+      var g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.0001, now);
+      g.gain.linearRampToValueAtTime(a, now + 0.004);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+      osc.connect(g);
+      g.connect(master);
+      osc.start(now);
+      osc.stop(now + dur + 0.05);
+    }
+    return true;
+  }
+
+  function pluck(withSound) {
+    state.pluckAt = state.clock;
+    if (withSound) playPluck();
+  }
+
+  function strengthWord(a) { return a < 0.3 ? 'soft' : a < 0.7 ? 'medium' : 'hard'; }
+
+  function updateLabels() {
+    var c = current();
+    elTL.textContent = state.T.toFixed(1) + ' N';
+    elLL.textContent = state.Lmm.toFixed(0) + ' mm';
+    elFL.textContent = state.fret === 0 ? 'open' : String(state.fret);
+    elAL.textContent = strengthWord(state.amp);
+    strChips.forEach(function (el, i) { setChip(el, i === state.si); });
+    Object.keys(bodyChips).forEach(function (k) { setChip(bodyChips[k], k === state.body); });
+    setChip(elMyth, state.myth);
+    elStringMeta.textContent = c.s.label + ' string · ' + c.s.gauge + ' · L_eff ' + (c.Leff * 1000).toFixed(1) + ' mm';
+    elTunerMeta.textContent = 'A4 = 440 Hz · target ' + c.s.label + (state.fret ? ' + ' + state.fret + ' fr' : '');
+    var Tt = tensionFor(c.s.target, c.L, c.s.mu);
+    if (state.myth) elHint.textContent = 'Myth mode: red ghost needle = what “harder pluck / bigger body = higher note” would predict. Real needle: unmoved.';
+    else elHint.textContent = 'Open-string ' + c.s.label + ' on this scale needs ' + Tt.toFixed(1) + ' N (' + (Tt * N_TO_LBF).toFixed(1) + ' lbf).';
+  }
+
+  function renderReadout(c) {
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Tension', state.T.toFixed(1) + ' N', (state.T * N_TO_LBF).toFixed(1) + ' lbf · μ ' + (c.s.mu * 1e4).toFixed(2) + '×10⁻⁴ kg/m', 'sun');
+    kv('Wave speed v', c.v.toFixed(0) + ' m/s', '√(T/μ) · same at any fret', '');
+    kv('Frequency f₁', c.f.toFixed(2) + ' Hz', 'v / 2L_eff · 2f₁ = ' + (2 * c.f).toFixed(1) + ' Hz', 'sun');
+    var ct = c.note.cents;
+    kv('Nearest note', c.note.name + ' ' + (ct >= 0 ? '+' : '−') + Math.abs(ct).toFixed(1) + '¢', Math.abs(ct) < 3 ? 'in tune ✓' : (ct < 0 ? 'flat — tighten' : 'sharp — loosen') + ' · ' + c.note.ref.toFixed(2) + ' Hz', Math.abs(ct) < 3 ? '' : 'warm');
+    kv('Wavelength λ₁', (c.lambda * 100).toFixed(1) + ' cm', '= 2 × vibrating length ' + (c.Leff * 1000).toFixed(0) + ' mm', '');
+    elReadout.innerHTML = html;
+  }
+
+  function drawString(c) {
+    var surf = surfaces.string;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0a1028'); bg.addColorStop(1, '#0c1226');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    var x0 = 30, x1 = W - 30; // nut → bridge
+    var span = x1 - x0;
+    var cy = H * 0.46, neckH = Math.min(120, H * 0.3);
+    // fretboard
+    ctx.fillStyle = '#1b1410';
+    ctx.fillRect(x0, cy - neckH / 2, span, neckH);
+    ctx.fillStyle = '#2a1f17';
+    ctx.fillRect(x0, cy - neckH / 2, span, 4);
+    // frets at L(1 − 2^(−n/12))
+    var n;
+    ctx.font = FONT_MONO_10;
+    for (n = 1; n <= 24; n++) {
+      var fx = x0 + span * (1 - Math.pow(2, -n / 12));
+      ctx.strokeStyle = n === state.fret ? '#ffc24a' : 'rgba(200,200,210,0.55)';
+      ctx.lineWidth = n === state.fret ? 2.5 : 1.5;
+      ctx.beginPath(); ctx.moveTo(fx, cy - neckH / 2); ctx.lineTo(fx, cy + neckH / 2); ctx.stroke();
+      if ([3, 5, 7, 9, 15, 17, 19, 21].indexOf(n) >= 0 || n === 12 || n === 24) {
+        var mxp = x0 + span * (1 - Math.pow(2, -(n - 0.5) / 12));
+        ctx.fillStyle = 'rgba(230,230,230,0.35)';
+        if (n === 12 || n === 24) {
+          ctx.beginPath(); ctx.arc(mxp, cy - neckH * 0.3, 3, 0, Math.PI * 2); ctx.arc(mxp, cy + neckH * 0.3, 3, 0, Math.PI * 2); ctx.fill();
+        } else { ctx.beginPath(); ctx.arc(mxp, cy - neckH * 0.36, 3, 0, Math.PI * 2); ctx.fill(); }
+        if (W > 520 || n % 12 === 0) {
+          ctx.fillStyle = '#8b93ad';
+          ctx.fillText(String(n), mxp - 4, cy + neckH / 2 + 14);
+        }
+      }
+    }
+    // nut + bridge
+    ctx.fillStyle = '#e8e2d0';
+    ctx.fillRect(x0 - 5, cy - neckH / 2 - 4, 5, neckH + 8);
+    ctx.fillRect(x1, cy - neckH / 2 - 4, 6, neckH + 8);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('nut', x0 - 6, cy - neckH / 2 - 10);
+    ctx.fillText('bridge', x1 - 26, cy - neckH / 2 - 10);
+
+    // vibrating segment: from fret (or nut) to bridge
+    var xs = state.fret === 0 ? x0 : x0 + span * (1 - Math.pow(2, -state.fret / 12));
+    var seg = x1 - xs;
+    if (state.fret > 0) {
+      // finger
+      var fingerX = x0 + span * (1 - Math.pow(2, -(state.fret - 0.3) / 12));
+      ctx.fillStyle = 'rgba(255,194,74,0.85)';
+      ctx.beginPath(); ctx.ellipse(fingerX, cy, 7, 11, 0, 0, Math.PI * 2); ctx.fill();
+      // dead part of the string
+      ctx.strokeStyle = 'rgba(200,200,210,0.35)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(x0, cy); ctx.lineTo(xs, cy); ctx.stroke();
+    }
+    var amps = harmonicAmps(c);
+    var tSince = state.clock - state.pluckAt;
+    var visF = 1.1 + c.f / 260; // slowed-down drawing frequency for the fundamental
+    var baseAmp = Math.min(neckH * 0.42, 10 + 34 * state.amp) * Math.exp(-tSince / 5);
+    var thick = 1 + Math.sqrt(c.s.mu / 3.9e-4) * 0.9;
+    ctx.strokeStyle = '#d7def2';
+    ctx.lineWidth = thick;
+    ctx.beginPath();
+    var steps = 160, k;
+    for (k = 0; k <= steps; k++) {
+      var u = k / steps, y = 0;
+      for (n = 1; n <= N_HARM; n++) {
+        var decay = Math.exp(-tSince * 0.35 * (n - 1));
+        y += amps[n - 1] * decay * Math.sin(n * Math.PI * u) * Math.cos(2 * Math.PI * n * visF * tSince);
+      }
+      var px = xs + u * seg, py = cy - baseAmp * y * 0.8;
+      if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    // fundamental envelope (dashed): the λ = 2L mode
+    ctx.setLineDash([4, 5]);
+    ctx.strokeStyle = 'rgba(94,200,229,0.55)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (k = 0; k <= 80; k++) { var uu = k / 80; var yy = cy - (neckH * 0.42) * Math.sin(Math.PI * uu); if (k === 0) ctx.moveTo(xs + uu * seg, yy); else ctx.lineTo(xs + uu * seg, yy); }
+    for (k = 80; k >= 0; k--) { var u2 = k / 80; ctx.lineTo(xs + u2 * seg, cy + (neckH * 0.42) * Math.sin(Math.PI * u2)); }
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // pluck point marker
+    var bx = x1 - state.beta * seg;
+    ctx.fillStyle = 'rgba(255,126,95,0.8)';
+    ctx.beginPath(); ctx.moveTo(bx, cy + neckH / 2 + 22); ctx.lineTo(bx - 5, cy + neckH / 2 + 30); ctx.lineTo(bx + 5, cy + neckH / 2 + 30); ctx.fill();
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('pluck point', bx - 28, cy + neckH / 2 + 42);
+
+    // labels: λ = 2L
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('fundamental: half a wavelength fits → λ₁ = 2L = ' + (c.lambda * 100).toFixed(1) + ' cm', 16, 24);
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('v = ' + c.v.toFixed(0) + ' m/s   f₁ = v/2L = ' + c.f.toFixed(1) + ' Hz', 16, 42);
+    // travelling-wave speed cue: a dot running along the segment at a slowed rate
+    var runner = ((tSince * visF * 2) % 2);
+    var ux = runner < 1 ? runner : 2 - runner;
+    ctx.fillStyle = 'rgba(255,194,74,0.8)';
+    ctx.beginPath(); ctx.arc(xs + ux * seg, cy - neckH / 2 - 16, 3.5, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(255,194,74,0.8)';
+    ctx.fillText('wave pulse bouncing end to end (slowed)', xs + 4, cy - neckH / 2 - 26);
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText('click anywhere on the string to pluck there · motion slowed ~' + Math.round(c.f / visF) + '×', 14, H - 10);
+  }
+
+  function drawTuner(c) {
+    var surf = surfaces.tuner;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var cx = W / 2, cy = H * 0.44, r = Math.min(W * 0.4, H * 0.34);
+    // arc −50…+50 cents
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = 'rgba(94,200,229,0.15)';
+    ctx.beginPath(); ctx.arc(cx, cy, r, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke();
+    ctx.strokeStyle = 'rgba(94,200,229,0.55)';
+    ctx.beginPath(); ctx.arc(cx, cy, r, Math.PI * 1.5 - 0.035, Math.PI * 1.5 + 0.035); ctx.stroke();
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    for (var ct = -50; ct <= 50; ct += 10) {
+      var ang = Math.PI * 1.5 + (ct / 50) * Math.PI * 0.35;
+      ctx.strokeStyle = 'rgba(215,222,242,0.4)';
+      ctx.beginPath(); ctx.moveTo(cx + Math.cos(ang) * (r - 12), cy + Math.sin(ang) * (r - 12)); ctx.lineTo(cx + Math.cos(ang) * (r - 4), cy + Math.sin(ang) * (r - 4)); ctx.stroke();
+      if (ct % 25 === 0 || ct === -50 || ct === 50) ctx.fillText((ct > 0 ? '+' : '') + ct, cx + Math.cos(ang) * (r + 10) - 8, cy + Math.sin(ang) * (r + 10));
+    }
+    // needle
+    var target = Math.max(-50, Math.min(50, c.note.cents));
+    var nAng = Math.PI * 1.5 + (state.needle / 50) * Math.PI * 0.35;
+    var inTune = Math.abs(c.note.cents) < 3;
+    if (state.myth) {
+      // ghost: what the myth would predict if pluck strength / body changed pitch
+      var mythF = c.f * (1 + 0.06 * state.amp + (state.body === 'acoustic' ? 0.03 : 0));
+      var mc = Math.max(-50, Math.min(50, 1200 * Math.log(mythF / c.note.ref) / Math.LN2));
+      var gAng = Math.PI * 1.5 + (mc / 50) * Math.PI * 0.35;
+      ctx.strokeStyle = 'rgba(255,126,95,0.7)';
+      ctx.setLineDash([5, 4]);
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(gAng) * (r - 6), cy + Math.sin(gAng) * (r - 6)); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('myth: ' + mythF.toFixed(1) + ' Hz ✗', cx + r * 0.35, cy - r - 6 < 12 ? 12 : cy - r * 0.2);
+    }
+    ctx.strokeStyle = inTune ? '#5ec8e5' : '#ffc24a';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + Math.cos(nAng) * (r - 6), cy + Math.sin(nAng) * (r - 6)); ctx.stroke();
+    ctx.fillStyle = ctx.strokeStyle;
+    ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.lineWidth = 1;
+    ctx.font = FONT_NOTE;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = inTune ? '#5ec8e5' : '#d7def2';
+    ctx.fillText(c.note.name, cx, cy + 50);
+    ctx.font = FONT_MONO_12;
+    ctx.fillStyle = inTune ? '#5ec8e5' : '#ffc24a';
+    ctx.fillText((target >= 0 ? '+' : '−') + Math.abs(c.note.cents).toFixed(1) + ' cents · ' + c.f.toFixed(2) + ' Hz', cx, cy + 70);
+    ctx.textAlign = 'left';
+
+    // harmonic spectrum
+    var amps = harmonicAmps(c);
+    var sy = H - 22, sh = H * 0.2, sx = 18, sw = W - 36;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('harmonics n·f₁ (' + BODIES[state.body].name + ' tone weighting)', sx, sy - sh - 8);
+    var bw = sw / N_HARM;
+    for (var i = 0; i < N_HARM; i++) {
+      var hgt = amps[i] * sh;
+      ctx.fillStyle = i === 0 ? '#ffc24a' : 'rgba(94,200,229,0.7)';
+      ctx.fillRect(sx + i * bw + 3, sy - hgt, bw - 6, hgt);
+      if (W > 420 || i % 2 === 0) {
+        ctx.fillStyle = '#8b93ad';
+        ctx.fillText(((i + 1) * c.f) >= 1000 ? ((i + 1) * c.f / 1000).toFixed(1) + 'k' : String(Math.round((i + 1) * c.f)), sx + i * bw + 2, sy + 12);
+      }
+    }
+  }
+
+  function render() {
+    var c = current();
+    renderReadout(c);
+    drawString(c);
+    drawTuner(c);
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.clock += dt;
+    var c = current();
+    var target = Math.max(-50, Math.min(50, c.note.cents));
+    state.needle += (target - state.needle) * Math.min(1, dt * 10);
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function selectString(i) {
+    state.si = i;
+    // start each string slightly flat so there is something to tune
+    var c = current();
+    state.T = Math.round(tensionFor(STRINGS[i].target, c.L, STRINGS[i].mu) * 0.84 * 10) / 10;
+    elT.value = String(state.T);
+    updateLabels();
+    pluck(false);
+  }
+
+  elPluck.addEventListener('click', function () { state.beta = 0.2; pluck(true); });
+  elTune.addEventListener('click', function () {
+    var c = current();
+    state.T = Math.max(10, Math.min(140, tensionFor(c.note.ref, c.Leff, c.s.mu)));
+    elT.value = String(state.T);
+    updateLabels();
+    pluck(false);
+  });
+  elMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elT.addEventListener('input', function () { state.T = parseFloat(elT.value); updateLabels(); });
+  elL.addEventListener('input', function () { state.Lmm = parseFloat(elL.value); updateLabels(); });
+  elF.addEventListener('input', function () { state.fret = parseInt(elF.value, 10) || 0; updateLabels(); pluck(false); });
+  elA.addEventListener('input', function () { state.amp = parseFloat(elA.value); updateLabels(); });
+  strChips.forEach(function (el, i) { el.addEventListener('click', function () { selectString(i); }); });
+  Object.keys(bodyChips).forEach(function (k) {
+    bodyChips[k].addEventListener('click', function () { state.body = k; updateLabels(); });
+  });
+  cvString.addEventListener('pointerdown', function (e) {
+    var rect = cvString.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var W = rect.width, x0 = 30, x1 = W - 30, span = x1 - x0;
+    var xs = state.fret === 0 ? x0 : x0 + span * (1 - Math.pow(2, -state.fret / 12));
+    var b = (x1 - x) / (x1 - xs);
+    state.beta = Math.max(0.03, Math.min(0.97, isFinite(b) ? b : 0.2));
+    pluck(true);
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elPluck.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  pluck(false);
+  requestAnimationFrame(tick);
+
+  window.__guitarPhysics = {
+    A4: A4, RHO_STEEL: RHO_STEEL, STRINGS: STRINGS, N_TO_LBF: N_TO_LBF, NOTE_NAMES: NOTE_NAMES,
+    plainSteelMu: plainSteelMu, waveSpeed: waveSpeed, effectiveLength: effectiveLength, fundamental: fundamental,
+    harmonic: harmonic, tensionFor: tensionFor, midiFromFreq: midiFromFreq, freqFromMidi: freqFromMidi,
+    noteInfo: noteInfo, pluckSpectrum: pluckSpectrum, BODIES: BODIES
+  };
+})();
+</script>
+</body>
+</html>
