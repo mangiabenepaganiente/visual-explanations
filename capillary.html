@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Water Climbs a Paper Towel — Capillary Action, Not Suction (Jurin’s Law)</title>
+<meta name="description" content="Classroom capillary explainer: paper towels don’t suck. Adhesion + surface tension lift water; Jurin h=2γcosθ/(ρgr) and Washburn timing, live. NGSS MS-PS1.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="capillary action, paper towel, Jurin's law, surface tension, adhesion, contact angle, Lucas-Washburn, wicking, misconception, classroom physics">
+<meta property="og:title" content="Why Water Climbs a Paper Towel">
+<meta property="og:description" content="The towel isn’t sucking. Water pulls itself up narrow pores by adhesion and surface tension. Live Jurin’s-law tubes and Washburn rise curves for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+.lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · capillary action</a></p>
+  <h1>Why water climbs a paper towel</h1>
+  <p class="lede">A paper towel is not a straw and nothing is <strong>sucking</strong>. It is a tangle of cellulose fibers with narrow gaps between them. Water <strong>sticks to cellulose</strong> (adhesion) and its surface acts like a stretched skin (<strong>surface tension</strong>), so it pulls itself up each gap until the weight of the lifted water balances that pull. The narrower the gap, the higher it climbs.</p>
+
+  <p class="try"><b>Try this</b>Drag <strong>pore radius</strong> smaller. Watch the thinnest tube finish highest — the opposite of what a “harder-sucking straw” would do.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <button type="button" class="btn" id="btnReset">Dip again</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: towel sucks</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Pore radius r (middle tube) <em id="rLabel">0.100 mm</em></span>
+        <input type="range" id="rad" min="0" max="1" step="0.001" value="0.5" aria-label="Pore radius, logarithmic from 5 micrometres to 2 millimetres">
+      </label>
+      <label class="sl grow">
+        <span>Contact angle θ <em id="thLabel">20°</em></span>
+        <input type="range" id="theta" min="0" max="150" step="1" value="20" aria-label="Contact angle in degrees">
+      </label>
+    </div>
+    <div class="row">
+      <span class="lbl">Material (water θ)</span>
+      <button type="button" class="chip" id="matGlass" data-theta="0">Clean glass 0°</button>
+      <button type="button" class="chip on" id="matCell" data-theta="20">Cellulose ~20°</button>
+      <button type="button" class="chip" id="matAcrylic" data-theta="70">Acrylic ~70°</button>
+      <button type="button" class="chip" id="matWax" data-theta="108">Wax ~108°</button>
+    </div>
+    <div class="row">
+      <span class="lbl">Liquid</span>
+      <button type="button" class="chip on" id="liqWater">Water</button>
+      <button type="button" class="chip" id="liqEthanol">Ethanol</button>
+      <button type="button" class="chip" id="liqOil">Olive oil</button>
+      <button type="button" class="chip" id="liqGlycerol">Glycerol</button>
+      <button type="button" class="chip" id="liqMercury">Mercury</button>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint">Three tubes: r/2, r, 2r. Same liquid, same material — only the gap width changes.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Pores dipped in a bath</b><span id="sceneMeta">r/2 · r · 2r</span></div>
+      <canvas id="cvScene" width="760" height="420" aria-label="Three capillary tubes of different radius dipped in a liquid bath, with liquid rising in each"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Height vs time</b><span id="chartMeta">Lucas–Washburn with gravity</span></div>
+      <canvas id="cvChart" width="520" height="420" aria-label="Chart of rise height versus time for the three tubes, with Jurin asymptotes and force balance bars"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Adhesion: water likes cellulose</h2>
+      <p>Water molecules are attracted to the –OH groups on cellulose (and glass) more than to each other, so the liquid creeps up the wall. The contact angle θ measures it: small θ = wets well, θ &gt; 90° = beads up.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Surface tension pulls the column</h2>
+      <p>The curved surface (meniscus) acts like a stretched skin hooked to the wall. Around the rim it pulls up with force <code>2πr·γ·cosθ</code>. That lowers the pressure just under the meniscus by <code>2γcosθ/r</code>, and the outside air pressure pushes liquid up to fill in.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Gravity sets the finish line</h2>
+      <p>The column stops when its weight <code>πr²ρgh</code> equals the pull. Solve and you get Jurin’s law <code>h = 2γcosθ/(ρgr)</code>. The pull grows with r, but the weight grows with r², so <strong>thinner pores lift higher</strong>.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“The towel sucks it up”</h2>
+      <p>Suction would lift every pore to the same height, and it would lift mercury too. Real pores do neither. Thin pores win, wax paper and mercury push the liquid <em>down</em>, and an oily surface stops the climb. That is the fingerprint of a surface force, not a pump.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Capillary reference numbers">
+    <div class="stat">
+      <div class="k">Water γ at 25 °C</div>
+      <div class="v">0.072 N/m</div>
+      <div class="s">surface tension</div>
+    </div>
+    <div class="stat">
+      <div class="k">Jurin’s law</div>
+      <div class="v">h ∝ 1/r</div>
+      <div class="s">half the gap → twice the rise</div>
+    </div>
+    <div class="stat">
+      <div class="k">Glass, r = 0.1 mm</div>
+      <div class="v">≈ 14.7 cm</div>
+      <div class="s">water, θ = 0°</div>
+    </div>
+    <div class="stat">
+      <div class="k">Early rise</div>
+      <div class="v">h ∝ √t</div>
+      <div class="s">Washburn: fast, then crawls</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Jurin’s law (equilibrium height).</strong> For a vertical circular tube of radius r: <code>h = 2γ·cosθ / (ρ·g·r)</code>, from balancing the surface-tension pull <code>2πrγcosθ</code> with the column weight <code>πr²ρgh</code>. Check: water (γ = 0.072 N/m, ρ ≈ 1000 kg/m³), θ = 0°, r = 0.1 mm gives h ≈ 0.147 m. <code>g = 9.80665 m/s²</code>. It ignores the small volume of liquid in the meniscus itself (matters only when r is comparable to h).</li>
+      <li><strong style="color:var(--text)">Rise with time: Lucas–Washburn with gravity.</strong> Poiseuille flow driven by the capillary pressure minus the column’s hydrostatic pressure: <code>dh/dt = r²/(8ηh) · (2γcosθ/r − ρgh)</code>. Without gravity this is the classic <code>h² = γ·r·cosθ·t / (2η)</code>. The page uses the exact implicit solution <code>t(h) = (2/B)·(−h − H·ln(1 − h/H))</code> with <code>H</code> = Jurin height and <code>B = ρgr²/(4η)</code>, inverted numerically — no time-stepping error. Inertia at the very first instant and the dynamic (moving) contact angle are neglected.</li>
+      <li><strong style="color:var(--text)">Why thin tubes start slower but finish higher.</strong> Early on, Washburn gives <code>h² ∝ r·t</code>, so the wide tube leads. Later, gravity caps each tube at <code>H ∝ 1/r</code> and the thin tube overtakes. Watch the curves cross on the chart.</li>
+      <li><strong style="color:var(--text)">Liquids (≈ 20–25 °C).</strong> Water γ 0.0720 N/m, ρ 997 kg/m³, η 0.89 mPa·s. Ethanol 0.0220, 789, 1.08. Olive oil ≈ 0.032, 911, ≈ 80 (varies by oil). Glycerol 0.0634, 1261, ≈ 934. Mercury 0.485, 13 534, 1.53, with θ ≈ 140° on glass (non-wetting → capillary <em>depression</em>).</li>
+      <li><strong style="color:var(--text)">Contact angles are pair-specific.</strong> The material presets are rough values <em>for water</em> (clean glass ≈ 0°, cellulose ≈ 20°, acrylic ≈ 70°, paraffin wax ≈ 108°). Real angles vary with cleanliness, roughness, and whether the liquid is advancing or receding. Alcohols and oils wet cellulose more readily than water, so try a smaller θ for them. Choosing mercury sets θ = 140°.</li>
+      <li><strong style="color:var(--text)">A real paper towel is not a bundle of tubes.</strong> It is an irregular, swelling network of fibers with a spread of pore sizes (tens of µm). Effective-radius Jurin estimates suggest tens of centimetres to metres, but real strips stall far lower. Evaporation from the huge wet surface, fibers swelling, the widest connected pores, and the painfully slow late-stage Washburn crawl all limit it. Treat the tubes as an idealized model of one gap, not a towel prediction. Tube widths on screen are not to scale.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Pairs with the celery / food-colouring and glass-capillary demos (NGSS MS-PS1 structure and properties of matter; HS-PS2 forces). Name the misconception: “suction” implies a pressure pump that would lift any liquid equally and ignore pore size and wetting.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics (exported; checked by validate-capillary.js) =====
+  var G = 9.80665;           // m/s²
+  var R_MIN = 5e-6;          // m, slider low end (5 µm)
+  var R_MAX = 2e-3;          // m, slider high end (2 mm)
+  var ANIM_SECONDS = 6;      // wall-clock seconds for the middle tube to reach 90% of Jurin
+  var LIQUIDS = {
+    water:    { name: 'Water',     gamma: 0.0720, rho: 997,   eta: 0.00089, color: '#5ec8e5' },
+    ethanol:  { name: 'Ethanol',   gamma: 0.0220, rho: 789,   eta: 0.00108, color: '#b9e6f2' },
+    oil:      { name: 'Olive oil', gamma: 0.032,  rho: 911,   eta: 0.081,   color: '#ffc24a' },
+    glycerol: { name: 'Glycerol',  gamma: 0.0634, rho: 1261,  eta: 0.934,   color: '#b8a6ff' },
+    mercury:  { name: 'Mercury',   gamma: 0.485,  rho: 13534, eta: 0.00153, color: '#c9ced9', theta: 140 }
+  };
+
+  function radiusFromSlider(s) {
+    return R_MIN * Math.pow(R_MAX / R_MIN, s);
+  }
+  function sliderFromRadius(r) {
+    return Math.log(r / R_MIN) / Math.log(R_MAX / R_MIN);
+  }
+  // Jurin's law: h = 2γcosθ/(ρ g r)
+  function jurinHeight(gamma, thetaDeg, rho, r) {
+    return 2 * gamma * Math.cos(thetaDeg * Math.PI / 180) / (rho * G * r);
+  }
+  // Laplace pressure under a hemispherical-cap meniscus in a round tube
+  function capillaryPressure(gamma, thetaDeg, r) {
+    return 2 * gamma * Math.cos(thetaDeg * Math.PI / 180) / r;
+  }
+  // Washburn parameters: d(h²)/dt = A − B·h ; A = rγcosθ/(2η), B = ρ g r²/(4η), H = A/B (Jurin)
+  function washburnParams(gamma, thetaDeg, rho, eta, r) {
+    var c = Math.cos(thetaDeg * Math.PI / 180);
+    var A = r * gamma * c / (2 * eta);
+    var B = rho * G * r * r / (4 * eta);
+    return { A: A, B: B, H: A / B, cos: c };
+  }
+  // Gravity-free Washburn: h = sqrt(A t)
+  function washburnNoGravity(p, t) {
+    return p.A > 0 ? Math.sqrt(p.A * t) : 0;
+  }
+  // Exact time to reach height h (0 ≤ h < H): t = (2/B)(−h − H ln(1 − h/H))
+  function timeToHeight(p, h) {
+    if (!(p.A > 0) || !(h > 0)) return 0;
+    var x = h / p.H;
+    if (x >= 1) return Infinity;
+    var f;
+    if (x < 1e-3) f = x * x / 2 + x * x * x / 3 + x * x * x * x / 4 + x * x * x * x * x / 5;
+    else f = -x - Math.log1p(-x);
+    return (2 * p.H / p.B) * f;
+  }
+  // Invert t(h) by bisection. Non-wetting (cosθ ≤ 0): no spontaneous imbibition — the level sits at H ≤ 0.
+  function heightAt(p, t) {
+    if (!(p.A > 0)) return p.H;
+    if (!(t > 0)) return 0;
+    var lo = 0, hi = p.H, i, mid;
+    for (i = 0; i < 64; i++) {
+      mid = 0.5 * (lo + hi);
+      if (timeToHeight(p, mid) < t) lo = mid; else hi = mid;
+    }
+    return 0.5 * (lo + hi);
+  }
+  function time90(p) {
+    return p.A > 0 ? timeToHeight(p, 0.9 * p.H) : 0;
+  }
+
+  // ===== Fonts cached outside draw loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_UI_12 = '12px Inter, system-ui, sans-serif';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  // ===== State =====
+  var state = {
+    s: 0.5,
+    r: radiusFromSlider(0.5),
+    theta: 20,
+    matTheta: 20,
+    liquid: 'water',
+    myth: false,
+    playing: true,
+    t: 0,
+    lastTs: 0,
+    clock: 0
+  };
+  var model = null; // cached per parameter change
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay');
+  var elReset = $('btnReset');
+  var elMyth = $('chipMyth');
+  var elRad = $('rad');
+  var elTheta = $('theta');
+  var elRL = $('rLabel');
+  var elThL = $('thLabel');
+  var elHint = $('modeHint');
+  var elReadout = $('readout');
+  var elSceneMeta = $('sceneMeta');
+  var elChartMeta = $('chartMeta');
+  var matChips = [$('matGlass'), $('matCell'), $('matAcrylic'), $('matWax')];
+  var liqChips = { water: $('liqWater'), ethanol: $('liqEthanol'), oil: $('liqOil'), glycerol: $('liqGlycerol'), mercury: $('liqMercury') };
+
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 420 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr);
+    var bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx;
+    surf.w = cssW;
+    surf.h = cssH;
+  }
+
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function fmtLen(m) {
+    var a = Math.abs(m);
+    if (a < 1e-12) return '0';
+    if (a >= 1) return m.toFixed(2) + ' m';
+    if (a >= 0.01) return (m * 100).toFixed(1) + ' cm';
+    if (a >= 1e-4) return (m * 1000).toFixed(2) + ' mm';
+    return (m * 1e6).toFixed(0) + ' µm';
+  }
+  function fmtR(r) {
+    return r >= 1e-3 ? (r * 1000).toFixed(2) + ' mm' : r >= 1e-4 ? (r * 1000).toFixed(3) + ' mm' : (r * 1e6).toFixed(1) + ' µm';
+  }
+  function fmtTime(s) {
+    if (!isFinite(s)) return '∞';
+    if (s <= 0) return '0 s';
+    if (s < 1e-3) return (s * 1e6).toFixed(0) + ' µs';
+    if (s < 1) return (s * 1000).toFixed(0) + ' ms';
+    if (s < 120) return s.toFixed(s < 10 ? 2 : 1) + ' s';
+    if (s < 7200) return (s / 60).toFixed(1) + ' min';
+    if (s < 172800) return (s / 3600).toFixed(1) + ' h';
+    if (s < 3.156e7 * 2) return (s / 86400).toFixed(1) + ' days';
+    return (s / 3.156e7).toFixed(1) + ' years';
+  }
+  function fmtWarp(w) {
+    if (w >= 1e4) return '×' + w.toExponential(1).replace('e+', 'e');
+    if (w >= 1) return '×' + w.toFixed(w < 10 ? 1 : 0);
+    return '×1/' + (1 / w).toFixed(0);
+  }
+
+  function rebuildModel() {
+    var L = LIQUIDS[state.liquid];
+    var radii = [state.r / 2, state.r, state.r * 2];
+    var tubes = radii.map(function (r) {
+      var p = washburnParams(L.gamma, state.theta, L.rho, L.eta, r);
+      return { r: r, p: p, t90: time90(p) };
+    });
+    var mid = tubes[1];
+    var wets = mid.p.A > 0;
+    var warp = wets ? mid.t90 / ANIM_SECONDS : 1;
+    var tMax = wets ? mid.t90 * 1.7 : 1;
+    // chart samples
+    var N = 140;
+    tubes.forEach(function (tb) {
+      var pts = new Float64Array(N + 1);
+      for (var i = 0; i <= N; i++) pts[i] = heightAt(tb.p, tMax * i / N);
+      tb.samples = pts;
+    });
+    var hMaxAbs = Math.max(Math.abs(tubes[0].p.H), 1e-6);
+    // suction myth: one fixed pressure deficit (equal to the middle tube's ΔP) → same height in every tube
+    var dP = capillaryPressure(L.gamma, state.theta, state.r);
+    var mythH = Math.abs(dP) / (L.rho * G);
+    model = {
+      L: L, tubes: tubes, wets: wets, warp: warp, tMax: tMax, N: N, hMaxAbs: hMaxAbs,
+      jurin: mid.p.H, dP: dP, mythH: mythH, t90: mid.t90
+    };
+  }
+
+  function restart() {
+    state.t = 0;
+  }
+
+  function updateLabels() {
+    elRL.textContent = fmtR(state.r);
+    elThL.textContent = state.theta.toFixed(0) + '°';
+    var L = LIQUIDS[state.liquid];
+    if (state.myth) {
+      elHint.textContent = 'Myth overlay: a suction pump makes one pressure deficit, so it would lift every tube to the same dashed line — and lift mercury too. The real columns ignore it.';
+    } else if (!model.wets) {
+      elHint.textContent = L.name + ' at θ = ' + state.theta.toFixed(0) + '° does not wet the wall: cosθ ≤ 0, so the surface pulls the level DOWN (capillary depression). No towel-style climb.';
+    } else {
+      elHint.textContent = 'Three tubes: r/2, r, 2r. Same liquid, same material — only the gap width changes. Wide tubes lead early; thin tubes finish higher.';
+    }
+    elSceneMeta.textContent = L.name + ' · θ ' + state.theta.toFixed(0) + '° · ' + fmtR(state.r / 2) + ' / ' + fmtR(state.r) + ' / ' + fmtR(2 * state.r);
+    elChartMeta.textContent = model.wets ? 'Washburn + gravity · clock ' + fmtWarp(model.warp) : 'non-wetting · static depression';
+  }
+
+  function renderReadout(hNow) {
+    var m = model;
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Jurin height H', fmtLen(m.jurin), m.jurin >= 0 ? '2γcosθ/(ρgr) · middle tube' : 'negative → level pushed down', m.jurin >= 0 ? '' : 'warm');
+    kv('Height now', fmtLen(hNow), m.wets ? (100 * hNow / m.jurin).toFixed(0) + '% of H' : 'static depression', 'sun');
+    kv('Model clock', fmtTime(state.t), m.wets ? 'real time ' + fmtWarp(m.warp) : '—', '');
+    kv('Time to 90% of H', m.wets ? fmtTime(m.t90) : '—', m.wets ? 'Washburn with gravity' : 'no spontaneous rise', '');
+    if (state.myth) kv('Suction model says', fmtLen(m.mythH) + ' (all)', 'same in every tube · wrong', 'warm');
+    else kv('Capillary ΔP', (m.dP >= 0 ? '−' : '+') + Math.abs(m.dP).toFixed(m.dP !== 0 && Math.abs(m.dP) < 10 ? 2 : 0) + ' Pa', 'under meniscus · 2γcosθ/r', 'sun');
+    elReadout.innerHTML = html;
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    var rr = Math.max(0, Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function niceStep(span) {
+    var raw = span / 5;
+    var p = Math.pow(10, Math.floor(Math.log10(raw)));
+    var n = raw / p;
+    return (n < 1.5 ? 1 : n < 3.5 ? 2 : n < 7.5 ? 5 : 10) * p;
+  }
+
+  function drawScene(hs) {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, m = model, L = m.L;
+    ctx.clearRect(0, 0, W, H);
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0a1028');
+    bg.addColorStop(1, '#0c1226');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    var negative = m.jurin < 0;
+    var bathY = negative ? H * 0.42 : H * 0.80;
+    var topY = 34;
+    var span = negative ? (H - 40 - bathY) : (bathY - topY - 10);
+    var worldSpan = m.hMaxAbs * 1.12;
+    if (state.myth && !negative) worldSpan = Math.max(worldSpan, m.mythH * 1.12);
+    var pxPerM = span / worldSpan;
+
+    // Beaker + bath
+    var bx = W * 0.14, bw = W * 0.62;
+    var bBottom = H - 22;
+    var lg = ctx.createLinearGradient(0, bathY, 0, bBottom);
+    lg.addColorStop(0, L.color);
+    lg.addColorStop(1, 'rgba(20,40,70,0.9)');
+    ctx.globalAlpha = 0.55;
+    ctx.fillStyle = lg;
+    ctx.fillRect(bx, bathY, bw, bBottom - bathY);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'rgba(215,222,242,0.35)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(bx, bathY - 30);
+    ctx.lineTo(bx, bBottom);
+    ctx.lineTo(bx + bw, bBottom);
+    ctx.lineTo(bx + bw, bathY - 30);
+    ctx.stroke();
+
+    // Ruler (left)
+    var rx = bx - 30;
+    ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(rx, topY);
+    ctx.lineTo(rx, H - 30);
+    ctx.stroke();
+    var step = niceStep(worldSpan);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    var k, yk;
+    for (k = 0; k * step <= worldSpan * 1.001; k++) {
+      yk = negative ? bathY + k * step * pxPerM : bathY - k * step * pxPerM;
+      ctx.beginPath();
+      ctx.moveTo(rx - 4, yk);
+      ctx.lineTo(rx + 4, yk);
+      ctx.stroke();
+      ctx.fillText((negative && k ? '−' : '') + fmtLen(k * step), rx - 7, yk + 3);
+    }
+    ctx.textAlign = 'left';
+
+    // Tubes
+    var names = ['r/2', 'r', '2r'];
+    var widths = [7, 12, 20];
+    for (var i = 0; i < 3; i++) {
+      var tb = m.tubes[i];
+      var cx = bx + bw * (0.22 + 0.28 * i);
+      var tw = widths[i];
+      var tubeTop = topY - 6;
+      var tubeBot = bBottom - 24;
+      var h = hs[i];
+      var yTop = bathY - h * pxPerM;
+      // liquid column inside tube
+      ctx.fillStyle = L.color;
+      ctx.globalAlpha = 0.85;
+      if (h >= 0) ctx.fillRect(cx - tw / 2, Math.max(tubeTop, yTop), tw, tubeBot - Math.max(tubeTop, yTop));
+      else ctx.fillRect(cx - tw / 2, yTop, tw, tubeBot - yTop);
+      ctx.globalAlpha = 1;
+      // meniscus
+      var cosT = tb.p.cos;
+      var dip = Math.max(-1, Math.min(1, cosT)) * tw * 0.42;
+      ctx.fillStyle = h >= 0 ? '#0b1130' : L.color;
+      if (h >= 0 && yTop > tubeTop) {
+        ctx.beginPath();
+        ctx.moveTo(cx - tw / 2, yTop - (cosT > 0 ? dip : 0));
+        ctx.quadraticCurveTo(cx, yTop + dip, cx + tw / 2, yTop - (cosT > 0 ? dip : 0));
+        ctx.lineTo(cx + tw / 2, yTop - Math.abs(dip) - 2);
+        ctx.lineTo(cx - tw / 2, yTop - Math.abs(dip) - 2);
+        ctx.closePath();
+        ctx.fillStyle = '#0b1130';
+        ctx.fill();
+      }
+      if (h < 0) {
+        // convex meniscus of a non-wetting liquid, and bath liquid outside the tube stays at bathY
+        ctx.beginPath();
+        ctx.moveTo(cx - tw / 2, yTop);
+        ctx.quadraticCurveTo(cx, yTop + dip * 1.2, cx + tw / 2, yTop);
+        ctx.closePath();
+        ctx.fillStyle = L.color;
+        ctx.fill();
+        ctx.fillStyle = '#0b1130';
+        ctx.fillRect(cx - tw / 2, bathY, tw, yTop - bathY + dip * 0.6);
+      }
+      // glass walls
+      ctx.strokeStyle = 'rgba(215,222,242,0.55)';
+      ctx.lineWidth = 1.3;
+      ctx.beginPath();
+      ctx.moveTo(cx - tw / 2 - 1, tubeTop);
+      ctx.lineTo(cx - tw / 2 - 1, tubeBot);
+      ctx.moveTo(cx + tw / 2 + 1, tubeTop);
+      ctx.lineTo(cx + tw / 2 + 1, tubeBot);
+      ctx.stroke();
+      // Jurin tick
+      var yJ = bathY - tb.p.H * pxPerM;
+      if (yJ > tubeTop) {
+        ctx.setLineDash([3, 3]);
+        ctx.strokeStyle = 'rgba(255,194,74,0.8)';
+        ctx.beginPath();
+        ctx.moveTo(cx - tw / 2 - 10, yJ);
+        ctx.lineTo(cx + tw / 2 + 10, yJ);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      // labels
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = i === 1 ? '#ffc24a' : '#d7def2';
+      ctx.fillText(names[i], cx - 8, tubeBot + 16);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#8b93ad';
+      var lblY = Math.max(topY + 10, Math.min(bathY - 8, yTop - 10));
+      if (h < 0) lblY = yTop + 18;
+      ctx.fillText(fmtLen(h), cx + tw / 2 + 6, lblY);
+    }
+
+    // Myth overlay: suction line at one height for all tubes
+    if (state.myth) {
+      var yM = negative ? bathY - m.mythH * pxPerM : bathY - m.mythH * pxPerM;
+      if (yM < topY) yM = topY;
+      ctx.setLineDash([7, 5]);
+      ctx.strokeStyle = 'rgba(255,126,95,0.9)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(bx + 6, yM);
+      ctx.lineTo(bx + bw - 6, yM);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('“suction” prediction: same height in every tube', bx + 8, yM - 7);
+      // straw arrows
+      for (var j = 0; j < 3; j++) {
+        var ax = bx + bw * (0.22 + 0.28 * j);
+        drawArrow(ctx, ax, topY + 22, ax, topY - 2, 'rgba(255,126,95,0.8)', 1.6);
+      }
+      ctx.fillStyle = 'rgba(255,126,95,0.95)';
+      ctx.fillText(state.liquid === 'mercury' || !m.wets ? '✗ suction would lift this liquid too — reality: it sinks' : '✗ reality: thinner tubes climb higher', bx + 8, H - 6 - 0);
+    }
+
+    // Bath label
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('bath level', bx + bw + 6, bathY + 3);
+    ctx.fillStyle = 'rgba(255,194,74,0.85)';
+    ctx.fillText('- - Jurin H', bx + bw + 6, bathY + 17);
+
+    drawZoom(ctx, W, H, m, L);
+
+    if (!state.myth) {
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = 'rgba(168,176,200,0.8)';
+      ctx.fillText('idealized round pores · widths not to scale', 14, H - 6);
+    }
+  }
+
+  // Meniscus close-up: adhesion at the wall, tension along the surface, weight down
+  function drawZoom(ctx, W, H, m, L) {
+    var zw = Math.min(150, W * 0.2), zh = 132;
+    var zx = W - zw - 12, zy = 30;
+    ctx.fillStyle = 'rgba(10,14,32,0.92)';
+    ctx.strokeStyle = 'rgba(94,200,229,0.3)';
+    ctx.lineWidth = 1;
+    roundRect(ctx, zx, zy, zw, zh, 10);
+    ctx.fill();
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('ZOOM: one pore', zx + 8, zy + 14);
+    var wl = zx + 22, wr = zx + zw - 22, midY = zy + 78;
+    var c = Math.cos(state.theta * Math.PI / 180);
+    var sag = c * (wr - wl) * 0.35;
+    ctx.fillStyle = L.color;
+    ctx.globalAlpha = 0.8;
+    ctx.beginPath();
+    ctx.moveTo(wl, midY - sag);
+    ctx.quadraticCurveTo((wl + wr) / 2, midY + sag, wr, midY - sag);
+    ctx.lineTo(wr, zy + zh - 8);
+    ctx.lineTo(wl, zy + zh - 8);
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(wl - 2, zy + 22);
+    ctx.lineTo(wl - 2, zy + zh - 8);
+    ctx.moveTo(wr + 2, zy + 22);
+    ctx.lineTo(wr + 2, zy + zh - 8);
+    ctx.stroke();
+    // tension arrows along the surface at each wall, pointing along the meniscus away from the wall contact
+    var ang = state.theta * Math.PI / 180;
+    var len = 20;
+    drawArrow(ctx, wl, midY - sag, wl + Math.sin(ang) * len * 0.2 + 0.001, midY - sag - Math.cos(ang) * len, '#ffc24a', 1.8);
+    drawArrow(ctx, wr, midY - sag, wr - Math.sin(ang) * len * 0.2 - 0.001, midY - sag - Math.cos(ang) * len, '#ffc24a', 1.8);
+    drawArrow(ctx, (wl + wr) / 2, midY + 18, (wl + wr) / 2, midY + 40, '#ff7e5f', 1.8);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText(c >= 0 ? 'wall pulls ↑' : 'surface pushes ↓', zx + 26, zy + 30);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('weight', (wl + wr) / 2 + 6, midY + 40);
+  }
+
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw) {
+    var dx = x2 - x1, dy = y2 - y1;
+    var len = Math.hypot(dx, dy) || 1;
+    var ux = dx / len, uy = dy / len;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = lw || 2;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+    var ah = 7;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.55, y2 - uy * ah + ux * ah * 0.55);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.55, y2 - uy * ah - ux * ah * 0.55);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  var TUBE_COLORS = ['#b8a6ff', '#ffc24a', '#5ec8e5'];
+
+  function drawChart(hs) {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, m = model;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+
+    var px = 58, py = 30, pw = W - px - 18, ph = H * 0.56;
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Rise height h(t)', 16, 22);
+
+    var yMin = Math.min(0, m.tubes[0].p.H * 1.1);
+    var yMax = Math.max(0, m.tubes[0].p.H * 1.1);
+    if (yMax - yMin < 1e-9) yMax = 1e-3;
+    function X(t) { return px + (t / m.tMax) * pw; }
+    function Y(h) { return py + ph - ((h - yMin) / (yMax - yMin)) * ph; }
+
+    // axes + grid
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    var st = niceStep(yMax - yMin), v;
+    for (v = Math.ceil(yMin / st) * st; v <= yMax + 1e-12; v += st) {
+      ctx.beginPath();
+      ctx.moveTo(px, Y(v));
+      ctx.lineTo(px + pw, Y(v));
+      ctx.stroke();
+      ctx.fillText(fmtLen(v), px - 5, Y(v) + 3);
+    }
+    ctx.textAlign = 'left';
+    ctx.fillText('0', px, py + ph + 14);
+    ctx.textAlign = 'right';
+    ctx.fillText(m.wets ? fmtTime(m.tMax) : '—', px + pw, py + ph + 14);
+    ctx.textAlign = 'left';
+    ctx.fillText('model time →', px + pw * 0.38, py + ph + 14);
+
+    // Jurin asymptotes + curves
+    for (var i = 0; i < 3; i++) {
+      var tb = m.tubes[i];
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = TUBE_COLORS[i];
+      ctx.globalAlpha = 0.45;
+      ctx.beginPath();
+      ctx.moveTo(px, Y(tb.p.H));
+      ctx.lineTo(px + pw, Y(tb.p.H));
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = i === 1 ? 2.4 : 1.6;
+      ctx.beginPath();
+      for (var j = 0; j <= m.N; j++) {
+        var xx = px + (j / m.N) * pw, yy = Y(tb.samples[j]);
+        if (j === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+      }
+      ctx.stroke();
+      ctx.lineWidth = 1;
+      ctx.fillStyle = TUBE_COLORS[i];
+      ctx.fillText(['r/2', 'r', '2r'][i], px + pw - 26, Y(tb.p.H) - 4);
+    }
+    // gravity-free √t reference for the middle tube
+    if (m.wets) {
+      ctx.setLineDash([2, 5]);
+      ctx.strokeStyle = 'rgba(215,222,242,0.45)';
+      ctx.beginPath();
+      for (var q = 0; q <= 60; q++) {
+        var tq = m.tMax * q / 60, hq = washburnNoGravity(m.tubes[1].p, tq);
+        if (hq > yMax) break;
+        if (q === 0) ctx.moveTo(X(tq), Y(hq)); else ctx.lineTo(X(tq), Y(hq));
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(215,222,242,0.6)';
+      ctx.fillText('no-gravity √t', px + 6, py + 12);
+    }
+    // time cursor
+    var tc = Math.min(state.t, m.tMax);
+    ctx.strokeStyle = 'rgba(255,194,74,0.5)';
+    ctx.beginPath();
+    ctx.moveTo(X(tc), py);
+    ctx.lineTo(X(tc), py + ph);
+    ctx.stroke();
+    for (var k2 = 0; k2 < 3; k2++) {
+      ctx.fillStyle = TUBE_COLORS[k2];
+      ctx.beginPath();
+      ctx.arc(X(tc), Y(hs[k2]), 3.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Force balance bars for the middle tube
+    var fy = py + ph + 34;
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Middle tube force balance', 16, fy);
+    var L = m.L, r = state.r;
+    var pull = 2 * Math.PI * r * L.gamma * Math.cos(state.theta * Math.PI / 180);
+    var weight = Math.PI * r * r * L.rho * G * hs[1];
+    var fMax = Math.max(Math.abs(pull), Math.abs(weight), 1e-12);
+    var barW = W - 150;
+    function bar(y, val, color, label) {
+      ctx.fillStyle = 'rgba(94,200,229,0.08)';
+      ctx.fillRect(120, y - 10, barW, 12);
+      ctx.fillStyle = color;
+      ctx.fillRect(120, y - 10, barW * Math.abs(val) / fMax, 12);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = color;
+      ctx.fillText(label, 16, y);
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(fmtForce(val), 124, y + 14);
+    }
+    bar(fy + 22, pull, '#ffc24a', pull >= 0 ? 'pull 2πrγcosθ' : 'push 2πrγcosθ');
+    bar(fy + 58, weight, '#ff7e5f', 'weight πr²ρgh');
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(m.wets ? 'column stops rising when the bars match' : 'cosθ < 0: surface pushes down, level sits below the bath', 16, H - 10);
+  }
+
+  function fmtForce(f) {
+    var a = Math.abs(f);
+    var s = f < 0 ? '−' : '';
+    if (a >= 1e-3) return s + (a * 1000).toFixed(2) + ' mN';
+    if (a >= 1e-6) return s + (a * 1e6).toFixed(2) + ' µN';
+    return s + (a * 1e9).toFixed(2) + ' nN';
+  }
+
+  function heightsNow() {
+    return model.tubes.map(function (tb) { return heightAt(tb.p, state.t); });
+  }
+
+  function render() {
+    var hs = heightsNow();
+    renderReadout(hs[1]);
+    drawScene(hs);
+    drawChart(hs);
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (state.playing && model.wets && state.t < model.tMax) {
+      state.t = Math.min(model.tMax, state.t + dt * model.warp);
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function syncChips() {
+    matChips.forEach(function (c) { setChip(c, state.liquid !== 'mercury' && parseFloat(c.getAttribute('data-theta')) === state.theta); });
+    Object.keys(liqChips).forEach(function (k) { setChip(liqChips[k], k === state.liquid); });
+    setChip(elMyth, state.myth);
+  }
+
+  function changed() {
+    rebuildModel();
+    restart();
+    syncChips();
+    updateLabels();
+  }
+
+  elPlay.addEventListener('click', function () {
+    state.playing = !state.playing;
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    if (state.playing) state.lastTs = 0;
+  });
+  elReset.addEventListener('click', function () { restart(); });
+  elMyth.addEventListener('click', function () {
+    state.myth = !state.myth;
+    syncChips();
+    updateLabels();
+  });
+  elRad.addEventListener('input', function () {
+    state.s = parseFloat(elRad.value);
+    state.r = radiusFromSlider(state.s);
+    changed();
+  });
+  elTheta.addEventListener('input', function () {
+    state.theta = parseFloat(elTheta.value);
+    if (state.liquid !== 'mercury') state.matTheta = state.theta;
+    changed();
+  });
+  matChips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      if (state.liquid === 'mercury') state.liquid = 'water';
+      state.matTheta = parseFloat(c.getAttribute('data-theta'));
+      state.theta = state.matTheta;
+      elTheta.value = String(state.theta);
+      changed();
+    });
+  });
+  Object.keys(liqChips).forEach(function (k) {
+    liqChips[k].addEventListener('click', function () {
+      state.liquid = k;
+      state.theta = LIQUIDS[k].theta !== undefined ? LIQUIDS[k].theta : state.matTheta;
+      elTheta.value = String(state.theta);
+      changed();
+    });
+  });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      elPlay.click();
+    }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  changed();
+  requestAnimationFrame(tick);
+
+  window.__capillaryPhysics = {
+    G: G,
+    LIQUIDS: LIQUIDS,
+    radiusFromSlider: radiusFromSlider,
+    sliderFromRadius: sliderFromRadius,
+    jurinHeight: jurinHeight,
+    capillaryPressure: capillaryPressure,
+    washburnParams: washburnParams,
+    washburnNoGravity: washburnNoGravity,
+    timeToHeight: timeToHeight,
+    heightAt: heightAt,
+    time90: time90
+  };
+})();
+</script>
+</body>
+</html>
