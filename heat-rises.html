@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heat Doesn’t Rise — Hot Air Rises Because Cooler, Denser Air Sinks | Classroom</title>
+<meta name="description" content="Classroom convection explainer: heat isn’t a substance that rises. Hot air is less dense (ρ = PM/RT) and is pushed up; heat flows hot to cold in any direction.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="heat rises misconception, hot air rises, convection, buoyancy, air density, ideal gas, conduction, stratification, classroom physics">
+<link rel="canonical" href="heat-rises.html">
+<meta property="og:title" content="Heat Doesn’t Rise — Hot Air Does">
+<meta property="og:description" content="Hot air is pushed up by cooler, denser air. Heat itself flows from hot to cold in every direction — even downward. Live room convection for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+@media (min-width: 981px) { .viz { grid-template-columns: 1.3fr 0.7fr; } }
+.card canvas { height: 420px; }
+#cvRoom { cursor: crosshair; touch-action: none; }
+@media (max-width: 720px) { .card canvas { height: 300px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · convection</a></p>
+  <h1>Heat doesn’t rise — hot air does</h1>
+  <p class="lede">Heat is not a substance that floats upward. It is energy, and it always flows from <strong>hot to cold in any direction</strong>: down, sideways, or up. What rises is <strong>hot air</strong>. Warmed air expands, so it is <strong>less dense</strong> (ρ = PM/RT), and the cooler, denser air around it sinks and <strong>pushes it up</strong>. That is buoyant convection, and without gravity it stops.</p>
+
+  <p class="try"><b>Try this</b>Switch to <strong>Ceiling heater</strong>. Notice the warm air stays pinned at the top, but the heat-flow arrows under it point <strong>down</strong>.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <button type="button" class="btn" id="btnReset">Reset room</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip sun on" id="chipFloor" aria-pressed="true">Floor heater</button>
+      <button type="button" class="chip sun" id="chipCeil" aria-pressed="false">Ceiling heater</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="chipG" aria-pressed="true">Gravity on</button>
+      <button type="button" class="chip" id="chipNoG" aria-pressed="false">No gravity (ISS)</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: heat rises</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Heater surface air <em id="thLabel">60 °C</em></span>
+        <input type="range" id="theat" min="30" max="90" step="1" value="60" aria-label="Heater surface air temperature in Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Walls / outdoors <em id="twLabel">15 °C</em></span>
+        <input type="range" id="twall" min="0" max="25" step="1" value="15" aria-label="Wall temperature in Celsius">
+      </label>
+      <span class="hint" id="modeHint">Click or drag in the room to move the probe.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Room cross-section · 4.3 m × 2.7 m</b><span id="roomMeta">temperature · air tracers · heat-flow arrows</span></div>
+      <canvas id="cvRoom" width="760" height="420" aria-label="Room cross-section showing air temperature, moving air tracers, heat-flow arrows, and a movable probe"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Density · buoyancy</b><span id="sideMeta">ρ = PM/RT</span></div>
+      <canvas id="cvSide" width="460" height="420" aria-label="Temperature profile by height and a comparison of hot and room air density"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Warm air is less dense</h2>
+      <p>For an ideal gas at room pressure, <code>ρ = PM / (RT)</code>. Air at 20 °C is about 1.20 kg/m³; at 60 °C it is about 1.06 kg/m³. The same cubic meter of hot air weighs roughly 12% less.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Denser air sinks and shoves</h2>
+      <p>Gravity pulls harder on the denser surrounding air, and it slides under the warm parcel. The net upward push is <code>(ρ<sub>room</sub> − ρ<sub>hot</sub>) · g</code> per cubic meter (Archimedes). Turn gravity off and it vanishes: no convection.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Heat flows hot → cold, any way</h2>
+      <p>Conduction follows the temperature gradient, <code>q = −k∇T</code>, and radiation goes out in straight lines in every direction. From a ceiling heater, heat goes <em>down</em>. It just moves slowly, because the warm air has no reason to sink.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Heat rises”</h2>
+      <p>If heat itself could only rise, touching the underside of a hot pan wouldn’t burn you, and a radiant ceiling panel couldn’t warm your feet. Say it this way: <strong>hot air</strong> rises, pushed up by cooler, denser air. Heat goes wherever it’s colder.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Air density facts">
+    <div class="stat">
+      <div class="k">Air at 20 °C</div>
+      <div class="v">1.204 kg/m³</div>
+      <div class="s">1 atm · dry air</div>
+    </div>
+    <div class="stat">
+      <div class="k">Air at 60 °C</div>
+      <div class="v">1.060 kg/m³</div>
+      <div class="s">≈ 12% lighter per m³</div>
+    </div>
+    <div class="stat">
+      <div class="k">Net push</div>
+      <div class="v">≈ 1.4 N/m³</div>
+      <div class="s">60 °C parcel in 20 °C room</div>
+    </div>
+    <div class="stat">
+      <div class="k">No gravity</div>
+      <div class="v">0 N/m³</div>
+      <div class="s">no buoyancy · no convection</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Air density.</strong> Ideal gas, <code>ρ = P·M / (R·T)</code>, with P = 101 325 Pa, M = 0.028964 kg/mol (dry air), R = 8.314462618 J/(mol·K), and T in kelvin. That gives 1.204 kg/m³ at 20 °C and 1.293 kg/m³ at 0 °C, matching standard tables to about 0.1%. Humidity (moist air is slightly <em>less</em> dense) is ignored.</li>
+      <li><strong>Buoyant force per cubic meter.</strong> <code>f = (ρ<sub>room</sub> − ρ<sub>parcel</sub>) · g</code>, with g = 9.80665 m/s², in N/m³. The probe compares its air against the room’s mean-temperature air. Positive means pushed up. The resulting acceleration of a parcel is <code>f/ρ<sub>parcel</sub> = g·(T<sub>parcel</sub> − T<sub>room</sub>)/T<sub>room</sub></code>.</li>
+      <li><strong>The room simulation</strong> is a coarse 72 × 45 two-dimensional Boussinesq fluid (Stam “stable fluids”: semi-Lagrangian advection, implicit diffusion, and a pressure projection that makes the flow incompressible). Buoyancy is <code>g·(T − T̄)/T̄</code> (the ideal-gas expansion coefficient β = 1/T). Speeds, times, and diffusivities are in scaled simulation units, chosen so a loop forms in seconds instead of minutes. It is qualitative and not an HVAC or CFD model. Real room flow is turbulent and three-dimensional.</li>
+      <li><strong>Heater and walls.</strong> Heater cells are held at the slider temperature. Walls, floor, and ceiling slowly pull neighboring air toward the wall temperature (Newton cooling), which makes a steady state possible and causes the cool downdrafts you see along the walls.</li>
+      <li><strong>Heat-flow arrows</strong> show the conductive heat flux direction <code>−∇T</code> from the simulated temperature field. Their lengths are log-scaled. Convection (heat carried by moving air) shows up in the tracers, not the arrows. Radiation from the heater, which also goes in every direction including down, is not simulated.</li>
+      <li><strong>No gravity</strong> sets buoyancy to zero. Real spacecraft cabins need fans for this reason, and a candle flame in microgravity is a dim sphere, not a teardrop.</li>
+      <li><strong>For teachers.</strong> This covers thermal energy transfer, convection, and density (NGSS MS-PS3-3, MS-ESS2-6, HS-PS3-2). Push for precise wording: “heat rises” is shorthand for “hot fluid is buoyed up.” Pair it with a lava lamp or a dyed hot-water-in-cold-water demo.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physical constants — mirrored in validate-heat-rises.js =====
+  var P_ATM = 101325;          // Pa
+  var M_AIR = 0.028964;        // kg/mol, dry air
+  var R_GAS = 8.314462618;     // J/(mol·K)
+  var G = 9.80665;             // m/s²
+  var ROOM_W = 4.3, ROOM_H = 2.7; // m
+
+  function toK(tC) { return tC + 273.15; }
+
+  // Ideal-gas air density, kg/m³
+  function airDensity(tC, P) {
+    return (P === undefined ? P_ATM : P) * M_AIR / (R_GAS * toK(tC));
+  }
+
+  // Net buoyant force per m³ on a parcel at tParcel in surroundings at tSurround (N/m³, + = up)
+  function buoyancyPerM3(tParcel, tSurround, g) {
+    return (airDensity(tSurround) - airDensity(tParcel)) * (g === undefined ? G : g);
+  }
+
+  // Buoyant acceleration of the parcel itself (m/s², + = up)
+  function buoyantAccel(tParcel, tSurround, g) {
+    return buoyancyPerM3(tParcel, tSurround, g) / airDensity(tParcel);
+  }
+
+  // Direction of conductive heat flux q = −k∇T given the gradient (dT/dx, dT/dy with y up)
+  function heatFlowDirection(dTdx, dTdy) {
+    var qx = -dTdx, qy = -dTdy;
+    var mag = Math.hypot(qx, qy);
+    if (mag < 1e-9) return { qx: 0, qy: 0, mag: 0, deg: NaN, label: 'none (uniform T)' };
+    var deg = Math.atan2(qy, qx) * 180 / Math.PI; // 0 = right, 90 = up
+    var names = ['right', 'up-right', 'up', 'up-left', 'left', 'down-left', 'down', 'down-right'];
+    var arrows = ['→', '↗', '↑', '↖', '←', '↙', '↓', '↘'];
+    var idx = ((Math.round(deg / 45) % 8) + 8) % 8;
+    return { qx: qx / mag, qy: qy / mag, mag: mag, deg: deg, label: arrows[idx] + ' ' + names[idx] };
+  }
+
+  // ===== 2-D Boussinesq stable-fluids room (Stam 1999/2003), y = 0 at floor =====
+  var NX = 72, NY = 45;
+  var SIZE = (NX + 2) * (NY + 2);
+  var DT = 0.12;
+  var G_SIM = 28;        // scaled buoyancy gain
+  var KAPPA = 0.06;      // scaled thermal diffusivity (cells²/unit time)
+  var WALL_K = 0.05;     // wall Newton-cooling rate
+  var ITER = 24;
+
+  var HEAT_I0 = 26, HEAT_I1 = 47; // heater spans ~1.3 m, centred
+  function IX(i, j) { return i + (NX + 2) * j; }
+
+  function makeRoom(opts) {
+    var r = {
+      u: new Float32Array(SIZE), v: new Float32Array(SIZE), T: new Float32Array(SIZE),
+      u0: new Float32Array(SIZE), v0: new Float32Array(SIZE), T0: new Float32Array(SIZE),
+      p: new Float32Array(SIZE), div: new Float32Array(SIZE), heater: new Uint8Array(SIZE),
+      tHeat: opts.tHeat, tWall: opts.tWall, gravity: opts.gravity !== false, where: opts.where || 'floor', time: 0
+    };
+    for (var k = 0; k < SIZE; k++) r.T[k] = opts.tStart !== undefined ? opts.tStart : opts.tWall + 3;
+    setHeater(r, r.where);
+    return r;
+  }
+
+  function setHeater(r, where) {
+    r.where = where;
+    r.heater.fill(0);
+    var i0 = HEAT_I0, i1 = HEAT_I1;
+    var j0 = where === 'ceiling' ? NY - 1 : 1, j1 = where === 'ceiling' ? NY : 2;
+    for (var j = j0; j <= j1; j++) for (var i = i0; i <= i1; i++) r.heater[IX(i, j)] = 1;
+  }
+
+  function setBnd(b, x) {
+    var i, j;
+    for (i = 1; i <= NX; i++) {
+      x[IX(i, 0)] = b === 2 ? -x[IX(i, 1)] : x[IX(i, 1)];
+      x[IX(i, NY + 1)] = b === 2 ? -x[IX(i, NY)] : x[IX(i, NY)];
+    }
+    for (j = 1; j <= NY; j++) {
+      x[IX(0, j)] = b === 1 ? -x[IX(1, j)] : x[IX(1, j)];
+      x[IX(NX + 1, j)] = b === 1 ? -x[IX(NX, j)] : x[IX(NX, j)];
+    }
+    x[IX(0, 0)] = 0.5 * (x[IX(1, 0)] + x[IX(0, 1)]);
+    x[IX(0, NY + 1)] = 0.5 * (x[IX(1, NY + 1)] + x[IX(0, NY)]);
+    x[IX(NX + 1, 0)] = 0.5 * (x[IX(NX, 0)] + x[IX(NX + 1, 1)]);
+    x[IX(NX + 1, NY + 1)] = 0.5 * (x[IX(NX, NY + 1)] + x[IX(NX + 1, NY)]);
+  }
+
+  function linSolve(b, x, x0, a, c, iters) {
+    var inv = 1 / c;
+    for (var k = 0; k < iters; k++) {
+      for (var j = 1; j <= NY; j++) {
+        var row = (NX + 2) * j;
+        for (var i = 1; i <= NX; i++) {
+          var id = row + i;
+          x[id] = (x0[id] + a * (x[id - 1] + x[id + 1] + x[id - NX - 2] + x[id + NX + 2])) * inv;
+        }
+      }
+      setBnd(b, x);
+    }
+  }
+
+  function diffuse(b, x, x0, diff, dt) {
+    var a = dt * diff;
+    linSolve(b, x, x0, a, 1 + 4 * a, 12);
+  }
+
+  function advect(b, d, d0, u, v, dt) {
+    for (var j = 1; j <= NY; j++) {
+      for (var i = 1; i <= NX; i++) {
+        var id = IX(i, j);
+        var x = i - dt * u[id], y = j - dt * v[id];
+        if (x < 0.5) x = 0.5; if (x > NX + 0.5) x = NX + 0.5;
+        if (y < 0.5) y = 0.5; if (y > NY + 0.5) y = NY + 0.5;
+        var i0 = Math.floor(x), j0 = Math.floor(y);
+        var s1 = x - i0, s0 = 1 - s1, t1 = y - j0, t0 = 1 - t1;
+        d[id] = s0 * (t0 * d0[IX(i0, j0)] + t1 * d0[IX(i0, j0 + 1)]) +
+                s1 * (t0 * d0[IX(i0 + 1, j0)] + t1 * d0[IX(i0 + 1, j0 + 1)]);
+      }
+    }
+    setBnd(b, d);
+  }
+
+  function project(u, v, p, div) {
+    for (var j = 1; j <= NY; j++) {
+      for (var i = 1; i <= NX; i++) {
+        var id = IX(i, j);
+        div[id] = -0.5 * (u[id + 1] - u[id - 1] + v[id + NX + 2] - v[id - NX - 2]);
+        p[id] = 0;
+      }
+    }
+    setBnd(0, div); setBnd(0, p);
+    linSolve(0, p, div, 1, 4, ITER);
+    for (j = 1; j <= NY; j++) {
+      for (i = 1; i <= NX; i++) {
+        id = IX(i, j);
+        u[id] -= 0.5 * (p[id + 1] - p[id - 1]);
+        v[id] -= 0.5 * (p[id + NX + 2] - p[id - NX - 2]);
+      }
+    }
+    setBnd(1, u); setBnd(2, v);
+  }
+
+  function divergenceRMS(r) {
+    var s = 0;
+    for (var j = 1; j <= NY; j++) for (var i = 1; i <= NX; i++) {
+      var id = IX(i, j);
+      var d = 0.5 * (r.u[id + 1] - r.u[id - 1] + r.v[id + NX + 2] - r.v[id - NX - 2]);
+      s += d * d;
+    }
+    return Math.sqrt(s / (NX * NY));
+  }
+
+  function meanT(r) {
+    var s = 0;
+    for (var j = 1; j <= NY; j++) for (var i = 1; i <= NX; i++) s += r.T[IX(i, j)];
+    return s / (NX * NY);
+  }
+
+  function clampHeaterSolid(r) {
+    for (var k = 0; k < SIZE; k++) if (r.heater[k]) { r.u[k] = 0; r.v[k] = 0; r.T[k] = r.tHeat; }
+  }
+
+  function stepRoom(r, dt) {
+    var u = r.u, v = r.v, T = r.T, i, j, id;
+    var Tm = meanT(r);
+    var gain = r.gravity ? G_SIM / toK(Tm) : 0;
+    // Buoyancy (Boussinesq): dv/dt = g β (T − T̄), β = 1/T̄
+    for (j = 1; j <= NY; j++) for (i = 1; i <= NX; i++) {
+      id = IX(i, j);
+      v[id] += dt * gain * (T[id] - Tm);
+    }
+    clampHeaterSolid(r);
+    project(u, v, r.p, r.div);
+    r.u0.set(u); r.v0.set(v);
+    advect(1, u, r.u0, r.u0, r.v0, dt);
+    advect(2, v, r.v0, r.u0, r.v0, dt);
+    clampHeaterSolid(r);
+    project(u, v, r.p, r.div);
+    // Temperature: advect, diffuse, wall cooling, heater
+    r.T0.set(T);
+    advect(0, T, r.T0, u, v, dt);
+    r.T0.set(T);
+    diffuse(0, T, r.T0, KAPPA, dt);
+    var wk = WALL_K * dt;
+    for (i = 1; i <= NX; i++) {
+      T[IX(i, 1)] += (r.tWall - T[IX(i, 1)]) * wk;
+      T[IX(i, NY)] += (r.tWall - T[IX(i, NY)]) * wk;
+    }
+    for (j = 1; j <= NY; j++) {
+      T[IX(1, j)] += (r.tWall - T[IX(1, j)]) * wk;
+      T[IX(NX, j)] += (r.tWall - T[IX(NX, j)]) * wk;
+    }
+    clampHeaterSolid(r);
+    setBnd(0, T);
+    r.time += dt;
+  }
+
+  // Bilinear sample of a cell-centred field at room coords (x,y in cells, 0..NX, 0..NY)
+  function sample(f, x, y) {
+    var gx = Math.max(0.5, Math.min(NX + 0.5, x + 0.5));
+    var gy = Math.max(0.5, Math.min(NY + 0.5, y + 0.5));
+    var i0 = Math.floor(gx), j0 = Math.floor(gy);
+    var s = gx - i0, t = gy - j0;
+    return (1 - s) * ((1 - t) * f[IX(i0, j0)] + t * f[IX(i0, j0 + 1)]) +
+           s * ((1 - t) * f[IX(i0 + 1, j0)] + t * f[IX(i0 + 1, j0 + 1)]);
+  }
+
+  function gradT(r, x, y) {
+    var h = 1;
+    return {
+      dx: (sample(r.T, x + h, y) - sample(r.T, x - h, y)) / (2 * h),
+      dy: (sample(r.T, x, y + h) - sample(r.T, x, y - h)) / (2 * h)
+    };
+  }
+
+  // Row-average air temperature (heater cells excluded; awayOnly skips columns near the heater)
+  function rowMeanT(r, j, awayOnly) {
+    var s = 0, n = 0;
+    for (var i = 1; i <= NX; i++) {
+      var id = IX(i, j);
+      if (r.heater[id]) continue;
+      if (awayOnly && i >= HEAT_I0 - 4 && i <= HEAT_I1 + 4) continue;
+      s += r.T[id]; n++;
+    }
+    return n ? s / n : NaN;
+  }
+  var J_FLOOR = 4, J_CEIL = NY - 3; // ~0.2 m and ~2.5 m above the floor
+
+  function kineticEnergy(r) {
+    var s = 0;
+    for (var j = 1; j <= NY; j++) for (var i = 1; i <= NX; i++) {
+      var id = IX(i, j);
+      s += r.u[id] * r.u[id] + r.v[id] * r.v[id];
+    }
+    return 0.5 * s / (NX * NY);
+  }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_MYTH = '600 17px Fraunces, Georgia, serif';
+
+  var state = {
+    playing: true, tHeat: 60, tWall: 15, where: 'floor', gravity: true, myth: false,
+    probe: { x: 36, y: 22 }, lastTs: 0, anim: 0, dragging: false
+  };
+  var room = makeRoom({ tHeat: state.tHeat, tWall: state.tWall, gravity: true, where: 'floor' });
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay'), elReset = $('btnReset');
+  var chipFloor = $('chipFloor'), chipCeil = $('chipCeil'), chipG = $('chipG'), chipNoG = $('chipNoG'), chipMyth = $('chipMyth');
+  var elTh = $('theat'), elTw = $('twall'), elThL = $('thLabel'), elTwL = $('twLabel');
+  var elHint = $('modeHint'), elRoomMeta = $('roomMeta'), elSideMeta = $('sideMeta'), elReadout = $('readout');
+  var cvRoom = $('cvRoom');
+  var surfaces = {
+    room: { canvas: cvRoom, ctx: null, w: 0, h: 0, cssH: 420 },
+    side: { canvas: $('cvSide'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  // Offscreen temperature image (one pixel per cell, smoothed on upscale)
+  var off = document.createElement('canvas');
+  off.width = NX; off.height = NY;
+  var offCtx = off.getContext('2d');
+  var img = offCtx.createImageData(NX, NY);
+
+  // Tracers
+  var tracers = [];
+  var seedT = 12345;
+  function rnd() { seedT = (seedT * 1664525 + 1013904223) >>> 0; return seedT / 4294967296; }
+  function respawn(p) { p.x = rnd() * NX; p.y = rnd() * NY; p.life = 4 + rnd() * 8; }
+  for (var ti = 0; ti < 360; ti++) { var tp = {}; respawn(tp); tracers.push(tp); }
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+
+  // Colormap: cold navy → teal → warm → sun
+  var CMAP = [[0, 22, 38, 86], [0.35, 38, 110, 150], [0.6, 200, 110, 90], [0.8, 255, 126, 95], [1, 255, 200, 90]];
+  function cmap(f, out) {
+    if (f < 0) f = 0; if (f > 1) f = 1;
+    for (var k = 1; k < CMAP.length; k++) {
+      if (f <= CMAP[k][0]) {
+        var a = CMAP[k - 1], b = CMAP[k], t = (f - a[0]) / (b[0] - a[0]);
+        out[0] = a[1] + (b[1] - a[1]) * t; out[1] = a[2] + (b[2] - a[2]) * t; out[2] = a[3] + (b[3] - a[3]) * t;
+        return out;
+      }
+    }
+    out[0] = 255; out[1] = 200; out[2] = 90;
+    return out;
+  }
+  var rgb = [0, 0, 0];
+
+  function tRange() {
+    var lo = Math.min(state.tWall, state.tHeat) - 1, hi = Math.max(state.tHeat, state.tWall + 5);
+    return [lo, lo + (hi - lo) * 0.75];
+  }
+
+  function roomLayout(W, H) {
+    var pad = 14, top = 30;
+    var availW = W - 2 * pad, availH = H - top - 26;
+    var s = Math.min(availW / NX, availH / NY);
+    var rw = s * NX, rh = s * NY;
+    return { x: (W - rw) / 2, y: top + (availH - rh) / 2, w: rw, h: rh, s: s };
+  }
+
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1, ux = dx / len, uy = dy / len;
+    var ah = head || 6;
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 1.6;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.55, y2 - uy * ah + ux * ah * 0.55);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.55, y2 - uy * ah - ux * ah * 0.55);
+    ctx.closePath(); ctx.fill();
+  }
+
+  function drawRoom() {
+    var surf = surfaces.room;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var L = roomLayout(W, H);
+    var tr = tRange();
+    var d = img.data, i, j;
+    for (j = 1; j <= NY; j++) {
+      for (i = 1; i <= NX; i++) {
+        var f = (room.T[IX(i, j)] - tr[0]) / (tr[1] - tr[0]);
+        cmap(f, rgb);
+        var o = ((NY - j) * NX + (i - 1)) * 4;
+        d[o] = rgb[0]; d[o + 1] = rgb[1]; d[o + 2] = rgb[2]; d[o + 3] = 255;
+      }
+    }
+    offCtx.putImageData(img, 0, 0);
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(off, L.x, L.y, L.w, L.h);
+    function sx(x) { return L.x + x * L.s; }
+    function sy(y) { return L.y + L.h - y * L.s; }
+
+    // Tracers
+    ctx.fillStyle = 'rgba(235,240,255,0.55)';
+    for (var k = 0; k < tracers.length; k++) {
+      var p = tracers[k];
+      ctx.fillRect(sx(p.x) - 1, sy(p.y) - 1, 2, 2);
+    }
+
+    // Heater
+    var hx0 = sx(HEAT_I0 - 1), hx1 = sx(HEAT_I1);
+    var hy = room.where === 'ceiling' ? sy(NY) : sy(2);
+    ctx.fillStyle = '#ffc24a';
+    ctx.shadowColor = 'rgba(255,194,74,0.8)';
+    ctx.shadowBlur = 14;
+    ctx.fillRect(hx0, hy, hx1 - hx0, 2 * L.s);
+    ctx.shadowBlur = 0;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#0a1028';
+    ctx.fillText('HEATER ' + fmt(state.tHeat, 0) + '°', hx0 + 4, hy + 2 * L.s - 2);
+
+    // Arrows: truth (−∇T) or myth (all up)
+    var step = 6;
+    for (j = 4; j < NY - 1; j += step) {
+      for (i = 4; i < NX; i += step) {
+        var ax = sx(i), ay = sy(j);
+        if (state.myth) {
+          drawArrow(ctx, ax, ay + 7, ax, ay - 9, 'rgba(255,126,95,0.8)', 1.6, 6);
+        } else {
+          var g = gradT(room, i, j);
+          var hf = heatFlowDirection(g.dx, g.dy);
+          if (hf.mag < 0.04) continue;
+          var len = Math.min(16, 5 + 4 * Math.log(1 + hf.mag * 4));
+          var alpha = Math.min(0.95, 0.35 + hf.mag * 0.6);
+          drawArrow(ctx, ax - hf.qx * len * 0.5, ay + hf.qy * len * 0.5, ax + hf.qx * len * 0.5, ay - hf.qy * len * 0.5,
+            'rgba(255,214,150,' + fmt(alpha, 2) + ')', 1.5, 5);
+        }
+      }
+    }
+    if (state.myth) {
+      ctx.fillStyle = 'rgba(8,11,28,0.72)';
+      ctx.fillRect(L.x + 10, L.y + 10, Math.min(L.w - 20, 330), 46);
+      ctx.font = FONT_MYTH;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth: “heat rises” (always ↑)', L.x + 20, L.y + 31);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText('Real heat flow goes hot → cold. Turn myth off to compare.', L.x + 20, L.y + 47);
+    }
+
+    // Probe
+    var px = sx(state.probe.x), py = sy(state.probe.y);
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(px, py, 9, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px - 14, py); ctx.lineTo(px - 5, py); ctx.moveTo(px + 5, py); ctx.lineTo(px + 14, py);
+    ctx.moveTo(px, py - 14); ctx.lineTo(px, py - 5); ctx.moveTo(px, py + 5); ctx.lineTo(px, py + 14); ctx.stroke();
+    var gp = gradT(room, state.probe.x, state.probe.y);
+    var hfp = heatFlowDirection(gp.dx, gp.dy);
+    if (!state.myth && hfp.mag > 0.01) {
+      drawArrow(ctx, px, py, px + hfp.qx * 30, py - hfp.qy * 30, '#5ec8e5', 2.4, 8);
+    }
+
+    // Room outline + labels
+    ctx.strokeStyle = 'rgba(215,222,242,0.45)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(L.x, L.y, L.w, L.h);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    ctx.fillText('2.5 m: ' + fmt(rowMeanT(room, J_CEIL, true), 1) + ' °C', L.x + L.w, L.y - 8);
+    ctx.fillText('0.2 m: ' + fmt(rowMeanT(room, J_FLOOR, true), 1) + ' °C', L.x + L.w, L.y + L.h + 14);
+    ctx.textAlign = 'left';
+    ctx.fillText(room.gravity ? 'g ↓ 9.81 m/s²' : 'g = 0 (microgravity)', L.x, L.y - 8);
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText('2-D Boussinesq toy · scaled time', L.x, L.y + L.h + 14);
+  }
+
+  function drawSide() {
+    var surf = surfaces.side;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Temperature by height', 14, 24);
+
+    // Profile plot
+    var L = 44, R = W * 0.56, T = 44, B = H - 40;
+    var tr = [Math.min(state.tWall, state.tHeat) - 2, state.tHeat + 2];
+    function X(t) { return L + (t - tr[0]) / (tr[1] - tr[0]) * (R - L); }
+    function Y(j) { return B - (j - 0.5) / NY * (B - T); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(L, T, R - L, B - T);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    for (var hm = 0; hm <= 2.5; hm += 0.5) {
+      var yy = B - hm / ROOM_H * (B - T);
+      ctx.fillText(fmt(hm, 1), L - 26, yy + 3);
+      ctx.beginPath(); ctx.moveTo(L, yy); ctx.lineTo(R, yy); ctx.stroke();
+    }
+    ctx.fillText('m', L - 26, T - 6);
+    var tStep = (tr[1] - tr[0]) > 50 ? 20 : 10;
+    for (var tt = Math.ceil(tr[0] / tStep) * tStep; tt <= tr[1]; tt += tStep) {
+      ctx.fillText(tt + '°', X(tt) - 8, B + 14);
+    }
+    ctx.fillText('row-average T', L, B + 28);
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    for (var j = 1; j <= NY; j++) {
+      var x = X(rowMeanT(room, j)), y = Y(j);
+      if (j === 1) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    // Probe height marker
+    var pyy = Y(state.probe.y + 0.5);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.beginPath(); ctx.arc(X(sample(room.T, state.probe.x, state.probe.y)), pyy, 4, 0, Math.PI * 2); ctx.fill();
+
+    // Two cubic meters: room air vs heater air
+    var cx0 = W * 0.62, cw = W * 0.34;
+    var tRoom = meanT(room);
+    var rR = airDensity(tRoom), rH = airDensity(state.tHeat);
+    var f = buoyancyPerM3(state.tHeat, tRoom, room.gravity ? G : 0);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('1 m³ OF AIR', cx0, T - 6);
+    function cube(y, label, t, rho, color) {
+      var s = cw * 0.55;
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.22;
+      ctx.fillRect(cx0, y, s, s);
+      ctx.globalAlpha = 1;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.2;
+      ctx.strokeRect(cx0, y, s, s);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = color;
+      ctx.fillText(label, cx0, y - 5);
+      ctx.font = FONT_MONO_13B;
+      ctx.fillText(fmt(rho, 3), cx0 + 6, y + s * 0.5);
+      ctx.font = FONT_MONO_10;
+      ctx.fillText('kg/m³', cx0 + 6, y + s * 0.5 + 13);
+      ctx.fillText(fmt(t, 1) + ' °C', cx0 + 6, y + s - 6);
+      return s;
+    }
+    var s1 = cube(T + 18, 'heater air', state.tHeat, rH, '#ff7e5f');
+    var y2 = T + 18 + s1 + 34;
+    cube(y2, 'room avg', tRoom, rR, '#5ec8e5');
+    var ay = y2 + s1 + 30;
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('net push on hot m³', cx0, ay);
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = f > 0 ? '#ffc24a' : '#8b93ad';
+    ctx.fillText((f > 0 ? '↑ ' : '') + fmt(f, 2) + ' N', cx0, ay + 18);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(room.gravity ? '(ρ_room − ρ_hot)·g' : 'g = 0 → no push', cx0, ay + 32);
+    if (room.gravity && f > 0) {
+      var ah = Math.min(40, 8 + f * 14);
+      drawArrow(ctx, cx0 + s1 + 14, T + 18 + s1 * 0.75, cx0 + s1 + 14, T + 18 + s1 * 0.75 - ah, '#ffc24a', 2.2, 7);
+    }
+  }
+
+  function renderReadout() {
+    var x = state.probe.x, y = state.probe.y;
+    var t = sample(room.T, x, y);
+    var tRoom = meanT(room);
+    var rho = airDensity(t);
+    var f = buoyancyPerM3(t, tRoom, room.gravity ? G : 0);
+    var g = gradT(room, x, y);
+    var hf = heatFlowDirection(g.dx, g.dy);
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Probe air', fmt(t, 1) + ' °C', 'x ' + fmt(x / NX * ROOM_W, 1) + ' m · height ' + fmt(y / NY * ROOM_H, 1) + ' m', t > tRoom + 1 ? 'warm' : '');
+    kv('Air density ρ', fmt(rho, 3) + ' kg/m³', 'room mean ' + fmt(airDensity(tRoom), 3) + ' at ' + fmt(tRoom, 1) + ' °C', '');
+    var dir = Math.abs(f) < 0.005 ? 'neutral' : (f > 0 ? '↑ pushed up' : '↓ sinks');
+    kv('Buoyant force / m³', (f >= 0 ? '+' : '−') + fmt(Math.abs(f), 3) + ' N', room.gravity ? dir + ' · (ρ_room − ρ)·g' : 'g = 0 · no buoyancy', f > 0.005 ? 'sun' : '');
+    kv('Heat flow direction', hf.mag > 0.004 ? hf.label : 'none (uniform)', state.myth ? 'myth says ↑ always — it doesn’t' : 'q = −k∇T · hot → cold, any way', state.myth ? 'warm' : '');
+    var tf = rowMeanT(room, J_FLOOR, true), tc = rowMeanT(room, J_CEIL, true);
+    kv('0.2 m / 2.5 m air', fmt(tf, 1) + ' / ' + fmt(tc, 1) + ' °C', 'away from heater · ΔT ' + fmt(tc - tf, 1) + ' °C', '');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elThL.textContent = fmt(state.tHeat, 0) + ' °C';
+    elTwL.textContent = fmt(state.tWall, 0) + ' °C';
+    if (!room.gravity) elHint.textContent = 'No gravity · no buoyancy, so no convection. Heat still spreads out in every direction by conduction.';
+    else if (room.where === 'ceiling') elHint.textContent = 'Ceiling heater · warm air is already on top, so it stays put. Heat creeps down by conduction.';
+    else elHint.textContent = 'Floor heater · hot air is pushed up and cool air sinks along the walls: a convection loop. Click the room to move the probe.';
+    elRoomMeta.textContent = state.myth ? 'myth overlay · heat arrows forced ↑' : 'temperature · air tracers · heat-flow arrows (−∇T)';
+    elSideMeta.textContent = 'ρ = PM/RT';
+  }
+
+  function moveTracers(dt) {
+    for (var k = 0; k < tracers.length; k++) {
+      var p = tracers[k];
+      var u = sample(room.u, p.x, p.y), v = sample(room.v, p.x, p.y);
+      p.x += u * dt; p.y += v * dt;
+      p.life -= dt;
+      if (p.life <= 0 || p.x < 0 || p.x > NX || p.y < 0 || p.y > NY) respawn(p);
+    }
+  }
+
+  function render() {
+    updateLabels();
+    renderReadout();
+    drawRoom();
+    drawSide();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    if (state.playing) {
+      stepRoom(room, DT);
+      stepRoom(room, DT);
+      moveTracers(2 * DT);
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function resetRoom() {
+    room = makeRoom({ tHeat: state.tHeat, tWall: state.tWall, gravity: state.gravity, where: state.where });
+  }
+
+  function syncChips() {
+    setChip(chipFloor, state.where === 'floor');
+    setChip(chipCeil, state.where === 'ceiling');
+    setChip(chipG, state.gravity);
+    setChip(chipNoG, !state.gravity);
+    setChip(chipMyth, state.myth);
+  }
+
+  elPlay.addEventListener('click', function () {
+    state.playing = !state.playing;
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+  });
+  elReset.addEventListener('click', function () { resetRoom(); });
+  chipFloor.addEventListener('click', function () { state.where = 'floor'; resetRoom(); syncChips(); });
+  chipCeil.addEventListener('click', function () { state.where = 'ceiling'; resetRoom(); syncChips(); });
+  chipG.addEventListener('click', function () { state.gravity = true; room.gravity = true; syncChips(); });
+  chipNoG.addEventListener('click', function () {
+    state.gravity = false; room.gravity = false;
+    room.u.fill(0); room.v.fill(0);
+    syncChips();
+  });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; syncChips(); });
+  elTh.addEventListener('input', function () { state.tHeat = parseFloat(elTh.value); room.tHeat = state.tHeat; updateLabels(); });
+  elTw.addEventListener('input', function () { state.tWall = parseFloat(elTw.value); room.tWall = state.tWall; updateLabels(); });
+
+  function probeFromEvent(e) {
+    var rect = cvRoom.getBoundingClientRect();
+    var L = roomLayout(rect.width, rect.height || 420);
+    var x = (e.clientX - rect.left - L.x) / L.s;
+    var y = (L.y + L.h - (e.clientY - rect.top)) / L.s;
+    state.probe.x = Math.max(1, Math.min(NX - 1, x));
+    state.probe.y = Math.max(1, Math.min(NY - 1, y));
+  }
+  cvRoom.addEventListener('pointerdown', function (e) {
+    state.dragging = true;
+    if (cvRoom.setPointerCapture) cvRoom.setPointerCapture(e.pointerId);
+    probeFromEvent(e);
+  });
+  cvRoom.addEventListener('pointermove', function (e) { if (state.dragging) probeFromEvent(e); });
+  cvRoom.addEventListener('pointerup', function () { state.dragging = false; });
+  cvRoom.addEventListener('pointercancel', function () { state.dragging = false; });
+
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elPlay.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  syncChips();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__heatPhysics = {
+    airDensity: airDensity, buoyancyPerM3: buoyancyPerM3, buoyantAccel: buoyantAccel,
+    heatFlowDirection: heatFlowDirection, makeRoom: makeRoom, stepRoom: stepRoom, setHeater: setHeater,
+    sample: sample, gradT: gradT, rowMeanT: rowMeanT, meanT: meanT, kineticEnergy: kineticEnergy,
+    divergenceRMS: divergenceRMS, IX: IX, J_FLOOR: J_FLOOR, J_CEIL: J_CEIL,
+    NX: NX, NY: NY, DT: DT, P_ATM: P_ATM, M_AIR: M_AIR, R_GAS: R_GAS, G: G
+  };
+  window.__heatState = state;
+  window.__heatRoom = function () { return room; };
+})();
+</script>
+</body>
+</html>
