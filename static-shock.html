@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why the Doorknob Zaps You — You Carry the Charge, Not the Metal | Classroom</title>
+<meta name="description" content="Classroom static explainer: carpet steps charge your ~150 pF body to kilovolts (V = Q/C); dry air lets it build. The knob just gives it a path. Live kV, mJ, spark.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why doorknob shocks you, static electricity, triboelectric, body capacitance, human body model, humidity static, spark gap, Paschen, air breakdown, classroom physics, misconception">
+<link rel="canonical" href="static-shock.html">
+<meta property="og:title" content="Why the Doorknob Zaps You">
+<meta property="og:description" content="The charge is on you, not the knob. Walking on carpet in dry air charges your ~150 pF body to kilovolts; the spark jumps when the air gap breaks down.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 420px; }
+.btn.zap { background: rgba(255, 194, 74, 0.12); border-color: rgba(255, 194, 74, 0.45); color: var(--sun2); }
+@media (max-width: 720px) { .card canvas { height: 330px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · static</a></p>
+  <h1>Why the doorknob zaps you</h1>
+  <p class="lede">The knob isn’t charged, and metal doesn’t make electricity. <strong>You</strong> are the charged object. Each step on a carpet moves a little charge between your soles and the fibers (the triboelectric effect). Your body is a small capacitor, about <strong>150 pF</strong>, so modest charge means big voltage: <strong>V = Q/C</strong>. In <strong>dry air</strong> the charge can’t leak away, and you reach kilovolts. Reach for metal and the air gap breaks down in a spark.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Walk</strong> for ten steps, then <strong>Touch knob</strong>. Now raise humidity to 70% and repeat. Notice the voltage never gets high enough to feel.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnWalk" aria-pressed="false" title="Spacebar">Walk</button>
+      <button type="button" class="btn zap" id="btnTouch">Touch knob</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="shRubber" aria-pressed="true">Rubber soles</button>
+      <button type="button" class="chip" id="shLeather" aria-pressed="false">Leather soles</button>
+      <button type="button" class="chip" id="shBare" aria-pressed="false">Barefoot</button>
+      <button type="button" class="chip" id="shEsd" aria-pressed="false">ESD-safe shoes</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip sun" id="chipKey" aria-pressed="false">Hold a metal key</button>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: the knob is charged</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Steps on carpet <em id="stepsLabel">0</em></span>
+        <input type="range" id="steps" min="0" max="40" step="1" value="0" aria-label="Number of steps taken on the carpet since the last discharge">
+      </label>
+      <label class="sl grow">
+        <span>Relative humidity <em id="rhLabel">20 %</em></span>
+        <input type="range" id="rh" min="10" max="90" step="1" value="20" aria-label="Relative humidity in percent">
+      </label>
+    </div>
+    <div class="row"><span class="hint" id="modeHint">Walk to build charge, then touch the knob.</span></div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Carpet · you · the doorknob</b><span id="sceneMeta">charge sits on you</span></div>
+      <canvas id="cvScene" width="760" height="420" aria-label="A person walking on carpet collecting charge, reaching for a doorknob, with a magnified view of the spark gap"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Voltage · breakdown</b><span id="chartMeta">V vs steps · gap vs V</span></div>
+      <canvas id="cvChart" width="500" height="420" aria-label="Charts of body voltage versus steps and air breakdown voltage versus gap length"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Rubbing moves charge</h2>
+      <p>Different materials hold electrons with different strength. Each time a sole touches the carpet and peels away, a little charge moves across (the triboelectric effect). Which way it goes depends on the materials; here we draw it as extra electrons on you.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Small capacitor, big volts</h2>
+      <p>Your body and the floor form a capacitor of roughly 100–200 pF (the standard human-body model uses 100 pF). With <code>V = Q/C</code>, just 1.5 µC gives 10 kV. The stored energy is only <code>½CV² ≈ 7.5 mJ</code>, which stings but is harmless.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Dry air lets it build</h2>
+      <p>Humid air leaves a thin film of water on skin, shoes, and carpet fibers that bleeds charge away. In dry winter air nothing drains it, so steps pile up charge. Typical walking-on-carpet peaks run from ~1.5 kV (humid) to ~35 kV (very dry).</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“The metal knob is charged”</h2>
+      <p>The knob is neutral and generates nothing. It is simply a good conductor, connected to a big object. As your charged fingertip nears it, the field in the thin air gap passes air’s breakdown strength (~3 MV/m for centimeter gaps), the air ionizes, and your charge rushes out in a spark. A wooden door gives no spark: no easy path.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Static electricity numbers">
+    <div class="stat">
+      <div class="k">Body capacitance</div>
+      <div class="v">~100–200 pF</div>
+      <div class="s">page uses 150 pF</div>
+    </div>
+    <div class="stat">
+      <div class="k">Carpet, very dry</div>
+      <div class="v">up to ~35 kV</div>
+      <div class="s">~1.5 kV when humid</div>
+    </div>
+    <div class="stat">
+      <div class="k">You feel it at</div>
+      <div class="v">~2–3 kV</div>
+      <div class="s">rough threshold</div>
+    </div>
+    <div class="stat">
+      <div class="k">Air breaks down</div>
+      <div class="v">~3 MV/m</div>
+      <div class="s">≈ 30 kV per cm gap</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Body as a capacitor.</strong> C = 150 pF, the middle of the usual 100–200 pF range for a standing adult. The ESD human-body model (e.g. ANSI/ESDA/JEDEC JS-001) uses 100 pF behind 1.5 kΩ. <code>Q = C·V</code> and <code>E = ½·C·V²</code>. Contact resistance, the discharge waveform, and the charge left on the knob side are not modeled.</li>
+      <li><strong>How high you get.</strong> Walking-on-carpet peaks are anchored to the widely reproduced ESD table: about 35 kV at 10–20% RH and about 1.5 kV at 65–90% RH. Between those, the page interpolates log-linearly (anchored at 15% and 75%) and caps at 35 kV. Footwear multiplies that peak by illustrative factors: rubber 1.0, leather 0.35, barefoot 0.05, ESD-safe 0.0025 (ESD footwear is meant to keep people under ~100 V). Real values vary a lot with carpet fiber, sole material, and gait.</li>
+      <li><strong>Charging per step.</strong> Each step moves you part of the way toward that peak: <code>V(n) = V<sub>peak</sub>·(1 − e<sup>−n/8</sup>)</code>, which is 95% after about 24 steps. Walking tests such as ANSI/ESD STM97.2 show a similar climb over several seconds. The in-step flicker and the slow leakage while you stand still (seconds when humid, minutes when dry) are left out.</li>
+      <li><strong>Spark length.</strong> Uniform-field breakdown of air at 1 atm and 20 °C uses the empirical Schumann fit: <code>V[kV] = 24.4·d + 6.53·√d</code>, d in cm (30.9 kV at 1 cm, 4.5 kV at 1 mm). Paschen’s law puts the absolute minimum sparking voltage near 330 V, so below that there is no spark at any gap. A fingertip and a round knob make a non-uniform field, so real sparks can be somewhat longer. The simple 3 MV/m estimate is shown for comparison.</li>
+      <li><strong>Sensation.</strong> Rough rules of thumb from the ESD literature: you feel a discharge from about 2–3 kV (2.5 kV used here), hear a click from about 6 kV, and see the spark from about 8 kV. People vary. Holding a key moves the spark to the key tip, so the current enters your hand over a wide area and you don’t feel it.</li>
+      <li><strong>For teachers.</strong> This covers electric charge, fields, and energy (NGSS MS-PS2-3, MS-PS2-5, HS-PS2-4, HS-PS3-5). The discharge is real but low-energy (millijoules). Say the misconception out loud: metal makes or stores the shock.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-static-shock.js =====
+  var C_BODY = 150e-12;         // F, standing adult (typical 100–200 pF)
+  var C_HBM = 100e-12;          // F, human-body model reference
+  var V_DRY = 35000;            // V, walking on carpet, ~15% RH (10–20%)
+  var V_HUMID = 1500;           // V, walking on carpet, ~75% RH (65–90%)
+  var RH_DRY = 15, RH_HUMID = 75;
+  var V_CAP = 35000;            // V, cap on the peak
+  var N_STEP = 8;               // steps e-folding
+  var V_PASCHEN_MIN = 327;      // V, minimum sparking voltage in air (Paschen minimum)
+  var E_BREAKDOWN = 3e6;        // V/m, classic cm-gap rule of thumb
+  var V_FEEL = 2500, V_HEAR = 6000, V_SEE = 8000;
+  var SHOES = {
+    rubber: { key: 'rubber', label: 'Rubber soles', f: 1.0 },
+    leather: { key: 'leather', label: 'Leather soles', f: 0.35 },
+    bare: { key: 'bare', label: 'Barefoot', f: 0.05 },
+    esd: { key: 'esd', label: 'ESD-safe shoes', f: 0.0025 }
+  };
+
+  // Peak walking voltage: log-linear in RH between the ESD-table anchors, times footwear factor
+  function peakVoltage(rh, shoe) {
+    var k = Math.log10(V_DRY / V_HUMID) / (RH_HUMID - RH_DRY);
+    var v = Math.pow(10, Math.log10(V_DRY) - (rh - RH_DRY) * k);
+    if (v > V_CAP) v = V_CAP;
+    return v * shoe.f;
+  }
+
+  function bodyVoltage(steps, rh, shoe) {
+    if (!(steps > 0)) return 0;
+    return peakVoltage(rh, shoe) * (1 - Math.exp(-steps / N_STEP));
+  }
+
+  function bodyCharge(V, C) { return (C === undefined ? C_BODY : C) * V; }
+  function storedEnergy(V, C) { var c = (C === undefined ? C_BODY : C); return 0.5 * c * V * V; }
+
+  // Schumann uniform-field breakdown of air at 1 atm, 20 °C: V[kV] = 24.4 d + 6.53 √d  (d in cm)
+  function breakdownKV(dCm) {
+    if (!(dCm > 0)) return 0;
+    return 24.4 * dCm + 6.53 * Math.sqrt(dCm);
+  }
+  // Inverse: gap (m) at which a voltage V (volts) breaks down; 0 below the Paschen minimum
+  function sparkGapM(V) {
+    if (!(V >= V_PASCHEN_MIN)) return 0;
+    var vk = V / 1000;
+    var s = (-6.53 + Math.sqrt(6.53 * 6.53 + 4 * 24.4 * vk)) / (2 * 24.4);
+    return s * s / 100;
+  }
+  function gapRuleOfThumbM(V) { return V / E_BREAKDOWN; }
+
+  function sensation(V, holdingKey) {
+    if (V < V_PASCHEN_MIN) return { level: 0, label: 'nothing (no spark)' };
+    if (holdingKey) return { level: 0, label: 'not felt — key takes it' };
+    if (V < V_FEEL) return { level: 0, label: 'not felt' };
+    if (V < V_HEAR) return { level: 1, label: 'felt — a prick' };
+    if (V < V_SEE) return { level: 2, label: 'felt + audible snap' };
+    return { level: 3, label: 'ouch — visible spark' };
+  }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_CHARGE = '700 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_BIG = '700 22px Fraunces, Georgia, serif';
+
+  var STEP_TIME = 0.55; // s per step while walking
+  var state = {
+    steps: 0, rh: 20, shoe: SHOES.rubber, key: false, myth: false,
+    walking: false, stepClock: 0, walkPhase: 0, touch: 0, touching: false, spark: null, flash: 0,
+    lastTs: 0, anim: 0, walkX: 0
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elWalk = $('btnWalk'), elTouch = $('btnTouch'), chipKey = $('chipKey'), chipMyth = $('chipMyth');
+  var shChips = { rubber: $('shRubber'), leather: $('shLeather'), bare: $('shBare'), esd: $('shEsd') };
+  var elSteps = $('steps'), elRh = $('rh'), elStepsL = $('stepsLabel'), elRhL = $('rhLabel');
+  var elHint = $('modeHint'), elSceneMeta = $('sceneMeta'), elChartMeta = $('chartMeta'), elReadout = $('readout');
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 420 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  function fmtV(V) { return V >= 1000 ? fmt(V / 1000, V >= 10000 ? 1 : 2) + ' kV' : fmt(V, 0) + ' V'; }
+  function fmtQ(Q) { return Q >= 1e-6 ? fmt(Q * 1e6, 2) + ' µC' : fmt(Q * 1e9, Q >= 1e-8 ? 0 : 1) + ' nC'; }
+  function fmtGap(m) { return m <= 0 ? '—' : (m >= 0.001 ? fmt(m * 1000, 1) + ' mm' : fmt(m * 1e6, 0) + ' µm'); }
+
+  function currentV() { return bodyVoltage(state.steps, state.rh, state.shoe); }
+
+  function startTouch() {
+    if (state.touching) return;
+    state.walking = false;
+    syncWalk();
+    state.touching = true;
+    state.touch = 0;
+  }
+
+  function discharge() {
+    var V = currentV();
+    state.spark = { V: V, Q: bodyCharge(V), E: storedEnergy(V), gap: sparkGapM(V), s: sensation(V, state.key), t: 0 };
+    state.flash = V >= V_PASCHEN_MIN ? 1 : 0;
+    state.steps = 0;
+    elSteps.value = '0';
+  }
+
+  function drawBolt(ctx, x1, y1, x2, y2, segs, amp, seed) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1, nx = -dy / len, ny = dx / len;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    for (var i = 1; i < segs; i++) {
+      var t = i / segs;
+      var j = Math.sin(seed * 12.9898 + i * 78.233) * 43758.5453;
+      j = (j - Math.floor(j)) * 2 - 1;
+      ctx.lineTo(x1 + dx * t + nx * j * amp, y1 + dy * t + ny * j * amp);
+    }
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+  }
+
+  function drawScene() {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0b1230';
+    ctx.fillRect(0, 0, W, H);
+    var V = currentV();
+    var floorY = H - 58;
+    // Carpet (texture scrolls while walking)
+    ctx.fillStyle = '#3a2748';
+    ctx.fillRect(0, floorY, W, H - floorY);
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+    var off = -((state.walkX * 60) % 8);
+    ctx.beginPath();
+    for (var cx = off; cx < W * 0.78; cx += 8) { ctx.moveTo(cx, floorY + 2); ctx.lineTo(cx + 3, floorY + 10); }
+    ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(215,222,242,0.5)';
+    ctx.fillText('NYLON CARPET · RH ' + fmt(state.rh, 0) + '%', 12, H - 12);
+
+    // Door + knob
+    var doorX = W * 0.8, doorW = W * 0.16;
+    ctx.fillStyle = '#5a3d24';
+    ctx.fillRect(doorX, floorY - H * 0.72, doorW, H * 0.72);
+    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+    ctx.strokeRect(doorX + 8, floorY - H * 0.68, doorW - 16, H * 0.3);
+    ctx.strokeRect(doorX + 8, floorY - H * 0.34, doorW - 16, H * 0.28);
+    var knobX = doorX + 12, knobY = floorY - H * 0.36, knobR = 9;
+    var kg = ctx.createRadialGradient(knobX - 3, knobY - 3, 1, knobX, knobY, knobR);
+    kg.addColorStop(0, '#fff1c4'); kg.addColorStop(1, '#b8860b');
+    ctx.fillStyle = kg;
+    ctx.beginPath(); ctx.arc(knobX, knobY, knobR, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = state.myth ? '#ff7e5f' : 'rgba(215,222,242,0.8)';
+    var kLab = state.myth ? 'charged?? ✗' : 'knob: neutral';
+    ctx.fillText(kLab, Math.min(knobX - 6, W - ctx.measureText(kLab).width - 6), knobY + 26);
+    if (state.myth) {
+      ctx.font = FONT_CHARGE;
+      ctx.fillStyle = '#ff7e5f';
+      for (var mk = 0; mk < 6; mk++) {
+        var ma = mk / 6 * Math.PI * 2 + state.anim;
+        ctx.fillText('+', knobX + Math.cos(ma) * 18 - 4, knobY + Math.sin(ma) * 18 + 4);
+      }
+    }
+
+    // Person: walks toward the door; during touch, moves up to the knob
+    var reach = state.touching ? Math.min(1, state.touch) : 0;
+    var narrow = W < 560;
+    var baseX = narrow ? Math.min(W * 0.62, 14 + Math.max(170, W * 0.36) + 34) : W * 0.34;
+    var gapPx = 0;
+    var handTargetX = knobX - knobR;
+    var bodyX = baseX + (handTargetX - 70 - baseX) * reach;
+    var s = Math.min(1.25, H / 380);
+    var hipY = floorY - 88 * s, shY = hipY - 70 * s, headY = shY - 22 * s;
+    var sw = state.walking ? Math.sin(state.walkPhase) : 0;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#d7def2';
+    ctx.lineWidth = 7;
+    ctx.beginPath();
+    ctx.moveTo(bodyX, hipY); ctx.lineTo(bodyX + 22 * sw * s, floorY - 6);
+    ctx.moveTo(bodyX, hipY); ctx.lineTo(bodyX - 22 * sw * s, floorY - 6);
+    ctx.moveTo(bodyX, hipY); ctx.lineTo(bodyX, shY);
+    ctx.stroke();
+    // arm reaching for knob
+    var handX = bodyX + 30 * s + (handTargetX - 6 - (bodyX + 30 * s)) * Math.min(1, reach * 1.05);
+    var handY = shY + 30 * s + (knobY - (shY + 30 * s)) * reach;
+    if (!state.touching) { handX = bodyX + 18 * s - 12 * sw * s; handY = hipY - 4; }
+    ctx.beginPath();
+    ctx.moveTo(bodyX, shY + 6); ctx.lineTo(handX, handY);
+    ctx.moveTo(bodyX, shY + 6); ctx.lineTo(bodyX - 16 * s + 12 * sw * s, hipY - 6);
+    ctx.stroke();
+    ctx.fillStyle = '#d7def2';
+    ctx.beginPath(); ctx.arc(bodyX, headY, 15 * s, 0, Math.PI * 2); ctx.fill();
+    // shoes
+    ctx.fillStyle = state.shoe.key === 'bare' ? '#e9c6a5' : (state.shoe.key === 'esd' ? '#5ec8e5' : '#20263d');
+    ctx.fillRect(bodyX + 22 * sw * s - 6, floorY - 8, 16, 7);
+    ctx.fillRect(bodyX - 22 * sw * s - 6, floorY - 8, 16, 7);
+    if (state.key) {
+      ctx.strokeStyle = '#c0c8d8';
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(handX, handY); ctx.lineTo(handX + 14, handY); ctx.stroke();
+    }
+    // Excess charge on the body surface (1 symbol ≈ 1 kV, log-compressed above 12)
+    var nq = V < 50 ? 0 : Math.round(V < 12000 ? V / 1000 : 12 + 6 * Math.log(V / 12000) / Math.log(3));
+    nq = Math.max(V >= 300 ? 1 : 0, Math.min(24, nq));
+    ctx.font = FONT_CHARGE;
+    ctx.fillStyle = '#5ec8e5';
+    for (var q = 0; q < nq; q++) {
+      var t = q / Math.max(1, nq);
+      var px, py;
+      if (t < 0.3) { var aa = t / 0.3 * Math.PI * 2 + state.anim * 0.5; px = bodyX + Math.cos(aa) * 22 * s; py = headY + Math.sin(aa) * 22 * s; }
+      else { var tt = (t - 0.3) / 0.7; px = bodyX + (q % 2 ? 14 : -14) * s; py = shY + tt * (hipY - shY + 60 * s); }
+      ctx.fillText('−', px - 4, py + 4);
+    }
+
+    // Tip of finger / key
+    var tipX = handX + (state.key ? 14 : 0);
+    gapPx = knobX - knobR - tipX;
+    // Spark
+    var gapM = sparkGapM(V);
+    if (state.spark && state.spark.t < 0.35 && state.spark.V >= V_PASCHEN_MIN) {
+      ctx.strokeStyle = 'rgba(210,235,255,0.95)';
+      ctx.lineWidth = 2.2;
+      ctx.shadowColor = '#9fd8ff';
+      ctx.shadowBlur = 14;
+      drawBolt(ctx, tipX, handY, knobX - knobR + 1, knobY, 6, 4, state.anim * 20);
+      ctx.shadowBlur = 0;
+    }
+    if (state.flash > 0) {
+      ctx.fillStyle = 'rgba(200,230,255,' + fmt(0.25 * state.flash, 3) + ')';
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    // Magnified inset of the gap
+    var ix = 14, iy = 14, iw = Math.max(170, Math.min(250, W * 0.36)), ih = narrow ? 88 : 104;
+    ctx.fillStyle = 'rgba(8,11,28,0.8)';
+    ctx.strokeStyle = 'rgba(94,200,229,0.3)';
+    ctx.lineWidth = 1;
+    ctx.fillRect(ix, iy, iw, ih); ctx.strokeRect(ix, iy, iw, ih);
+    var shown = state.spark && state.spark.t < 2.5 ? state.spark : null;
+    var gShow = shown ? shown.gap : gapM;
+    var pxPerMm = Math.min(14, (iw - 110) / Math.max(1, gShow * 1000));
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(shown ? 'LAST SPARK · MAGNIFIED' : 'SPARK WOULD JUMP · MAGNIFIED', ix + 8, iy + 14);
+    var fx = ix + 30, fy = iy + (narrow ? 50 : 58);
+    ctx.fillStyle = '#e9c6a5';
+    ctx.beginPath(); ctx.ellipse(fx, fy, 28, 12, 0, 0, Math.PI * 2); ctx.fill();
+    var gx = fx + 28 + gShow * 1000 * pxPerMm;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(ix + 1, iy + 18, iw - 2, ih - 34); ctx.clip();
+    var kr2 = narrow ? 30 : 40;
+    var kg2 = ctx.createRadialGradient(gx + kr2 * 0.7, fy - kr2 * 0.35, 3, gx + kr2, fy, kr2);
+    kg2.addColorStop(0, '#fff1c4'); kg2.addColorStop(1, '#b8860b');
+    ctx.fillStyle = kg2;
+    ctx.beginPath(); ctx.arc(gx + kr2, fy, kr2, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+    if (gShow > 0) {
+      ctx.strokeStyle = shown ? 'rgba(210,235,255,0.95)' : 'rgba(210,235,255,0.35)';
+      ctx.lineWidth = 1.6;
+      drawBolt(ctx, fx + 28, fy, gx, fy, 5, 3, 7);
+    }
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText(gShow > 0 ? 'gap ' + fmtGap(gShow) + ' (' + fmt(pxPerMm, 1) + ' px/mm)' : 'below ~330 V: no spark', ix + 8, iy + ih - 10);
+
+    if (state.myth && !narrow) {
+      ctx.fillStyle = 'rgba(8,11,28,0.8)';
+      var mbx = narrow ? 8 : W * 0.40, mby = narrow ? iy + ih + 8 : 14, mbw = narrow ? W - 16 : W * 0.58;
+      ctx.fillRect(mbx, mby, mbw, 50);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText(narrow ? 'Myth: the knob holds the charge' : 'Myth: the metal knob holds the charge', mbx + 10, mby + 20);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText('Then 0 steps, or humid air, would still zap you. It doesn’t.', mbx + 10, mby + 38);
+    }
+    if (shown && shown.t < 2.5) {
+      ctx.font = FONT_BIG;
+      ctx.fillStyle = shown.s.level > 0 ? '#ffc24a' : '#8b93ad';
+      ctx.fillText(shown.V < V_PASCHEN_MIN ? 'nothing' : (shown.s.level > 0 ? 'ZAP!' : 'tick (unfelt)'), knobX + 4, knobY - 26);
+    }
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var V = currentV();
+    var Vpk = peakVoltage(state.rh, state.shoe);
+
+    // ---- Chart 1: V vs steps (log V axis 100 V – 40 kV)
+    var L = 50, R = W - 16, T = 34, B = H * 0.47;
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Your voltage, step by step', 14, 22);
+    var VMIN = 100, VMAX = 40000;
+    function X1(n) { return L + n / 40 * (R - L); }
+    function Y1(v) { var lv = Math.log10(Math.max(VMIN, Math.min(VMAX, v))); return B - (lv - 2) / (Math.log10(VMAX) - 2) * (B - T); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.1)';
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    var ticks = [100, 300, 1000, 3000, 10000, 30000];
+    for (var i = 0; i < ticks.length; i++) {
+      ctx.beginPath(); ctx.moveTo(L, Y1(ticks[i])); ctx.lineTo(R, Y1(ticks[i])); ctx.stroke();
+      ctx.fillText(ticks[i] >= 1000 ? (ticks[i] / 1000) + 'k' : String(ticks[i]), L - 30, Y1(ticks[i]) + 3);
+    }
+    for (var n = 0; n <= 40; n += 10) ctx.fillText(String(n), X1(n) - 4, B + 13);
+    ctx.fillText('steps →', R - 44, B + 25);
+    // thresholds
+    var thr = [[V_FEEL, 'feel ~2.5 kV', '#ffc24a'], [V_HEAR, 'hear ~6 kV', '#ff9f6b'], [V_SEE, 'see ~8 kV', '#ff7e5f']];
+    for (i = 0; i < thr.length; i++) {
+      ctx.strokeStyle = thr[i][2];
+      ctx.globalAlpha = 0.55;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(L, Y1(thr[i][0])); ctx.lineTo(R, Y1(thr[i][0])); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = thr[i][2];
+      ctx.fillText(thr[i][1], L + 4 + i * 86, Y1(thr[i][0]) - 3);
+    }
+    // curve
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    for (n = 0; n <= 40; n += 0.5) {
+      var vv = bodyVoltage(n, state.rh, state.shoe);
+      if (n === 0) ctx.moveTo(X1(n), Y1(vv)); else ctx.lineTo(X1(n), Y1(vv));
+    }
+    ctx.stroke();
+    ctx.fillStyle = '#5ec8e5';
+    ctx.textAlign = 'right';
+    ctx.fillText('peak ' + fmtV(Vpk), R, Math.max(T + 10, Y1(Vpk) - 5));
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath(); ctx.arc(X1(state.steps), Y1(V), 5, 0, Math.PI * 2); ctx.fill();
+
+    // ---- Chart 2: breakdown voltage vs gap (Schumann), with current V
+    var T2 = B + 50, B2 = H - 30;
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('How far can the spark jump?', 14, T2 - 14);
+    var DMAX = 12; // mm
+    function X2(dmm) { return L + dmm / DMAX * (R - L); }
+    function Y2(kv) { return B2 - Math.min(1.05, kv / 40) * (B2 - T2); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.1)';
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    for (var kv = 0; kv <= 40; kv += 10) {
+      ctx.beginPath(); ctx.moveTo(L, Y2(kv)); ctx.lineTo(R, Y2(kv)); ctx.stroke();
+      ctx.fillText(kv + 'k', L - 26, Y2(kv) + 3);
+    }
+    for (var dm = 0; dm <= DMAX; dm += 2) ctx.fillText(String(dm), X2(dm) - 4, B2 + 13);
+    ctx.fillText('gap (mm)', R - 50, B2 + 13);
+    // 3 MV/m line
+    ctx.strokeStyle = 'rgba(255,194,74,0.45)';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(X2(0), Y2(0)); ctx.lineTo(X2(DMAX), Y2(E_BREAKDOWN * DMAX / 1000 / 1000)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,194,74,0.8)';
+    ctx.fillText('3 MV/m rule', X2(DMAX * 0.62), Y2(E_BREAKDOWN * DMAX * 0.62 / 1e6) - 8);
+    // Schumann curve
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (dm = 0; dm <= DMAX; dm += 0.1) {
+      var y = Y2(breakdownKV(dm / 10));
+      if (dm === 0) ctx.moveTo(X2(dm), y); else ctx.lineTo(X2(dm), y);
+    }
+    ctx.stroke();
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('air breakdown (Schumann)', X2(0.6), Y2(breakdownKV(0.95)) - 10);
+    // current V
+    var gm = sparkGapM(V) * 1000;
+    ctx.strokeStyle = '#ffc24a';
+    ctx.lineWidth = 1.4;
+    ctx.beginPath(); ctx.moveTo(L, Y2(V / 1000)); ctx.lineTo(X2(Math.min(DMAX, gm)), Y2(V / 1000)); ctx.lineTo(X2(Math.min(DMAX, gm)), B2); ctx.stroke();
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath(); ctx.arc(X2(Math.min(DMAX, gm)), Y2(V / 1000), 4.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillText(gm > 0 ? 'you: ' + fmtV(V) + ' → ' + fmt(gm, 1) + ' mm' : 'you: ' + fmtV(V) + ' → no spark', X2(Math.min(DMAX, gm)) + 8, Math.min(B2 - 6, Y2(V / 1000) + 14));
+  }
+
+  function renderReadout() {
+    var sp = state.spark && state.spark.t < 3 ? state.spark : null;
+    var V = sp ? sp.V : currentV();
+    var Q = bodyCharge(V), E = storedEnergy(V), gap = sparkGapM(V), s = sensation(V, state.key);
+    var html = '';
+    function kv(k, v, sub, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + sub + '</div></div>';
+    }
+    var tag = sp ? 'at the spark' : state.steps + ' steps';
+    kv('Body charge Q', fmtQ(Q), 'Q = C·V · C = 150 pF · ' + tag, '');
+    kv('Body voltage V', fmtV(V), 'peak here ' + fmtV(peakVoltage(state.rh, state.shoe)), V >= V_FEEL ? 'warm' : '');
+    var eTxt = E * 1000 >= 0.1 ? fmt(E * 1000, E * 1000 >= 10 ? 1 : 2) + ' mJ' : fmt(E * 1e6, 1) + ' µJ';
+    kv('Stored energy', eTxt, '½·C·V²', 'sun');
+    kv('Spark gap', fmtGap(gap), gap > 0 ? '3 MV/m rule: ' + fmtGap(gapRuleOfThumbM(V)) : 'below Paschen minimum ~330 V', '');
+    kv('Felt?', s.label, sp ? 'last touch' : 'if you touched now', s.level > 0 ? 'warm' : 'ok');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elStepsL.textContent = String(Math.round(state.steps));
+    elRhL.textContent = fmt(state.rh, 0) + ' %';
+    for (var k in shChips) setChip(shChips[k], state.shoe.key === k);
+    setChip(chipKey, state.key);
+    setChip(chipMyth, state.myth);
+    var V = currentV();
+    if (state.myth) elHint.textContent = 'Myth mode · the knob is drawn with charge (wrong). Real knobs are neutral; the zap needs charge on you.';
+    else if (state.rh >= 60) elHint.textContent = 'Humid air · a water film bleeds charge away, so walking tops out near ' + fmtV(peakVoltage(state.rh, state.shoe)) + '.';
+    else if (state.shoe.key === 'esd' || state.shoe.key === 'bare') elHint.textContent = 'Conductive path to the floor · charge leaks through your feet as fast as you make it.';
+    else if (V >= V_FEEL) elHint.textContent = 'Charged to ' + fmtV(V) + ' · touching metal now makes a spark you can feel.';
+    else elHint.textContent = 'Walk to build charge, then touch the knob.';
+    elSceneMeta.textContent = state.myth ? 'myth: knob charged ✗' : 'excess charge sits on you';
+    elChartMeta.textContent = 'V = Q/C · C = 150 pF';
+  }
+
+  function syncWalk() {
+    elWalk.textContent = state.walking ? 'Stop' : 'Walk';
+    elWalk.setAttribute('aria-pressed', state.walking ? 'true' : 'false');
+  }
+
+  function render() {
+    updateLabels();
+    renderReadout();
+    drawScene();
+    drawChart();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    if (state.walking) {
+      state.stepClock += dt;
+      state.walkPhase += dt / STEP_TIME * Math.PI;
+      state.walkX += dt;
+      if (state.stepClock >= STEP_TIME) {
+        state.stepClock -= STEP_TIME;
+        if (state.steps < 40) { state.steps += 1; elSteps.value = String(state.steps); }
+        else { state.walking = false; syncWalk(); }
+      }
+    }
+    if (state.touching) {
+      state.touch += dt / 0.9;
+      if (state.touch >= 1 && !state.spark_done) { discharge(); state.spark_done = true; }
+      if (state.touch >= 2.2) { state.touching = false; state.touch = 0; state.spark_done = false; }
+    }
+    if (state.spark) state.spark.t += dt;
+    if (state.flash > 0) state.flash = Math.max(0, state.flash - dt * 3);
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  elWalk.addEventListener('click', function () {
+    state.walking = !state.walking;
+    if (state.walking) { state.spark = null; if (state.steps >= 40) { state.steps = 0; elSteps.value = '0'; } }
+    syncWalk();
+  });
+  elTouch.addEventListener('click', startTouch);
+  Object.keys(shChips).forEach(function (k) {
+    shChips[k].addEventListener('click', function () { state.shoe = SHOES[k]; state.spark = null; updateLabels(); });
+  });
+  chipKey.addEventListener('click', function () { state.key = !state.key; updateLabels(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elSteps.addEventListener('input', function () { state.steps = parseFloat(elSteps.value); state.spark = null; updateLabels(); });
+  elRh.addEventListener('input', function () { state.rh = parseFloat(elRh.value); state.spark = null; updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elWalk.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  syncWalk();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__staticPhysics = {
+    peakVoltage: peakVoltage, bodyVoltage: bodyVoltage, bodyCharge: bodyCharge, storedEnergy: storedEnergy,
+    breakdownKV: breakdownKV, sparkGapM: sparkGapM, gapRuleOfThumbM: gapRuleOfThumbM, sensation: sensation,
+    SHOES: SHOES, C_BODY: C_BODY, C_HBM: C_HBM, V_DRY: V_DRY, V_HUMID: V_HUMID, V_PASCHEN_MIN: V_PASCHEN_MIN,
+    V_FEEL: V_FEEL, N_STEP: N_STEP, E_BREAKDOWN: E_BREAKDOWN
+  };
+  window.__staticState = state;
+})();
+</script>
+</body>
+</html>
