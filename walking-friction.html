@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Friction Helps You Walk — Static Friction Pushes You Forward, Not Back | Classroom</title>
+<meta name="description" content="Classroom friction explainer: your foot pushes the ground back, so static friction pushes you forward, up to μs·N. Try ice vs concrete. Live grip/slip readouts.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="friction helps you walk, static friction forward, walking physics, friction opposes motion misconception, coefficient of friction, ice slipping, classroom physics">
+<link rel="canonical" href="walking-friction.html">
+<meta property="og:title" content="Friction Helps You Walk">
+<meta property="og:description" content="Your foot pushes the ground backward; the ground’s static friction pushes you forward. On ice the grip limit μs·N is tiny, so you slip. Live classroom sim.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 400px; }
+@media (max-width: 720px) { .card canvas { height: 320px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · friction</a></p>
+  <h1>Friction helps you walk</h1>
+  <p class="lede">Friction doesn’t just slow things down. To start walking, your foot pushes the ground <strong>backward</strong>. By Newton’s third law the ground pushes your foot <strong>forward</strong>, and that forward push is <strong>static friction</strong>. It is the only horizontal force that can speed you up. It works until you ask for more than <strong>μ<sub>s</sub>·N</strong>, and then your foot slips.</p>
+
+  <p class="try"><b>Try this</b>Pick <strong>Ice</strong> and press <strong>Step off</strong>. Notice “friction needed” is bigger than “friction available,” so your foot skids back and you barely move.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnGo" title="Spacebar">Step off</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="sConcrete" aria-pressed="true">Rubber · concrete</button>
+      <button type="button" class="chip" id="sWood" aria-pressed="false">Rubber · wood</button>
+      <button type="button" class="chip" id="sTile" aria-pressed="false">Wet tile</button>
+      <button type="button" class="chip" id="sIce" aria-pressed="false">Ice</button>
+      <button type="button" class="chip" id="sZero" aria-pressed="false">Frictionless</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: friction always opposes motion</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Acceleration you ask for <em id="aLabel">+2.0 m/s²</em></span>
+        <input type="range" id="aDes" min="-6" max="8" step="0.1" value="2" aria-label="Desired forward acceleration in meters per second squared; negative means stopping">
+      </label>
+      <label class="sl grow">
+        <span>Walker mass <em id="mLabel">70 kg</em></span>
+        <input type="range" id="mass" min="20" max="120" step="1" value="70" aria-label="Walker mass in kilograms">
+      </label>
+      <span class="hint" id="modeHint">Negative acceleration = stopping. Friction then points backward: it opposes <em>slipping</em>, not motion.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Side view · forces on the foot</b><span id="walkMeta">slow motion ×0.4</span></div>
+      <canvas id="cvWalk" width="760" height="400" aria-label="Side view of a person stepping off, with friction, normal force, and the foot’s push on the ground"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Grip budget</b><span id="gripMeta">needed vs μs·N</span></div>
+      <canvas id="cvGrip" width="480" height="400" aria-label="Bars comparing friction needed with friction available, and a chart of actual versus requested acceleration"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>You push the ground back</h2>
+      <p>Your calf and hip muscles drive the planted foot backward against the floor. That force acts on the <em>ground</em> (and, very slightly, on the whole Earth). It can’t speed <em>you</em> up by itself.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>The ground pushes you forward</h2>
+      <p>Newton’s third law pairs it with an equal, opposite force on your foot: static friction, pointing <strong>forward</strong>. The sole doesn’t slide, so it’s static friction, and it does the accelerating: <code>F = m·a</code>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>The grip limit μ<sub>s</sub>·N</h2>
+      <p>Static friction can be anything up to <code>μ<sub>s</sub>·N</code>. On level ground N = mg, so the best you can do without slipping is <code>a<sub>max</sub> = μ<sub>s</sub>·g</code>. Mass cancels out. Ice caps you near 0.8 m/s²; dry concrete allows about 9.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Friction always opposes motion”</h2>
+      <p>Friction opposes <em>slipping between two surfaces</em>, not the motion of your body. Your foot tries to slide backward, so friction on it points forward, the same way you move. Toggle the myth. If friction pointed backward, nothing could ever push you forward, and on a frictionless floor you truly can’t start walking.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Friction facts">
+    <div class="stat">
+      <div class="k">Rubber on dry concrete</div>
+      <div class="v">μs ≈ 0.8–1.0</div>
+      <div class="s">typical range</div>
+    </div>
+    <div class="stat">
+      <div class="k">Shoe on ice</div>
+      <div class="v">μs ≈ 0.05–0.1</div>
+      <div class="s">near 0 °C, wet ice is worse</div>
+    </div>
+    <div class="stat">
+      <div class="k">Normal walking needs</div>
+      <div class="v">≈ 0.2</div>
+      <div class="s">peak required μ · gait studies</div>
+    </div>
+    <div class="stat">
+      <div class="k">Grip limit</div>
+      <div class="v">a ≤ μs·g</div>
+      <div class="s">level ground · mass cancels</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Coulomb friction model.</strong> Static friction adjusts to whatever is needed up to <code>μ<sub>s</sub>·N</code>. If more is needed, the foot slides and kinetic friction <code>μ<sub>k</sub>·N</code> (smaller) acts, in the direction that opposes the sliding. This is the standard intro-physics model. Real rubber friction depends on speed, contact area, temperature, and tread.</li>
+      <li><strong>Coefficients</strong> (typical ranges, not measured for any particular shoe): rubber sole on dry concrete μ<sub>s</sub> 0.9 (0.8–1.0), μ<sub>k</sub> 0.7; rubber on dry sealed wood μ<sub>s</sub> 0.6 (~0.5–0.7), μ<sub>k</sub> 0.45; shoe on wet glazed tile μ<sub>s</sub> 0.3 (~0.2–0.4), μ<sub>k</sub> 0.2; shoe on ice μ<sub>s</sub> 0.08 (0.05–0.1), μ<sub>k</sub> 0.03. Values for wet ice near 0 °C can fall even lower.</li>
+      <li><strong>Forces.</strong> Level ground, so <code>N = m·g</code> with g = 9.80665 m/s². Friction needed for the requested acceleration: <code>F = m·|a|</code>. Grip if <code>F ≤ μ<sub>s</sub>·N</code>. Otherwise slip, with actual <code>|a| = μ<sub>k</sub>·g</code>. The foot’s push on the ground is drawn as the equal and opposite third-law partner. Air drag is ignored.</li>
+      <li><strong>Simplifications.</strong> The whole push-off is treated as one steady horizontal force at a single foot. Real gait alternates feet, and the vertical ground force swings above and below mg during each step. That is why the “needed” friction ratio in gait studies peaks near 0.17–0.25 for level walking (e.g. Redfern et al., <em>Ergonomics</em> 2001; Chang et al., <em>Applied Ergonomics</em> 2016). The body lean drawn is <code>tan θ = a/g</code>, the lean that aims the ground force through the center of mass.</li>
+      <li><strong>Animation.</strong> Each step-off is 1.5 s of steady push shown in slow motion (×0.4), then a brief coast before it repeats. Speeds are real m/s. The camera follows the walker.</li>
+      <li><strong>For teachers.</strong> This covers forces and Newton’s laws (NGSS MS-PS2-1, HS-PS2-1) and goes with the horse-and-cart third-law puzzle. The force-concept misconception is “friction always opposes motion”; the better rule is “friction opposes relative slipping at the contact.” It is also why cars, bikes, and wheels need friction to accelerate or brake.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-walking-friction.js =====
+  var G = 9.80665; // m/s²
+  var SURFACES = {
+    concrete: { key: 'concrete', label: 'Rubber · dry concrete', muS: 0.9, muK: 0.7, range: '0.8–1.0' },
+    wood: { key: 'wood', label: 'Rubber · dry wood', muS: 0.6, muK: 0.45, range: '~0.5–0.7' },
+    tile: { key: 'tile', label: 'Shoe · wet tile', muS: 0.3, muK: 0.2, range: '~0.2–0.4' },
+    ice: { key: 'ice', label: 'Shoe · ice', muS: 0.08, muK: 0.03, range: '0.05–0.1' },
+    zero: { key: 'zero', label: 'Frictionless (ideal)', muS: 0, muK: 0, range: '0' }
+  };
+  var T_PUSH = 1.5;     // s of push per step-off
+  var T_COAST = 0.8;    // s of coast shown afterward
+  var SLOWMO = 0.4;
+  var V_JOG = 2.5;      // m/s starting speed for braking runs
+
+  function normalForce(m) { return m * G; }
+
+  function maxStaticFriction(muS, m) { return muS * normalForce(m); }
+
+  // Friction on the foot for a requested horizontal acceleration aDes (+ forward).
+  // Returns signed friction (+ forward), actual acceleration, and grip state.
+  function footForces(m, aDes, surf) {
+    var N = normalForce(m);
+    var need = m * Math.abs(aDes);
+    var avail = surf.muS * N;
+    var dir = aDes > 0 ? 1 : (aDes < 0 ? -1 : 0);
+    var grip = need <= avail + 1e-12;
+    var fMag = grip ? need : surf.muK * N;
+    var friction = dir * fMag;
+    return {
+      N: N, need: need, avail: avail, grip: grip,
+      friction: friction,            // on the foot, + forward
+      footOnGround: -friction,       // third-law partner, on the ground
+      a: friction / m,
+      aMaxGrip: surf.muS * G,
+      slipKinetic: !grip
+    };
+  }
+
+  // Myth: “friction always opposes motion” → friction points backward whenever you move/push forward
+  function mythFriction(m, aDes, surf) {
+    var real = footForces(m, aDes, surf);
+    var motionDir = aDes >= 0 ? 1 : -1;
+    var f = -motionDir * Math.abs(real.friction);
+    return { friction: f, a: f / m };
+  }
+
+  function leanAngle(a) { return Math.atan2(a, G); }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_BIG = '700 20px Fraunces, Georgia, serif';
+
+  var state = {
+    surf: SURFACES.concrete, aDes: 2, m: 70, myth: false,
+    x: 0, v: 0, phase: 0, t: 0, mode: 'idle', footSlip: 0, lastTs: 0, anim: 0, skids: []
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elGo = $('btnGo'), chipMyth = $('chipMyth');
+  var sChips = { concrete: $('sConcrete'), wood: $('sWood'), tile: $('sTile'), ice: $('sIce'), zero: $('sZero') };
+  var elA = $('aDes'), elM = $('mass'), elAL = $('aLabel'), elML = $('mLabel');
+  var elHint = $('modeHint'), elWalkMeta = $('walkMeta'), elGripMeta = $('gripMeta'), elReadout = $('readout');
+  var surfaces = {
+    walk: { canvas: $('cvWalk'), ctx: null, w: 0, h: 0, cssH: 400 },
+    grip: { canvas: $('cvGrip'), ctx: null, w: 0, h: 0, cssH: 400 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  function sgn(x, d) { return (x > 0 ? '+' : (x < 0 ? '−' : '')) + Math.abs(x).toFixed(d); }
+
+  function startRun() {
+    state.x = 0;
+    state.v = state.aDes < 0 ? V_JOG : 0;
+    state.t = 0;
+    state.mode = 'push';
+    state.footSlip = 0;
+    state.skids = [];
+  }
+
+  function stepWalker(dt) {
+    var ff = footForces(state.m, state.aDes, state.surf);
+    if (state.mode === 'push') {
+      var a = ff.a;
+      // cannot brake past zero
+      if (state.aDes < 0 && state.v + a * dt < 0) { a = -state.v / dt; }
+      state.v += a * dt;
+      state.x += state.v * dt;
+      state.t += dt;
+      if (!ff.grip && Math.abs(state.aDes) > 0) {
+        state.footSlip += (state.aDes > 0 ? -1 : 1) * 0.9 * dt;
+        if (state.skids.length < 200) state.skids.push(state.x + state.footSlip);
+      }
+      if (state.t >= T_PUSH || (state.aDes < 0 && state.v <= 1e-6)) { state.mode = 'coast'; state.t = 0; }
+    } else if (state.mode === 'coast') {
+      state.x += state.v * dt;
+      state.t += dt;
+      if (state.t >= T_COAST) startRun();
+    }
+    state.phase += state.v * dt / 0.7 * Math.PI;
+  }
+
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len, ah = head || 9;
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.5, y2 - uy * ah + ux * ah * 0.5);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.5, y2 - uy * ah - ux * ah * 0.5);
+    ctx.closePath(); ctx.fill();
+  }
+
+  var GROUND_STYLE = {
+    concrete: { fill: '#3a3f4f', line: 'rgba(200,205,220,0.10)', tile: 0.5 },
+    wood: { fill: '#5a3d24', line: 'rgba(30,18,8,0.55)', tile: 0.9 },
+    tile: { fill: '#2f4a5e', line: 'rgba(220,240,255,0.35)', tile: 0.3 },
+    ice: { fill: '#9fd3ea', line: 'rgba(255,255,255,0.5)', tile: 1.3 },
+    zero: { fill: '#2a2f45', line: 'rgba(255,194,74,0.25)', tile: 1.0 }
+  };
+
+  function drawWalk() {
+    var surf = surfaces.walk;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    var sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, '#0b1230');
+    sky.addColorStop(1, '#0a0f24');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    var S = Math.min(105, H / 3.2, W / 6.5);     // px per meter
+    var gy = H - 72;
+    var cx = W * 0.40;
+    var gs = GROUND_STYLE[state.surf.key];
+    ctx.fillStyle = gs.fill;
+    ctx.fillRect(0, gy, W, H - gy);
+    // Ground texture scrolls with walker position
+    ctx.strokeStyle = gs.line;
+    ctx.lineWidth = 1;
+    var tile = gs.tile * S;
+    var off = -((state.x * S) % tile);
+    ctx.beginPath();
+    for (var tx = off; tx < W; tx += tile) { ctx.moveTo(tx, gy); ctx.lineTo(tx, H); }
+    if (state.surf.key === 'wood' || state.surf.key === 'tile') { ctx.moveTo(0, gy + 26); ctx.lineTo(W, gy + 26); }
+    ctx.stroke();
+    if (state.surf.key === 'tile') {
+      ctx.fillStyle = 'rgba(160,220,255,0.18)';
+      for (var pw = off; pw < W; pw += tile * 2.3) ctx.fillRect(pw + 6, gy + 2, tile * 0.9, 4);
+    }
+    if (state.surf.key === 'ice') {
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fillRect(0, gy, W, 3);
+    }
+    // Skid marks
+    ctx.fillStyle = 'rgba(10,10,20,0.45)';
+    for (var s = 0; s < state.skids.length; s++) {
+      var skx = cx + (state.skids[s] - state.x) * S;
+      if (skx > -10 && skx < W + 10) ctx.fillRect(skx - 6, gy - 1, 12, 3);
+    }
+
+    var ff = footForces(state.m, state.aDes, state.surf);
+    var pushing = state.mode === 'push';
+    var aNow = pushing ? ff.a : 0;
+    var lean = leanAngle(aNow);
+    var bodyScale = 0.78 + 0.22 * Math.min(1, state.m / 70);
+    var hip = 0.95 * S * bodyScale, torso = 0.62 * S * bodyScale, legL = 0.95 * S * bodyScale;
+    // Hips follow the planted foot during push; legs swing with phase
+    var hipX = cx, hipY = gy - hip;
+    var sw = state.v > 0.02 || pushing ? Math.sin(state.phase) : 0;
+    var pdir = state.aDes >= 0 ? 1 : -1; // pushing off (foot behind) vs braking (foot planted ahead)
+    var plantedFootX = hipX - Math.sin(lean) * hip - (pushing ? pdir * 0.28 * S : 0);
+    if (!ff.grip && pushing) plantedFootX = hipX - pdir * 0.45 * S + Math.max(-0.35 * S, Math.min(0.35 * S, state.footSlip * S * 0.6));
+    var otherFootX = hipX + (0.25 + 0.2 * sw) * S;
+    var otherFootY = gy - Math.max(0, Math.cos(state.phase)) * 0.12 * S;
+    // Torso leaning by tan θ = a/g
+    var shX = hipX + Math.sin(lean) * torso, shY = hipY - Math.cos(lean) * torso;
+    var headR = 0.13 * S * bodyScale;
+    var comX = hipX + Math.sin(lean) * torso * 0.3, comY = hipY - Math.cos(lean) * torso * 0.3;
+
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#d7def2';
+    ctx.lineWidth = 6;
+    // legs
+    ctx.beginPath();
+    ctx.moveTo(hipX, hipY);
+    ctx.lineTo((hipX + plantedFootX) / 2 - 4, (hipY + gy) / 2);
+    ctx.lineTo(plantedFootX, gy - 4);
+    ctx.moveTo(hipX, hipY);
+    ctx.lineTo((hipX + otherFootX) / 2 + 8, (hipY + otherFootY) / 2 - 4);
+    ctx.lineTo(otherFootX, otherFootY - 4);
+    ctx.stroke();
+    // torso + arms
+    ctx.beginPath();
+    ctx.moveTo(hipX, hipY); ctx.lineTo(shX, shY);
+    ctx.moveTo(shX, shY + 8); ctx.lineTo(shX - (0.25 + 0.15 * sw) * S * 0.6, shY + 0.45 * S * bodyScale);
+    ctx.moveTo(shX, shY + 8); ctx.lineTo(shX + (0.25 + 0.15 * sw) * S * 0.6, shY + 0.42 * S * bodyScale);
+    ctx.stroke();
+    ctx.fillStyle = '#d7def2';
+    ctx.beginPath();
+    ctx.arc(shX + Math.sin(lean) * headR * 1.6, shY - headR * 1.4, headR, 0, Math.PI * 2);
+    ctx.fill();
+    // shoes
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillRect(plantedFootX - 8, gy - 6, 22, 6);
+    ctx.fillRect(otherFootX - 8, otherFootY - 6, 22, 6);
+
+    // Forces
+    var fScale = 0.16 * S / 100; // px per N
+    var fArrow = state.myth ? mythFriction(state.m, state.aDes, state.surf).friction : ff.friction;
+    var fl = Math.max(-2.2 * S, Math.min(2.2 * S, fArrow * fScale * 2));
+    var fy = gy + 18;
+    if (pushing && Math.abs(fArrow) > 0.01) {
+      // Friction on the foot (ground → you)
+      drawArrow(ctx, plantedFootX + 3, fy, plantedFootX + 3 + fl, fy, state.myth ? '#ff7e5f' : '#5ec8e5', 3.2, 10);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = state.myth ? '#ff7e5f' : '#5ec8e5';
+      var lblX = fl >= 0 ? plantedFootX + 8 : plantedFootX + fl - 4;
+      ctx.fillText((state.myth ? 'myth: friction on you ' : 'friction on YOU ') + fmt(Math.abs(fArrow), 0) + ' N', Math.max(4, Math.min(W - 190, lblX)), fy + 20);
+      // Foot on ground (third-law partner), drawn on the ground surface
+      if (!state.myth) {
+        drawArrow(ctx, plantedFootX + 3, gy + 44, plantedFootX + 3 - fl, gy + 44, state.surf.key === 'ice' ? '#1a3550' : 'rgba(168,176,200,0.85)', 2, 8);
+        ctx.fillStyle = state.surf.key === 'ice' ? '#1a3550' : 'rgba(168,176,200,0.95)';
+        ctx.fillText('your foot on GROUND', Math.max(4, Math.min(W - 150, fl >= 0 ? plantedFootX - fl - 150 : plantedFootX - fl + 10)), gy + 62);
+      } else {
+        ctx.font = FONT_BIG;
+        ctx.fillStyle = '#ff7e5f';
+        ctx.fillText('✗', plantedFootX + fl - 26, fy + 6);
+      }
+    }
+    // Normal force & weight
+    var nLen = Math.min(0.9 * S, 30 + state.m * 0.5);
+    drawArrow(ctx, plantedFootX + 16, gy - 2, plantedFootX + 16, gy - 2 - nLen, 'rgba(255,194,74,0.75)', 2, 8);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(255,194,74,0.9)';
+    ctx.fillText('N = mg', plantedFootX + 22, gy - nLen + 4);
+    drawArrow(ctx, comX, comY, comX, comY + nLen * 0.8, 'rgba(215,222,242,0.5)', 1.8, 7);
+    ctx.fillStyle = 'rgba(215,222,242,0.7)';
+    ctx.fillText('mg', comX - 22, comY + nLen * 0.8);
+    // Net force at centre of mass
+    var aShown = state.myth && pushing ? mythFriction(state.m, state.aDes, state.surf).a : aNow;
+    if (pushing && Math.abs(aShown) > 0.01) {
+      var al = Math.max(-1.6 * S, Math.min(1.6 * S, aShown * 0.12 * S));
+      var ay = shY - headR * 3.4 - 12;
+      var ax0 = shX + Math.sin(lean) * headR * 1.6;
+      drawArrow(ctx, ax0, ay, ax0 + al, ay, '#ffc24a', 3, 10);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('net a = ' + sgn(aShown, 2) + ' m/s²', ax0 + (al > 0 ? al + 8 : al - 150), ay + 4);
+    }
+    if (!ff.grip && pushing && !state.myth && Math.abs(state.aDes) > 0) {
+      ctx.font = FONT_BIG;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('SLIP!', plantedFootX - 70, gy - 40);
+    }
+    if (state.myth) {
+      ctx.fillStyle = 'rgba(8,11,28,0.75)';
+      ctx.fillRect(12, 12, Math.min(W - 24, 420), 44);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth: friction points backward', 22, 32);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText('Then the only horizontal force on you points back — you could never start.', 22, 48);
+    }
+    // HUD
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    ctx.fillText(state.surf.label + ' · μs ' + fmt(state.surf.muS, 2) + ' · μk ' + fmt(state.surf.muK, 2), W - 12, 24);
+    ctx.fillText('speed ' + fmt(state.v, 2) + ' m/s · ' + (state.mode === 'push' ? 'pushing' : 'coasting'), W - 12, 40);
+    ctx.textAlign = 'left';
+  }
+
+  function drawGrip() {
+    var surf = surfaces.grip;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var ff = footForces(state.m, state.aDes, state.surf);
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Friction needed vs available', 14, 24);
+
+    // Bars
+    var bx = 18, bw = W - 36, by = 44;
+    var maxF = Math.max(ff.need, ff.avail, state.m * G * 0.2, 1) * 1.15;
+    function bar(y, val, color, label) {
+      ctx.fillStyle = 'rgba(94,200,229,0.08)';
+      ctx.fillRect(bx, y, bw, 16);
+      ctx.fillStyle = color;
+      ctx.fillRect(bx, y, bw * Math.min(1, val / maxF), 16);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(label + '  ' + fmt(val, 0) + ' N', bx, y - 4);
+    }
+    bar(by + 12, ff.need, ff.grip ? '#5ec8e5' : '#ff7e5f', 'needed m·|a|');
+    bar(by + 52, ff.avail, 'rgba(255,194,74,0.8)', 'available μs·N');
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = ff.grip ? '#7ee0a1' : '#ff7e5f';
+    ctx.fillText(ff.grip ? 'GRIP — static friction holds' : 'SLIP — kinetic friction only', bx, by + 96);
+
+    // Chart: actual |a| vs requested |a|
+    var L = 44, R = W - 16, T = by + 126, B = H - 34;
+    var AMAX = 8;
+    function X(a) { return L + a / AMAX * (R - L); }
+    function Y(a) { return B - a / AMAX * (B - T); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    for (var a = 0; a <= AMAX; a += 2) {
+      ctx.beginPath(); ctx.moveTo(X(a), T); ctx.lineTo(X(a), B); ctx.moveTo(L, Y(a)); ctx.lineTo(R, Y(a)); ctx.stroke();
+      ctx.fillText(String(a), X(a) - 3, B + 13);
+      ctx.fillText(String(a), L - 14, Y(a) + 3);
+    }
+    ctx.fillText('requested |a| (m/s²)', (L + R) / 2 - 56, B + 26);
+    ctx.save();
+    ctx.translate(12, (T + B) / 2 + 40);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('actual |a|', 0, 0);
+    ctx.restore();
+    // Ideal y=x
+    ctx.strokeStyle = 'rgba(215,222,242,0.18)';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(AMAX), Y(AMAX)); ctx.stroke();
+    ctx.setLineDash([]);
+    // Curves for all surfaces (faint) and the current one (bright)
+    var keys = ['concrete', 'wood', 'tile', 'ice', 'zero'];
+    for (var k = 0; k < keys.length; k++) {
+      var sf = SURFACES[keys[k]];
+      var cur = sf === state.surf;
+      var am = Math.min(AMAX, sf.muS * G), ak = sf.muK * G;
+      ctx.strokeStyle = cur ? '#5ec8e5' : 'rgba(94,200,229,0.22)';
+      ctx.lineWidth = cur ? 2.4 : 1.2;
+      ctx.beginPath();
+      ctx.moveTo(X(0), Y(0));
+      ctx.lineTo(X(am), Y(am));
+      if (am < AMAX) { ctx.lineTo(X(am), Y(ak)); ctx.lineTo(X(AMAX), Y(ak)); }
+      ctx.stroke();
+      if (cur) {
+        ctx.fillStyle = '#5ec8e5';
+        ctx.fillText('grip limit μs·g = ' + fmt(sf.muS * G, 2), Math.min(X(am) + 6, R - 150), Math.max(T + 10, Y(am) - 6));
+      }
+    }
+    var ar = Math.min(AMAX, Math.abs(state.aDes)), aa = Math.min(AMAX, Math.abs(ff.a));
+    ctx.fillStyle = ff.grip ? '#ffc24a' : '#ff7e5f';
+    ctx.beginPath(); ctx.arc(X(ar), Y(aa), 6, 0, Math.PI * 2); ctx.fill();
+  }
+
+  function renderReadout() {
+    var ff = footForces(state.m, state.aDes, state.surf);
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Friction needed', fmt(ff.need, 0) + ' N', 'm·|a| = ' + fmt(state.m, 0) + ' kg × ' + fmt(Math.abs(state.aDes), 1) + ' m/s²', ff.grip ? '' : 'warm');
+    kv('Friction available', fmt(ff.avail, 0) + ' N', 'μs·N = ' + fmt(state.surf.muS, 2) + ' × ' + fmt(ff.N, 0) + ' N', 'sun');
+    kv('Grip or slip', ff.grip ? 'GRIP' : 'SLIP', ff.grip ? 'static friction = exactly what’s needed' : 'kinetic μk·N = ' + fmt(state.surf.muK * ff.N, 0) + ' N', ff.grip ? 'ok' : 'warm');
+    var m = mythFriction(state.m, state.aDes, state.surf);
+    kv('Forward acceleration', sgn(ff.a, 2) + ' m/s²', state.myth ? 'myth would give ' + sgn(m.a, 2) + ' m/s²' : (state.aDes < 0 ? 'braking: friction points back' : 'friction points forward'), state.myth ? 'warm' : '');
+    kv('Max grip accel', fmt(ff.aMaxGrip, 2) + ' m/s²', 'μs·g · same for any mass', '');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elAL.textContent = sgn(state.aDes, 1) + ' m/s²';
+    elML.textContent = fmt(state.m, 0) + ' kg';
+    for (var k in sChips) setChip(sChips[k], state.surf.key === k);
+    setChip(chipMyth, state.myth);
+    var ff = footForces(state.m, state.aDes, state.surf);
+    if (state.myth) elHint.textContent = 'Myth mode · arrow drawn backward (wrong). The foot slides back relative to the floor, so real friction on it points forward.';
+    else if (state.surf.key === 'zero') elHint.textContent = 'Frictionless · the floor can’t push you horizontally at all. Your foot just slides back: a = 0.';
+    else if (state.aDes < 0) elHint.textContent = 'Stopping · your foot pushes the floor forward, so friction on you points backward. It opposes slipping, not motion.';
+    else if (!ff.grip) elHint.textContent = 'Asking for more than μs·N · the sole breaks loose and only kinetic friction μk·N acts.';
+    else elHint.textContent = 'Grip · static friction supplies exactly m·a, pointing forward, the direction you go.';
+    elWalkMeta.textContent = 'slow motion ×' + SLOWMO + ' · lean tan θ = a/g';
+    elGripMeta.textContent = ff.grip ? 'needed ≤ μs·N' : 'needed > μs·N';
+  }
+
+  function render() {
+    updateLabels();
+    renderReadout();
+    drawWalk();
+    drawGrip();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    if (state.mode !== 'idle') stepWalker(dt * SLOWMO);
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  elGo.addEventListener('click', function () { startRun(); });
+  Object.keys(sChips).forEach(function (k) {
+    sChips[k].addEventListener('click', function () { state.surf = SURFACES[k]; startRun(); updateLabels(); });
+  });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elA.addEventListener('input', function () {
+    var was = state.aDes;
+    state.aDes = parseFloat(elA.value);
+    if ((was < 0) !== (state.aDes < 0)) startRun();
+    updateLabels();
+  });
+  elM.addEventListener('input', function () { state.m = parseFloat(elM.value); updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); startRun(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  startRun();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__walkPhysics = {
+    footForces: footForces, mythFriction: mythFriction, maxStaticFriction: maxStaticFriction,
+    normalForce: normalForce, leanAngle: leanAngle, SURFACES: SURFACES, G: G, stepWalker: stepWalker
+  };
+  window.__walkState = state;
+})();
+</script>
+</body>
+</html>
