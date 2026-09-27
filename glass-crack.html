@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Hot Water Cracks a Cold Glass — It’s the Temperature Difference, Not the Heat</title>
+<meta name="description" content="Classroom thermal-shock explainer: hot water cracks cold glass because the wall heats unevenly. Live 1D conduction, σ≈EαΔT/(1−ν), Pyrex vs soda-lime.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="thermal shock, glass cracking, thermal stress, thermal expansion, borosilicate, Pyrex, soda-lime glass, heat conduction, misconception, classroom physics">
+<meta property="og:title" content="Why Hot Water Cracks a Cold Glass">
+<meta property="og:description" content="Boiling water isn’t “too hot” for glass. The inner wall heats and expands while the outer wall is still cold. Live temperature profile and thermal-stress meter for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+.lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+.btn.pour { background: rgba(255, 126, 95, 0.12); color: var(--warm); border-color: rgba(255, 126, 95, 0.4); min-width: 96px; }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · thermal shock</a></p>
+  <h1>Why hot water cracks a cold glass</h1>
+  <p class="lede">Glass doesn’t mind being hot. It minds being <strong>unevenly</strong> hot. Glass conducts heat poorly, so boiling water heats the <strong>inner surface</strong> in a fraction of a second while the outer surface is still fridge-cold. The hot layer tries to expand, the cold layer holds it back, and the outer surface is stretched. Glass is weak in tension, so a scratch there can run into a crack.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Pour</strong> with the ice-cold soda-lime glass. Then switch to <strong>borosilicate</strong> and pour again. Same boiling water, same ΔT across the wall — about a third of the stress.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn pour" id="btnPour">Pour</button>
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: “too hot”</button>
+    </div>
+    <div class="row">
+      <span class="lbl">Scenario</span>
+      <button type="button" class="chip on" id="preIce">Ice-cold glass + boiling</button>
+      <button type="button" class="chip" id="preRoom">Room glass + boiling</button>
+      <button type="button" class="chip" id="preWarm">Warmed glass + boiling</button>
+      <button type="button" class="chip" id="preHot">Hot glass + ice water</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Glass starts at <em id="tgLabel">2 °C</em></span>
+        <input type="range" id="tg" min="-18" max="100" step="1" value="2" aria-label="Initial glass temperature in Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Water poured at <em id="twLabel">100 °C</em></span>
+        <input type="range" id="tw" min="0" max="100" step="1" value="100" aria-label="Water temperature in Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Wall thickness <em id="lLabel">3.5 mm</em></span>
+        <input type="range" id="thick" min="1" max="6" step="0.1" value="3.5" aria-label="Glass wall thickness in millimetres">
+      </label>
+    </div>
+    <div class="row">
+      <span class="lbl">Glass</span>
+      <button type="button" class="chip on" id="gSoda">Soda-lime (everyday)</button>
+      <button type="button" class="chip" id="gBoro">Borosilicate (Pyrex-type)</button>
+      <button type="button" class="chip" id="gTemp">Tempered soda-lime</button>
+      <span class="hint" id="modeHint"></span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Glass wall cross-section</b><span id="sceneMeta">inner · outer</span></div>
+      <canvas id="cvScene" width="760" height="420" aria-label="Glass tumbler with poured water and a zoomed view of the wall temperature profile and stress"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Temperatures + stress</b><span id="chartMeta">vs time after pouring</span></div>
+      <canvas id="cvChart" width="520" height="420" aria-label="Charts of inner and outer surface temperature and thermal stress versus time, with the glass strength band"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Glass is a poor conductor</h2>
+      <p>Soda-lime glass conducts heat about 200× worse than aluminium (k ≈ 1 W/m·K). Heat soaks through a 3–4 mm wall over tens of seconds, but the inner surface jumps almost to the water temperature in under a second. For a moment the wall holds a steep temperature difference.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Hot side expands, cold side resists</h2>
+      <p>Each layer wants to grow by <code>α·ΔT</code>. The layers are one solid piece, so the hot inner layer is squeezed (compression) and the cold outer layer is stretched (tension). A rough estimate of the stress is <code>σ ≈ E·α·ΔT / (1 − ν)</code>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Glass fails in tension at a flaw</h2>
+      <p>Glass is very strong when squeezed but breaks when stretched at microscopic surface scratches. In practice that happens at around 30–70 MPa for annealed glass. The crack starts on the <strong>cold, stretched outer surface</strong>. Borosilicate expands only ~⅓ as much (α ≈ 3.3×10⁻⁶ /K), so the same ΔT makes about a third of the stress.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Boiling water is too hot for glass”</h2>
+      <p>Glass is formed at ~1000 °C and softens around 550–600 °C. 100 °C is nothing to it. Warm the glass first and boiling water is usually fine. Pour <em>ice water into a hot glass</em> and it can crack with no hot water at all. What matters is the <strong>difference across the wall</strong>, not the water’s temperature.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Thermal shock reference numbers">
+    <div class="stat">
+      <div class="k">Soda-lime Eα/(1−ν)</div>
+      <div class="v">≈ 0.81 MPa/K</div>
+      <div class="s">E 70 GPa · α 9×10⁻⁶ · ν 0.22</div>
+    </div>
+    <div class="stat">
+      <div class="k">Borosilicate Eα/(1−ν)</div>
+      <div class="v">≈ 0.26 MPa/K</div>
+      <div class="s">E 64 GPa · α 3.3×10⁻⁶ · ν 0.20</div>
+    </div>
+    <div class="stat">
+      <div class="k">Practical strength</div>
+      <div class="v">30–70 MPa</div>
+      <div class="s">annealed glass · set by flaws</div>
+    </div>
+    <div class="stat">
+      <div class="k">Crack starts</div>
+      <div class="v">outer surface</div>
+      <div class="s">cold side in tension (on heating)</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Heat flow: 1D conduction through the wall.</strong> <code>∂T/∂t = (k/ρc)·∂²T/∂x²</code> across the wall thickness, solved with an explicit finite-difference scheme (25 nodes, stable time step chosen automatically). Inner surface: convection to the water, <code>h = 1500 W/m²·K</code> (freshly poured, moving water; real values ~500–5000). Outer surface: still air at 22 °C, <code>h = 10 W/m²·K</code>. The water temperature is held fixed (a big pour relative to the glass). Curvature, the base, the rim and the waterline are not modeled.</li>
+      <li><strong style="color:var(--text)">Stress: constrained thermal-shock estimate.</strong> The stress meter uses the standard engineering screen <code>σ ≈ E·α·(T<sub>in</sub> − T<sub>out</sub>) / (1 − ν)</code>. It is biaxial (hoop + axial), with the colder surface in tension. This is a deliberately <em>conservative</em> value that treats the cold surface as fully held by the rest of the glass. A free, flat slab with the same instantaneous profile carries less: <code>σ(x) = Eα(T̄ − T(x))/(1 − ν)</code>, shown as the “free-slab” sub-reading, typically 30–50% of the screen value. Real tumblers sit in between. Their thick bases, rims and the sharp hot/cold boundary at the waterline add constraint, and the waterline and base are where many real cracks start.</li>
+      <li><strong style="color:var(--text)">Materials.</strong> Soda-lime: <code>E = 70 GPa, α = 9.0×10⁻⁶ /K, ν = 0.22, k = 1.0 W/m·K, ρ = 2500 kg/m³, c = 840 J/kg·K</code>. Borosilicate 3.3 (Pyrex/Duran-type): <code>E = 64 GPa, α = 3.3×10⁻⁶ /K, ν = 0.20, k = 1.14, ρ = 2230, c = 830</code>. Tempered soda-lime has the same heat and elastic properties, but its surface is pre-compressed by roughly 80–120 MPa, so tension has to cancel that first.</li>
+      <li><strong style="color:var(--text)">Strength is statistical, not a single number.</strong> Glass breaks at surface flaws. Annealed glass in real use (scratched, washed, chipped) typically fails between ~30 and 70 MPa. The verdict uses <strong>below 30 MPa: survives</strong>, <strong>30–45 MPa: at risk</strong> (a flawed glass may go), and <strong>45 MPa and up: likely cracks</strong>. Tempered uses 100 / 150 MPa. A pristine lab rod can survive far more, and a deeply scratched tumbler less. Treat verdicts as “likely,” not certain.</li>
+      <li><strong style="color:var(--text)">Where the crack starts.</strong> When hot water meets cold glass, the inner surface is in compression and the <strong>outer surface is in tension</strong>, so fracture typically starts on the outside and runs through the wall. When cold water meets hot glass, the signs flip and the wetted inner surface is stretched. That is often the more dangerous case, because the tensile surface is the one being shocked. The simple screen formula treats the two cases alike, and the free-slab sub-reading shows the difference.</li>
+      <li><strong style="color:var(--text)">Thickness.</strong> Thicker walls take longer to even out (time ∝ L²) and hold a larger peak temperature difference. That is why thin lab glass and thin-walled tea glasses tolerate hot water better than thick tumblers and jars.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Thermal expansion, heat conduction and material properties (NGSS MS-PS1, HS-PS3). Safety: do not demonstrate cracking with real glassware near students. Use this page instead. Name the misconception: “boiling water is too hot for glass.”</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics (exported; checked by validate-glass-crack.js) =====
+  var H_IN = 1500;   // W/m²K, poured water on inner surface
+  var H_OUT = 10;    // W/m²K, still air outside
+  var T_AIR = 22;    // °C, room air
+  var N_NODES = 25;
+  var GLASSES = {
+    soda:     { name: 'Soda-lime',          E: 70e9, alpha: 9.0e-6, nu: 0.22, k: 1.0,  rho: 2500, c: 840, sLow: 30,  sCrack: 45 },
+    boro:     { name: 'Borosilicate',       E: 64e9, alpha: 3.3e-6, nu: 0.20, k: 1.14, rho: 2230, c: 830, sLow: 30,  sCrack: 45 },
+    tempered: { name: 'Tempered soda-lime', E: 70e9, alpha: 9.0e-6, nu: 0.22, k: 1.0,  rho: 2500, c: 840, sLow: 100, sCrack: 150 }
+  };
+
+  // MPa per kelvin of constrained temperature difference: Eα/(1−ν)
+  function stressPerKelvin(g) {
+    return g.E * g.alpha / (1 - g.nu) / 1e6;
+  }
+  // Constrained thermal-shock screen σ = Eα|ΔT|/(1−ν) in MPa
+  function shockStress(g, dT) {
+    return stressPerKelvin(g) * Math.abs(dT);
+  }
+  // ΔT that produces a given stress (MPa)
+  function criticalDeltaT(g, sigmaMPa) {
+    return sigmaMPa / stressPerKelvin(g);
+  }
+  function diffusivity(g) {
+    return g.k / (g.rho * g.c);
+  }
+  function makeWall(g, Lm, T0, n) {
+    n = n || N_NODES;
+    var T = new Float64Array(n);
+    for (var i = 0; i < n; i++) T[i] = T0;
+    return { g: g, L: Lm, n: n, dx: Lm / (n - 1), T: T, Tn: new Float64Array(n), t: 0 };
+  }
+  function stableDt(w, hin, hout) {
+    var g = w.g, rc = g.rho * g.c, a = diffusivity(g), dx = w.dx;
+    var d1 = dx * dx / (2 * a);
+    var d2 = rc * dx / 2 / (Math.max(hin, hout) + g.k / dx);
+    return 0.45 * Math.min(d1, d2);
+  }
+  // One explicit FTCS step; half-cell energy balance with convection at both faces (node 0 = inner)
+  function stepWall(w, dt, Tw, hin, Tair, hout) {
+    var g = w.g, T = w.T, Tn = w.Tn, n = w.n, dx = w.dx;
+    var rc = g.rho * g.c, a = g.k / rc, lam = a * dt / (dx * dx);
+    for (var i = 1; i < n - 1; i++) Tn[i] = T[i] + lam * (T[i - 1] - 2 * T[i] + T[i + 1]);
+    var cap = rc * dx / 2;
+    Tn[0] = T[0] + dt / cap * (hin * (Tw - T[0]) + g.k * (T[1] - T[0]) / dx);
+    Tn[n - 1] = T[n - 1] + dt / cap * (hout * (Tair - T[n - 1]) + g.k * (T[n - 2] - T[n - 1]) / dx);
+    for (i = 0; i < n; i++) T[i] = Tn[i];
+    w.t += dt;
+  }
+  function advanceWall(w, span, Tw, hin, Tair, hout) {
+    if (!(span > 0)) return;
+    var dtMax = stableDt(w, hin, hout);
+    var steps = Math.max(1, Math.ceil(span / dtMax));
+    var dt = span / steps;
+    for (var s = 0; s < steps; s++) stepWall(w, dt, Tw, hin, Tair, hout);
+  }
+  // Wall-average (trapezoid) temperature and the free-slab stress σ(x) = Eα(T̄ − T(x))/(1−ν)
+  function wallStats(w) {
+    var T = w.T, n = w.n, sum = 0;
+    for (var i = 0; i < n; i++) sum += (i === 0 || i === n - 1 ? 0.5 : 1) * T[i];
+    var Tm = sum / (n - 1);
+    var k = stressPerKelvin(w.g);
+    var Tin = T[0], Tout = T[n - 1];
+    var sIn = k * (Tm - Tin), sOut = k * (Tm - Tout);
+    return {
+      Tin: Tin, Tout: Tout, Tmean: Tm, dT: Tin - Tout,
+      shock: shockStress(w.g, Tin - Tout),
+      tensileSide: Tin > Tout ? 'outer' : (Tin < Tout ? 'inner' : '—'),
+      freeSlab: Math.max(sIn, sOut, 0),
+      sigmaInFree: sIn, sigmaOutFree: sOut
+    };
+  }
+  function verdict(g, sigma) {
+    if (sigma >= g.sCrack) return 'crack';
+    if (sigma >= g.sLow) return 'risk';
+    return 'survive';
+  }
+  function simSpan(g, Lm) {
+    return 2 * Lm * Lm / diffusivity(g);
+  }
+  // Full pour, used for the pre-pour prediction and by the validator
+  function simulatePour(gKey, Tglass, Twater, Lmm, opts) {
+    opts = opts || {};
+    var g = GLASSES[gKey];
+    var Lm = Lmm / 1000;
+    var w = makeWall(g, Lm, Tglass, opts.n);
+    var hin = opts.hin !== undefined ? opts.hin : H_IN;
+    var hout = opts.hout !== undefined ? opts.hout : H_OUT;
+    var tEnd = opts.tEnd || simSpan(g, Lm);
+    var dt = stableDt(w, hin, hout);
+    var peak = 0, peakT = 0, peakFree = 0, side = '—', st;
+    while (w.t < tEnd) {
+      stepWall(w, Math.min(dt, tEnd - w.t), Twater, hin, T_AIR, hout);
+      st = wallStats(w);
+      if (st.shock > peak) { peak = st.shock; peakT = w.t; side = st.tensileSide; }
+      if (st.freeSlab > peakFree) peakFree = st.freeSlab;
+    }
+    return { peak: peak, peakTime: peakT, side: side, peakFree: peakFree, verdict: verdict(g, peak), wall: w, final: wallStats(w) };
+  }
+
+  // ===== Fonts cached outside draw loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_BIG = '500 16px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 14px Fraunces, Georgia, serif';
+
+  var ANIM_SECONDS = 12; // wall-clock seconds to play one pour window
+
+  var state = {
+    Tg: 2, Tw: 100, Lmm: 3.5, glass: 'soda', myth: false,
+    playing: true, poured: false, lastTs: 0, wall: null,
+    hist: [], peak: 0, peakFree: 0, peakSide: '—', cracked: false, crackT: 0, crackSide: 'outer',
+    pred: null, pourAnim: 0, preset: 'preIce'
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPour = $('btnPour'), elPlay = $('btnPlay'), elMyth = $('chipMyth');
+  var elTg = $('tg'), elTw = $('tw'), elThick = $('thick');
+  var elTgL = $('tgLabel'), elTwL = $('twLabel'), elLL = $('lLabel');
+  var elHint = $('modeHint'), elReadout = $('readout'), elSceneMeta = $('sceneMeta'), elChartMeta = $('chartMeta');
+  var gChips = { soda: $('gSoda'), boro: $('gBoro'), tempered: $('gTemp') };
+  var presets = {
+    preIce: { el: $('preIce'), Tg: 2, Tw: 100 },
+    preRoom: { el: $('preRoom'), Tg: 22, Tw: 100 },
+    preWarm: { el: $('preWarm'), Tg: 60, Tw: 100 },
+    preHot: { el: $('preHot'), Tg: 90, Tw: 2 }
+  };
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 420 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt1(x) { return (Math.round(x * 10) / 10).toFixed(1); }
+  function fmt0(x) { return String(Math.round(x)); }
+  function fmtT(t) { return t < 10 ? t.toFixed(2) + ' s' : t.toFixed(1) + ' s'; }
+
+  // Temperature → colour (cool blue → warm orange)
+  function tempColor(T, a) {
+    var f = Math.max(0, Math.min(1, (T + 18) / 118));
+    var r = Math.round(60 + f * (255 - 60));
+    var gC = Math.round(170 + f * (126 - 170) + Math.sin(f * Math.PI) * 40);
+    var b = Math.round(235 + f * (95 - 235));
+    return 'rgba(' + r + ',' + gC + ',' + b + ',' + (a === undefined ? 1 : a) + ')';
+  }
+
+  function glass() { return GLASSES[state.glass]; }
+  function span() { return simSpan(glass(), state.Lmm / 1000); }
+
+  function resetWall() {
+    state.wall = makeWall(glass(), state.Lmm / 1000, state.Tg);
+    state.poured = false;
+    state.hist = [];
+    state.peak = 0; state.peakFree = 0; state.peakSide = '—';
+    state.cracked = false;
+    state.pourAnim = 0;
+    state.pred = simulatePour(state.glass, state.Tg, state.Tw, state.Lmm);
+  }
+  function pour() {
+    resetWall();
+    state.poured = true;
+    state.playing = true;
+    elPlay.textContent = 'Pause';
+    elPlay.setAttribute('aria-pressed', 'true');
+    state.lastTs = 0;
+    pushHist();
+  }
+  function pushHist() {
+    var st = wallStats(state.wall);
+    state.hist.push(state.wall.t, st.Tin, st.Tout, st.shock);
+  }
+
+  function mythVerdict() {
+    return state.Tw >= 80 ? 'crack' : 'survive';
+  }
+  var VERDICT_TEXT = { crack: 'likely cracks', risk: 'at risk', survive: 'survives' };
+
+  function updateLabels() {
+    elTgL.textContent = fmt0(state.Tg) + ' °C';
+    elTwL.textContent = fmt0(state.Tw) + ' °C';
+    elLL.textContent = fmt1(state.Lmm) + ' mm';
+    var g = glass();
+    elSceneMeta.textContent = g.name + ' · ' + fmt1(state.Lmm) + ' mm wall';
+    elChartMeta.textContent = 'window ' + fmtT(span()) + ' · playback ×' + (span() / ANIM_SECONDS).toFixed(2);
+    var p = state.pred;
+    var txt = 'Prediction: peak ≈ ' + fmt0(p.peak) + ' MPa → ' + VERDICT_TEXT[p.verdict] + '.';
+    if (state.myth) {
+      var mv = mythVerdict();
+      txt = 'Myth rule (“water ≥ 80 °C cracks glass”) says ' + (mv === 'crack' ? 'CRACK' : 'SAFE') + ' · wall model says ' + VERDICT_TEXT[p.verdict].toUpperCase() +
+        ((mv === 'crack') !== (p.verdict !== 'survive') ? ' — they disagree.' : '.');
+    }
+    elHint.textContent = txt;
+    Object.keys(gChips).forEach(function (k) { setChip(gChips[k], k === state.glass); });
+    Object.keys(presets).forEach(function (k) {
+      var ps = presets[k];
+      setChip(ps.el, ps.Tg === state.Tg && ps.Tw === state.Tw);
+    });
+    setChip(elMyth, state.myth);
+  }
+
+  function renderReadout(st) {
+    var g = glass(), html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Inner surface', fmt1(st.Tin) + ' °C', 'touching the water', st.Tin > st.Tout ? 'warm' : '');
+    kv('Outer surface', fmt1(st.Tout) + ' °C', 'touching your hand', st.Tout > st.Tin ? 'warm' : '');
+    kv('ΔT across wall', fmt1(Math.abs(st.dT)) + ' K', 't = ' + fmtT(state.wall.t) + (state.poured ? '' : ' · press Pour'), 'sun');
+    kv('Thermal stress', fmt1(st.shock) + ' MPa', 'peak ' + fmt1(state.peak) + ' · free-slab ' + fmt1(st.freeSlab) + ' MPa', st.shock >= g.sLow ? 'warm' : 'sun');
+    var done = state.poured && state.wall.t >= span() - 1e-9;
+    var v = state.cracked ? 'CRACKED' : (done ? VERDICT_TEXT[verdict(g, state.peak)] : (state.poured ? 'so far: ' : 'forecast: ') + VERDICT_TEXT[state.poured ? verdict(g, state.peak) : state.pred.verdict]);
+    var side = state.cracked ? state.crackSide : (st.tensileSide !== '—' ? st.tensileSide : state.pred.side);
+    kv('vs strength', v, 'crack ≥ ' + g.sCrack + ' MPa · ' + side + ' surface in tension · forecast peak ' + fmt0(state.pred.peak),
+      state.cracked || (state.poured && verdict(g, state.peak) === 'crack') ? 'warm' : '');
+    elReadout.innerHTML = html;
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    var rr = Math.max(0, Math.min(r, Math.abs(w) / 2, Math.abs(h) / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1, ux = dx / len, uy = dy / len;
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    var ah = 6;
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.55, y2 - uy * ah + ux * ah * 0.55);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.55, y2 - uy * ah - ux * ah * 0.55);
+    ctx.closePath(); ctx.fill();
+  }
+
+  // Deterministic crack path (seeded), so it doesn't flicker
+  var CRACK = [];
+  (function () {
+    var s = 7;
+    function rnd() { s = (s * 16807) % 2147483647; return s / 2147483647; }
+    for (var b = 0; b < 3; b++) {
+      var pts = [], x = 0, y = 0;
+      for (var i = 0; i < 9; i++) { x += (rnd() - 0.5) * 0.5; y += 0.11 + rnd() * 0.05; pts.push(x, y * (b === 0 ? 1 : 0.6 + 0.2 * b)); }
+      CRACK.push(pts);
+    }
+  })();
+
+  function drawScene(st) {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, g = glass(), w = state.wall;
+    ctx.clearRect(0, 0, W, H);
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0a1028'); bg.addColorStop(1, '#0c1226');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    var narrow = W < 560;
+    // --- Tumbler (left) ---
+    var gx = narrow ? W * 0.08 : W * 0.06, gw = narrow ? W * 0.34 : W * 0.28;
+    var gTop = 70, gBot = H - 40, wallPx = 4 + state.Lmm * 1.6;
+    var waterTop = state.poured ? gTop + (gBot - gTop) * (0.25 + 0.75 * (1 - Math.min(1, state.pourAnim))) : gBot;
+    // water
+    if (state.poured) {
+      var wg = ctx.createLinearGradient(0, waterTop, 0, gBot);
+      wg.addColorStop(0, tempColor(state.Tw, 0.55));
+      wg.addColorStop(1, tempColor(state.Tw, 0.3));
+      ctx.fillStyle = wg;
+      ctx.fillRect(gx + wallPx, waterTop, gw - 2 * wallPx, gBot - wallPx - waterTop);
+      if (state.pourAnim < 1) {
+        ctx.fillStyle = tempColor(state.Tw, 0.6);
+        ctx.fillRect(gx + gw * 0.45, 10, 7, waterTop - 10);
+      }
+      // steam wisps
+      if (state.Tw > 70) {
+        ctx.strokeStyle = 'rgba(215,222,242,0.18)';
+        ctx.lineWidth = 2;
+        for (var sw = 0; sw < 3; sw++) {
+          var sx = gx + gw * (0.3 + sw * 0.2), ph = state.wall.t * 3 + sw;
+          ctx.beginPath();
+          ctx.moveTo(sx, waterTop - 6);
+          ctx.bezierCurveTo(sx + 8 * Math.sin(ph), waterTop - 22, sx - 8 * Math.sin(ph), waterTop - 36, sx + 4, waterTop - 50);
+          ctx.stroke();
+        }
+      }
+    }
+    // walls coloured by surface temperature (wetted part) — draw wall as gradient inner→outer
+    function wallStrip(xOuter, dir) {
+      var yW = state.poured ? waterTop : gBot;
+      var grad = ctx.createLinearGradient(xOuter, 0, xOuter + dir * wallPx, 0);
+      grad.addColorStop(0, tempColor(st.Tout, 0.9));
+      grad.addColorStop(1, tempColor(st.Tin, 0.9));
+      ctx.fillStyle = grad;
+      var x0 = dir > 0 ? xOuter : xOuter - wallPx;
+      ctx.fillRect(x0, yW, wallPx, gBot - yW);
+      ctx.fillStyle = tempColor(state.Tg, 0.55);
+      ctx.fillRect(x0, gTop, wallPx, yW - gTop);
+    }
+    wallStrip(gx, 1);
+    wallStrip(gx + gw, -1);
+    ctx.fillStyle = tempColor((st.Tin + st.Tout) / 2, 0.8);
+    ctx.fillRect(gx, gBot - wallPx * 2.2, gw, wallPx * 2.2);
+    ctx.strokeStyle = 'rgba(215,222,242,0.5)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(gx, gTop, gw, gBot - gTop);
+    // zoom box marker on right wall
+    var zy = state.poured ? Math.max(waterTop + 20, (gTop + gBot) / 2) : (gTop + gBot) / 2;
+    ctx.strokeStyle = 'rgba(255,194,74,0.8)';
+    ctx.strokeRect(gx + gw - wallPx - 6, zy - 14, wallPx + 12, 28);
+    // cracks on the glass
+    if (state.cracked) { drawCracks(ctx, gx + gw - wallPx / 2, zy, 90, -1, false); drawCracks(ctx, gx + gw - wallPx / 2, zy, 60, 1, false); }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('tumbler (schematic)', gx, gTop - 12);
+
+    // --- Zoomed wall slab (right) ---
+    var zx = narrow ? W * 0.5 : W * 0.44, zw = W - zx - 20, ztop = 40, zh = H - 110;
+    var slabX = zx + zw * 0.18, slabW = zw * 0.64;
+    ctx.strokeStyle = 'rgba(255,194,74,0.35)';
+    ctx.setLineDash([3, 4]);
+    ctx.beginPath();
+    ctx.moveTo(gx + gw + 6, zy - 14); ctx.lineTo(slabX, ztop);
+    ctx.moveTo(gx + gw + 6, zy + 14); ctx.lineTo(slabX, ztop + zh);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    // slab coloured by the node temperatures
+    var n = w.n, i;
+    for (i = 0; i < n - 1; i++) {
+      var xa = slabX + (i / (n - 1)) * slabW, xb = slabX + ((i + 1) / (n - 1)) * slabW;
+      ctx.fillStyle = tempColor(0.5 * (w.T[i] + w.T[i + 1]), 0.85);
+      ctx.fillRect(xa, ztop, xb - xa + 0.6, zh);
+    }
+    ctx.strokeStyle = 'rgba(215,222,242,0.5)';
+    ctx.strokeRect(slabX, ztop, slabW, zh);
+    // water side / air side
+    ctx.fillStyle = tempColor(state.Tw, state.poured ? 0.35 : 0.06);
+    ctx.fillRect(zx, ztop, slabX - zx - 2, zh);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText(state.poured ? 'WATER' : 'empty', zx + 2, ztop - 6);
+    ctx.fillText('AIR 22°', slabX + slabW + 4, ztop - 6);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('inner', slabX, ztop + zh + 14);
+    ctx.fillText('outer', slabX + slabW - 30, ztop + zh + 14);
+    ctx.fillText(fmt1(state.Lmm) + ' mm wall', slabX + slabW / 2 - 30, ztop + zh + 14);
+    // temperature profile curve across the slab
+    var tMin = Math.min(state.Tg, state.Tw, T_AIR) - 5, tMax = Math.max(state.Tg, state.Tw, T_AIR) + 5;
+    function PY(T) { return ztop + zh * 0.08 + (1 - (T - tMin) / (tMax - tMin)) * zh * 0.84; }
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (i = 0; i < n; i++) {
+      var px = slabX + (i / (n - 1)) * slabW;
+      if (i === 0) ctx.moveTo(px, PY(w.T[i])); else ctx.lineTo(px, PY(w.T[i]));
+    }
+    ctx.stroke();
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(slabX, PY(st.Tmean)); ctx.lineTo(slabX + slabW, PY(st.Tmean)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.fillText('T(x)', slabX + 4, PY(w.T[0]) - 6);
+    ctx.fillText('mean', slabX + slabW - 32, PY(st.Tmean) - 5);
+
+    // stress arrows: compression (pointing in) on hot face, tension (pointing out) on cold face
+    var mag = Math.min(1, st.shock / (g.sCrack * 1.2));
+    if (mag > 0.02) {
+      var hotInner = st.Tin > st.Tout;
+      var tensX = hotInner ? slabX + slabW : slabX;
+      var compX = hotInner ? slabX : slabX + slabW;
+      var L = 10 + 26 * mag;
+      for (var a = 0; a < 3; a++) {
+        var ay = ztop + zh * (0.25 + 0.25 * a);
+        // tension arrows along the surface (stretching): two arrows pointing apart
+        drawArrow(ctx, tensX + (hotInner ? 6 : -6), ay, tensX + (hotInner ? 6 : -6), ay - L, '#ff7e5f', 2);
+        drawArrow(ctx, tensX + (hotInner ? 6 : -6), ay, tensX + (hotInner ? 6 : -6), ay + L, '#ff7e5f', 2);
+        // compression: two arrows pointing together
+        drawArrow(ctx, compX + (hotInner ? -6 : 6), ay - L - 4, compX + (hotInner ? -6 : 6), ay - 3, '#5ec8e5', 2);
+        drawArrow(ctx, compX + (hotInner ? -6 : 6), ay + L + 4, compX + (hotInner ? -6 : 6), ay + 3, '#5ec8e5', 2);
+      }
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('TENSION', hotInner ? tensX + 14 : tensX - 60, ztop + zh * 0.12);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('compression', hotInner ? compX - 76 : compX + 12, ztop + zh * 0.12);
+    }
+    if (state.cracked) {
+      drawCracks(ctx, state.crackSide === 'outer' ? slabX + slabW : slabX, ztop + zh * 0.55, slabW * 0.8, state.crackSide === 'outer' ? -1 : 1, true);
+      ctx.font = FONT_MONO_BIG;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('CRACK at t = ' + fmtT(state.crackT), zx, H - 38);
+    }
+
+    if (state.myth) {
+      ctx.fillStyle = 'rgba(8,11,28,0.85)';
+      roundRect(ctx, 12, 10, Math.min(W - 24, 420), 44, 8);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,126,95,0.5)';
+      ctx.stroke();
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth rule: water ≥ 80 °C → crack.  Says: ' + (mythVerdict() === 'crack' ? 'CRACK' : 'SAFE'), 22, 28);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('Wall ΔT model says: ' + VERDICT_TEXT[state.pred.verdict] + ' (peak ' + fmt0(state.pred.peak) + ' MPa)', 22, 45);
+    }
+
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText('1D conduction through the wall · colour = temperature', 14, H - 10);
+  }
+
+  // Jagged crack: 'across' runs from the tensile face through the wall; otherwise runs along the tumbler wall
+  function drawCracks(ctx, x0, y0, len, dir, across) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.92)';
+    ctx.lineWidth = 1.5;
+    for (var b = 0; b < CRACK.length; b++) {
+      var pts = CRACK[b];
+      var reach = b === 0 ? 1 : 0.45;
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      for (var i = 0; i < pts.length; i += 2) {
+        var along = Math.min(1, pts[i + 1]) * reach * len;
+        var jit = pts[i] * len * 0.12 + (b === 2 ? along * 0.35 : b === 1 ? -along * 0.35 : 0);
+        if (across) ctx.lineTo(x0 + dir * along, y0 + jit);
+        else ctx.lineTo(x0 + jit * 0.4, y0 + dir * along);
+      }
+      ctx.stroke();
+    }
+  }
+
+  function drawChart(st) {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, g = glass();
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var tEnd = span();
+    var px = 52, pw = W - px - 16;
+    var y1 = 34, h1 = H * 0.36, y2 = y1 + h1 + 52, h2 = H - y2 - 34;
+    function X(t) { return px + Math.min(1, t / tEnd) * pw; }
+    var tMin = Math.min(state.Tg, state.Tw, T_AIR) - 5, tMax = Math.max(state.Tg, state.Tw, T_AIR) + 5;
+    function YT(T) { return y1 + (1 - (T - tMin) / (tMax - tMin)) * h1; }
+    var sMax = Math.max(g.sCrack * 1.5, state.pred.peak * 1.15, 10);
+    function YS(s) { return y2 + (1 - s / sMax) * h2; }
+
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Surface temperatures', 14, 22);
+    ctx.fillText('Thermal stress (tension)', 14, y2 - 14);
+
+    // axes
+    ctx.strokeStyle = 'rgba(94,200,229,0.18)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(px, y1, pw, h1);
+    ctx.strokeRect(px, y2, pw, h2);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    ctx.fillText(fmt0(tMax) + '°', px - 4, y1 + 8);
+    ctx.fillText(fmt0(tMin) + '°', px - 4, y1 + h1);
+    ctx.fillText(fmt0(sMax) + ' MPa', px - 4, y2 + 8);
+    ctx.fillText('0', px - 4, y2 + h2);
+    ctx.fillText(fmtT(tEnd), px + pw, y2 + h2 + 14);
+    ctx.textAlign = 'left';
+    ctx.fillText('0 s', px, y2 + h2 + 14);
+
+    // strength band
+    ctx.fillStyle = 'rgba(255,126,95,0.10)';
+    ctx.fillRect(px, YS(Math.min(sMax, g.sCrack)), pw, YS(g.sLow) - YS(Math.min(sMax, g.sCrack)));
+    ctx.fillStyle = 'rgba(255,126,95,0.22)';
+    ctx.fillRect(px, y2, pw, YS(Math.min(sMax, g.sCrack)) - y2);
+    ctx.strokeStyle = 'rgba(255,126,95,0.8)';
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath(); ctx.moveTo(px, YS(g.sCrack)); ctx.lineTo(px + pw, YS(g.sCrack)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('likely crack ≥ ' + g.sCrack, px + 4, YS(g.sCrack) - 4);
+    ctx.fillStyle = 'rgba(255,126,95,0.75)';
+    ctx.fillText('at risk ≥ ' + g.sLow, px + 4, YS(g.sLow) - 4);
+
+    // reference lines: water + initial glass temperature
+    ctx.setLineDash([2, 4]);
+    ctx.strokeStyle = tempColor(state.Tw, 0.7);
+    ctx.beginPath(); ctx.moveTo(px, YT(state.Tw)); ctx.lineTo(px + pw, YT(state.Tw)); ctx.stroke();
+    ctx.strokeStyle = tempColor(state.Tg, 0.7);
+    ctx.beginPath(); ctx.moveTo(px, YT(state.Tg)); ctx.lineTo(px + pw, YT(state.Tg)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('water ' + fmt0(state.Tw) + '°', px + pw - 70, YT(state.Tw) + (state.Tw > state.Tg ? 12 : -4));
+    ctx.fillText('glass start ' + fmt0(state.Tg) + '°', px + pw - 110, YT(state.Tg) + (state.Tw > state.Tg ? -4 : 12));
+
+    // predicted full-pour stress (ghost) — recomputed only on parameter change
+    var pr = state.predCurve;
+    if (pr) {
+      ctx.strokeStyle = 'rgba(215,222,242,0.22)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      for (var q = 0; q < pr.length; q += 2) {
+        if (q === 0) ctx.moveTo(X(pr[q]), YS(Math.min(sMax, pr[q + 1]))); else ctx.lineTo(X(pr[q]), YS(Math.min(sMax, pr[q + 1])));
+      }
+      ctx.stroke();
+    }
+
+    // history curves
+    var hs = state.hist, k;
+    function curve(idx, color, map, lw) {
+      if (hs.length < 8) return;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lw;
+      ctx.beginPath();
+      for (k = 0; k < hs.length; k += 4) {
+        var xx = X(hs[k]), yy = map(hs[k + idx]);
+        if (k === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
+      }
+      ctx.stroke();
+    }
+    curve(1, '#ff7e5f', YT, 2);
+    curve(2, '#5ec8e5', YT, 2);
+    curve(3, '#ffc24a', function (s) { return YS(Math.min(sMax, s)); }, 2.2);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ff7e5f'; ctx.fillText('— inner surface', px + 6, y1 + h1 + 14);
+    ctx.fillStyle = '#5ec8e5'; ctx.fillText('— outer surface', px + 120, y1 + h1 + 14);
+    ctx.fillStyle = '#ffc24a'; ctx.fillText('σ = Eα|ΔT|/(1−ν)', px + pw - 120, y2 + 12);
+    ctx.fillStyle = 'rgba(215,222,242,0.5)'; ctx.fillText('predicted', px + pw - 120, y2 + 24);
+    if (!state.poured) {
+      ctx.font = FONT_MONO_12;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText('Press Pour ▸', px + pw / 2 - 40, y1 + h1 / 2);
+    }
+  }
+
+  function buildPredCurve() {
+    var g = glass(), Lm = state.Lmm / 1000, tEnd = span();
+    var w = makeWall(g, Lm, state.Tg);
+    var pts = [0, 0], steps = 160;
+    for (var i = 1; i <= steps; i++) {
+      advanceWall(w, tEnd / steps, state.Tw, H_IN, T_AIR, H_OUT);
+      pts.push(w.t, wallStats(w).shock);
+    }
+    state.predCurve = pts;
+  }
+
+  function render() {
+    var st = wallStats(state.wall);
+    renderReadout(st);
+    drawScene(st);
+    drawChart(st);
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (state.playing && state.poured && state.wall.t < span()) {
+      var simDt = dt * span() / ANIM_SECONDS;
+      // slow-motion for the first moments so the steep early gradient is visible
+      if (state.wall.t < 0.12 * span()) simDt *= 0.35;
+      state.pourAnim = Math.min(1, state.pourAnim + dt * 2.5);
+      var sub = 4, g = glass();
+      for (var s = 0; s < sub; s++) {
+        advanceWall(state.wall, Math.min(simDt / sub, span() - state.wall.t), state.Tw, H_IN, T_AIR, H_OUT);
+        var st = wallStats(state.wall);
+        if (st.shock > state.peak) { state.peak = st.shock; state.peakSide = st.tensileSide; }
+        if (st.freeSlab > state.peakFree) state.peakFree = st.freeSlab;
+        if (!state.cracked && st.shock >= g.sCrack) {
+          state.cracked = true; state.crackT = state.wall.t; state.crackSide = st.tensileSide;
+        }
+      }
+      pushHist();
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function changed() {
+    resetWall();
+    buildPredCurve();
+    updateLabels();
+  }
+
+  elPour.addEventListener('click', function () { pour(); updateLabels(); });
+  elPlay.addEventListener('click', function () {
+    state.playing = !state.playing;
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    if (state.playing) state.lastTs = 0;
+  });
+  elMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elTg.addEventListener('input', function () { state.Tg = parseFloat(elTg.value); changed(); });
+  elTw.addEventListener('input', function () { state.Tw = parseFloat(elTw.value); changed(); });
+  elThick.addEventListener('input', function () { state.Lmm = parseFloat(elThick.value); changed(); });
+  Object.keys(gChips).forEach(function (k) {
+    gChips[k].addEventListener('click', function () { state.glass = k; changed(); });
+  });
+  Object.keys(presets).forEach(function (k) {
+    presets[k].el.addEventListener('click', function () {
+      state.Tg = presets[k].Tg; state.Tw = presets[k].Tw;
+      elTg.value = String(state.Tg); elTw.value = String(state.Tw);
+      changed();
+    });
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elPlay.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  changed();
+  requestAnimationFrame(tick);
+
+  window.__glassPhysics = {
+    GLASSES: GLASSES, H_IN: H_IN, H_OUT: H_OUT, T_AIR: T_AIR, N_NODES: N_NODES,
+    stressPerKelvin: stressPerKelvin, shockStress: shockStress, criticalDeltaT: criticalDeltaT,
+    diffusivity: diffusivity, makeWall: makeWall, stableDt: stableDt, stepWall: stepWall,
+    advanceWall: advanceWall, wallStats: wallStats, verdict: verdict, simSpan: simSpan, simulatePour: simulatePour
+  };
+})();
+</script>
+</body>
+</html>
