@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why You’re Not Thrown Outward in a Turn — Centripetal Force, Not Centrifugal | Classroom</title>
+<meta name="description" content="Classroom turn explainer: your body keeps going straight while the door pushes you inward with F = mv²/r. Tire grip μ·m·g sets the skid speed. Live sim.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="centrifugal force misconception, centripetal force, car turning physics, Newton's first law, inertia, mv^2/r, tire friction, skid speed, rotating frame, fictitious force, classroom physics">
+<link rel="canonical" href="car-turn.html">
+<meta property="og:title" content="Why You’re Not Thrown Outward in a Turn">
+<meta property="og:description" content="Nothing throws you outward. Your body tries to keep going straight; the car turns under you and the door pushes you inward with m·v²/r. Live classroom sim.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 420px; }
+@media (max-width: 720px) { .card canvas { height: 340px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · circular motion</a></p>
+  <h1>Why you’re not thrown outward in a turn</h1>
+  <p class="lede">When a car swerves left you slam into the right door, and it <em>feels</em> like a force flung you outward. Watched from the roadside, nothing did. Your body just <strong>keeps going straight</strong> (Newton’s first law) while the car turns under you. The door then pushes you <strong>inward</strong> with <strong>F = m·v²/r</strong>. The car’s own inward push comes from tire friction, which tops out at <strong>μ·m·g</strong>. Ask for more and the car skids.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Remove the door</strong> in Ground view. Notice the passenger doesn’t fly sideways. They leave along a <strong>straight line tangent to the curve</strong> while the car turns away.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnDoor" title="Spacebar">Remove the door</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="vGround" aria-pressed="true">Ground view</button>
+      <button type="button" class="chip" id="vCar" aria-pressed="false">Passenger’s view</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: centrifugal force throws you out</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Speed <em id="vLabel">20 m/s</em></span>
+        <input type="range" id="speed" min="2" max="45" step="0.5" value="20" aria-label="Car speed in meters per second">
+      </label>
+      <label class="sl grow">
+        <span>Turn radius <em id="rLabel">50 m</em></span>
+        <input type="range" id="radius" min="10" max="200" step="1" value="50" aria-label="Radius of the turn in meters">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint">Road</span>
+      <button type="button" class="chip on" id="sDry" aria-pressed="true">Dry asphalt</button>
+      <button type="button" class="chip" id="sWet" aria-pressed="false">Wet asphalt</button>
+      <button type="button" class="chip" id="sSnow" aria-pressed="false">Packed snow</button>
+      <button type="button" class="chip" id="sIce" aria-pressed="false">Ice</button>
+      <span class="hint" id="modeHint">Ground view · inertial frame. Only real forces act.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b id="viewTitle">Ground view · top-down</b><span id="viewMeta">real time</span></div>
+      <canvas id="cvTurn" width="760" height="420" aria-label="Top-down view of a car driving around a curve with a passenger inside, showing forces and what happens if the door vanishes"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Grip budget</b><span id="gripMeta">needed vs available</span></div>
+      <canvas id="cvGrip" width="480" height="420" aria-label="Bars comparing tire friction needed with friction available, and a chart of required sideways acceleration versus speed"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Your body keeps going straight</h2>
+      <p>Newton’s first law: with no sideways force, you keep your velocity. At the start of the turn the car swings left and you don’t, so the right side of the car comes toward you. You meet the door. Nothing pulled you right.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>The door pushes you inward</h2>
+      <p>To follow a curve of radius r at speed v, something must push you toward the center with <code>F = m·v²/r</code>. For you that’s the door, seat, and belt. At 25 m/s on a 50 m curve that’s <code>12.5 m/s² ≈ 1.27 g</code>, or 875 N on a 70 kg rider. That is more than dry tires can give (about 0.9 g), so the car would skid.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Tires supply the car’s inward force</h2>
+      <p>The road pushes the car sideways through tire friction, at most <code>μ·m·g</code> on a flat road. So the fastest you can take a curve is <code>v<sub>max</sub> = √(μ·g·r)</code>. Mass cancels. Beyond that the tires slide and the car runs wide.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Centrifugal force throws you outward”</h2>
+      <p>In the ground frame there is no outward force on you at all. Toggle the myth and remove the door: the myth predicts you fly straight out sideways (red), but you really leave along the tangent (blue). “Centrifugal force” is a <em>fictitious</em> force: bookkeeping that appears only if you insist on describing things from inside the turning car.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Turning numbers">
+    <div class="stat">
+      <div class="k">25 m/s on a 50 m curve</div>
+      <div class="v">12.5 m/s² · 1.27 g</div>
+      <div class="s">a = v²/r</div>
+    </div>
+    <div class="stat">
+      <div class="k">Dry-road tire grip</div>
+      <div class="v">μ ≈ 0.8–1.0</div>
+      <div class="s">ice ≈ 0.05–0.15</div>
+    </div>
+    <div class="stat">
+      <div class="k">Double the speed</div>
+      <div class="v">4× the force</div>
+      <div class="s">F ∝ v²</div>
+    </div>
+    <div class="stat">
+      <div class="k">Max cornering speed</div>
+      <div class="v">√(μ·g·r)</div>
+      <div class="s">flat road · independent of mass</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Uniform circular motion.</strong> Required inward (centripetal) acceleration <code>a = v²/r</code>, with g = 9.80665 m/s² for the “g” readout. The car is a 1500 kg point for the force budget. The passenger is 70 kg. The force the car must give the passenger is <code>m·a</code>, whatever the car is actually doing.</li>
+      <li><strong>Tire friction (Coulomb model).</strong> On a flat, unbanked road the most sideways force the tires can give is <code>μ<sub>s</sub>·m·g</code>. Peak values used (typical ranges, not for any specific tire): dry asphalt 0.9 (0.8–1.0), wet asphalt 0.6 (0.4–0.7), packed snow 0.25 (0.2–0.3), ice 0.1 (0.05–0.15). When the needed force exceeds this, the car slides and gets only the sliding value μ<sub>k</sub> ≈ 0.75·μ<sub>s</sub>, so it follows a wider circle of radius <code>v²/(μ<sub>k</sub>·g)</code>. The skid is drawn at constant speed. Real skids also slow the car and often spin it. ABS, stability control, load transfer, tire slip angles, and banked curves are all ignored.</li>
+      <li><strong>Passenger.</strong> We treat the seat as slippery and ignore the seatbelt, so the door supplies all of the passenger’s inward force. In a real car the seat friction and belt share that load. When the door “vanishes” the passenger becomes a free body. Air drag and seat friction are ignored, so the path is a straight line at the passenger’s velocity at that instant.</li>
+      <li><strong>Passenger’s view.</strong> This frame turns with the car, so it is non-inertial. To make Newton’s laws work in it you must add a fictitious <em>centrifugal</em> force <code>m·ω²·r</code> pointing outward (plus a Coriolis term for anything moving in that frame). The straight tangent path from the ground view is exactly what shows up in this frame as the passenger curving outward and backward. Same motion, two descriptions. The forces that are real, the ones with an agent doing the pushing, are the inward ones.</li>
+      <li><strong>Drawing scale.</strong> In Ground view the road and paths are to scale, but the car is enlarged (shown in the header) so you can see it on big curves. The free-flight line is drawn from the enlarged seat position.</li>
+      <li><strong>For teachers.</strong> Covers Newton’s first and second laws and centripetal force (NGSS HS-PS2-1). The FCI-style misconception is that an object released from circular motion flies outward or keeps curving. The ground-view release shows the straight tangent path.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-car-turn.js =====
+  var G = 9.80665;       // m/s²
+  var M_CAR = 1500;      // kg
+  var M_PASS = 70;       // kg
+  var MUK_FRAC = 0.75;   // sliding μk as a fraction of peak μs
+  var SURFACES = {
+    dry: { key: 'dry', label: 'Dry asphalt', muS: 0.9, range: '0.8–1.0', col: '#3a3f4f' },
+    wet: { key: 'wet', label: 'Wet asphalt', muS: 0.6, range: '0.4–0.7', col: '#2c3a4e' },
+    snow: { key: 'snow', label: 'Packed snow', muS: 0.25, range: '0.2–0.3', col: '#b9c6d6' },
+    ice: { key: 'ice', label: 'Ice', muS: 0.1, range: '0.05–0.15', col: '#9fd3ea' }
+  };
+  var SEAT_Y = -0.62;    // m: passenger sits against the right (outer) door; car frame x fwd, y left
+  var CAR_L = 4.6, CAR_W = 1.8;
+
+  function centripetalAccel(v, r) { return v * v / r; }
+  function vMax(mu, r) { return Math.sqrt(mu * G * r); }
+
+  // Full force budget for a flat turn (car turning left / counter-clockwise).
+  function turnForces(v, r, surf) {
+    var a = centripetalAccel(v, r);
+    var need = M_CAR * a;
+    var avail = surf.muS * M_CAR * G;
+    var grip = need <= avail + 1e-9;
+    var muK = surf.muS * MUK_FRAC;
+    var aAct = grip ? a : muK * G;
+    return {
+      a: a, aG: a / G, need: need, avail: avail, grip: grip,
+      aActual: aAct, rActual: v * v / aAct,
+      door: M_PASS * aAct,         // inward push of door on passenger (slippery seat, no belt)
+      doorNeeded: M_PASS * a,
+      vMax: vMax(surf.muS, r), muK: muK
+    };
+  }
+
+  // Free particle after the door vanishes: straight line (Newton 1)
+  function freeFlight(p0, vel, t) { return { x: p0.x + vel.x * t, y: p0.y + vel.y * t }; }
+
+  // Transform a world point into the car's turning frame (x forward, y left)
+  function toCarFrame(p, car) {
+    var dx = p.x - car.x, dy = p.y - car.y, c = Math.cos(car.h), s = Math.sin(car.h);
+    return { x: dx * c + dy * s, y: -dx * s + dy * c };
+  }
+  function fromCarFrame(q, car) {
+    var c = Math.cos(car.h), s = Math.sin(car.h);
+    return { x: car.x + q.x * c - q.y * s, y: car.y + q.x * s + q.y * c };
+  }
+  // Fictitious centrifugal force in the car frame (for a point at radius R from turn centre)
+  function centrifugal(m, omega, R) { return m * omega * omega * R; }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var state = {
+    v: 20, r: 50, surf: SURFACES.dry, view: 'ground', myth: false,
+    car: { x: 50, y: 0, h: Math.PI / 2 }, skidT: 0, zoom: 1, lastTs: 0,
+    free: null   // { p0, vel, t, drawShift, mythDir, trailCar: [] }
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elDoor = $('btnDoor'), chipMyth = $('chipMyth'), vGround = $('vGround'), vCar = $('vCar');
+  var sChips = { dry: $('sDry'), wet: $('sWet'), snow: $('sSnow'), ice: $('sIce') };
+  var elV = $('speed'), elR = $('radius'), elVL = $('vLabel'), elRL = $('rLabel');
+  var elHint = $('modeHint'), elViewTitle = $('viewTitle'), elViewMeta = $('viewMeta'), elGripMeta = $('gripMeta'), elReadout = $('readout');
+  var surfaces = {
+    turn: { canvas: $('cvTurn'), ctx: null, w: 0, h: 0, cssH: 420 },
+    grip: { canvas: $('cvGrip'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+
+  function resetCar() {
+    state.car.x = state.r; state.car.y = 0; state.car.h = Math.PI / 2; state.skidT = 0;
+  }
+
+  function omegaNow() { var tf = turnForces(state.v, state.r, state.surf); return tf.aActual / state.v; }
+
+  function passengerWorld() { return fromCarFrame({ x: 0.1, y: SEAT_Y }, state.car); }
+
+  function removeDoor() {
+    if (state.free) { state.free = null; updateLabels(); return; }
+    var w = omegaNow();
+    var p0 = passengerWorld();
+    var off = { x: p0.x - state.car.x, y: p0.y - state.car.y };
+    // passenger velocity = car velocity + ω × offset
+    var vel = { x: state.v * Math.cos(state.car.h) - w * off.y, y: state.v * Math.sin(state.car.h) + w * off.x };
+    var rx = p0.x - (state.car.x - state.v / w * Math.sin(state.car.h)), ry = p0.y - (state.car.y + state.v / w * Math.cos(state.car.h));
+    var rl = Math.hypot(rx, ry) || 1;
+    state.free = { p0: p0, vel: vel, t: 0, off: off, mythDir: { x: rx / rl, y: ry / rl }, trail: [] };
+    updateLabels();
+  }
+
+  function stepSim(dt) {
+    var tf = turnForces(state.v, state.r, state.surf);
+    var n = 8, h = dt / n;
+    for (var i = 0; i < n; i++) {
+      var w = tf.aActual / state.v;
+      state.car.h += w * h;
+      state.car.x += state.v * Math.cos(state.car.h) * h;
+      state.car.y += state.v * Math.sin(state.car.h) * h;
+    }
+    if (tf.grip) {
+      // re-project onto the road circle to remove drift
+      var ang = Math.atan2(state.car.y, state.car.x);
+      var d = Math.hypot(state.car.x, state.car.y);
+      if (Math.abs(d - state.r) > 0.5) { resetCar(); } else {
+        state.car.x = state.r * Math.cos(ang); state.car.y = state.r * Math.sin(ang); state.car.h = ang + Math.PI / 2;
+      }
+      state.skidT = 0;
+    } else {
+      state.skidT += dt;
+      if (Math.hypot(state.car.x, state.car.y) > state.r * 1.9 + 30 || state.skidT > 6) resetCar();
+    }
+    if (state.free) {
+      state.free.t += dt;
+      var q = toCarFrame(freeFlight(state.free.p0, state.free.vel, state.free.t), state.car);
+      if (state.free.trail.length < 400) state.free.trail.push(q);
+      if (state.free.t > 5) { state.free = null; updateLabels(); }
+    }
+  }
+
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len, ah = head || 9;
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.5, y2 - uy * ah + ux * ah * 0.5);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.5, y2 - uy * ah - ux * ah * 0.5);
+    ctx.closePath(); ctx.fill();
+  }
+
+  // Draw car body in a local frame already translated/rotated so +x = forward
+  function drawCarBody(ctx, L, Wd, skid, doorOff) {
+    ctx.fillStyle = skid ? '#ff7e5f' : '#ffc24a';
+    ctx.beginPath();
+    ctx.moveTo(-L / 2, -Wd / 2); ctx.lineTo(L / 2 - Wd * 0.25, -Wd / 2);
+    ctx.quadraticCurveTo(L / 2, -Wd / 2, L / 2, 0);
+    ctx.quadraticCurveTo(L / 2, Wd / 2, L / 2 - Wd * 0.25, Wd / 2);
+    ctx.lineTo(-L / 2, Wd / 2); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = 'rgba(8,11,28,0.72)';
+    ctx.fillRect(-L * 0.2, -Wd * 0.4, L * 0.46, Wd * 0.8);
+    if (doorOff) {
+      // gap where the right (outer) door was; +y screen is the car's right here
+      ctx.fillStyle = '#0a1028';
+      ctx.fillRect(-L * 0.12, Wd / 2 - Wd * 0.14, L * 0.36, Wd * 0.16);
+    } else {
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillRect(-L * 0.12, Wd / 2 - Wd * 0.1, L * 0.36, Wd * 0.1);
+    }
+  }
+
+  function drawTurn() {
+    var surf = surfaces.turn;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0b1230';
+    ctx.fillRect(0, 0, W, H);
+    var tf = turnForces(state.v, state.r, state.surf);
+    if (state.view === 'ground') drawGround(ctx, W, H, tf); else drawCarView(ctx, W, H, tf);
+    // HUD
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    ctx.fillText(state.surf.label + ' · μ ' + fmt(state.surf.muS, 2), W - 12, H - 28);
+    ctx.fillText(fmt(state.v, 1) + ' m/s · r ' + fmt(state.r, 0) + ' m · ' + fmt(tf.aG, 2) + ' g', W - 12, H - 12);
+    ctx.textAlign = 'left';
+    if (state.myth) {
+      ctx.fillStyle = 'rgba(8,11,28,0.8)';
+      ctx.fillRect(10, 10, Math.min(W - 20, 400), 42);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth: an outward force acts on you', 20, 30);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(W < 430 ? 'Nothing out there pushes. Watch the tangent.' : 'No agent pushes you outward — watch the real tangent path.', 20, 46);
+    }
+  }
+
+  function drawGround(ctx, W, H, tf) {
+    var cx = W / 2, cy = H / 2 + 6;
+    var zTarget = state.free ? 2.0 : 1.0;
+    state.zoom += (zTarget - state.zoom) * 0.06;
+    var S = (Math.min(W, H) / 2 - 34) / ((state.r + 5) * state.zoom);   // px per m
+    var roadW = Math.max(7 * S, 14);
+    // ground + road
+    ctx.strokeStyle = state.surf.col;
+    ctx.lineWidth = roadW;
+    ctx.beginPath(); ctx.arc(cx, cy, state.r * S, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,0.28)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([6, 8]);
+    ctx.beginPath(); ctx.arc(cx, cy, state.r * S, 0, Math.PI * 2); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(215,222,242,0.4)';
+    ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillText('turn centre', cx + 6, cy + 3);
+    // car (enlarged if tiny)
+    var k = Math.max(1, 46 / (CAR_L * S));
+    var X = function (x) { return cx + x * S; }, Y = function (y) { return cy - y * S; };
+    var car = state.car;
+    var px = X(car.x), py = Y(car.y);
+    // skid path hint
+    if (!tf.grip) {
+      ctx.strokeStyle = 'rgba(255,126,95,0.45)';
+      ctx.setLineDash([3, 5]);
+      ctx.beginPath(); ctx.arc(cx, cy, Math.min(tf.rActual, state.r * 3) * S, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    ctx.save();
+    ctx.translate(px, py);
+    ctx.rotate(-car.h);
+    drawCarBody(ctx, CAR_L * S * k, CAR_W * S * k, !tf.grip, !!state.free);
+    ctx.restore();
+    // passenger (drawn with same enlargement)
+    var seat = fromCarFrame({ x: 0.1 * k, y: SEAT_Y * k }, { x: car.x, y: car.y, h: car.h });
+    // seat is in world metres but scaled by k around the car centre
+    var inward = { x: -Math.sin(car.h), y: Math.cos(car.h) }; // left normal = toward turn centre
+    var fLen = Math.min(90, 14 + tf.aActual * 4.2);
+    if (!state.free) {
+      ctx.fillStyle = '#d7def2';
+      ctx.beginPath(); ctx.arc(X(seat.x), Y(seat.y), Math.max(4, 0.3 * S * k), 0, Math.PI * 2); ctx.fill();
+      // real force: door pushes passenger inward
+      drawArrow(ctx, X(seat.x), Y(seat.y), X(seat.x) + inward.x * fLen, Y(seat.y) - inward.y * fLen, '#5ec8e5', 2.6, 9);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#5ec8e5';
+      var lx = X(seat.x) + inward.x * fLen, ly = Y(seat.y) - inward.y * fLen;
+      ctx.fillText('door on you ' + fmt(tf.door, 0) + ' N', Math.max(4, Math.min(W - 130, lx + 6)), Math.max(62, Math.min(H - 40, ly + 12)));
+      // velocity
+      var hx = Math.cos(car.h), hy = Math.sin(car.h);
+      drawArrow(ctx, px, py, px + hx * 48, py - hy * 48, 'rgba(255,194,74,0.8)', 1.8, 7);
+      if (state.myth) {
+        drawArrow(ctx, X(seat.x), Y(seat.y), X(seat.x) - inward.x * fLen, Y(seat.y) + inward.y * fLen, '#ff7e5f', 2.6, 9);
+        ctx.fillStyle = '#ff7e5f';
+        ctx.fillText('“centrifugal” ✗', Math.max(4, Math.min(W - 110, X(seat.x) - inward.x * fLen + 4)), Math.max(62, Y(seat.y) + inward.y * fLen + 14));
+      }
+    } else {
+      var fr = state.free;
+      var sh = { x: fr.off.x * (k - 1), y: fr.off.y * (k - 1) }; // enlargement shift so the line starts at the drawn seat
+      var p0 = { x: fr.p0.x + sh.x, y: fr.p0.y + sh.y };
+      var pNow = freeFlight(p0, fr.vel, fr.t);
+      var pEnd = freeFlight(p0, fr.vel, 5);
+      ctx.strokeStyle = 'rgba(94,200,229,0.5)';
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath(); ctx.moveTo(X(p0.x), Y(p0.y)); ctx.lineTo(X(pEnd.x), Y(pEnd.y)); ctx.stroke();
+      ctx.setLineDash([]);
+      if (state.myth) {
+        var mp = { x: p0.x + fr.mythDir.x * state.v * fr.t, y: p0.y + fr.mythDir.y * state.v * fr.t };
+        ctx.strokeStyle = 'rgba(255,126,95,0.7)';
+        ctx.setLineDash([2, 5]);
+        ctx.beginPath(); ctx.moveTo(X(p0.x), Y(p0.y)); ctx.lineTo(X(p0.x + fr.mythDir.x * state.v * 5), Y(p0.y + fr.mythDir.y * state.v * 5)); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = 'rgba(255,126,95,0.8)';
+        ctx.beginPath(); ctx.arc(X(mp.x), Y(mp.y), 5, 0, Math.PI * 2); ctx.fill();
+        ctx.font = FONT_MONO_10;
+        ctx.fillText('myth path ✗', Math.max(4, Math.min(W - 80, X(mp.x) + 8)), Math.max(62, Math.min(H - 44, Y(mp.y) - 6)));
+      }
+      ctx.fillStyle = 'rgba(94,200,229,0.25)';
+      ctx.beginPath(); ctx.arc(X(pNow.x), Y(pNow.y), Math.max(9, 0.6 * S * k), 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#d7def2';
+      ctx.beginPath(); ctx.arc(X(pNow.x), Y(pNow.y), Math.max(4, 0.3 * S * k), 0, Math.PI * 2); ctx.fill();
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('straight line · no force', Math.max(4, Math.min(W - 150, X(pNow.x) + 8)), Math.max(62, Math.min(H - 44, Y(pNow.y) + 14)));
+    }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    ctx.fillText('r = ' + fmt(state.r, 0) + ' m', cx - 6, cy - state.r * S * 0.5);
+    ctx.textAlign = 'left';
+    ctx.strokeStyle = 'rgba(139,147,173,0.4)';
+    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx, cy - state.r * S); ctx.stroke();
+    if (!tf.grip) {
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('SKID — tires can’t supply m·v²/r', 14, state.myth ? 74 : 26);
+    }
+    elViewMeta.textContent = k > 1.05 ? 'to scale · car ×' + fmt(k, 1) : 'to scale';
+  }
+
+  function drawCarView(ctx, W, H, tf) {
+    var cx = W / 2, cy = H / 2 + 20;
+    var Sc = Math.min(W, H) / 11;  // px per m
+    var w = tf.aActual / state.v;
+    var car = state.car;
+    // road edges in car frame (world circle transformed)
+    ctx.lineWidth = 1.2;
+    var rad = [state.r - 3.5, state.r + 3.5];
+    ctx.fillStyle = state.surf.col;
+    ctx.globalAlpha = 0.5;
+    ctx.beginPath();
+    for (var e = 0; e < 2; e++) {
+      for (var i = 0; i <= 60; i++) {
+        var a = Math.atan2(car.y, car.x) + (e === 0 ? -1 : 1) * (i / 60 - 0.5) * (40 / state.r);
+        var R = rad[e === 0 ? 0 : 1];
+        var q = toCarFrame({ x: R * Math.cos(a), y: R * Math.sin(a) }, car);
+        var sx = cx - q.y * Sc, sy = cy - q.x * Sc;
+        if (i === 0 && e === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+      }
+    }
+    ctx.closePath(); ctx.fill();
+    ctx.globalAlpha = 1;
+    // scrolling lane dashes
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    var s0 = Math.atan2(car.y, car.x) * state.r;
+    for (var j = -8; j <= 8; j++) {
+      var a2 = (Math.floor(s0 / 3) + j) * 3 / state.r;
+      var q2 = toCarFrame({ x: (state.r + 3.3) * Math.cos(a2), y: (state.r + 3.3) * Math.sin(a2) }, car);
+      ctx.fillRect(cx - q2.y * Sc - 1, cy - q2.x * Sc - 4, 2, 8);
+    }
+    // car fixed, pointing up
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(-Math.PI / 2);
+    drawCarBody(ctx, CAR_L * Sc, CAR_W * Sc, !tf.grip, !!state.free);
+    ctx.restore();
+    var sx0 = cx - SEAT_Y * Sc, sy0 = cy - 0.1 * Sc;
+    var fLen = Math.min(100, 16 + tf.aActual * 4.6);
+    if (!state.free) {
+      ctx.fillStyle = '#d7def2';
+      ctx.beginPath(); ctx.arc(sx0, sy0, 0.3 * Sc, 0, Math.PI * 2); ctx.fill();
+      // door pushes left (inward), fictitious centrifugal right (outward): balance
+      drawArrow(ctx, sx0 - 2, sy0 - 12, sx0 - 2 - fLen, sy0 - 12, '#5ec8e5', 2.6, 9);
+      ctx.save();
+      ctx.setLineDash([5, 4]);
+      drawArrow(ctx, sx0 + 2, sy0 + 14, sx0 + 2 + fLen, sy0 + 14, state.myth ? '#ff7e5f' : 'rgba(255,126,95,0.75)', 2.2, 9);
+      ctx.restore();
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('door (real) ' + fmt(tf.door, 0) + ' N', Math.max(4, sx0 - fLen - 20), sy0 - 20);
+      ctx.fillStyle = '#ff7e5f';
+      var lab = 'centrifugal (fictitious) m·ω²·r';
+      ctx.fillText(lab, Math.max(4, Math.min(W - lab.length * 6.3 - 4, sx0 - 30)), sy0 + 34);
+    } else {
+      var tr = state.free.trail;
+      ctx.strokeStyle = 'rgba(94,200,229,0.7)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (var k = 0; k < tr.length; k++) {
+        var tx = cx - tr[k].y * Sc, ty = cy - tr[k].x * Sc;
+        if (k === 0) ctx.moveTo(tx, ty); else ctx.lineTo(tx, ty);
+      }
+      ctx.stroke();
+      if (tr.length) {
+        var last = tr[tr.length - 1];
+        ctx.fillStyle = '#d7def2';
+        ctx.beginPath(); ctx.arc(cx - last.y * Sc, cy - last.x * Sc, 0.3 * Sc, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('seen from the car: curves out & back', 12, H - 48);
+      ctx.fillText('(from the road it’s a straight line)', 12, H - 34);
+    }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('turning frame · ω = ' + fmt(w, 3) + ' rad/s', 12, state.myth ? 70 : 22);
+    ctx.fillText('turn centre ←', 12, cy + 4);
+    elViewMeta.textContent = 'non-inertial · 1 m = ' + fmt(Sc, 0) + ' px';
+  }
+
+  function drawGrip() {
+    var surf = surfaces.grip;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var tf = turnForces(state.v, state.r, state.surf);
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Tire friction: needed vs available', 14, 24);
+    var bx = 18, bw = W - 36, by = 44;
+    var maxF = Math.max(tf.need, tf.avail) * 1.15;
+    function bar(y, val, color, label) {
+      ctx.fillStyle = 'rgba(94,200,229,0.08)';
+      ctx.fillRect(bx, y, bw, 14);
+      ctx.fillStyle = color;
+      ctx.fillRect(bx, y, bw * Math.min(1, val / maxF), 14);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(label + '  ' + fmt(val / 1000, 1) + ' kN', bx, y - 4);
+    }
+    bar(by + 12, tf.need, tf.grip ? '#5ec8e5' : '#ff7e5f', 'needed m·v²/r');
+    bar(by + 48, tf.avail, 'rgba(255,194,74,0.8)', 'available μ·m·g');
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = tf.grip ? '#7ee0a1' : '#ff7e5f';
+    ctx.fillText(tf.grip ? 'GRIP — car follows the curve' : 'SKID — car runs wide', bx, by + 86);
+
+    // Chart: required a (g) vs speed for this radius, μ lines
+    var L = 40, R = W - 14, T = by + 112, B = H - 34;
+    var VMAX = 45, GMAX = 2.5;
+    function X(v) { return L + v / VMAX * (R - L); }
+    function Y(g) { return B - Math.min(GMAX, g) / GMAX * (B - T); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    for (var v = 0; v <= VMAX; v += 15) {
+      ctx.beginPath(); ctx.moveTo(X(v), T); ctx.lineTo(X(v), B); ctx.stroke();
+      ctx.fillText(String(v), X(v) - 6, B + 13);
+    }
+    for (var gg = 0; gg <= GMAX; gg += 0.5) {
+      ctx.beginPath(); ctx.moveTo(L, Y(gg)); ctx.lineTo(R, Y(gg)); ctx.stroke();
+      ctx.fillText(gg.toFixed(1), L - 26, Y(gg) + 3);
+    }
+    ctx.fillText('speed (m/s) · need in g', (L + R) / 2 - 70, B + 26);
+    var keys = ['dry', 'wet', 'snow', 'ice'];
+    for (var i = 0; i < keys.length; i++) {
+      var sf = SURFACES[keys[i]], cur = sf === state.surf;
+      ctx.strokeStyle = cur ? 'rgba(255,194,74,0.9)' : 'rgba(255,194,74,0.22)';
+      ctx.lineWidth = cur ? 1.8 : 1;
+      ctx.beginPath(); ctx.moveTo(L, Y(sf.muS)); ctx.lineTo(R, Y(sf.muS)); ctx.stroke();
+      if (cur) { ctx.fillStyle = '#ffc24a'; ctx.fillText('μ = ' + sf.muS, R - 52, Y(sf.muS) - 4); }
+    }
+    ctx.strokeStyle = '#5ec8e5';
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    for (var s = 0; s <= 90; s++) {
+      var vv = s / 90 * VMAX, gq = vv * vv / state.r / G;
+      if (s === 0) ctx.moveTo(X(vv), Y(gq)); else ctx.lineTo(X(vv), Y(gq));
+      if (gq > GMAX) break;
+    }
+    ctx.stroke();
+    if (tf.vMax <= VMAX) {
+      ctx.strokeStyle = 'rgba(255,126,95,0.6)';
+      ctx.setLineDash([3, 4]);
+      ctx.beginPath(); ctx.moveTo(X(tf.vMax), T); ctx.lineTo(X(tf.vMax), B); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('v max ' + fmt(tf.vMax, 1), Math.min(X(tf.vMax) + 4, R - 70), T + 10);
+    }
+    ctx.fillStyle = tf.grip ? '#ffc24a' : '#ff7e5f';
+    ctx.beginPath(); ctx.arc(X(state.v), Y(tf.aG), 6, 0, Math.PI * 2); ctx.fill();
+  }
+
+  function renderReadout() {
+    var tf = turnForces(state.v, state.r, state.surf);
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Centripetal accel needed', fmt(tf.a, 2) + ' m/s² · ' + fmt(tf.aG, 2) + ' g', 'v²/r = ' + fmt(state.v, 1) + '² / ' + fmt(state.r, 0) + ' m', '');
+    kv('Tire friction needed / available', fmt(tf.need / 1000, 1) + ' / ' + fmt(tf.avail / 1000, 1) + ' kN', 'm·v²/r vs μ·m·g · 1500 kg car', tf.grip ? 'sun' : 'warm');
+    kv('Grip or skid', tf.grip ? 'GRIP' : 'SKID', 'max speed here ' + fmt(tf.vMax, 1) + ' m/s (' + fmt(tf.vMax * 3.6, 0) + ' km/h)', tf.grip ? 'ok' : 'warm');
+    kv('Door on passenger', fmt(tf.door, 0) + ' N inward', '70 kg rider · ' + fmt(tf.door / (M_PASS * G), 2) + '× body weight', '');
+    kv(state.myth ? 'Outward force (myth)' : 'Actual path radius', state.myth ? '0 N' : fmt(tf.rActual, 1) + ' m', state.myth ? 'no agent pushes you outward' : (tf.grip ? 'car follows the road' : 'skidding wide: v²/(μk·g)'), state.myth ? 'warm' : '');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elVL.textContent = fmt(state.v, 1) + ' m/s · ' + fmt(state.v * 3.6, 0) + ' km/h · ' + fmt(state.v * 2.23694, 0) + ' mph';
+    elRL.textContent = fmt(state.r, 0) + ' m';
+    for (var k in sChips) setChip(sChips[k], state.surf.key === k);
+    setChip(chipMyth, state.myth);
+    setChip(vGround, state.view === 'ground');
+    setChip(vCar, state.view === 'car');
+    elDoor.textContent = state.free ? 'Restore the door' : 'Remove the door';
+    elViewTitle.textContent = state.view === 'ground' ? 'Ground view · top-down' : 'Passenger’s view · turning frame';
+    var tf = turnForces(state.v, state.r, state.surf);
+    if (state.myth) elHint.textContent = 'Myth mode · red = what the myth predicts. The real inward force is the door; nothing pushes outward.';
+    else if (!tf.grip) elHint.textContent = 'Needed ' + fmt(tf.aG, 2) + ' g > μ = ' + state.surf.muS + ' · the tires slide and the car runs wide.';
+    else if (state.view === 'car') elHint.textContent = 'Passenger’s view · turning frame. A fictitious outward force is needed to balance the door here.';
+    else elHint.textContent = 'Ground view · inertial frame. Only real forces act: door on you and road on tires, both inward.';
+    elGripMeta.textContent = tf.grip ? 'needed ≤ available' : 'needed > available';
+  }
+
+  function render() {
+    renderReadout();
+    drawTurn();
+    drawGrip();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (dt > 0) stepSim(dt);
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  elDoor.addEventListener('click', removeDoor);
+  vGround.addEventListener('click', function () { state.view = 'ground'; updateLabels(); });
+  vCar.addEventListener('click', function () { state.view = 'car'; updateLabels(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  Object.keys(sChips).forEach(function (k) {
+    sChips[k].addEventListener('click', function () { state.surf = SURFACES[k]; state.free = null; resetCar(); updateLabels(); });
+  });
+  elV.addEventListener('input', function () { state.v = parseFloat(elV.value); state.free = null; updateLabels(); });
+  elR.addEventListener('input', function () { state.r = parseFloat(elR.value); state.free = null; resetCar(); updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); removeDoor(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  resetCar();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__turnPhysics = {
+    centripetalAccel: centripetalAccel, vMax: vMax, turnForces: turnForces, freeFlight: freeFlight,
+    toCarFrame: toCarFrame, fromCarFrame: fromCarFrame, centrifugal: centrifugal,
+    SURFACES: SURFACES, G: G, M_CAR: M_CAR, M_PASS: M_PASS, MUK_FRAC: MUK_FRAC
+  };
+  window.__turnState = state;
+  window.__turnApi = { removeDoor: removeDoor, stepSim: stepSim, resetCar: resetCar };
+})();
+</script>
+</body>
+</html>
