@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Thunder Comes After Lightning — Flash-to-Bang Delay, Speed of Sound vs Light</title>
+<meta name="description" content="Classroom thunder explainer: lightning and thunder start together. Light arrives in µs, sound at ~343 m/s, so the gap gives distance. NGSS MS-PS4.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="thunder, lightning, flash to bang, speed of sound, speed of light, 30 seconds rule, 3 seconds per kilometre, 5 seconds per mile, shock wave, misconception, classroom physics">
+<meta property="og:title" content="Why Thunder Comes After Lightning">
+<meta property="og:description" content="Thunder isn’t clouds bumping and it isn’t late. The flash and the bang start together; light wins the race by almost three seconds per kilometre. Live strike for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+.lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+.btn.strike { background: rgba(255, 194, 74, 0.12); color: var(--sun2); border-color: rgba(255, 194, 74, 0.45); min-width: 96px; }
+#cvScene { cursor: pointer; }
+.card canvas.tall { height: 420px; }
+@media (max-width: 720px) { .card canvas.tall { height: 340px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · sound &amp; light</a></p>
+  <h1>Why thunder comes after lightning</h1>
+  <p class="lede">The flash and the bang are <strong>made at the same instant</strong>. A lightning channel heats a thin tube of air to roughly <strong>30,000 K</strong> in a few millionths of a second. That air expands explosively and sends out a pressure wave: the thunder. Both then race toward you. Light covers a kilometre in about <strong>3 microseconds</strong>; sound needs about <strong>3 seconds</strong>. The gap you count is the <strong>distance</strong>, not a delay at the cloud.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Strike</strong> and count seconds until the sound front reaches the person. Notice the count is set only by how far away the strike is: drag the distance up and the wait grows, about 3 s for every kilometre.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn strike" id="btnStrike" title="Spacebar">Strike ⚡</button>
+      <span class="lbl">Playback</span>
+      <button type="button" class="chip on" id="spd1">Real time</button>
+      <button type="button" class="chip" id="spd5">5× fast</button>
+      <button type="button" class="chip on" id="chipSound" aria-pressed="true">Sound on</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: thunder is clouds bumping, later</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Distance to the strike <em id="dLabel">1.50 km</em></span>
+        <input type="range" id="dist" min="0.2" max="25" step="0.05" value="1.5" aria-label="Distance from you to the lightning strike in kilometres">
+      </label>
+      <label class="sl grow">
+        <span>Air temperature <em id="tLabel">20 °C</em></span>
+        <input type="range" id="temp" min="-20" max="40" step="1" value="20" aria-label="Air temperature in degrees Celsius">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint">Sound plays only after you press Strike (or click the sky).</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>The strike, to scale</b><span id="sceneMeta">cloud base 3 km</span></div>
+      <canvas id="cvScene" class="tall" width="760" height="420" aria-label="Side view of a lightning channel and an observer, with the thunder pressure front expanding outward from the whole channel; click to strike"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>When each one arrives</b><span id="chartMeta">delay vs distance</span></div>
+      <canvas id="cvChart" class="tall" width="520" height="420" aria-label="Timeline of flash and thunder at the strike and at the observer, and a graph of delay versus distance"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Lightning heats air, and the air explodes</h2>
+      <p>A return stroke dumps its energy into a channel a few centimetres wide in microseconds. The air there reaches roughly 30,000 K (about five times hotter than the Sun’s surface) and its pressure jumps to many times normal. It bursts outward as a shock wave, which weakens within metres into an ordinary sound wave: thunder.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Light and sound run a very uneven race</h2>
+      <p>Light travels at <code>c ≈ 300,000 km/s</code>. Sound in air travels at <code>v = 331.3·√(1 + T/273.15) m/s</code>, about 343 m/s at 20 °C. Light is almost 900,000 times faster, so the flash reaches you essentially at once and the gap you hear is just the sound’s travel time.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Count the gap, get the distance</h2>
+      <p><code>distance = v × delay</code>. At 343 m/s that is about 3 s per kilometre or 5 s per mile: the flash-to-bang rule. The rumble lasts because the channel is kilometres long: sound from its near end arrives first, sound from the top of the channel arrives seconds later.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Thunder is clouds bumping” · “it happens later”</h2>
+      <p>Clouds are mist; they can’t clang together. And the bang isn’t made late: if it were, the gap would be the same wherever you stood. It isn’t. Walk (or slide) closer and the gap shrinks toward zero; right next to a strike, flash and crack are simultaneous. Turn on myth mode to see the flat “made later” line fail against the real one.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Thunder reference numbers">
+    <div class="stat">
+      <div class="k">Channel temperature</div>
+      <div class="v">≈ 30,000 K</div>
+      <div class="s">~50,000 °F (NOAA / NWS)</div>
+    </div>
+    <div class="stat">
+      <div class="k">Sound at 20 °C</div>
+      <div class="v">343.2 m/s</div>
+      <div class="s">1 km → 2.91 s</div>
+    </div>
+    <div class="stat">
+      <div class="k">Flash-to-bang</div>
+      <div class="v">≈ 3 s / km</div>
+      <div class="s">≈ 5 s / mile</div>
+    </div>
+    <div class="stat">
+      <div class="k">Light over 1 km</div>
+      <div class="v">3.34 µs</div>
+      <div class="s">c = 299,792,458 m/s</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Speed of sound.</strong> Ideal-gas dry air: <code>v = 331.3·√(1 + T/273.15)</code> m/s with T in °C (equivalently <code>v = √(γRT/M)</code>). It gives 343.2 m/s at 20 °C and 331.3 m/s at 0 °C. Humidity raises v by well under 1%, and wind adds or subtracts its own speed along the path; neither is modeled. Real air is colder aloft, which bends sound upward and is one reason thunder is rarely heard beyond about 15–25 km (the US National Weather Service quotes “about 10 miles”).</li>
+      <li><strong style="color:var(--text)">Speed of light.</strong> <code>c = 299,792,458 m/s</code> (the refractive index of air, ≈ 1.0003, changes it by 0.03%). Light travel time is shown in microseconds; it is subtracted from the sound time to get the true flash-to-bang gap, although it only changes the answer in the sixth decimal place.</li>
+      <li><strong style="color:var(--text)">Check.</strong> 1.000 km at 20 °C: <code>t = 1000 / 343.2 = 2.914 s</code> (about 2.9 s; the “3 s per km” rule overestimates the gap by ~3%, so it underestimates distance slightly). 1 mile (1609 m) takes 4.69 s, so “5 s per mile” is also a slight underestimate of distance. Both rules are for counting, not surveying.</li>
+      <li><strong style="color:var(--text)">Channel temperature.</strong> Spectroscopic measurements of return strokes give peak temperatures of roughly 20,000–30,000 K (NOAA/NWS quotes about 50,000 °F), reached in microseconds, with channel pressures briefly around 10 atmospheres or more. The shock wave decays into ordinary sound within metres to tens of metres of the channel; the page treats thunder as ordinary sound from there on.</li>
+      <li><strong style="color:var(--text)">Channel geometry and rumble.</strong> The drawn channel is a straight vertical line from the ground to a 3 km cloud base; the sound front is every point a distance <code>v·t</code> from that line (a capsule shape). Real channels are tortuous and branched, often run partly horizontal, and include several return strokes tens of milliseconds apart; these make the rumble longer and more irregular. The rumble duration shown, <code>(√(d² + h²) − d)/v</code>, is the spread for this idealized straight channel only.</li>
+      <li><strong style="color:var(--text)">The sound.</strong> Filtered noise synthesized in your browser, only after you press Strike. Nearby strikes are given a sharper crack; distant ones are duller and quieter, because air absorbs high frequencies more strongly over distance. It is a sketch, not a recording.</li>
+      <li><strong style="color:var(--text)">Safety.</strong> If you can hear thunder, you are close enough to be struck (NWS “When thunder roars, go indoors”). Lightning can strike 10 miles or more from the storm. Don’t use the flash-to-bang count to decide it’s safe to stay outside.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Waves and their properties, speed of light vs sound (NGSS MS-PS4-1, MS-PS4-2, HS-PS4-1). Name the misconceptions: “thunder is clouds colliding” and “thunder happens after lightning.” A good extension: have students time a real storm and estimate its distance and speed of approach.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics (exported; checked by validate-thunder.js) =====
+  var C_LIGHT = 299792458;    // m/s
+  var V0 = 331.3;             // m/s at 0 °C, dry air
+  var T0 = 273.15;            // K
+  var CHANNEL_T_K = 30000;    // approximate peak return-stroke channel temperature
+  var SUN_SURFACE_K = 5772;   // K, effective temperature of the Sun
+  var CHANNEL_H = 3000;       // m, idealized vertical channel height (ground to cloud base)
+  var M_PER_MILE = 1609.344;
+
+  function soundSpeed(tC) {
+    return V0 * Math.sqrt(1 + tC / T0);
+  }
+  function lightTime(d) {
+    return d / C_LIGHT;
+  }
+  function soundTime(d, tC) {
+    return d / soundSpeed(tC);
+  }
+  // Flash-to-bang gap actually perceived: sound time minus light time
+  function delay(d, tC) {
+    return soundTime(d, tC) - lightTime(d);
+  }
+  // Exact inversion: d = delay / (1/v − 1/c)
+  function distanceFromDelay(gap, tC) {
+    return gap / (1 / soundSpeed(tC) - 1 / C_LIGHT);
+  }
+  function ruleKm(gap) { return gap / 3; }
+  function ruleMiles(gap) { return gap / 5; }
+  // Straight vertical channel from ground (0) to height h at horizontal distance d:
+  // nearest point is the base (d), farthest is the top (√(d²+h²)).
+  function firstArrival(d, tC) { return soundTime(d, tC); }
+  function lastArrival(d, tC, h) { return Math.sqrt(d * d + h * h) / soundSpeed(tC); }
+  function rumbleDuration(d, tC, h) { return lastArrival(d, tC, h) - firstArrival(d, tC); }
+  function frontRadius(t, tC) { return Math.max(0, t) * soundSpeed(tC); }
+
+  // ===== Fonts cached outside draw loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_BIG = '600 26px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var MYTH_GAP = 3; // s — the fixed "made later at the cloud" gap the myth implies
+
+  var state = {
+    dKm: 1.5, tC: 20, speed: 1, sound: true, myth: false,
+    t: -1, running: false, lastTs: 0, clock: 0, heardAt: -1, boltSeed: 1
+  };
+  var audioCtx = null;
+  var noiseBuf = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elStrike = $('btnStrike'), elSp1 = $('spd1'), elSp5 = $('spd5'), elSound = $('chipSound'), elMyth = $('chipMyth');
+  var elD = $('dist'), elT = $('temp'), elDL = $('dLabel'), elTL = $('tLabel');
+  var elHint = $('modeHint'), elReadout = $('readout'), elSceneMeta = $('sceneMeta'), elChartMeta = $('chartMeta');
+  var cvScene = $('cvScene');
+  var surfaces = {
+    scene: { canvas: cvScene, ctx: null, w: 0, h: 0, cssH: 420 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function current() {
+    var d = state.dKm * 1000;
+    var v = soundSpeed(state.tC);
+    var gap = delay(d, state.tC);
+    return {
+      d: d, v: v, tl: lightTime(d), ts: soundTime(d, state.tC), gap: gap,
+      last: lastArrival(d, state.tC, CHANNEL_H), rumble: rumbleDuration(d, state.tC, CHANNEL_H),
+      rKm: ruleKm(gap), rMi: ruleMiles(gap), exact: distanceFromDelay(gap, state.tC)
+    };
+  }
+
+  // ===== Sound: user-initiated only (Strike button / click on the sky) =====
+  function playThunder(c) {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return false;
+    if (!audioCtx) audioCtx = new AC();
+    if (audioCtx.state === 'suspended' && audioCtx.resume) audioCtx.resume();
+    var sr = audioCtx.sampleRate || 44100;
+    if (!noiseBuf) {
+      var len = Math.round(sr * 4);
+      noiseBuf = audioCtx.createBuffer(1, len, sr);
+      var data = noiseBuf.getChannelData(0), last = 0;
+      for (var i = 0; i < data.length; i++) {
+        var w = Math.random() * 2 - 1;
+        last = 0.985 * last + 0.015 * w * 6; // brown-ish noise for rumble body
+        data[i] = Math.max(-1, Math.min(1, last * 0.6 + w * 0.12));
+      }
+    }
+    var startIn = c.ts / state.speed;
+    var dur = Math.min(6, Math.max(1.2, c.rumble / state.speed + 1.2));
+    var now = audioCtx.currentTime + 0.02 + startIn;
+    var near = Math.max(0, 1 - c.d / 6000); // sharper crack when close
+    var src = audioCtx.createBufferSource();
+    src.buffer = noiseBuf;
+    src.loop = true;
+    var lp = audioCtx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = 180 + 2600 * near * near;
+    var g = audioCtx.createGain();
+    var peak = 0.55 * Math.max(0.15, Math.min(1, 1200 / Math.max(300, c.d)));
+    g.gain.setValueAtTime(0.0001, now);
+    g.gain.linearRampToValueAtTime(peak, now + 0.03 + 0.12 * (1 - near));
+    g.gain.exponentialRampToValueAtTime(peak * 0.35, now + dur * 0.4);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+    src.connect(lp); lp.connect(g); g.connect(audioCtx.destination);
+    src.start(now);
+    src.stop(now + dur + 0.1);
+    return true;
+  }
+
+  function strike(withSound) {
+    state.t = 0;
+    state.running = true;
+    state.heardAt = -1;
+    state.boltSeed = 1 + Math.floor(Math.random() * 1000);
+    if (withSound && state.sound) playThunder(current());
+  }
+
+  function updateLabels() {
+    var c = current();
+    elDL.textContent = state.dKm.toFixed(2) + ' km (' + (c.d / M_PER_MILE).toFixed(2) + ' mi)';
+    elTL.textContent = state.tC.toFixed(0) + ' °C (' + (state.tC * 9 / 5 + 32).toFixed(0) + ' °F)';
+    setChip(elSp1, state.speed === 1);
+    setChip(elSp5, state.speed === 5);
+    setChip(elSound, state.sound);
+    elSound.textContent = state.sound ? 'Sound on' : 'Sound off';
+    setChip(elMyth, state.myth);
+    elSceneMeta.textContent = 'channel 0–3 km · v = ' + c.v.toFixed(1) + ' m/s';
+    elChartMeta.textContent = state.myth ? 'real vs “made later” myth' : 'delay vs distance';
+    if (state.myth) elHint.textContent = 'Myth mode: if thunder were made ' + MYTH_GAP + ' s late at the cloud, the gap would be ' + MYTH_GAP + ' s at every distance (red line). The real gap grows with distance.';
+    else if (state.dKm > 16) elHint.textContent = 'Beyond ~15–25 km thunder is often inaudible: sound bends upward in air that is colder aloft, and absorption dulls it.';
+    else elHint.textContent = 'Sound plays only after you press Strike (or click the sky). Real time: count along with the stopwatch.';
+  }
+
+  function renderReadout(c) {
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Light travel time', (c.tl * 1e6).toFixed(2) + ' µs', 'd / c · effectively instant', 'sun');
+    kv('Speed of sound', c.v.toFixed(1) + ' m/s', '331.3·√(1 + T/273.15) at ' + state.tC.toFixed(0) + ' °C', '');
+    kv('Flash-to-bang gap', c.gap.toFixed(2) + ' s', 'sound time − light time', 'warm');
+    var errKm = 100 * (c.rKm * 1000 - c.d) / c.d;
+    kv('Rule vs exact', c.rKm.toFixed(2) + ' km · ' + c.rMi.toFixed(2) + ' mi', '÷3 rule ' + (errKm >= 0 ? '+' : '−') + Math.abs(errKm).toFixed(1) + '% · exact v×gap ' + (c.exact / 1000).toFixed(2) + ' km', '');
+    kv('Rumble spread', c.rumble.toFixed(2) + ' s', 'near end → top of a 3 km channel', '');
+    elReadout.innerHTML = html;
+  }
+
+  // Deterministic jagged bolt
+  function boltPoints(x, yTop, yBot, seed, amp) {
+    var pts = [], n = 14, s = seed;
+    function rnd() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+    for (var i = 0; i <= n; i++) {
+      var f = i / n;
+      var jit = (i === 0 || i === n) ? 0 : (rnd() - 0.5) * amp;
+      pts.push([x + jit, yTop + (yBot - yTop) * f]);
+    }
+    return pts;
+  }
+
+  function drawScene(c) {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    var flashOn = state.t >= 0 && state.t < 0.25 && state.running;
+    var flashA = flashOn ? (1 - state.t / 0.25) : 0;
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#070a1a'); bg.addColorStop(1, '#0d1430');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    if (flashA > 0) { ctx.fillStyle = 'rgba(200,210,255,' + (0.35 * flashA).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); }
+
+    var groundY = H - 46;
+    var scV = (groundY - 128) / CHANNEL_H;
+    var scH = (W - 34 - 40) / (c.d * 1.06 + 200);
+    var sc = Math.min(scV, scH);
+    // centre the observer–strike pair when the height limits the scale
+    var obsX = Math.max(34, (W - c.d * sc) / 2 - 10);
+    var sx = obsX + c.d * sc;
+    var yTop = groundY - CHANNEL_H * sc;
+
+    // cloud
+    ctx.fillStyle = 'rgba(120,130,165,0.35)';
+    var cw = Math.max(60, Math.min(W * 0.45, 5000 * sc));
+    for (var k = 0; k < 6; k++) {
+      var cx = sx - cw / 2 + (k + 0.5) * cw / 6;
+      ctx.beginPath(); ctx.ellipse(cx, yTop - 10 - (k % 2) * 8, cw / 6 + 6, 16 + (k % 3) * 4, 0, 0, Math.PI * 2); ctx.fill();
+    }
+    // ground
+    ctx.fillStyle = '#10182c';
+    ctx.fillRect(0, groundY, W, H - groundY);
+    ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, groundY); ctx.lineTo(W, groundY); ctx.stroke();
+
+    // distance ruler (km ticks)
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    var stepKm = 0.5, steps = [0.5, 1, 2, 5, 10];
+    for (var si = 0; si < steps.length; si++) { stepKm = steps[si]; if (stepKm * 1000 * sc >= 56) break; }
+    for (var km = stepKm; km < state.dKm - 1e-9; km += stepKm) {
+      var tx = obsX + km * 1000 * sc;
+      if (sx - tx < 60) break;
+      ctx.fillRect(tx, groundY, 1, 6);
+      ctx.fillText((stepKm < 1 ? km.toFixed(1) : km.toFixed(0)) + ' km', tx + 3, groundY + 16);
+    }
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillRect(sx, groundY, 1, 8);
+    ctx.fillText(state.dKm.toFixed(2) + ' km', sx - 20, groundY + 18);
+    ctx.strokeStyle = 'rgba(255,194,74,0.35)';
+    ctx.beginPath(); ctx.moveTo(obsX, groundY + 26); ctx.lineTo(sx, groundY + 26); ctx.stroke();
+    ctx.fillStyle = '#8b93ad';
+    // height ruler
+    ctx.fillStyle = 'rgba(139,147,173,0.8)';
+    ctx.fillText('3 km', sx + 8, yTop + 4);
+
+    // channel: bright when flashing, faint afterglow otherwise (the heated column)
+    var pts = boltPoints(sx, yTop, groundY, state.boltSeed, Math.max(6, Math.min(26, 700 * sc)));
+    ctx.lineJoin = 'round';
+    if (state.running && state.t >= 0) {
+      if (flashA > 0) {
+        ctx.strokeStyle = 'rgba(255,255,255,' + (0.4 + 0.6 * flashA).toFixed(3) + ')';
+        ctx.lineWidth = 3;
+        ctx.shadowColor = '#bcd0ff'; ctx.shadowBlur = 18;
+      } else {
+        ctx.strokeStyle = 'rgba(255,126,95,' + Math.max(0.12, 0.5 * Math.exp(-state.t / 2)).toFixed(3) + ')';
+        ctx.lineWidth = 1.5;
+      }
+      ctx.beginPath();
+      for (var i = 0; i < pts.length; i++) { if (i === 0) ctx.moveTo(pts[i][0], pts[i][1]); else ctx.lineTo(pts[i][0], pts[i][1]); }
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    } else {
+      ctx.setLineDash([3, 5]);
+      ctx.strokeStyle = 'rgba(215,222,242,0.18)';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(sx, yTop); ctx.lineTo(sx, groundY); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // sound front: all points within v·t of the channel segment (capsule), above ground
+    if (state.running && state.t > 0) {
+      var R = frontRadius(state.t, state.tC) * sc;
+      ctx.save();
+      ctx.beginPath(); ctx.rect(0, 0, W, groundY); ctx.clip();
+      var grd = ctx.createLinearGradient(sx - R, 0, sx, 0);
+      grd.addColorStop(0, 'rgba(255,194,74,0.10)'); grd.addColorStop(1, 'rgba(255,194,74,0.02)');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.moveTo(sx - R, groundY);
+      ctx.lineTo(sx - R, yTop);
+      ctx.arc(sx, yTop, R, Math.PI, Math.PI * 2);
+      ctx.lineTo(sx + R, groundY);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = '#ffc24a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(sx - R, groundY);
+      ctx.lineTo(sx - R, yTop);
+      ctx.arc(sx, yTop, R, Math.PI, Math.PI * 2);
+      ctx.lineTo(sx + R, groundY);
+      ctx.stroke();
+      // trailing edge of the rumble (sound from the top has had less time to spread past the observer)
+      ctx.restore();
+    }
+
+    // light ray (instant)
+    if (flashA > 0) {
+      ctx.strokeStyle = 'rgba(200,215,255,' + (0.8 * flashA).toFixed(3) + ')';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath(); ctx.moveTo(sx, groundY - (groundY - yTop) * 0.5); ctx.lineTo(obsX + 8, groundY - 30); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // observer
+    var heard = state.running && state.t >= c.ts;
+    var inRumble = heard && state.t <= c.last;
+    ctx.fillStyle = heard && inRumble ? '#ffc24a' : '#d7def2';
+    ctx.beginPath(); ctx.arc(obsX, groundY - 30, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillRect(obsX - 1.5, groundY - 25, 3, 14);
+    ctx.fillRect(obsX - 5, groundY - 11, 3, 11); ctx.fillRect(obsX + 2, groundY - 11, 3, 11);
+    if (inRumble) {
+      ctx.strokeStyle = 'rgba(255,194,74,0.8)'; ctx.lineWidth = 1.5;
+      for (var ring = 1; ring <= 3; ring++) { ctx.beginPath(); ctx.arc(obsX, groundY - 30, 6 + ring * 5 + 3 * Math.sin(state.clock * 30 + ring), -0.7, 0.7); ctx.stroke(); }
+    }
+
+    // myth overlay: clouds colliding
+    if (state.myth) {
+      var mx = Math.min(W - 70, Math.max(W * 0.55, sx)), my = 40;
+      var bump = 10 * Math.abs(Math.sin(state.clock * 2.2));
+      ctx.fillStyle = 'rgba(255,126,95,0.22)';
+      ctx.beginPath(); ctx.ellipse(mx - 26 - bump, my, 24, 12, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(mx + 26 + bump, my, 24, 12, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.textAlign = 'center';
+      ctx.fillText('myth: clouds “bump” ✗ (mist can’t clang)', mx, my + 28);
+      ctx.textAlign = 'left';
+    }
+
+    // HUD: stopwatch
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('stopwatch (from the flash)', 14, 22);
+    ctx.font = FONT_BIG;
+    var tShow = state.running ? Math.max(0, state.t) : 0;
+    ctx.fillStyle = heard ? '#ffc24a' : '#d7def2';
+    ctx.fillText(tShow.toFixed(2) + ' s', 14, 52);
+    ctx.font = FONT_MONO_11;
+    if (!state.running) {
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('press Strike or click the sky', 14, 72);
+    } else if (!heard) {
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('flash seen after ' + (c.tl * 1e6).toFixed(1) + ' µs · waiting for the bang…', 14, 72);
+    } else {
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('BANG at ' + c.ts.toFixed(2) + ' s → ' + (c.ts * c.v / 1000).toFixed(2) + ' km away', 14, 72);
+    }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText('you', obsX - 8, groundY + 18);
+    if (state.speed !== 1) { ctx.fillStyle = '#ff7e5f'; ctx.fillText('playback ' + state.speed + '× fast', W - 118, 22); }
+  }
+
+  function drawChart(c) {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var L = 16, Rr = W - 16;
+
+    // ---- Timeline (top) ----
+    var tMax = Math.max(1, c.last * 1.15, state.myth ? MYTH_GAP * 1.2 : 0);
+    function tx(t) { return L + 92 + (Rr - L - 92) * Math.min(1, t / tMax); }
+    var rows = [{ y: 44, name: 'At the strike' }, { y: 92, name: 'At you' }];
+    if (state.myth) rows.push({ y: 140, name: 'Myth' });
+    ctx.font = FONT_MONO_10;
+    rows.forEach(function (r) {
+      ctx.fillStyle = r.name === 'Myth' ? '#ff7e5f' : '#8b93ad';
+      ctx.fillText(r.name, L, r.y + 4);
+      ctx.strokeStyle = 'rgba(94,200,229,0.2)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(tx(0), r.y); ctx.lineTo(tx(tMax), r.y); ctx.stroke();
+    });
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('0 s', tx(0) - 6, 22);
+    ctx.fillText(tMax.toFixed(1) + ' s', tx(tMax) - 34, 22);
+    function mark(x, y, col, label, dy) {
+      ctx.fillStyle = col;
+      ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fill();
+      if (label) { ctx.fillText(label, Math.min(x + 7, Rr - ctx.measureText(label).width), y + (dy || -8)); }
+    }
+    // at the strike: both at 0
+    mark(tx(0), rows[0].y - 2, '#d7def2', 'flash + bang made together', -8);
+    mark(tx(0), rows[0].y + 3, '#ffc24a', '', 0);
+    // at you
+    mark(tx(c.tl), rows[1].y, '#d7def2', 'flash ' + (c.tl * 1e6).toFixed(1) + ' µs', 16);
+    ctx.fillStyle = 'rgba(255,194,74,0.35)';
+    ctx.fillRect(tx(c.ts), rows[1].y - 3, Math.max(2, tx(c.last) - tx(c.ts)), 6);
+    mark(tx(c.ts), rows[1].y, '#ffc24a', 'bang ' + c.ts.toFixed(2) + ' s', -8);
+    if (state.myth) {
+      mark(tx(MYTH_GAP), rows[2].y, '#ff7e5f', 'bang “made” ' + MYTH_GAP + ' s late — same at any distance ✗', -8);
+    }
+    // live cursor
+    if (state.running && state.t >= 0) {
+      ctx.strokeStyle = 'rgba(94,200,229,0.8)';
+      ctx.beginPath(); ctx.moveTo(tx(state.t), 30); ctx.lineTo(tx(state.t), rows[rows.length - 1].y + 10); ctx.stroke();
+    }
+
+    // ---- Delay vs distance graph (bottom) ----
+    var gy0 = H - 34, gy1 = state.myth ? 186 : 150, gx0 = L + 34, gx1 = Rr - 6;
+    var dMax = 25, yMax = 80;
+    function gx(dk) { return gx0 + (gx1 - gx0) * dk / dMax; }
+    function gy(s) { return gy0 - (gy0 - gy1) * s / yMax; }
+    ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(gx0, gy1); ctx.lineTo(gx0, gy0); ctx.lineTo(gx1, gy0); ctx.stroke();
+    ctx.fillStyle = '#8b93ad';
+    for (var dk = 0; dk <= 25; dk += 5) { ctx.fillText(String(dk), gx(dk) - 4, gy0 + 13); }
+    for (var s = 0; s <= yMax; s += 20) { ctx.fillText(String(s), gx0 - 20, gy(s) + 3); }
+    ctx.fillText('distance (km)', gx1 - 84, gy0 + 26);
+    ctx.fillText('gap (s)', gx0 - 30, gy1 - 8);
+    // temperature spread band
+    [-20, 40].forEach(function (tc) {
+      ctx.strokeStyle = 'rgba(94,200,229,0.25)'; ctx.setLineDash([2, 4]);
+      ctx.beginPath(); ctx.moveTo(gx(0), gy(0)); ctx.lineTo(gx(dMax), gy(delay(dMax * 1000, tc))); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    // rule of thumb
+    ctx.strokeStyle = 'rgba(215,222,242,0.45)'; ctx.setLineDash([6, 4]);
+    ctx.beginPath(); ctx.moveTo(gx(0), gy(0)); ctx.lineTo(gx(dMax), gy(3 * dMax)); ctx.stroke();
+    ctx.setLineDash([]);
+    // real
+    ctx.strokeStyle = '#ffc24a'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(gx(0), gy(0)); ctx.lineTo(gx(dMax), gy(delay(dMax * 1000, state.tC))); ctx.stroke();
+    ctx.lineWidth = 1;
+    if (state.myth) {
+      ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 2; ctx.setLineDash([5, 4]);
+      ctx.beginPath(); ctx.moveTo(gx(0), gy(MYTH_GAP)); ctx.lineTo(gx(dMax), gy(MYTH_GAP)); ctx.stroke();
+      ctx.setLineDash([]); ctx.lineWidth = 1;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('myth: fixed gap', gx(12), gy(MYTH_GAP) - 6);
+    }
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath(); ctx.arc(gx(state.dKm), gy(c.gap), 5, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('d / v at ' + state.tC.toFixed(0) + ' °C', gx(3), gy(delay(3000, state.tC) + 30));
+    ctx.fillStyle = 'rgba(215,222,242,0.7)';
+    ctx.fillText('3 s/km rule', gx(14), gy(3 * 14) - 6 - 12);
+    ctx.fillStyle = 'rgba(94,200,229,0.7)';
+    ctx.fillText('dotted: −20 / 40 °C', gx(14), gy0 - 8);
+  }
+
+  function render() {
+    var c = current();
+    renderReadout(c);
+    drawScene(c);
+    drawChart(c);
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.clock += dt;
+    if (state.running) {
+      state.t += dt * state.speed;
+      var c = current();
+      if (state.t > c.last + 2.5) state.running = false;
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  elStrike.addEventListener('click', function () { strike(true); });
+  elSp1.addEventListener('click', function () { state.speed = 1; updateLabels(); });
+  elSp5.addEventListener('click', function () { state.speed = 5; updateLabels(); });
+  elSound.addEventListener('click', function () { state.sound = !state.sound; updateLabels(); });
+  elMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elD.addEventListener('input', function () { state.dKm = parseFloat(elD.value); state.running = false; updateLabels(); });
+  elT.addEventListener('input', function () { state.tC = parseFloat(elT.value); updateLabels(); });
+  cvScene.addEventListener('pointerdown', function () { strike(true); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elStrike.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  // #strike in the URL starts a silent demo strike (used for screenshots / linking)
+  try { if (window.location && /strike/.test(window.location.hash || '')) strike(false); } catch (e) {}
+  requestAnimationFrame(tick);
+
+  window.__thunderPhysics = {
+    C_LIGHT: C_LIGHT, V0: V0, T0: T0, CHANNEL_T_K: CHANNEL_T_K, SUN_SURFACE_K: SUN_SURFACE_K, CHANNEL_H: CHANNEL_H,
+    M_PER_MILE: M_PER_MILE, MYTH_GAP: MYTH_GAP,
+    soundSpeed: soundSpeed, lightTime: lightTime, soundTime: soundTime, delay: delay, distanceFromDelay: distanceFromDelay,
+    ruleKm: ruleKm, ruleMiles: ruleMiles, firstArrival: firstArrival, lastArrival: lastArrival,
+    rumbleDuration: rumbleDuration, frontRadius: frontRadius
+  };
+})();
+</script>
+</body>
+</html>
