@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Air Has Weight — How Much Does the Air in a Classroom Weigh? | Classroom</title>
+<meta name="description" content="Classroom gas explainer: air is about 1.2 kg/m³, so a 10×8×3 m room holds ~290 kg of it, and a pumped basketball weighs ~5 g more. Live ideal-gas readouts.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="does air have weight, air has mass, density of air, ideal gas law, weight of air in a room, basketball weighs more inflated, atmospheric pressure column, gases are matter, classroom physics">
+<link rel="canonical" href="air-weight.html">
+<meta property="og:title" content="Air Has Weight">
+<meta property="og:description" content="Gases are matter. The air in an ordinary classroom weighs about as much as four adults, and pumping up a basketball adds grams you can measure. Live sim.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 420px; }
+@media (max-width: 720px) { .card canvas { height: 340px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · gases</a></p>
+  <h1>Air has weight</h1>
+  <p class="lede">Air feels like nothing, but it’s made of molecules, and molecules have mass. At room temperature and sea level a cubic meter of air is about <strong>1.2 kg</strong>. The air in an ordinary <strong>10 × 8 × 3 m classroom is about 290 kg</strong>, roughly four adults. Pump air into a basketball and the scale goes up by <strong>a few grams</strong>. The air pressure around you is the <strong>weight of the air above</strong>, about 10 tonnes on every square meter.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Let air out</strong>, then <strong>Pump up</strong>, and watch the scale. Notice the ball gets about <strong>4–5 g heavier</strong> at 8 psi, about the weight of a few paper clips.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPump" title="Spacebar">Pump up</button>
+      <button type="button" class="btn" id="btnDeflate">Let air out</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="aSea" aria-pressed="true">Sea level</button>
+      <button type="button" class="chip" id="aDenver" aria-pressed="false">Denver 1609 m</button>
+      <button type="button" class="chip" id="aLaPaz" aria-pressed="false">La Paz 3640 m</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: air weighs nothing</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Room length <em id="lLabel">10 m</em></span>
+        <input type="range" id="roomL" min="2" max="30" step="0.5" value="10" aria-label="Room length in meters">
+      </label>
+      <label class="sl grow">
+        <span>Room width <em id="wLabel">8 m</em></span>
+        <input type="range" id="roomW" min="2" max="30" step="0.5" value="8" aria-label="Room width in meters">
+      </label>
+      <label class="sl grow">
+        <span>Ceiling height <em id="hLabel">3 m</em></span>
+        <input type="range" id="roomH" min="2" max="10" step="0.1" value="3" aria-label="Ceiling height in meters">
+      </label>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Air temperature <em id="tLabel">20 °C</em></span>
+        <input type="range" id="temp" min="-10" max="40" step="1" value="20" aria-label="Air temperature in degrees Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Altitude <em id="altLabel">0 m</em></span>
+        <input type="range" id="alt" min="0" max="4000" step="10" value="0" aria-label="Altitude above sea level in meters">
+      </label>
+      <label class="sl grow">
+        <span>Basketball pressure (gauge) <em id="psiLabel">8.0 psi</em></span>
+        <input type="range" id="psi" min="0" max="12" step="0.1" value="8" aria-label="Basketball gauge pressure in psi above outside air">
+      </label>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>The air in the room</b><span id="roomMeta">ideal gas</span></div>
+      <canvas id="cvRoom" width="760" height="420" aria-label="A classroom drawn as a box full of air molecules with its air mass and an equivalent number of people"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Basketball on a scale</b><span id="ballMeta">7.1 L ball</span></div>
+      <canvas id="cvBall" width="480" height="420" aria-label="A basketball on a digital kitchen scale with a pump; the reading rises as air is pumped in"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Gases are made of molecules with mass</h2>
+      <p>Air is mostly N₂ and O₂. One mole (6×10²³ molecules) of dry air has a mass of <code>28.96 g</code>. At room conditions a cubic meter holds about 41 moles, which is <code>≈ 1.2 kg</code>. The molecules are spread out, not missing.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Density from the ideal gas law</h2>
+      <p><code>ρ = p·M / (R·T)</code>. More pressure packs more molecules in, so air is denser at sea level than in the mountains. Warmer air is less dense, which is why hot air rises. The air in a 240 m³ classroom comes to <code>≈ 289 kg</code>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Pressure is the weight of the air above</h2>
+      <p>The whole atmosphere rests on the ground. Sea-level pressure <code>101 kPa = 101 325 N/m²</code> means the air column above each square meter weighs about <code>10.3 tonnes</code>. You don’t feel crushed because the air pushes on you equally from every side, inside and out.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Air weighs nothing”</h2>
+      <p>Air <em>floats in air</em>, so you never feel its weight, just as water feels weightless while you swim in it. Squeeze extra air into a closed ball and the extra mass shows up on a scale. Toggle the myth: it predicts no change on the scale and 0 kg in the room. Both are measurably wrong.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Air numbers">
+    <div class="stat">
+      <div class="k">Air density · 20 °C, sea level</div>
+      <div class="v">1.204 kg/m³</div>
+      <div class="s">≈ 1/830 of water</div>
+    </div>
+    <div class="stat">
+      <div class="k">10 × 8 × 3 m classroom</div>
+      <div class="v">≈ 289 kg</div>
+      <div class="s">≈ 4 adults</div>
+    </div>
+    <div class="stat">
+      <div class="k">Basketball at 8 psi</div>
+      <div class="v">+4.7 g</div>
+      <div class="s">vs same ball at 0 psi</div>
+    </div>
+    <div class="stat">
+      <div class="k">Air column above 1 m²</div>
+      <div class="v">≈ 10.3 t</div>
+      <div class="s">p/g at sea level</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Ideal gas.</strong> <code>ρ = p·M/(R·T)</code> with R = 8.314462618 J/(mol·K) and M = 0.0289652 kg/mol (dry air). At 101 325 Pa and 20 °C that gives 1.2041 kg/m³. Humidity lowers density slightly (water vapor, 18 g/mol, is lighter than air), by about 1% for warm, humid air. It is ignored here. At these conditions air behaves as an ideal gas to about 0.1%.</li>
+      <li><strong>Pressure vs altitude</strong> from the standard atmosphere: <code>p = 101325·(1 − 2.25577×10⁻⁵·h)<sup>5.25588</sup></code> Pa. Room temperature is set separately, because indoor air is heated or cooled. Weather moves pressure by a few percent.</li>
+      <li><strong>Room air.</strong> Mass = ρ × length × width × height, and weight = mass × g (9.80665 m/s²). The room is treated as empty (furniture and people take up a little of the volume). “Adults” uses 70 kg each.</li>
+      <li><strong>Basketball.</strong> A size-7 ball holds about 7.1 L. Recommended inflation is roughly 7.5–8.5 psi gauge (1 psi = 6894.76 Pa). The extra air mass is <code>Δm = p<sub>gauge</sub>·V·M/(R·T)</code>. The scale reads shell mass plus <em>only</em> this extra air. The ball’s air at outside pressure is exactly canceled by buoyancy, because the ball displaces its own volume of outside air. We compare the <em>same</em> ball, same volume, at 0 psi and pumped. A truly flat, crumpled ball has less volume, which barely changes the answer. The shell mass (600 g) is a typical value; official balls run about 567–650 g.</li>
+      <li><strong>Air column.</strong> Mass above each m² = <code>p/g</code>. That is exact for a hydrostatic atmosphere, with g taken as constant. The molecule picture in the room is illustrative: the dot count scales with density but is not a molecule count (a real room holds about 6×10²⁷ molecules).</li>
+      <li><strong>For teachers.</strong> Matter and its interactions: gases have mass and are made of particles (NGSS 5-PS1-1, MS-PS1-1). It is a classic misconception that gases are “nothing” or weigh less than nothing. A balance-beam demo with two balloons, or a ball weighed before and after pumping on a 0.1 g scale, makes it concrete.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-air-weight.js =====
+  var R = 8.314462618;     // J/(mol·K)
+  var M_AIR = 0.0289652;   // kg/mol, dry air
+  var G = 9.80665;         // m/s²
+  var P0 = 101325;         // Pa
+  var PSI = 6894.757;      // Pa per psi
+  var BALL_V = 0.0071;     // m³ (size-7 basketball)
+  var BALL_SHELL = 0.600;  // kg
+  var ADULT = 70;          // kg
+  var ALTS = { sea: 0, denver: 1609, lapaz: 3640 };
+
+  function pressureAtAltitude(h) { return P0 * Math.pow(1 - 2.25577e-5 * h, 5.25588); }
+  function airDensity(p, Tc) { return p * M_AIR / (R * (Tc + 273.15)); }
+  function roomAir(L, W, Hh, p, Tc) {
+    var V = L * W * Hh, rho = airDensity(p, Tc), m = rho * V;
+    return { V: V, rho: rho, m: m, weight: m * G, adults: m / ADULT, molecules: p * V / (1.380649e-23 * (Tc + 273.15)) };
+  }
+  // Extra air mass in a rigid ball pumped to gauge pressure pg (Pa), same volume
+  function ballAddedMass(pg, V, Tc) { return pg * V * M_AIR / (R * (Tc + 273.15)); }
+  function ballInsideMass(pg, pOut, V, Tc) { return (pOut + pg) * V * M_AIR / (R * (Tc + 273.15)); }
+  // Scale reading: shell + air inside − buoyancy (displaced outside air) = shell + added air
+  function scaleReading(pg, pOut, V, Tc) {
+    return BALL_SHELL + ballInsideMass(pg, pOut, V, Tc) - airDensity(pOut, Tc) * V;
+  }
+  function columnMassPerM2(p) { return p / G; }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_LCD = '500 26px "IBM Plex Mono", ui-monospace, monospace';
+
+  var state = {
+    L: 10, W: 8, H: 3, T: 20, alt: 0, psiTarget: 8, psi: 8, myth: false,
+    pumping: 0, lastTs: 0, anim: 0
+  };
+  var DOTS = [];
+  for (var di = 0; di < 900; di++) DOTS.push({ x: Math.random(), y: Math.random(), z: Math.random(), p: Math.random() * 6.28 });
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPump = $('btnPump'), elDef = $('btnDeflate'), chipMyth = $('chipMyth');
+  var aChips = { sea: $('aSea'), denver: $('aDenver'), lapaz: $('aLaPaz') };
+  var sl = { L: $('roomL'), W: $('roomW'), H: $('roomH'), T: $('temp'), alt: $('alt'), psi: $('psi') };
+  var lab = { L: $('lLabel'), W: $('wLabel'), H: $('hLabel'), T: $('tLabel'), alt: $('altLabel'), psi: $('psiLabel') };
+  var elRoomMeta = $('roomMeta'), elBallMeta = $('ballMeta'), elReadout = $('readout');
+  var surfaces = {
+    room: { canvas: $('cvRoom'), ctx: null, w: 0, h: 0, cssH: 420 },
+    ball: { canvas: $('cvBall'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  function pOut() { return pressureAtAltitude(state.alt); }
+
+  function drawPerson(ctx, x, y, s, col) {
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.arc(x, y - 22 * s, 5 * s, 0, Math.PI * 2); ctx.fill();
+    ctx.fillRect(x - 5 * s, y - 16 * s, 10 * s, 12 * s);
+    ctx.fillRect(x - 5 * s, y - 4 * s, 4 * s, 10 * s);
+    ctx.fillRect(x + 1 * s, y - 4 * s, 4 * s, 10 * s);
+  }
+
+  function drawRoom() {
+    var surf = surfaces.room;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0b1230';
+    ctx.fillRect(0, 0, W, H);
+    var ra = roomAir(state.L, state.W, state.H, pOut(), state.T);
+    // Oblique projection of the room box, scaled to fit
+    var narrow = W < 500;
+    var kx = 0.5, ky = 0.32; // depth offsets per metre of width
+    var spanX = state.L + state.W * kx, spanY = state.H + state.W * ky;
+    var S = Math.min((W - (narrow ? 40 : 190)) / spanX, (H - 150) / spanY);
+    var ox = 40, oy = H - 104;
+    function P(x, y, z) { return { x: ox + (x + z * kx) * S, y: oy - (y + z * ky) * S }; }
+    var c = [P(0, 0, 0), P(state.L, 0, 0), P(state.L, state.H, 0), P(0, state.H, 0), P(0, 0, state.W), P(state.L, 0, state.W), P(state.L, state.H, state.W), P(0, state.H, state.W)];
+    // back faces
+    ctx.fillStyle = 'rgba(94,200,229,0.05)';
+    ctx.beginPath(); ctx.moveTo(c[4].x, c[4].y); ctx.lineTo(c[5].x, c[5].y); ctx.lineTo(c[6].x, c[6].y); ctx.lineTo(c[7].x, c[7].y); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = 'rgba(94,200,229,0.07)';
+    ctx.beginPath(); ctx.moveTo(c[0].x, c[0].y); ctx.lineTo(c[1].x, c[1].y); ctx.lineTo(c[5].x, c[5].y); ctx.lineTo(c[4].x, c[4].y); ctx.closePath(); ctx.fill();
+    // molecules (dot count ∝ density, illustrative)
+    var nDots = state.myth ? 0 : Math.min(DOTS.length, Math.round(420 * ra.rho / 1.204 * Math.min(1, ra.V / 240 + 0.4)));
+    ctx.fillStyle = 'rgba(94,200,229,0.75)';
+    for (var i = 0; i < nDots; i++) {
+      var d = DOTS[i];
+      var jx = Math.sin(state.anim * 2.3 + d.p) * 0.012, jy = Math.cos(state.anim * 1.9 + d.p * 1.3) * 0.012;
+      var q = P((d.x + jx) * state.L, (d.y + jy) * state.H, d.z * state.W);
+      ctx.fillRect(q.x - 1, q.y - 1, 2, 2);
+    }
+    // edges
+    ctx.strokeStyle = 'rgba(215,222,242,0.55)'; ctx.lineWidth = 1.2;
+    var E = [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]];
+    ctx.beginPath();
+    for (var e = 0; e < E.length; e++) { ctx.moveTo(c[E[e][0]].x, c[E[e][0]].y); ctx.lineTo(c[E[e][1]].x, c[E[e][1]].y); }
+    ctx.stroke();
+    // a 1.7 m person for scale
+    drawPerson(ctx, P(Math.min(2, state.L * 0.3), 0, 0.3).x, P(Math.min(2, state.L * 0.3), 0, 0.3).y - 6 * S * 1.7 / 30, S * 1.7 / 30, 'rgba(255,194,74,0.8)');
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    ctx.fillText(fmt(state.L, 1) + ' m', (c[0].x + c[1].x) / 2 - 14, c[0].y + 14);
+    ctx.fillText(fmt(state.W, 1) + ' m', (c[1].x + c[5].x) / 2 + 6, (c[1].y + c[5].y) / 2 + 12);
+    ctx.textAlign = 'right';
+    ctx.fillText(fmt(state.H, 1) + ' m', c[0].x - 4, (c[0].y + c[3].y) / 2);
+    ctx.textAlign = 'left';
+    // big number
+    ctx.font = FONT_DISPLAY; ctx.fillStyle = state.myth ? '#ff7e5f' : '#d7def2';
+    ctx.fillText(state.myth ? 'Myth: 0 kg of air ✗' : fmt(ra.m, 0) + ' kg of air', 14, 24);
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#8b93ad';
+    ctx.fillText(fmt(ra.V, 0) + ' m³ × ' + fmt(ra.rho, 3) + ' kg/m³' + (state.myth ? ' (real: ' + fmt(ra.m, 0) + ' kg)' : ''), 14, 42);
+    // people equivalent
+    var nP = Math.min(40, Math.round(ra.adults));
+    var py = H - 14, px0 = 20, ps = 0.8, step = 16;
+    var maxRow = Math.max(1, Math.floor((W - 40) / step));
+    for (var k = 0; k < Math.min(nP, maxRow); k++) drawPerson(ctx, px0 + k * step, py, ps, state.myth ? 'rgba(255,126,95,0.35)' : 'rgba(255,194,74,0.85)');
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#ffc24a';
+    ctx.fillText('≈ ' + fmt(ra.adults, 1) + ' adults of 70 kg' + (Math.round(ra.adults) > Math.min(nP, maxRow) ? ' (' + Math.min(nP, maxRow) + ' drawn)' : ''), 14, py - 34);
+    // column note (right side)
+    if (!narrow) {
+      var cx = W - 120, cTop = 60, cBot = H - 110;
+      var colM = columnMassPerM2(pOut());
+      ctx.fillStyle = 'rgba(255,194,74,0.10)';
+      ctx.fillRect(cx, cTop, 40, cBot - cTop);
+      var grad = ctx.createLinearGradient(0, cTop, 0, cBot);
+      grad.addColorStop(0, 'rgba(94,200,229,0.02)'); grad.addColorStop(1, 'rgba(94,200,229,0.45)');
+      ctx.fillStyle = grad; ctx.fillRect(cx, cTop, 40, cBot - cTop);
+      ctx.strokeStyle = 'rgba(215,222,242,0.4)'; ctx.strokeRect(cx, cTop, 40, cBot - cTop);
+      ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+      ctx.fillText('air above', cx - 6, cTop - 20);
+      ctx.fillText('1 m² ↑ 100 km', cx - 22, cTop - 8);
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText(fmt(colM / 1000, 2) + ' t', cx + 2, cBot + 14);
+      ctx.fillText('= p/g', cx + 4, cBot + 26);
+    }
+    elRoomMeta.textContent = W < 500 ? 'ideal gas' : 'ideal gas · ' + fmt(state.T, 0) + ' °C · ' + fmt(pOut() / 1000, 1) + ' kPa';
+  }
+
+  function drawBall() {
+    var surf = surfaces.ball;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var po = pOut(), pg = state.psi * PSI;
+    var dm = ballAddedMass(pg, BALL_V, state.T);
+    var reading = state.myth ? BALL_SHELL : scaleReading(pg, po, BALL_V, state.T);
+    var cx = W * 0.44, baseY = H - 96;
+    // scale
+    ctx.fillStyle = '#1a2142';
+    ctx.fillRect(cx - 110, baseY, 220, 40);
+    ctx.fillStyle = '#2a3363';
+    ctx.fillRect(cx - 120, baseY - 8, 240, 10);
+    ctx.fillStyle = '#07101f';
+    ctx.fillRect(cx - 72, baseY + 8, 144, 26);
+    ctx.font = FONT_LCD;
+    ctx.fillStyle = state.myth ? '#ff7e5f' : '#7ee0a1';
+    ctx.textAlign = 'right';
+    ctx.fillText(fmt(reading * 1000, 1), cx + 44, baseY + 31);
+    ctx.font = FONT_MONO_11;
+    ctx.fillText('g', cx + 60, baseY + 30);
+    ctx.textAlign = 'left';
+    // ball: slightly squashed when soft
+    var soft = 1 - Math.min(1, state.psi / 4);
+    var rB = 62, sq = 1 - 0.18 * soft;
+    var by = baseY - 8 - rB * sq;
+    ctx.save();
+    ctx.translate(cx, by);
+    ctx.scale(1 + 0.12 * soft, sq);
+    ctx.fillStyle = '#e0773a';
+    ctx.beginPath(); ctx.arc(0, 0, rB, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#2a140a'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(-rB, 0); ctx.lineTo(rB, 0); ctx.moveTo(0, -rB); ctx.lineTo(0, rB); ctx.stroke();
+    ctx.beginPath(); ctx.arc(-rB * 1.35, 0, rB * 0.95, -0.75, 0.75); ctx.stroke();
+    ctx.beginPath(); ctx.arc(rB * 1.35, 0, rB * 0.95, Math.PI - 0.75, Math.PI + 0.75); ctx.stroke();
+    ctx.restore();
+    // pump (hose into ball) — handle moves while pumping
+    var pumpX = Math.min(W - 40, cx + 150), pumpTop = baseY - 150;
+    ctx.fillStyle = '#3a4270';
+    ctx.fillRect(pumpX - 10, pumpTop, 20, 150);
+    var hOff = state.pumping !== 0 ? (Math.sin(state.anim * 12) * 0.5 + 0.5) * 50 : 0;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillRect(pumpX - 3, pumpTop - 40 + hOff, 6, 40);
+    ctx.fillRect(pumpX - 22, pumpTop - 44 + hOff, 44, 7);
+    ctx.strokeStyle = '#5a638f'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(pumpX - 10, baseY - 20); ctx.quadraticCurveTo(cx + 90, baseY - 20, cx + rB * 0.7, by - rB * 0.5); ctx.stroke();
+    // labels
+    ctx.font = FONT_DISPLAY; ctx.fillStyle = '#d7def2';
+    ctx.fillText(state.myth ? 'Myth: scale won’t change ✗' : '+' + fmt(dm * 1000, 2) + ' g of air added', 14, 26);
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#8b93ad';
+    ctx.fillText(fmt(state.psi, 1) + ' psi gauge · ' + fmt(pg / 1000, 1) + ' kPa above outside', 14, 44);
+    ctx.fillText('shell ' + fmt(BALL_SHELL * 1000, 0) + ' g + added air', 14, 60);
+    // paper clip comparison
+    ctx.fillStyle = '#ffc24a';
+    var clips = dm * 1000; // ~1 g per paper clip
+    var nc = Math.min(12, Math.round(clips));
+    for (var i = 0; i < nc; i++) {
+      ctx.strokeStyle = '#ffc24a'; ctx.lineWidth = 1.4;
+      var x0 = 16 + i * 14, y0 = H - 28;
+      ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y0 - 14); ctx.arc(x0 + 3, y0 - 14, 3, Math.PI, 0); ctx.lineTo(x0 + 6, y0 - 3); ctx.stroke();
+    }
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#ffc24a';
+    ctx.fillText('≈ ' + fmt(clips, 1) + ' paper clips (~1 g each)', 16 + Math.max(nc, 0) * 14 + 6, H - 30);
+    elBallMeta.textContent = '7.1 L ball · ' + fmt(state.T, 0) + ' °C';
+  }
+
+  function renderReadout() {
+    var po = pOut();
+    var ra = roomAir(state.L, state.W, state.H, po, state.T);
+    var dm = ballAddedMass(state.psi * PSI, BALL_V, state.T);
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Air density', fmt(ra.rho, 3) + ' kg/m³', 'p ' + fmt(po / 1000, 1) + ' kPa · ' + fmt(state.T, 0) + ' °C', '');
+    kv('Air mass in room', state.myth ? '0 kg (myth)' : fmt(ra.m, 0) + ' kg', fmt(ra.V, 0) + ' m³ · ≈ ' + fmt(ra.adults, 1) + ' adults' + (state.myth ? ' · real ' + fmt(ra.m, 0) + ' kg' : ''), state.myth ? 'warm' : 'sun');
+    kv('Weight of that air', fmt(ra.weight / 1000, 2) + ' kN', 'm·g · ≈ ' + ra.molecules.toExponential(1).replace('e+', '×10^') + ' molecules', '');
+    kv('Ball: air added', state.myth ? '0 g (myth)' : '+' + fmt(dm * 1000, 2) + ' g', 'Δm = p_g·V·M/RT · scale ' + fmt(scaleReading(state.psi * PSI, po, BALL_V, state.T) * 1000, 1) + ' g', state.myth ? 'warm' : 'ok');
+    kv('Air column above 1 m²', fmt(columnMassPerM2(po) / 1000, 2) + ' t', 'p/g · weighs ' + fmt(po / 1000, 1) + ' kN', '');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    lab.L.textContent = fmt(state.L, 1) + ' m';
+    lab.W.textContent = fmt(state.W, 1) + ' m';
+    lab.H.textContent = fmt(state.H, 1) + ' m';
+    lab.T.textContent = fmt(state.T, 0) + ' °C';
+    lab.alt.textContent = fmt(state.alt, 0) + ' m · ' + fmt(pOut() / 1000, 1) + ' kPa';
+    lab.psi.textContent = fmt(state.psi, 1) + ' psi';
+    for (var k in aChips) setChip(aChips[k], state.alt === ALTS[k]);
+    setChip(chipMyth, state.myth);
+  }
+
+  function render() {
+    renderReadout();
+    drawRoom();
+    drawBall();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    if (state.pumping !== 0) {
+      var rate = 3 * dt; // psi per second
+      if (Math.abs(state.psiTarget - state.psi) <= rate) { state.psi = state.psiTarget; state.pumping = 0; }
+      else state.psi += rate * (state.psiTarget > state.psi ? 1 : -1);
+      sl.psi.value = String(state.psi);
+      updateLabels();
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function pumpTo(target) { state.psiTarget = target; state.pumping = target > state.psi ? 1 : -1; if (target === state.psi) state.pumping = 0; }
+  elPump.addEventListener('click', function () { pumpTo(8); });
+  elDef.addEventListener('click', function () { pumpTo(0); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  Object.keys(aChips).forEach(function (k) {
+    aChips[k].addEventListener('click', function () { state.alt = ALTS[k]; sl.alt.value = String(state.alt); updateLabels(); });
+  });
+  ['L', 'W', 'H', 'T', 'alt'].forEach(function (k) {
+    sl[k].addEventListener('input', function () { state[k] = parseFloat(sl[k].value); updateLabels(); });
+  });
+  sl.psi.addEventListener('input', function () { state.psi = state.psiTarget = parseFloat(sl.psi.value); state.pumping = 0; updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); pumpTo(state.psi > 4 ? 0 : 8); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__airPhysics = {
+    pressureAtAltitude: pressureAtAltitude, airDensity: airDensity, roomAir: roomAir, ballAddedMass: ballAddedMass,
+    ballInsideMass: ballInsideMass, scaleReading: scaleReading, columnMassPerM2: columnMassPerM2,
+    R: R, M_AIR: M_AIR, G: G, PSI: PSI, BALL_V: BALL_V, BALL_SHELL: BALL_SHELL
+  };
+  window.__airState = state;
+})();
+</script>
+</body>
+</html>
