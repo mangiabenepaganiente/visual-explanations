@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Magnets Don’t Stick to All Metals — Domains, Not Shine | Classroom</title>
+<meta name="description" content="Classroom magnet explainer: only iron, nickel, cobalt and some steels stick, as their domains align. Aluminum, copper and 304 steel don’t. Curie demo.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why magnets don't stick to all metals, ferromagnetism, magnetic domains, magnetic susceptibility, paramagnetic, diamagnetic, Curie temperature, stainless steel magnet, 304 vs 430, aluminum magnet, classroom physics, misconception">
+<link rel="canonical" href="magnets.html">
+<meta property="og:title" content="Why Magnets Don’t Stick to All Metals">
+<meta property="og:description" content="Shiny isn’t magnetic. Only ferromagnets like iron, nickel and cobalt have domains a magnet can line up; aluminum and copper respond about 100,000 times more weakly. Heat iron past 770 °C and it lets go.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.readout { grid-template-columns: repeat(6, 1fr); }
+.card canvas { height: 430px; }
+.btn.heat { background: rgba(255, 126, 95, 0.1); border-color: rgba(255, 126, 95, 0.4); color: var(--warm); }
+.samples { display: flex; flex-wrap: wrap; gap: 6px 6px; align-items: center; }
+.samples .lab { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em; margin-right: 4px; }
+@media (max-width: 1100px) { .readout { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px) { .readout { grid-template-columns: 1fr 1fr; } .card canvas { height: 400px; } .controls .sep { display: none; } }
+
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · magnetism</a></p>
+  <h1>Why magnets don’t stick to all metals</h1>
+  <p class="lede">A fridge magnet ignores a soda can, a copper pipe and a gold ring. Being metal, or shiny, isn’t the test. Every atom’s electrons act as tiny magnets, but only in <strong>ferromagnets</strong> (iron, nickel, cobalt, most steels) do neighboring atoms lock together into <strong>domains</strong> that a magnet can swing into line. Everything else responds <strong>about 100,000 times more weakly</strong>. Heat iron past its <strong>Curie temperature</strong> (770 °C) and its domains fall apart. The pull collapses about a hundredfold, and a fridge magnet lets go.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Bring magnet in</strong> with <strong>Iron</strong> selected, then tap <strong>Aluminum</strong>. Notice the pull meter drops by about five powers of ten, and the aluminum never gets close to lifting its own weight.</p>
+
+  <div class="panel controls">
+    <div class="row samples" id="sampleRow" role="group" aria-label="Choose a sample material">
+      <span class="lab">Sample</span>
+      <button type="button" class="chip on" id="m_iron" aria-pressed="true">Iron</button>
+      <button type="button" class="chip" id="m_steel" aria-pressed="false">Steel (fridge)</button>
+      <button type="button" class="chip" id="m_nickel" aria-pressed="false">Nickel</button>
+      <button type="button" class="chip" id="m_cobalt" aria-pressed="false">Cobalt</button>
+      <button type="button" class="chip" id="m_ss430" aria-pressed="false">430 stainless</button>
+      <button type="button" class="chip" id="m_ss304" aria-pressed="false">304 stainless</button>
+      <button type="button" class="chip" id="m_al" aria-pressed="false">Aluminum</button>
+      <button type="button" class="chip" id="m_cu" aria-pressed="false">Copper</button>
+      <button type="button" class="chip" id="m_au" aria-pressed="false">Gold</button>
+      <button type="button" class="chip" id="m_ag" aria-pressed="false">Silver</button>
+      <button type="button" class="chip" id="m_brass" aria-pressed="false">Brass</button>
+      <button type="button" class="chip" id="m_water" aria-pressed="false">Water</button>
+    </div>
+    <div class="row">
+      <button type="button" class="btn play" id="btnMove" aria-pressed="false" title="Spacebar">Bring magnet in</button>
+      <button type="button" class="btn heat" id="btnHeat" aria-pressed="false">Heat past Curie point</button>
+ <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip sun on" id="mgNeo" aria-pressed="true">Neodymium magnet</button>
+      <button type="button" class="chip sun" id="mgFer" aria-pressed="false">Fridge (ceramic) magnet</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: magnets attract all metals</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Gap, magnet to sample <em id="gapLabel">30 mm</em></span>
+        <input type="range" id="gap" min="1" max="40" step="0.5" value="30" aria-label="Gap between the magnet face and the sample in millimeters">
+      </label>
+      <label class="sl grow">
+        <span>Sample temperature <em id="tempLabel">20 °C</em></span>
+        <input type="range" id="temp" min="20" max="1200" step="1" value="20" aria-label="Sample temperature in degrees Celsius">
+      </label>
+    </div>
+    <div class="row"><span class="hint" id="modeHint">Bring the magnet in, then switch samples.</span></div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Magnet · domains</b><span id="sceneMeta">not to scale</span></div>
+      <canvas id="cvScene" width="760" height="430" aria-label="A neodymium magnet approaching a sample, with the sample's magnetic domains or atomic moments drawn magnified and a force arrow"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Pull meter · Curie</b><span id="chartMeta">6 mm sphere</span></div>
+      <canvas id="cvChart" width="500" height="430" aria-label="Log-scale bar chart of the magnet's pull on every sample, and the magnetization of the chosen sample versus temperature"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Every atom is a tiny magnet, or none</h2>
+      <p>Electrons carry spin, and spinning charge makes a magnetic moment. In most atoms the electrons pair up and cancel. Iron, nickel and cobalt keep several unpaired spins, so each atom is a small bar magnet. Copper, gold and silver have none left over.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Domains make the difference</h2>
+      <p>In a ferromagnet a quantum effect (the exchange interaction) locks billions of neighboring moments parallel, forming domains. The domains point every which way, so an unmagnetized nail looks non-magnetic. A magnet nearby swings them into line and the nail becomes a magnet that is pulled in. That’s a susceptibility in the thousands, not <code>~10⁻⁵</code>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Heat scrambles the lock</h2>
+      <p>Thermal jiggling fights the exchange lock. At the <strong>Curie temperature</strong> it wins: domains vanish and spontaneous magnetization drops to zero. Iron: 1043 K (770 °C). Nickel: 627 K (354 °C). Cobalt: 1388 K (1115 °C). Above it the metal is only weakly paramagnetic and the pull collapses.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Magnets attract all metals”</h2>
+      <p>Aluminum (<code>χ ≈ +2.2×10⁻⁵</code>) is attracted, but so faintly that a strong magnet pulls less than 1% of its weight. Copper, gold and silver (<code>χ &lt; 0</code>) are pushed away just as faintly. A “silver” fridge door made of 304 stainless won’t hold a magnet. A 430 stainless door will. The test is the crystal’s spins, not shine or conductivity.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Magnetism reference numbers">
+    <div class="stat">
+      <div class="k">Iron vs aluminum</div>
+      <div class="v">~10⁵ × pull</div>
+      <div class="s">same shape, same magnet</div>
+    </div>
+    <div class="stat">
+      <div class="k">Iron loses it at</div>
+      <div class="v">770 °C</div>
+      <div class="s">1043 K · nickel 354 °C</div>
+    </div>
+    <div class="stat">
+      <div class="k">US 5¢ “nickel”</div>
+      <div class="v">doesn’t stick</div>
+      <div class="s">75% copper, 25% nickel</div>
+    </div>
+    <div class="stat">
+      <div class="k">UK 1p since 1992</div>
+      <div class="v">sticks</div>
+      <div class="s">copper-plated steel</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Magnet.</strong> An N42-grade neodymium disc, 20 mm across and 10 mm thick, remanence <code>B<sub>r</sub> = 1.32 T</code>. On its axis the field is the standard uniformly-magnetized-cylinder result, <code>B(z) = (B<sub>r</sub>/2)·[(z+L)/√((z+L)²+R²) − z/√(z²+R²)]</code>, about 0.46 T at the face. Its gradient is taken analytically. The “fridge (ceramic) magnet” option uses the same shape with ferrite’s <code>B<sub>r</sub> = 0.39 T</code>. Real flexible fridge magnets are thinner, multi-pole strips and weaker still.</li>
+      <li><strong>Sample and force.</strong> Every sample is the same 6 mm sphere, centered 3 mm behind the gap. Force on a small magnetized body: <code>F = V·M·dB/dz</code>, with the field treated as uniform across the sphere (a point-dipole estimate, fair to a factor of about 2 at the smallest gaps). Positive means pulled in; negative means pushed away. “Pull ÷ weight” compares with the sphere’s own weight, <code>ρVg</code>. Above 1, it jumps to the magnet.</li>
+      <li><strong>Weak materials.</strong> Room-temperature SI volume susceptibilities from standard tables (CRC Handbook values): aluminum +2.2×10⁻⁵, copper −9.63×10⁻⁶, gold −3.44×10⁻⁵, silver −2.38×10⁻⁵, water −9.05×10⁻⁶. Pure brass is diamagnetic (≈ −1×10⁻⁵ used here), but workshop brass often has iron contamination. Annealed 304 stainless is austenitic and paramagnetic, μ<sub>r</sub> ≈ 1.003–1.01 (χ = 5×10⁻³ used). Cold-working (bent edges, sink rims) converts some of it to magnetic martensite, so real 304 can tug noticeably at corners. These χ values are held constant with temperature, and water is drawn as liquid at every temperature, even though it would boil.</li>
+      <li><strong>Ferromagnets.</strong> μ<sub>r</sub> is an order-of-magnitude “effective” value (iron 5000, low-carbon steel 1000, 430 stainless 750, nickel 600, cobalt 250). Real permeability depends strongly on field, purity and history (hysteresis is not modeled). Shape matters more: a sphere’s own demagnetizing field (factor N = 1/3) caps its effective susceptibility at <code>χ/(1+Nχ) ≤ 3</code>, which is why the iron, steel and cobalt bars look alike. Magnetization is also capped at saturation M<sub>s</sub>(T): iron 1.71, steel 1.6, cobalt 1.42, 430 stainless 1.2, nickel 0.485 MA/m at room temperature. Nickel saturates first at small gaps.</li>
+      <li><strong>Temperature.</strong> M<sub>s</sub>(T) comes from the Weiss mean-field model with spin ½: <code>m = tanh((T<sub>c</sub>·m + h)/T)</code>, where <code>h = μ<sub>B</sub>B/k<sub>B</sub></code> is the magnet’s field in kelvin. With h = 0 this gives exactly zero spontaneous magnetization at and above T<sub>c</sub>. With the field on, a small induced (Curie–Weiss-like) magnetization remains, so the pull falls by about 99% within a few tens of degrees above T<sub>c</sub> rather than instantly. That leftover pull is real: a strong neodymium magnet held very close can still carry a small piece of iron just past 770 °C, while a ceramic magnet drops it. Classroom Curie-point demos work because the pull falls below the sample’s weight or a spring’s tension. Mean field is a textbook approximation: real iron follows <code>(1 − T/T<sub>c</sub>)<sup>β</sup></code> with β ≈ 0.35 near T<sub>c</sub> (dashed curve for comparison). Curie temperatures: Fe 1043 K, Ni 627 K, Co 1388 K. Low-carbon steel ≈ 1040 K; 430 stainless ≈ 940 K (chromium lowers it, and published values vary). Not modeled: iron’s change to non-magnetic γ-iron at 912 °C, cobalt’s 422 °C phase change, the Hopkinson permeability peak just below T<sub>c</sub>, and oxidation.</li>
+      <li><strong>Domains picture.</strong> The arrows are a cartoon: real domains are ~1–100 µm across and grow by domain-wall motion as well as rotation. The displayed “domain alignment” is the net magnetization divided by the spontaneous magnetization, <code>M/M<sub>s</sub>(T)</code>. That is how much of the available order the magnet has lined up.</li>
+      <li><strong>For teachers.</strong> Fits magnetic forces and fields (NGSS MS-PS2-3, MS-PS2-5, HS-PS2-5) and structure–property links (HS-PS1-3). Easy checks: a US nickel (75% Cu) doesn’t stick, a UK or Canadian coin minted after the switch to plated steel does, and a strong magnet dropped down a copper pipe falls slowly. That last one is eddy currents from motion, a different effect than the static pull shown here. Say the misconception out loud: shiny or metal means magnetic.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-magnets.js =====
+  var MU0 = 4e-7 * Math.PI;          // T·m/A
+  var MU_B = 9.2740100783e-24;       // J/T, Bohr magneton
+  var K_B = 1.380649e-23;            // J/K
+  var G = 9.80665;                   // m/s²
+  var BR = 1.32;                     // T, N42 NdFeB remanence
+  var BR_FERRITE = 0.39;             // T, ceramic (ferrite, grade C8) fridge-magnet remanence
+  var MAGNETS = {
+    neo: { key: 'neo', label: 'Neodymium (N42)', Br: BR },
+    ferrite: { key: 'ferrite', label: 'Ceramic fridge magnet', Br: BR_FERRITE }
+  };
+  var MAG_R = 0.010, MAG_L = 0.010;  // m, disc radius and thickness
+  var SPHERE_A = 0.003;              // m, sample sphere radius
+  var SPHERE_V = 4 / 3 * Math.PI * Math.pow(SPHERE_A, 3);
+  var N_DEMAG = 1 / 3;               // sphere demagnetizing factor
+  var T_ROOM = 293.15;               // K
+  var MATS = {
+    iron:   { key: 'iron',   label: 'Iron',            short: 'Iron',    kind: 'ferro', mur: 5000, Tc: 1043, MsRT: 1.71e6, rho: 7874,  col: '#9aa3b5' },
+    steel:  { key: 'steel',  label: 'Low-carbon steel', short: 'Steel',  kind: 'ferro', mur: 1000, Tc: 1040, MsRT: 1.60e6, rho: 7850,  col: '#8f9aad' },
+    nickel: { key: 'nickel', label: 'Nickel',          short: 'Nickel',  kind: 'ferro', mur: 600,  Tc: 627,  MsRT: 4.85e5, rho: 8908,  col: '#c9c3a8' },
+    cobalt: { key: 'cobalt', label: 'Cobalt',          short: 'Cobalt',  kind: 'ferro', mur: 250,  Tc: 1388, MsRT: 1.42e6, rho: 8900,  col: '#8ea0c6' },
+    ss430:  { key: 'ss430',  label: '430 stainless (ferritic)', short: '430 SS', kind: 'ferro', mur: 750, Tc: 940, MsRT: 1.20e6, rho: 7740, col: '#b9c2d0' },
+    ss304:  { key: 'ss304',  label: '304 stainless (austenitic)', short: '304 SS', kind: 'para', chi: 5e-3, rho: 8000, col: '#c8d0dc' },
+    al:     { key: 'al',     label: 'Aluminum',        short: 'Alum.',   kind: 'para', chi: 2.2e-5,   rho: 2700,  col: '#d4d9e2' },
+    cu:     { key: 'cu',     label: 'Copper',          short: 'Copper',  kind: 'dia',  chi: -9.63e-6, rho: 8960,  col: '#d9875a' },
+    au:     { key: 'au',     label: 'Gold',            short: 'Gold',    kind: 'dia',  chi: -3.44e-5, rho: 19300, col: '#e8c15a' },
+    ag:     { key: 'ag',     label: 'Silver',          short: 'Silver',  kind: 'dia',  chi: -2.38e-5, rho: 10490, col: '#dfe3ea' },
+    brass:  { key: 'brass',  label: 'Brass',           short: 'Brass',   kind: 'dia',  chi: -1.0e-5,  rho: 8500,  col: '#c9a64a' },
+    water:  { key: 'water',  label: 'Water',           short: 'Water',   kind: 'dia',  chi: -9.05e-6, rho: 1000,  col: '#5ea6e5' }
+  };
+  var ORDER = ['iron', 'steel', 'nickel', 'cobalt', 'ss430', 'ss304', 'al', 'cu', 'au', 'ag', 'brass', 'water'];
+
+  // On-axis field of a uniformly magnetized cylinder; z = distance from the face (m)
+  function fieldB(z, br) {
+    if (!(z >= 0)) z = 0;
+    if (br === undefined) br = BR;
+    var R2 = MAG_R * MAG_R, zl = z + MAG_L;
+    return br / 2 * (zl / Math.sqrt(zl * zl + R2) - z / Math.sqrt(z * z + R2));
+  }
+  function fieldGrad(z, br) { // dB/dz (T/m), negative: field weakens with distance
+    if (!(z >= 0)) z = 0;
+    if (br === undefined) br = BR;
+    var R2 = MAG_R * MAG_R, zl = z + MAG_L;
+    return br / 2 * (R2 / Math.pow(zl * zl + R2, 1.5) - R2 / Math.pow(z * z + R2, 1.5));
+  }
+
+  // Weiss mean field, spin ½: m = tanh((Tc·m + h)/T). h in kelvin. Returns the stable (largest) root.
+  function meanFieldM(T, Tc, h) {
+    h = h > 0 ? h : 0;
+    if (!(T > 0)) return 1;
+    if (!(Tc > 0)) return Math.tanh(h / T);
+    if (h === 0 && T >= Tc) return 0;
+    var lo = h === 0 ? 1e-12 : 0, hi = 1;
+    for (var i = 0; i < 80; i++) {
+      var mid = 0.5 * (lo + hi);
+      if (mid - Math.tanh((Tc * mid + h) / T) < 0) lo = mid; else hi = mid;
+    }
+    return 0.5 * (lo + hi);
+  }
+  function spontM(T, Tc) { return meanFieldM(T, Tc, 0); }
+  function empiricalM(T, Tc, beta) { return T >= Tc ? 0 : Math.pow(1 - T / Tc, beta === undefined ? 0.35 : beta); }
+  function hKelvin(B) { return MU_B * Math.abs(B) / K_B; }
+  function Ms0(mat) { return mat.MsRT / spontM(T_ROOM, mat.Tc); }
+  function msAt(mat, T) { return mat.kind === 'ferro' ? Ms0(mat) * spontM(T, mat.Tc) : 0; }
+  function chiIntrinsic(mat) { return mat.kind === 'ferro' ? mat.mur - 1 : mat.chi; }
+  function chiEff(chi) { return chi / (1 + N_DEMAG * chi); }
+
+  // Magnetization (A/m) of the sphere at temperature T (K) in applied field B (T)
+  function magnetization(mat, T, B) {
+    var H = B / MU0;
+    if (mat.kind !== 'ferro') return chiEff(mat.chi) * H;
+    var lin = chiEff(mat.mur - 1) * H;
+    var cap = Ms0(mat) * meanFieldM(T, mat.Tc, hKelvin(B));
+    return Math.min(lin, cap);
+  }
+  // Full state for a sample at gap (m) and temperature (K)
+  function sampleState(mat, gapM, T, myth, br) {
+    if (!(gapM >= 0)) gapM = 0;
+    var z = gapM + SPHERE_A;
+    var B = fieldB(z, br), dBdz = fieldGrad(z, br), H = B / MU0;
+    var M = myth ? chiEff(MATS.iron.mur - 1) * H : magnetization(mat, T, B);
+    var F = SPHERE_V * M * (-dBdz);            // + toward the magnet
+    var W = mat.rho * SPHERE_V * G;
+    var ms = msAt(mat, T);
+    var align = 0, saturated = false;
+    if (mat.kind === 'ferro' && ms > 0) {
+      align = Math.min(1, M / ms);
+      saturated = M >= Ms0(mat) * meanFieldM(T, mat.Tc, hKelvin(B)) * 0.999;
+    }
+    return { z: z, B: B, dBdz: dBdz, H: H, M: M, F: F, W: W, ratio: F / W, align: align, ms: ms,
+      chiApp: H > 0 ? M / H : 0, saturated: saturated, ferroNow: mat.kind === 'ferro' && T < mat.Tc };
+  }
+  function relativeForce(mat, gapM, T, br) {
+    var ref = sampleState(MATS.iron, gapM, T_ROOM, false, br).F;
+    return sampleState(mat, gapM, T, false, br).F / ref;
+  }
+
+  // ===== UI =====
+  var FONT_MONO_9 = '9px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12B = '500 12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_POLE = '700 18px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_BIG = '700 20px Fraunces, Georgia, serif';
+
+  var GAP_MIN = 1, GAP_MAX = 40, GAP_NEAR = 1.5, GAP_FAR = 30, GAP_SPEED = 24; // mm, mm/s
+  var state = {
+    mat: MATS.iron, magnet: MAGNETS.neo, gap: 30, gapTarget: 30, tempC: 20, myth: false,
+    align: 0, anim: 0, lastTs: 0, preheatC: 20
+  };
+  // Seeded domain layout (fixed so the picture is stable)
+  var DOM_COLS = 6, DOM_ROWS = 5, NDOM = DOM_COLS * DOM_ROWS;
+  var domains = [];
+  (function () {
+    var seed = 7;
+    function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+    var ranks = [];
+    for (var i = 0; i < NDOM; i++) ranks.push(i);
+    for (i = NDOM - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)); var t = ranks[i]; ranks[i] = ranks[j]; ranks[j] = t; }
+    for (i = 0; i < NDOM; i++) {
+      domains.push({ th: (i * 2.39996323) % (Math.PI * 2) - Math.PI, rank: ranks[i], ph: rnd() * 6.283, w: 0.6 + rnd() * 1.4 });
+    }
+  })();
+  var ATOM_N = 90, atoms = [];
+  (function () {
+    var seed = 19;
+    function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+    for (var i = 0; i < ATOM_N; i++) atoms.push({ ph: rnd() * 6.283, w: (rnd() - 0.5) * 7 });
+  })();
+
+  var $ = function (id) { return document.getElementById(id); };
+  var matChips = {};
+  ORDER.forEach(function (k) { matChips[k] = $('m_' + k); });
+  var chipNeo = $('mgNeo'), chipFer = $('mgFer');
+  var elMove = $('btnMove'), elHeat = $('btnHeat'), chipMyth = $('chipMyth');
+  var elGap = $('gap'), elTemp = $('temp'), elGapL = $('gapLabel'), elTempL = $('tempLabel');
+  var elHint = $('modeHint'), elSceneMeta = $('sceneMeta'), elChartMeta = $('chartMeta'), elReadout = $('readout');
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 430 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 430 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  function sup(n) {
+    var map = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+    return String(n).split('').map(function (c) { return map[c] || c; }).join('');
+  }
+  function fmtSci(x, d) {
+    if (x === 0) return '0';
+    var e = Math.floor(Math.log10(Math.abs(x)));
+    var m = x / Math.pow(10, e);
+    if (Math.abs(m) >= 9.95) { m /= 10; e += 1; }
+    return (x > 0 ? '+' : '−') + fmt(Math.abs(m), d === undefined ? 1 : d) + '×10' + sup(e);
+  }
+  function fmtF(F) {
+    var a = Math.abs(F), s = F < 0 ? '−' : '';
+    if (a >= 1) return s + fmt(a, 2) + ' N';
+    if (a >= 1e-3) return s + fmt(a * 1e3, a >= 0.1 ? 0 : 1) + ' mN';
+    if (a >= 1e-6) return s + fmt(a * 1e6, a >= 1e-4 ? 0 : 1) + ' µN';
+    return s + fmt(a * 1e9, 1) + ' nN';
+  }
+  function fmtRatio(r) {
+    var a = Math.abs(r);
+    if (a >= 0.1) return fmt(a, a >= 10 ? 0 : 2) + '×';
+    if (a === 0) return '0×';
+    return fmtSci(a, 1).replace('+', '') + '×';
+  }
+  function tempK() { return state.tempC + 273.15; }
+  function br() { return state.magnet.Br; }
+  function current() { return sampleState(state.mat, state.gap / 1000, tempK(), state.myth, br()); }
+  function real() { return sampleState(state.mat, state.gap / 1000, tempK(), false, br()); }
+
+  function verdict(s) {
+    if (s.ratio >= 1) return { txt: 'STICKS', col: '#ffc24a', lvl: 2 };
+    if (s.ratio >= 0.01) return { txt: 'tugs, can’t lift itself', col: '#ff9f6b', lvl: 1 };
+    if (s.F < 0) return { txt: 'tiny push away', col: '#8b93ad', lvl: 0 };
+    return { txt: 'nothing you’d notice', col: '#8b93ad', lvl: 0 };
+  }
+
+  function drawArrow(ctx, x, y, ang, len, col, lw) {
+    var dx = Math.cos(ang) * len / 2, dy = Math.sin(ang) * len / 2;
+    ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = lw || 2;
+    ctx.beginPath(); ctx.moveTo(x - dx, y - dy); ctx.lineTo(x + dx, y + dy); ctx.stroke();
+    var hl = Math.max(3, len * 0.32);
+    ctx.beginPath();
+    ctx.moveTo(x + dx, y + dy);
+    ctx.lineTo(x + dx - Math.cos(ang - 0.5) * hl, y + dy - Math.sin(ang - 0.5) * hl);
+    ctx.lineTo(x + dx - Math.cos(ang + 0.5) * hl, y + dy - Math.sin(ang + 0.5) * hl);
+    ctx.closePath(); ctx.fill();
+  }
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath();
+  }
+
+  function drawScene() {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0b1230';
+    ctx.fillRect(0, 0, W, H);
+    var mat = state.mat, s = current(), T = tempK();
+    var narrow = W < 560;
+    var cy = H * 0.5 + 6;
+    // Sample geometry (magnified)
+    var sw = Math.min(narrow ? 170 : 250, W * 0.46), sh = Math.min(H * 0.5, sw * 0.86);
+    var sx = W - sw - (narrow ? 10 : 24), sy = cy - sh / 2;
+    // Magnet geometry
+    var mw = narrow ? 64 : 104, mh = Math.min(H * 0.42, 170);
+    var track = sx - 12 - mw - 10;
+    var pxPerMm = track / GAP_MAX;
+    var faceX = sx - state.gap * pxPerMm;
+    var mx = faceX - mw;
+
+    // Field lines fanning from the N face (strength fades with B)
+    var bRel = Math.min(1, s.B / 0.47);
+    ctx.lineWidth = 1;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(faceX, 0, Math.max(0, sx + 3 - faceX), H); ctx.clip();
+    var ferroPull = !state.myth && state.mat.kind === 'ferro' && T < state.mat.Tc;
+    for (var fl = -3; fl <= 3; fl++) {
+      var y0 = cy + fl * mh / 8;
+      var span = sx - faceX;
+      // flux fans out from the face; a ferromagnet gathers it back in
+      var yEnd = ferroPull || state.myth ? cy + fl * sh / 8 : y0 + fl * Math.min(60, span * 0.9);
+      ctx.strokeStyle = 'rgba(255,126,95,' + fmt(0.12 + 0.3 * bRel * (1 - Math.abs(fl) / 4.5), 3) + ')';
+      ctx.beginPath();
+      ctx.moveTo(faceX, y0);
+      ctx.bezierCurveTo(faceX + span * 0.4, y0 + fl * span * 0.15, faceX + span * 0.7, yEnd, sx + 3, yEnd);
+      ctx.stroke();
+    }
+    ctx.restore();
+    // Magnet body: S (blue) back half, N (red) front half facing the sample
+    var fer = state.magnet.key === 'ferrite';
+    ctx.fillStyle = fer ? '#34506f' : '#3b6ea8';
+    ctx.fillRect(mx, cy - mh / 2, mw / 2, mh);
+    ctx.fillStyle = fer ? '#8a4a40' : '#c9503f';
+    ctx.fillRect(mx + mw / 2, cy - mh / 2, mw / 2, mh);
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+    ctx.strokeRect(mx, cy - mh / 2, mw, mh);
+    ctx.font = FONT_POLE;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('S', mx + mw / 4 - 6, cy + 6);
+    ctx.fillText('N', mx + mw * 3 / 4 - 6, cy + 6);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(215,222,242,0.7)';
+    ctx.fillText(state.magnet.key === 'neo' ? 'NdFeB' : 'ferrite', mx + 4, cy - mh / 2 - 8);
+    // gap dimension
+    ctx.strokeStyle = 'rgba(94,200,229,0.5)';
+    ctx.beginPath(); ctx.moveTo(faceX, cy + mh / 2 + 14); ctx.lineTo(sx, cy + mh / 2 + 14); ctx.stroke();
+    ctx.fillStyle = '#5ec8e5';
+    var gapTxt = 'gap ' + fmt(state.gap, 1) + ' mm';
+    ctx.fillText(gapTxt, Math.max(4, Math.min(W - 80, (faceX + sx) / 2 - ctx.measureText(gapTxt).width / 2)), cy + mh / 2 + 28);
+
+    // Sample block with heat glow
+    var glow = Math.max(0, Math.min(1, (state.tempC - 450) / 700));
+    ctx.save();
+    roundRect(ctx, sx, sy, sw, sh, 10);
+    ctx.fillStyle = '#10162e';
+    ctx.fill();
+    ctx.fillStyle = mat.col;
+    ctx.globalAlpha = 0.22;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    if (glow > 0 && mat.key !== 'water') {
+      ctx.fillStyle = 'rgba(255,' + Math.round(90 + 110 * glow) + ',60,' + fmt(0.12 + 0.4 * glow, 3) + ')';
+      ctx.fill();
+    }
+    ctx.strokeStyle = state.myth ? 'rgba(255,126,95,0.7)' : 'rgba(215,222,242,0.35)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+    ctx.clip();
+    var mythDraw = state.myth;
+    var showDomains = mythDraw || (mat.kind === 'ferro' && T < mat.Tc);
+    var tRel = mat.kind === 'ferro' ? Math.min(1, T / mat.Tc) : 0.3;
+    if (showDomains) {
+      var cw = sw / DOM_COLS, ch = sh / DOM_ROWS;
+      var msRel = mythDraw ? 1 : spontM(T, mat.Tc);
+      var f = state.align;
+      ctx.strokeStyle = 'rgba(215,222,242,0.12)';
+      ctx.lineWidth = 1;
+      for (var c = 1; c < DOM_COLS; c++) { ctx.beginPath(); ctx.moveTo(sx + c * cw, sy); ctx.lineTo(sx + c * cw, sy + sh); ctx.stroke(); }
+      for (var r = 1; r < DOM_ROWS; r++) { ctx.beginPath(); ctx.moveTo(sx, sy + r * ch); ctx.lineTo(sx + sw, sy + r * ch); ctx.stroke(); }
+      for (var i = 0; i < NDOM; i++) {
+        var d = domains[i];
+        var sI = Math.max(0, Math.min(1, f * NDOM - d.rank));
+        var jit = 0.9 * tRel * tRel * Math.sin(state.anim * d.w * 3 + d.ph);
+        // aligned = pointing +x (away from the magnet's N face → sample's near face becomes S → attraction)
+        var ang = d.th * (1 - sI) + jit * (1 - 0.6 * sI);
+        var col = mythDraw ? '#ff7e5f' : (sI > 0.5 ? '#ffc24a' : '#5ec8e5');
+        var x = sx + (i % DOM_COLS + 0.5) * cw, y = sy + (Math.floor(i / DOM_COLS) + 0.5) * ch;
+        drawArrow(ctx, x, y, ang, Math.min(cw, ch) * 0.72 * Math.max(0.12, msRel), col, 2);
+      }
+    } else {
+      // atomic moments (paramagnet / above Tc) or none (diamagnet)
+      var ac = 15, ar = 6, aw = sw / ac, ah = sh / ar;
+      // net fraction of atomic moments lined up: tiny for a paramagnet (Curie law μB·B/kT), M/Ms0 for iron above Tc
+      var bias = mat.kind === 'ferro' ? Math.min(1, s.M / Ms0(mat)) : (mat.kind === 'para' ? Math.min(1, hKelvin(s.B) / T) : 0);
+      for (var a = 0; a < ac * ar && a < ATOM_N; a++) {
+        var at = atoms[a];
+        var ax = sx + (a % ac + 0.5) * aw, ay = sy + (Math.floor(a / ac) + 0.5) * ah;
+        if (mat.kind === 'dia') {
+          ctx.fillStyle = 'rgba(215,222,242,0.35)';
+          ctx.beginPath(); ctx.arc(ax, ay, 1.8, 0, Math.PI * 2); ctx.fill();
+          if (bRel > 0.05) drawArrow(ctx, ax, ay, Math.PI, 3 + 5 * bRel, 'rgba(139,147,173,0.75)', 1);
+        } else {
+          var aa = at.ph + state.anim * at.w;
+          aa = aa - Math.PI * 2 * Math.round(aa / (Math.PI * 2));
+          drawArrow(ctx, ax, ay, aa * (1 - bias), 7, 'rgba(94,200,229,0.6)', 1.2);
+        }
+      }
+    }
+    ctx.restore();
+
+    // Labels on sample
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(215,222,242,0.8)';
+    var lab = mat.label.toUpperCase();
+    if (narrow && lab.length > 16) lab = mat.short.toUpperCase();
+    ctx.fillText(lab, sx, sy - 22);
+    ctx.fillStyle = '#8b93ad';
+    var sub;
+    if (state.myth) sub = narrow ? 'myth: domains ✗' : 'myth: domains in every metal ✗';
+    else if (mat.kind === 'ferro' && T < mat.Tc) sub = 'domains (magnified)';
+    else if (mat.kind === 'ferro') sub = 'above Tc: domains gone';
+    else if (mat.kind === 'para') sub = 'loose atomic moments';
+    else sub = 'no moments · tiny opposing';
+    ctx.fillText(sub, sx, sy - 9);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = state.tempC >= 400 ? '#ff7e5f' : '#8b93ad';
+    ctx.fillText(fmt(state.tempC, 0) + ' °C', sx + sw, sy - 22);
+    ctx.textAlign = 'left';
+
+    // Force arrow on the sample (log length)
+    var rs = real();
+    var shownF = state.myth ? s.F : rs.F;
+    var lf = Math.log10(Math.max(1e-9, Math.abs(shownF)));
+    var aLen = Math.max(6, (lf + 9) / 10 * (narrow ? 90 : 150));
+    var dir = shownF >= 0 ? Math.PI : 0;
+    var ay0 = Math.max(sy + sh + 40, cy + mh / 2 + 50);
+    var ax0 = sx + (shownF >= 0 ? 0 : aLen) + 2;
+    if (ay0 < H - 30) {
+      drawArrow(ctx, ax0 - aLen / 2, ay0, dir, aLen, state.myth ? '#ff7e5f' : (shownF >= 0 ? '#ffc24a' : '#8b93ad'), 3);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = state.myth ? '#ff7e5f' : '#d7def2';
+      var ftxt = (shownF >= 0 ? 'pull ' : 'push ') + fmtF(Math.abs(shownF)).replace('−', '');
+      ctx.fillText(ftxt, sx + 4, ay0 + 20);
+    }
+    // Verdict badge (the myth banner takes its place in myth mode)
+    var v = verdict(rs);
+    if (!state.myth) {
+      ctx.font = FONT_BIG;
+      ctx.fillStyle = v.col;
+      if (narrow && v.txt.length > 14) ctx.font = FONT_MONO_12B;
+      ctx.fillText(v.txt, 12, 26);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText((rs.F < 0 ? 'push' : 'pull') + ' ÷ own weight = ' + fmtRatio(rs.ratio), 12, 42);
+    } else {
+      var mbw = narrow ? W - 16 : Math.min(W - 16, Math.max(300, sx - 20));
+      ctx.fillStyle = 'rgba(8,11,28,0.86)';
+      ctx.fillRect(8, 8, mbw, 44);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText(narrow ? 'Myth: every metal has domains' : 'Myth: every metal acts like iron', 16, 26);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(mat.kind === 'ferro' ? 'True for ferromagnets. Now try aluminum.' : 'Real pull ' + fmtF(rs.F) + ' = ' + fmtRatio(rs.F / s.F) + ' the myth', 16, 43);
+    }
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var T = tempK(), gapM = state.gap / 1000;
+    // ---- Pull ladder (log |F|, 1 nN – 10 N)
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Pull on each sample (log scale)', 14, 22);
+    var L = 64, R = W - 14, T0 = 40, rowH = Math.min(15, (H * 0.56 - T0) / ORDER.length);
+    var B0 = T0 + rowH * ORDER.length;
+    var LMIN = -9, LMAX = 1;
+    function X(F) { var l = Math.log10(Math.max(Math.pow(10, LMIN), Math.abs(F))); return L + (Math.min(LMAX, l) - LMIN) / (LMAX - LMIN) * (R - L); }
+    ctx.font = FONT_MONO_9;
+    ctx.strokeStyle = 'rgba(94,200,229,0.1)';
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#8b93ad';
+    var labs = { '-9': '1nN', '-6': '1µN', '-3': '1mN', '0': '1N' };
+    for (var e = LMIN; e <= LMAX; e++) {
+      var gx = L + (e - LMIN) / (LMAX - LMIN) * (R - L);
+      ctx.beginPath(); ctx.moveTo(gx, T0 - 4); ctx.lineTo(gx, B0); ctx.stroke();
+      if (labs[String(e)]) ctx.fillText(labs[String(e)], gx - 10, B0 + 12);
+    }
+    for (var i = 0; i < ORDER.length; i++) {
+      var m = MATS[ORDER[i]];
+      var st = sampleState(m, gapM, m === state.mat ? T : T_ROOM, false, br());
+      var y = T0 + i * rowH;
+      var sel = m === state.mat;
+      if (sel) { ctx.fillStyle = 'rgba(94,200,229,0.1)'; ctx.fillRect(2, y, W - 4, rowH); }
+      ctx.fillStyle = sel ? '#d7def2' : '#8b93ad';
+      ctx.font = FONT_MONO_10;
+      ctx.fillText(m.short, 8, y + rowH - 4);
+      if (state.myth) {
+        var mf = sampleState(m, gapM, T_ROOM, true, br()).F;
+        ctx.strokeStyle = 'rgba(255,126,95,0.6)';
+        ctx.strokeRect(L, y + 2, X(mf) - L, rowH - 4);
+      }
+      ctx.fillStyle = st.F >= 0 ? (st.ratio >= 1 ? '#ffc24a' : '#5ec8e5') : '#8b93ad';
+      ctx.fillRect(L, y + 3, Math.max(1, X(st.F) - L), rowH - 6);
+      // weight tick
+      var wx = X(st.W);
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillRect(wx - 1, y + 1, 2, rowH - 2);
+      if (st.F < 0) { ctx.fillStyle = '#8b93ad'; ctx.font = FONT_MONO_9; ctx.fillText('push', Math.min(R - 24, X(st.F) + 4), y + rowH - 4); }
+    }
+    ctx.font = FONT_MONO_9;
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('▮ own weight', L, B0 + 24);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('▮ sticks', L + 82, B0 + 24);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('others at 20 °C', R - 88, B0 + 24);
+
+    // ---- Magnetization vs temperature for the chosen sample
+    var mat = state.mat;
+    var T2 = B0 + 58, B2 = H - 28, L2 = 40, R2 = W - 16;
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText(mat.kind === 'ferro' ? 'Spontaneous magnetization vs T' : 'No Curie point for ' + mat.short, 14, T2 - 12);
+    var TMAX = 1500;
+    function XT(k) { return L2 + k / TMAX * (R2 - L2); }
+    function YM(mm) { return B2 - mm * (B2 - T2); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.1)';
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_9;
+    ctx.fillStyle = '#8b93ad';
+    for (var k = 0; k <= TMAX; k += 300) {
+      ctx.beginPath(); ctx.moveTo(XT(k), T2); ctx.lineTo(XT(k), B2); ctx.stroke();
+      ctx.fillText(k === TMAX ? k + ' K' : String(k), k === TMAX ? XT(k) - 34 : XT(k) - 8, B2 + 12);
+    }
+    for (var q = 0; q <= 1; q += 0.5) ctx.fillText(q.toFixed(1), 12, YM(q) + 3);
+    if (mat.kind === 'ferro') {
+      ctx.strokeStyle = 'rgba(255,194,74,0.55)';
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      for (k = 0; k <= TMAX; k += 5) { var ye = YM(empiricalM(k, mat.Tc)); if (k === 0) ctx.moveTo(XT(k), ye); else ctx.lineTo(XT(k), ye); }
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.strokeStyle = '#5ec8e5';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (k = 0; k <= TMAX; k += 5) { var ym = YM(spontM(Math.max(1, k), mat.Tc)); if (k === 0) ctx.moveTo(XT(k), ym); else ctx.lineTo(XT(k), ym); }
+      ctx.stroke();
+      ctx.strokeStyle = '#ff7e5f';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(XT(mat.Tc), T2); ctx.lineTo(XT(mat.Tc), B2); ctx.stroke();
+      ctx.fillStyle = '#ff7e5f';
+      ctx.font = FONT_MONO_10;
+      var tcl = 'Tc ' + mat.Tc + ' K';
+      ctx.fillText(tcl, Math.min(R2 - ctx.measureText(tcl).width, XT(mat.Tc) + 4), T2 + 10);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('mean field (Weiss, spin ½)', L2 + 6, YM(0.07));
+      ctx.fillStyle = 'rgba(255,194,74,0.85)';
+      ctx.fillText('(1−T/Tc)^0.35 (near Tc)', L2 + 6, YM(0.3));
+      var cur = spontM(T, mat.Tc);
+      ctx.fillStyle = '#ffc24a';
+      ctx.beginPath(); ctx.arc(XT(Math.min(TMAX, T)), YM(cur), 5, 0, Math.PI * 2); ctx.fill();
+    } else {
+      ctx.strokeStyle = '#8b93ad';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(XT(0), YM(0)); ctx.lineTo(XT(TMAX), YM(0)); ctx.stroke();
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText('χ = ' + fmtSci(mat.chi, 2) + ' at every T shown', L2 + 6, YM(0.55));
+      ctx.fillText('no domains to lose', L2 + 6, YM(0.4));
+      ctx.fillStyle = '#ffc24a';
+      ctx.beginPath(); ctx.arc(XT(Math.min(TMAX, T)), YM(0), 5, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+
+  function renderReadout() {
+    var mat = state.mat, T = tempK(), s = real();
+    var html = '';
+    function kv(k, v, sub, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + sub + '</div></div>';
+    }
+    if (mat.kind === 'ferro') {
+      if (T < mat.Tc) kv('Susceptibility', 'μr ≈ ' + mat.mur, 'sphere’s effective χ ≈ ' + fmt(s.chiApp, s.chiApp >= 1 ? 2 : 3) + ' (shape-limited)', 'sun');
+      else kv('Susceptibility', 'χ ≈ ' + fmtSci(s.chiApp, 1), 'above Tc: paramagnetic now', 'warm');
+    } else {
+      kv('Susceptibility χ', fmtSci(mat.chi, 2), mat.kind === 'dia' ? 'negative: diamagnetic, pushed away' : 'positive: paramagnetic, weak pull', mat.kind === 'dia' ? '' : '');
+    }
+    var v = verdict(s);
+    kv('Pull force', fmtF(s.F), 'pull ÷ weight ' + fmtRatio(s.ratio) + ' · ' + v.txt, v.lvl === 2 ? 'sun' : (s.F < 0 ? '' : 'warm'));
+    var rel = relativeForce(mat, state.gap / 1000, T, br());
+    kv('Relative attraction', fmtRatio(rel).replace('×', '') + ' × iron', 'vs 20 °C iron at the same gap', rel >= 0.1 ? 'sun' : '');
+    if (mat.kind === 'ferro' && T < mat.Tc) kv('Domain alignment', fmt(s.align * 100, s.align < 0.1 ? 1 : 0) + ' %', 'M/Ms(T)' + (s.saturated ? ' · saturated' : ''), 'sun');
+    else kv('Domain alignment', 'no domains', mat.kind === 'ferro' ? 'T above Curie point' : 'nothing to line up', 'warm');
+    if (mat.kind === 'ferro') {
+      kv('Curie temperature', mat.Tc + ' K', fmt(mat.Tc - 273.15, 0) + ' °C · now ' + fmt(T, 0) + ' K', T >= mat.Tc ? 'warm' : '');
+    } else kv('Curie temperature', 'none', 'not ferromagnetic', '');
+    kv('Field at sample', fmt(s.B * 1000, 0) + ' mT', 'gradient ' + fmt(-s.dBdz, 1) + ' T/m', '');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elGapL.textContent = fmt(state.gap, 1) + ' mm';
+    elTempL.textContent = fmt(state.tempC, 0) + ' °C (' + fmt(tempK(), 0) + ' K)';
+    for (var k in matChips) setChip(matChips[k], state.mat.key === k);
+    setChip(chipNeo, state.magnet.key === 'neo');
+    setChip(chipFer, state.magnet.key === 'ferrite');
+    setChip(chipMyth, state.myth);
+    var near = state.gapTarget <= 5;
+    elMove.textContent = near ? 'Pull magnet away' : 'Bring magnet in';
+    elMove.setAttribute('aria-pressed', near ? 'true' : 'false');
+    var hot = state.mat.kind === 'ferro' ? tempK() >= state.mat.Tc : state.tempC > 400;
+    elHeat.textContent = hot ? 'Cool to 20 °C' : 'Heat past Curie point';
+    elHeat.setAttribute('aria-pressed', hot ? 'true' : 'false');
+    var mat = state.mat, T = tempK(), s = real();
+    if (state.myth) elHint.textContent = 'Myth mode · every sample drawn with iron’s domains (wrong). Orange outlines on the pull meter show what the myth predicts.';
+    else if (mat.kind === 'ferro' && T >= mat.Tc) elHint.textContent = mat.label + ' above ' + fmt(mat.Tc - 273.15, 0) + ' °C · domains gone; only a weak induced pull is left' + (s.ratio >= 1 ? '. A strong magnet this close can still hold it; try the fridge magnet.' : ', too weak to hold it.');
+    else if (mat.kind === 'ferro') elHint.textContent = s.ratio >= 1 ? 'Domains swing into line, the sample becomes a magnet itself, and it jumps to the face.' : 'Ferromagnet · bring the magnet closer and watch the domains line up.';
+    else if (mat.key === 'ss304') elHint.textContent = '304 stainless is austenitic: its face-centered crystal is only paramagnetic at room temperature. Only cold-worked spots tug.';
+    else if (mat.key === 'water' && state.tempC > 100) elHint.textContent = 'Water is kept liquid for comparison; it would have boiled. Diamagnetic at any temperature.';
+    else if (mat.kind === 'dia') elHint.textContent = mat.label + ' is diamagnetic · the field induces a tiny opposing moment, a push about 10⁵ times weaker than iron’s pull.';
+    else elHint.textContent = mat.label + ' is paramagnetic · loose atomic moments barely lean toward the field. Shiny, metal, and still not sticky.';
+    elSceneMeta.textContent = state.myth ? 'myth ✗' : 'not to scale';
+    elChartMeta.textContent = '6 mm sphere';
+  }
+
+  function render() {
+    updateLabels();
+    renderReadout();
+    drawScene();
+    drawChart();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    if (state.gap !== state.gapTarget) {
+      var step = GAP_SPEED * dt;
+      if (Math.abs(state.gapTarget - state.gap) <= step) state.gap = state.gapTarget;
+      else state.gap += state.gapTarget > state.gap ? step : -step;
+      elGap.value = String(Math.round(state.gap * 2) / 2);
+    }
+    var s = current();
+    var target = s.align;
+    if (state.myth) target = Math.min(1, s.M / msAt(MATS.iron, T_ROOM));
+    if (!(target >= 0)) target = 0;
+    state.align += (target - state.align) * Math.min(1, dt * 6);
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  ORDER.forEach(function (k) {
+    matChips[k].addEventListener('click', function () { state.mat = MATS[k]; updateLabels(); });
+  });
+  elMove.addEventListener('click', function () {
+    state.gapTarget = state.gapTarget <= 5 ? GAP_FAR : GAP_NEAR;
+    updateLabels();
+  });
+  elHeat.addEventListener('click', function () {
+    var mat = state.mat;
+    var hot = mat.kind === 'ferro' ? tempK() >= mat.Tc : state.tempC > 400;
+    if (hot) state.tempC = 20;
+    else state.tempC = Math.min(1200, Math.round((mat.kind === 'ferro' ? mat.Tc - 273.15 : 770) + 60));
+    elTemp.value = String(state.tempC);
+    updateLabels();
+  });
+  chipNeo.addEventListener('click', function () { state.magnet = MAGNETS.neo; updateLabels(); });
+  chipFer.addEventListener('click', function () { state.magnet = MAGNETS.ferrite; updateLabels(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elGap.addEventListener('input', function () {
+    var g = parseFloat(elGap.value);
+    if (!(g >= GAP_MIN)) g = GAP_MIN;
+    if (g > GAP_MAX) g = GAP_MAX;
+    state.gap = state.gapTarget = g; updateLabels();
+  });
+  elTemp.addEventListener('input', function () {
+    var t = parseFloat(elTemp.value);
+    state.tempC = t >= 20 && t <= 1200 ? t : 20; updateLabels();
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elMove.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__magnetPhysics = {
+    fieldB: fieldB, fieldGrad: fieldGrad, meanFieldM: meanFieldM, spontM: spontM, empiricalM: empiricalM,
+    hKelvin: hKelvin, Ms0: Ms0, msAt: msAt, chiIntrinsic: chiIntrinsic, chiEff: chiEff, magnetization: magnetization,
+    sampleState: sampleState, relativeForce: relativeForce, MATS: MATS, ORDER: ORDER,
+    MAGNETS: MAGNETS, BR_FERRITE: BR_FERRITE, MU0: MU0, BR: BR, MAG_R: MAG_R, MAG_L: MAG_L, SPHERE_A: SPHERE_A, SPHERE_V: SPHERE_V, N_DEMAG: N_DEMAG, T_ROOM: T_ROOM
+  };
+  window.__magnetState = state;
+})();
+</script>
+</body>
+</html>
