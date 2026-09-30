@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why a Ceiling Fan Cools You, Not the Room — Wind Chill, Convection and Evaporation</title>
+<meta name="description" content="Classroom heat explainer: a ceiling fan can’t cool a room; its motor adds heat. It cools you by speeding convection and sweat evaporation. NGSS MS-PS3.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="ceiling fan, does a fan cool a room, wind chill, convection, evaporative cooling, heat transfer coefficient, thermal comfort, ASHRAE 55, energy balance, misconception, classroom physics">
+<meta property="og:title" content="Why a Ceiling Fan Cools You, Not the Room">
+<meta property="og:description" content="A fan can’t lower the room temperature; its motor adds a little heat. It cools people by stripping warm air and sweat vapour off the skin. Live room thermometer and skin heat budget for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+.lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+.card canvas.tall { height: 420px; }
+@media (max-width: 720px) { .card canvas.tall { height: 340px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · heat transfer</a></p>
+  <h1>Why a ceiling fan cools you, not the room</h1>
+  <p class="lede">A fan doesn’t make cold air. It just pushes the air that’s already there, and its motor turns every watt it draws into <strong>heat</strong>, so an empty room with a fan running gets <strong>very slightly warmer</strong>. What the moving air does is peel away the warm, humid layer that clings to your skin. That speeds up <strong>convection</strong> and <strong>sweat evaporation</strong>, so your body loses heat faster. You feel cooler; the thermometer doesn’t.</p>
+
+  <p class="try"><b>Try this</b>Turn <strong>fan speed</strong> up from zero. Notice the “feels like” temperature drops a few degrees while the wall thermometer creeps <strong>up</strong>, not down.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <button type="button" class="btn" id="btnReset">Restart clock</button>
+      <button type="button" class="chip on" id="chipPerson" aria-pressed="true">Person in room</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: the fan cools the room</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Fan speed (air speed at you) <em id="vLabel">1.0 m/s</em></span>
+        <input type="range" id="speed" min="0" max="3" step="0.05" value="1" aria-label="Air speed at the person in metres per second">
+      </label>
+      <label class="sl grow">
+        <span>Room temperature (start) <em id="tLabel">28 °C</em></span>
+        <input type="range" id="temp" min="18" max="40" step="0.5" value="28" aria-label="Starting room air temperature in degrees Celsius">
+      </label>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Relative humidity <em id="rhLabel">50%</em></span>
+        <input type="range" id="rh" min="10" max="90" step="1" value="50" aria-label="Relative humidity in percent">
+      </label>
+      <label class="sl grow">
+        <span>Fan motor power <em id="wLabel">45 W</em></span>
+        <input type="range" id="watts" min="10" max="100" step="1" value="45" aria-label="Fan electrical power in watts">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint"></span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Room, side view</b><span id="sceneMeta">4 × 4 × 2.6 m</span></div>
+      <canvas id="cvScene" class="tall" width="760" height="420" aria-label="Side view of a room with a ceiling fan, circulating air, a person with heat-loss arrows, and a wall thermometer"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Room vs you</b><span id="chartMeta">clock ×180</span></div>
+      <canvas id="cvChart" class="tall" width="520" height="420" aria-label="Chart of room air temperature over four hours, and bars of the person's skin heat loss by convection, radiation and evaporation"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Moving air thins the warm blanket</h2>
+      <p>Still air next to your skin warms up and acts like insulation. Moving air scrapes that layer away, so fresh, cooler air touches the skin. The convective coefficient climbs roughly as <code>h<sub>c</sub> ≈ 8.3·v<sup>0.6</sup></code> W/m²K, from about 3 in still air to about 8 at 1 m/s.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>…and carries sweat vapour away</h2>
+      <p>Evaporation needs somewhere for the vapour to go. A breeze replaces the damp air at the skin with drier room air, so sweat evaporates faster and each gram takes about 2,400 J with it. Humid air leaves less room for vapour, which is why a fan helps less on muggy days.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>The motor’s watts become heat</h2>
+      <p>Energy is conserved. Every joule the fan draws ends up as heat in the room: motor losses warm the housing, and the air’s kinetic energy is soon dissipated by friction. A 45 W fan warms a room like a 45 W heater. It can only move heat around, never remove it.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“The fan cools the room”</h2>
+      <p>If fans cooled rooms, leaving one on in an empty room would help. It doesn’t: with nobody there, a fan just adds its own heat. The cooling is a <em>rate</em> effect on bodies (and wet things), not a temperature change of the air. That’s why energy guides say turn fans off when you leave.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Fan reference numbers">
+    <div class="stat">
+      <div class="k">Ceiling fan draw</div>
+      <div class="v">≈ 30–75 W</div>
+      <div class="s">AC ceiling fans on high</div>
+    </div>
+    <div class="stat">
+      <div class="k">Convection, seated</div>
+      <div class="v">h<sub>c</sub> = 8.3·v<sup>0.6</sup></div>
+      <div class="s">W/m²K · 0.2–4 m/s (ASHRAE)</div>
+    </div>
+    <div class="stat">
+      <div class="k">Cooling effect</div>
+      <div class="v">≈ 1 °C per 0.3 m/s</div>
+      <div class="s">modest speeds, warm room</div>
+    </div>
+    <div class="stat">
+      <div class="k">Thermostat bonus</div>
+      <div class="v">≈ +2 °C (4 °F)</div>
+      <div class="s">with a fan, same comfort (US DOE)</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Skin heat loss (simplified ASHRAE two-path model).</strong> A seated adult, body surface <code>A = 1.8 m²</code>, mean skin temperature held at <code>34 °C</code>, light summer clothing (0.5 clo, <code>R<sub>cl</sub> = 0.0775 m²K/W</code>, clothing area factor 1.1). Dry loss <code>Q = A·(T<sub>sk</sub> − T<sub>a</sub>)/(R<sub>cl</sub> + 1/(f<sub>cl</sub>(h<sub>c</sub> + h<sub>r</sub>)))</code> with <code>h<sub>r</sub> = 4.7 W/m²K</code> and walls at air temperature. Convection: <code>h<sub>c</sub> = 8.3·v<sup>0.6</sup></code> for 0.2–4 m/s and 3.1 W/m²K in still air (ASHRAE Handbook—Fundamentals, ch. 9, seated person).</li>
+      <li><strong style="color:var(--text)">Evaporation.</strong> <code>E = A·w·(p<sub>sk,s</sub> − p<sub>a</sub>)/(R<sub>e,cl</sub> + 1/(f<sub>cl</sub>·h<sub>e</sub>))</code>, with the Lewis relation <code>h<sub>e</sub> = 16.5·h<sub>c</sub></code> W/m²kPa, clothing vapour resistance from permeability index 0.34, saturation pressure from the Magnus formula (5.32 kPa at 34 °C). Skin wettedness <code>w</code> is a simple assumption, not a thermoregulation model: 0.06 (insensible diffusion) up to 26 °C, rising 0.02 per °C to a cap of 0.30.</li>
+      <li><strong style="color:var(--text)">“Feels like”.</strong> The still-air (0.1 m/s) temperature that gives the same total skin heat loss, holding vapour pressure and wettedness fixed. At 28 °C, 50% RH, 0.8 m/s it gives about 2.6 °C of cooling, in line with the roughly 1 °C per 0.3 m/s at modest speeds and the ~2–3 °C cooling allowances in ASHRAE Standard 55’s elevated-air-speed method (which uses the fuller SET model; above ~1.2 m/s most people find the draft unpleasant). Because skin temperature and sweating are held fixed, the model overstates cooling at high speed. Above ~35 °C the air is hotter than skin: the fan then <em>adds</em> heat by convection and only evaporation helps; in very hot, humid air a fan can make things worse.</li>
+      <li><strong style="color:var(--text)">Room energy balance.</strong> One well-mixed lump: <code>C·dT/dt = P<sub>fan</sub> + P<sub>person</sub> − UA·(T − T<sub>start</sub>)</code>, solved exactly: <code>ΔT(t) = (P/UA)(1 − e<sup>−t·UA/C</sup>)</code>. <code>C = 400 kJ/K</code> (41.6 m³ of air is only ~50 kJ/K; the rest stands in for furniture and wall surfaces that warm along with it) and <code>UA = 60 W/K</code> for leakage to the rest of the house and outdoors, both order-of-magnitude guesses for a closed 4 × 4 m bedroom. The person adds about 70 W of sensible heat (of ~100 W metabolism; the rest leaves as water vapour). A running air conditioner would hide the rise by working slightly harder instead.</li>
+      <li><strong style="color:var(--text)">Where the fan’s power goes.</strong> All electrical input ends up as heat in the room, including the air’s kinetic energy (dissipated by turbulence within seconds). The fan’s share of the eventual rise is <code>P<sub>fan</sub>/UA</code>, under 1 °C here. Real ceiling fans draw roughly 30–75 W on high (efficient DC-motor fans much less); fan speed and power are separate sliders so you can explore, though in a real fan they rise together.</li>
+      <li><strong style="color:var(--text)">Sources.</strong> ASHRAE Handbook—Fundamentals (2021), ch. 9 Thermal Comfort; ASHRAE Standard 55-2020, elevated air speed; U.S. Department of Energy, <a href="https://www.energy.gov/energysaver/fans-cooling" style="color:var(--cool)">Fans for Cooling</a> (“a ceiling fan will allow you to raise the thermostat setting about 4 °F with no reduction in comfort… turn off ceiling fans when you leave a room”).</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Energy transfer and conservation (NGSS MS-PS3-3, MS-PS3-4, HS-PS3-1). Name the misconception: “a fan cools the air.” Classic check: put a thermometer in front of a fan. A dry thermometer doesn’t change; a wet one (wrapped in damp cloth) drops, because it can evaporate like skin.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics (exported; checked by validate-ceiling-fan.js) =====
+  var A_BODY = 1.8;        // m², DuBois area of an average adult
+  var T_SKIN = 34;         // °C, mean skin temperature (held fixed)
+  var CLO = 0.5;           // light summer clothing
+  var R_CL = 0.155 * CLO;  // m²K/W
+  var F_CL = 1.1;          // clothing area factor
+  var H_R = 4.7;           // W/m²K linearized radiative coefficient
+  var LR = 16.5;           // K/kPa, Lewis ratio
+  var I_CL = 0.34;         // clothing permeability index
+  var R_ECL = R_CL / (LR * I_CL); // m²kPa/W
+  var V_STILL = 0.1;       // m/s reference "still air"
+  var MET_W = 100;         // W, seated light activity
+  var PERSON_SENSIBLE_W = 70;
+  var ROOM = { L: 4, W: 4, H: 2.6, C: 400000, UA: 60 };
+  var TIME_WARP = 180;     // simulated s per real s
+  var T_HOURS = 4;
+
+  // ASHRAE seated-person convection: 3.1 W/m²K in still air, 8.3·v^0.6 for 0.2–4 m/s
+  function hConv(v) {
+    return Math.max(3.1, 8.3 * Math.pow(Math.max(0, v), 0.6));
+  }
+  // Magnus saturation vapour pressure (kPa)
+  function pSat(tC) {
+    return 0.61094 * Math.exp(17.625 * tC / (tC + 243.04));
+  }
+  function wettedness(tC) {
+    return Math.max(0.06, Math.min(0.3, 0.06 + 0.02 * (tC - 26)));
+  }
+  function dryConductance(v) {
+    return 1 / (R_CL + 1 / (F_CL * (hConv(v) + H_R)));
+  }
+  function evapConductance(v) {
+    return 1 / (R_ECL + 1 / (F_CL * LR * hConv(v)));
+  }
+  // Skin heat loss (W). pa in kPa; w optional.
+  function skinLoss(tC, v, pa, w) {
+    if (w === undefined) w = wettedness(tC);
+    var hc = hConv(v);
+    var U = dryConductance(v);
+    var dry = A_BODY * U * (T_SKIN - tC);
+    var conv = dry * hc / (hc + H_R);
+    var rad = dry - conv;
+    var evap = A_BODY * w * Math.max(0, pSat(T_SKIN) - pa) * evapConductance(v);
+    return { hc: hc, dry: dry, conv: conv, rad: rad, evap: evap, total: dry + evap, w: w };
+  }
+  // Still-air temperature giving the same total loss (same vapour pressure, same wettedness): closed form
+  function feelsLike(tC, v, rh) {
+    var pa = rh * pSat(tC), w = wettedness(tC);
+    var L = skinLoss(tC, v, pa, w).total;
+    var E0 = skinLoss(tC, V_STILL, pa, w).evap;
+    return T_SKIN - (L - E0) / (A_BODY * dryConductance(V_STILL));
+  }
+  function coolingEffect(tC, v, rh) {
+    return tC - feelsLike(tC, v, rh);
+  }
+  // Lumped room: C dT/dt = P − UA (T − T0) → exact solution
+  function roomRise(P, t, room) {
+    room = room || ROOM;
+    return (P / room.UA) * (1 - Math.exp(-t * room.UA / room.C));
+  }
+  function roomTemp(t0, P, t, room) {
+    return t0 + roomRise(P, t, room);
+  }
+  // Explicit Euler (for the validator to cross-check the closed form)
+  function roomTempEuler(t0, P, t, dt, room) {
+    room = room || ROOM;
+    var T = t0;
+    for (var s = 0; s < t; s += dt) T += dt * (P - room.UA * (T - t0)) / room.C;
+    return T;
+  }
+  function heatInput(fanOn, watts, person) {
+    return (fanOn ? watts : 0) + (person ? PERSON_SENSIBLE_W : 0);
+  }
+
+  // ===== Fonts cached outside draw loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_BIG = '600 20px "IBM Plex Mono", ui-monospace, monospace';
+
+  var state = {
+    v: 1, t0: 28, rh: 0.5, watts: 45, person: true, myth: false, playing: true,
+    simT: 0, lastTs: 0, clock: 0, angle: 0
+  };
+  var parts = [];
+  (function seed() {
+    var s = 7;
+    function rnd() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+    for (var i = 0; i < 90; i++) parts.push({ u: rnd(), side: rnd() < 0.5 ? -1 : 1, off: rnd(), phase: rnd() });
+  })();
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elPlay = $('btnPlay'), elReset = $('btnReset'), elPerson = $('chipPerson'), elMyth = $('chipMyth');
+  var elV = $('speed'), elT = $('temp'), elRH = $('rh'), elW = $('watts');
+  var elVL = $('vLabel'), elTL = $('tLabel'), elRHL = $('rhLabel'), elWL = $('wLabel');
+  var elHint = $('modeHint'), elReadout = $('readout'), elSceneMeta = $('sceneMeta'), elChartMeta = $('chartMeta');
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 420 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function current() {
+    var fanOn = state.v > 0;
+    var P = heatInput(fanOn, state.watts, state.person);
+    var Pfan = fanOn ? state.watts : 0;
+    var Troom = roomTemp(state.t0, P, state.simT);
+    var pa = state.rh * pSat(state.t0);
+    var loss = skinLoss(Troom, state.v, pa);
+    var still = skinLoss(Troom, V_STILL, pa, loss.w);
+    var rhNow = pa / pSat(Troom);
+    var fl = feelsLike(Troom, state.v, rhNow);
+    return {
+      fanOn: fanOn, P: P, Pfan: Pfan, Troom: Troom, rise: Troom - state.t0, loss: loss, still: still, feels: fl,
+      ce: Troom - fl, fanShare: Pfan / ROOM.UA, steady: P / ROOM.UA, fanKJ: Pfan * state.simT / 1000, pa: pa
+    };
+  }
+
+  function fmtTime(s) {
+    var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
+    return h + 'h ' + (m < 10 ? '0' : '') + m + 'm';
+  }
+
+  function updateLabels() {
+    elVL.textContent = state.v.toFixed(2) + ' m/s' + (state.v === 0 ? ' (fan off)' : '');
+    elTL.textContent = state.t0.toFixed(1) + ' °C (' + (state.t0 * 9 / 5 + 32).toFixed(0) + ' °F)';
+    elRHL.textContent = Math.round(state.rh * 100) + '%';
+    elWL.textContent = state.watts.toFixed(0) + ' W';
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    setChip(elPerson, state.person);
+    setChip(elMyth, state.myth);
+    elChartMeta.textContent = 'clock ×' + TIME_WARP + ' · ' + T_HOURS + ' h';
+    var c = current();
+    if (state.myth) elHint.textContent = 'Myth mode: the red dashed thermometer is what “the fan cools the room” predicts. The real air (orange) only warms.';
+    else if (!state.person) elHint.textContent = 'Empty room: nobody to cool. The fan is now just a ' + (c.fanOn ? state.watts.toFixed(0) : '0') + ' W heater that stirs the air.';
+    else if (c.Troom > T_SKIN + 1) elHint.textContent = 'Air hotter than skin (34 °C): convection now carries heat INTO you; only sweat evaporation still helps.';
+    else elHint.textContent = 'Clock runs ×' + TIME_WARP + ' (1 s ≈ 3 min). Skin at 34 °C, light clothing, seated.';
+  }
+
+  function renderReadout(c) {
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Room air now', c.Troom.toFixed(2) + ' °C', '+' + c.rise.toFixed(2) + ' °C after ' + fmtTime(state.simT) + ' · heading to +' + c.steady.toFixed(2), 'warm');
+    kv('Heat added by fan', c.Pfan.toFixed(0) + ' W', (c.fanKJ >= 1000 ? (c.fanKJ / 3600).toFixed(3) + ' kWh' : c.fanKJ.toFixed(0) + ' kJ') + ' so far · its share +' + c.fanShare.toFixed(2) + ' °C', 'warm');
+    if (state.person) {
+      kv('Skin heat loss', c.loss.total.toFixed(0) + ' W', 'dry ' + c.loss.dry.toFixed(0) + ' + sweat ' + c.loss.evap.toFixed(0) + ' · still air ' + c.still.total.toFixed(0) + ' W', '');
+      kv('Feels like', c.feels.toFixed(1) + ' °C', (c.ce >= 0 ? '−' : '+') + Math.abs(c.ce).toFixed(1) + ' °C vs still air · equivalent cooling', c.ce >= 0 ? '' : 'warm');
+    } else {
+      kv('Skin heat loss', '—', 'nobody in the room to cool', '');
+      kv('Feels like', '—', 'a thermometer feels no breeze', '');
+    }
+    kv('Convection h<sub>c</sub>', c.loss.hc.toFixed(1) + ' W/m²K', 'still air 3.1 · ×' + (c.loss.hc / 3.1).toFixed(2), 'sun');
+    elReadout.innerHTML = html;
+  }
+
+  function tempColor(t) {
+    var f = Math.max(0, Math.min(1, (t - 18) / 22));
+    var r = Math.round(94 + (255 - 94) * f), g = Math.round(200 + (126 - 200) * f), b = Math.round(229 + (95 - 229) * f);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+  }
+
+  function drawScene(c) {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var rx0 = 16, rx1 = W - 16, ry0 = 30, ry1 = H - 26;
+    var rw = rx1 - rx0, rh = ry1 - ry0;
+    // room tint by air temp
+    ctx.fillStyle = tempColor(c.Troom).replace('rgb', 'rgba').replace(')', ',0.05)');
+    ctx.fillRect(rx0, ry0, rw, rh);
+    ctx.strokeStyle = 'rgba(94,200,229,0.35)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(rx0, ry0, rw, rh);
+    ctx.lineWidth = 1;
+    // fan
+    var fx = rx0 + rw * 0.5, fy = ry0 + 26;
+    ctx.fillStyle = '#39415e';
+    ctx.fillRect(fx - 2, ry0, 4, 18);
+    var blade = Math.min(rw * 0.2, 120);
+    var squash = 0.22;
+    ctx.strokeStyle = 'rgba(215,222,242,' + (state.v > 0 ? 0.18 : 0.06) + ')';
+    ctx.beginPath(); ctx.ellipse(fx, fy, blade, blade * squash, 0, 0, Math.PI * 2); ctx.stroke();
+    for (var b = 0; b < 4; b++) {
+      var a = state.angle + b * Math.PI / 2;
+      var bx = Math.cos(a) * blade, by = Math.sin(a) * blade * squash;
+      ctx.strokeStyle = 'rgba(215,222,242,0.75)';
+      ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(fx + bx, fy + by); ctx.stroke();
+    }
+    ctx.lineWidth = 1;
+    var motorGlow = c.fanOn ? 0.35 + 0.5 * state.watts / 100 : 0;
+    ctx.fillStyle = c.fanOn ? 'rgba(255,126,95,' + motorGlow.toFixed(3) + ')' : '#39415e';
+    ctx.beginPath(); ctx.ellipse(fx, fy, 14, 8, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_10;
+    if (c.fanOn) {
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('motor: +' + state.watts.toFixed(0) + ' W of heat', fx + 18, fy + 22);
+    }
+    // airflow loop particles: down the middle, out along the floor, up the walls, back across the ceiling
+    var speed = state.v;
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      var u = (p.u + state.clock * 0.06 * speed * (0.7 + 0.6 * p.phase)) % 1;
+      var halfW = rw / 2 - 18, inner = 18 + p.off * 30;
+      var x, y;
+      // path parameter: 0–0.35 down, 0.35–0.6 floor, 0.6–0.85 wall up, 0.85–1 ceiling back
+      if (u < 0.35) { var k = u / 0.35; x = fx + p.side * (inner * (0.4 + 0.6 * k)); y = fy + 14 + k * (rh - 70); }
+      else if (u < 0.6) { var k2 = (u - 0.35) / 0.25; x = fx + p.side * (inner + k2 * (halfW - inner)); y = ry1 - 18 - p.off * 16; }
+      else if (u < 0.85) { var k3 = (u - 0.6) / 0.25; x = fx + p.side * (halfW - p.off * 12); y = ry1 - 18 - k3 * (rh - 50); }
+      else { var k4 = (u - 0.85) / 0.15; x = fx + p.side * (halfW - k4 * (halfW - inner)); y = ry0 + 14 + p.off * 10; }
+      var alpha = speed > 0 ? Math.min(0.75, 0.2 + speed * 0.25) : 0.12;
+      ctx.fillStyle = 'rgba(94,200,229,' + alpha.toFixed(3) + ')';
+      ctx.fillRect(x, y, 2, speed > 0 ? 2 + Math.min(6, speed * 2.5) : 2);
+    }
+    // thermometer (real) on the right wall
+    var thx = rx1 - 26, thTop = ry0 + 40, thBot = ry1 - 40;
+    function tY(t) { return thBot - (thBot - thTop) * Math.max(0, Math.min(1, (t - 15) / 30)); }
+    ctx.fillStyle = 'rgba(215,222,242,0.12)';
+    ctx.fillRect(thx - 4, thTop, 8, thBot - thTop);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillRect(thx - 3, tY(c.Troom), 6, thBot - tY(c.Troom));
+    ctx.beginPath(); ctx.arc(thx, thBot + 6, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(215,222,242,0.5)';
+    ctx.beginPath(); ctx.moveTo(thx - 10, tY(state.t0)); ctx.lineTo(thx + 6, tY(state.t0)); ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ff7e5f';
+    ctx.textAlign = 'right';
+    ctx.fillText(c.Troom.toFixed(2) + ' °C', thx - 10, tY(c.Troom) + 4);
+    if (Math.abs(tY(c.Troom) - tY(state.t0)) > 16) { ctx.fillStyle = '#8b93ad'; ctx.fillText('start', thx - 12, tY(state.t0) + 4); }
+    if (state.myth) {
+      var mythT = state.t0 - (state.person ? Math.max(0, c.ce) : 2) * (1 - Math.exp(-state.simT / 1800));
+      ctx.strokeStyle = '#ff7e5f'; ctx.setLineDash([4, 3]);
+      ctx.strokeRect(thx - 22, tY(mythT) - 1, 10, thBot - tY(mythT));
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('myth ' + mythT.toFixed(1) + ' °C ✗', thx - 26, tY(mythT) - 6);
+    }
+    ctx.textAlign = 'left';
+
+    // person (seated) with heat arrows
+    if (state.person) {
+      var px = rx0 + rw * 0.36, py = ry1 - 10;
+      var sc = Math.min(1, rh / 330);
+      ctx.fillStyle = '#39415e';
+      ctx.fillRect(px - 26 * sc, py - 50 * sc, 52 * sc, 8 * sc);         // seat
+      ctx.fillRect(px - 26 * sc, py - 110 * sc, 7 * sc, 60 * sc);        // back
+      ctx.fillRect(px + 20 * sc, py - 50 * sc, 5 * sc, 50 * sc);         // leg
+      ctx.fillStyle = tempColor(T_SKIN - 2);
+      ctx.beginPath(); ctx.arc(px - 6 * sc, py - 138 * sc, 12 * sc, 0, Math.PI * 2); ctx.fill(); // head
+      ctx.fillRect(px - 14 * sc, py - 124 * sc, 18 * sc, 72 * sc);        // torso
+      ctx.fillRect(px - 14 * sc, py - 58 * sc, 46 * sc, 12 * sc);         // thigh
+      ctx.fillRect(px + 22 * sc, py - 58 * sc, 10 * sc, 58 * sc);         // shin
+      // arrows: dry (orange) and evaporative (cyan), length ∝ W
+      var dryL = Math.max(-90, Math.min(120, c.loss.dry * 0.9)), evL = Math.min(120, c.loss.evap * 0.9);
+      var ax = px + 8 * sc, ay = py - 100 * sc;
+      function arrow(x0, y0, len, ang, col, label) {
+        if (Math.abs(len) < 2) return;
+        var dir = len >= 0 ? 1 : -1, L = Math.abs(len);
+        var sx = x0 + (dir < 0 ? Math.cos(ang) * (L + 10) : Math.cos(ang) * 10), sy = y0 + (dir < 0 ? Math.sin(ang) * (L + 10) : Math.sin(ang) * 10);
+        var ex = sx + Math.cos(ang) * L * dir, ey = sy + Math.sin(ang) * L * dir;
+        ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(ex, ey); ctx.stroke();
+        var ha = Math.atan2(ey - sy, ex - sx);
+        ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ex - 8 * Math.cos(ha - 0.5), ey - 8 * Math.sin(ha - 0.5)); ctx.lineTo(ex - 8 * Math.cos(ha + 0.5), ey - 8 * Math.sin(ha + 0.5)); ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.font = FONT_MONO_10;
+        ctx.fillText(label, Math.min(W - 110, Math.max(4, ex + 6)), ey + (ang < 0 ? -4 : 12));
+      }
+      arrow(ax, ay, dryL, -0.35, '#ff7e5f', (c.loss.dry >= 0 ? 'dry ' : 'dry GAIN ') + Math.abs(c.loss.dry).toFixed(0) + ' W');
+      arrow(ax, ay + 24 * sc, evL, 0.25, '#5ec8e5', 'sweat ' + c.loss.evap.toFixed(0) + ' W');
+      ctx.fillStyle = '#d7def2';
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('feels ' + c.feels.toFixed(1) + ' °C', px - 60 * sc - 20, py - 170 * sc);
+    } else {
+      ctx.fillStyle = '#8b93ad';
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('empty room', rx0 + rw * 0.28, ry1 - 30);
+    }
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(fmtTime(state.simT), rx0 + 8, ry0 - 10);
+    ctx.fillStyle = c.fanOn ? '#5ec8e5' : '#8b93ad';
+    ctx.fillText(c.fanOn ? 'air speed at you ' + state.v.toFixed(2) + ' m/s' : 'fan off', rx0 + 90, ry0 - 10);
+  }
+
+  function drawChart(c) {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var gx0 = 48, gx1 = W - 14, gy0 = H * 0.53, gy1 = 30;
+    var tEnd = T_HOURS * 3600;
+    var P = c.P;
+    var yLo = state.t0 - (state.myth ? 4 : 0.5), yHi = state.t0 + Math.max(1.5, (P / ROOM.UA) * 1.15);
+    function gx(t) { return gx0 + (gx1 - gx0) * t / tEnd; }
+    function gy(T) { return gy0 - (gy0 - gy1) * (T - yLo) / (yHi - yLo); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+    ctx.beginPath(); ctx.moveTo(gx0, gy1); ctx.lineTo(gx0, gy0); ctx.lineTo(gx1, gy0); ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    for (var h = 0; h <= T_HOURS; h++) ctx.fillText(h + 'h', gx(h * 3600) - 6, gy0 + 13);
+    var step = (yHi - yLo) > 4 ? 1 : 0.5;
+    for (var T = Math.ceil(yLo / step) * step; T <= yHi + 1e-9; T += step) {
+      ctx.fillText(T.toFixed(1), 6, gy(T) + 3);
+      ctx.strokeStyle = 'rgba(94,200,229,0.07)';
+      ctx.beginPath(); ctx.moveTo(gx0, gy(T)); ctx.lineTo(gx1, gy(T)); ctx.stroke();
+    }
+    ctx.fillText('room air °C', gx0 + 4, gy1 - 12);
+    // start line
+    ctx.strokeStyle = 'rgba(215,222,242,0.35)'; ctx.setLineDash([2, 4]);
+    ctx.beginPath(); ctx.moveTo(gx0, gy(state.t0)); ctx.lineTo(gx1, gy(state.t0)); ctx.stroke();
+    ctx.setLineDash([]);
+    // fan-only and person-only components
+    function curve(Pw, col, lw, dash) {
+      ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.setLineDash(dash || []);
+      ctx.beginPath();
+      for (var k = 0; k <= 80; k++) { var t = tEnd * k / 80; var y = gy(roomTemp(state.t0, Pw, t)); if (k === 0) ctx.moveTo(gx(t), y); else ctx.lineTo(gx(t), y); }
+      ctx.stroke(); ctx.setLineDash([]); ctx.lineWidth = 1;
+    }
+    if (c.Pfan > 0 && state.person) curve(c.Pfan, 'rgba(255,126,95,0.45)', 1, [4, 3]);
+    curve(P, '#ff7e5f', 2);
+    if (state.myth) {
+      ctx.strokeStyle = '#ff7e5f'; ctx.setLineDash([6, 4]); ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      var drop = state.person ? Math.max(0, c.ce) : 2;
+      for (var m = 0; m <= 80; m++) { var tm = tEnd * m / 80; var ym = gy(state.t0 - drop * (1 - Math.exp(-tm / 1800))); if (m === 0) ctx.moveTo(gx(tm), ym); else ctx.lineTo(gx(tm), ym); }
+      ctx.stroke(); ctx.setLineDash([]); ctx.lineWidth = 1;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('myth: room cools ✗', gx(tEnd * 0.55), gy(state.t0 - drop * 0.9) + 14);
+    }
+    ctx.fillStyle = '#ff7e5f';
+    ctx.beginPath(); ctx.arc(gx(Math.min(tEnd, state.simT)), gy(c.Troom), 4.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillText('real: +' + c.steady.toFixed(2) + ' °C eventually', gx(tEnd * 0.42), gy(roomTemp(state.t0, P, tEnd)) - 8);
+    if (c.Pfan > 0 && state.person) { ctx.fillStyle = 'rgba(255,126,95,0.7)'; ctx.fillText('fan alone', gx(tEnd * 0.75), gy(roomTemp(state.t0, c.Pfan, tEnd * 0.75)) + 13); }
+
+    // skin heat budget bars
+    var by0 = H * 0.66 + 4, bx0 = 14, bw = W - 28;
+    ctx.fillStyle = '#d7def2';
+    ctx.font = FONT_MONO_11;
+    ctx.fillText('Your skin heat loss (W) · still air vs this fan', bx0, by0 - 8);
+    if (!state.person) {
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText('— no person: nothing here is cooled —', bx0, by0 + 30);
+      return;
+    }
+    var maxW = 220;
+    function wx(wv) { return bx0 + 70 + (bw - 70) * Math.max(0, Math.min(1, wv / maxW)); }
+    var rows = [{ lab: 'still air', L: c.still }, { lab: 'with fan', L: c.loss }];
+    ctx.font = FONT_MONO_10;
+    rows.forEach(function (r, i) {
+      var y = by0 + 8 + i * 34;
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText(r.lab, bx0, y + 13);
+      var x = wx(0);
+      var segs = [[Math.max(0, r.L.conv), '#ff7e5f'], [Math.max(0, r.L.rad), '#ffc24a'], [r.L.evap, '#5ec8e5']];
+      segs.forEach(function (sg) { var w = wx(sg[0]) - wx(0); var room = wx(maxW) - x; w = Math.min(w, Math.max(0, room)); ctx.fillStyle = sg[1]; ctx.fillRect(x, y, w, 18); x += w; });
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(r.L.total.toFixed(0) + ' W', Math.min(x + 4, W - 44), y + 13);
+    });
+    // metabolic line
+    ctx.strokeStyle = 'rgba(215,222,242,0.8)'; ctx.setLineDash([3, 3]);
+    ctx.beginPath(); ctx.moveTo(wx(MET_W), by0 + 2); ctx.lineTo(wx(MET_W), by0 + 70); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('body makes ~' + MET_W + ' W', Math.min(wx(MET_W) + 4, W - 110), by0 + 82);
+    var ly = H - 14;
+    ctx.fillStyle = '#ff7e5f'; ctx.fillRect(bx0, ly - 8, 8, 8); ctx.fillStyle = '#8b93ad'; ctx.fillText('convection', bx0 + 12, ly);
+    ctx.fillStyle = '#ffc24a'; ctx.fillRect(bx0 + 92, ly - 8, 8, 8); ctx.fillStyle = '#8b93ad'; ctx.fillText('radiation', bx0 + 104, ly);
+    ctx.fillStyle = '#5ec8e5'; ctx.fillRect(bx0 + 178, ly - 8, 8, 8); ctx.fillStyle = '#8b93ad'; ctx.fillText('sweat', bx0 + 190, ly);
+  }
+
+  function render() {
+    var c = current();
+    renderReadout(c);
+    drawScene(c);
+    drawChart(c);
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.clock += dt;
+    state.angle += dt * state.v * 4.5;
+    if (state.playing) {
+      state.simT = Math.min(T_HOURS * 3600, state.simT + dt * TIME_WARP);
+    }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function restart() { state.simT = 0; updateLabels(); }
+
+  elPlay.addEventListener('click', function () { state.playing = !state.playing; if (state.playing && state.simT >= T_HOURS * 3600) state.simT = 0; updateLabels(); });
+  elReset.addEventListener('click', restart);
+  elPerson.addEventListener('click', function () { state.person = !state.person; restart(); });
+  elMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elV.addEventListener('input', function () { state.v = parseFloat(elV.value); updateLabels(); });
+  elT.addEventListener('input', function () { state.t0 = parseFloat(elT.value); restart(); });
+  elRH.addEventListener('input', function () { state.rh = parseFloat(elRH.value) / 100; updateLabels(); });
+  elW.addEventListener('input', function () { state.watts = parseFloat(elW.value); updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elPlay.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__fanPhysics = {
+    A_BODY: A_BODY, T_SKIN: T_SKIN, R_CL: R_CL, F_CL: F_CL, H_R: H_R, LR: LR, R_ECL: R_ECL, V_STILL: V_STILL,
+    MET_W: MET_W, PERSON_SENSIBLE_W: PERSON_SENSIBLE_W, ROOM: ROOM, TIME_WARP: TIME_WARP,
+    hConv: hConv, pSat: pSat, wettedness: wettedness, dryConductance: dryConductance, evapConductance: evapConductance,
+    skinLoss: skinLoss, feelsLike: feelsLike, coolingEffect: coolingEffect, roomRise: roomRise, roomTemp: roomTemp,
+    roomTempEuler: roomTempEuler, heatInput: heatInput
+  };
+})();
+</script>
+</body>
+</html>
