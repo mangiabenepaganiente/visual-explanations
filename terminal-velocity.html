@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skydiver Terminal Velocity — Drag Grows Until It Equals Weight | Classroom</title>
+<meta name="description" content="Classroom skydiving sim: drag ½ρC_dAv² grows until it equals weight, so speed levels off near 54 m/s. Gravity never switches off. Try a parachute.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="terminal velocity, skydiver physics, air resistance, drag equation, net force zero, parachute, falling objects misconception, heavier objects fall faster, classroom physics">
+<link rel="canonical" href="terminal-velocity.html">
+<meta property="og:title" content="Skydiver Terminal Velocity">
+<meta property="og:description" content="A falling skydiver speeds up until air drag equals weight, then falls at a steady ~120 mph. Gravity is still fully on; the net force is zero. Live classroom sim.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 440px; }
+@media (max-width: 720px) { .card canvas { height: 360px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · air resistance</a></p>
+  <h1>Why a skydiver stops speeding up</h1>
+  <p class="lede">Step out of a plane and gravity pulls you down with your full weight, <strong>m·g</strong>, the whole way. Air pushes back with drag <strong>½·ρ·C<sub>d</sub>A·v²</strong>, which grows fast as you speed up. After about 12 seconds, drag has grown to <strong>equal your weight</strong>. The net force is then zero and you stop accelerating: <strong>terminal velocity</strong>, about <strong>54 m/s (120 mph)</strong> belly-down. Gravity hasn’t gone anywhere.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Jump</strong> and watch the two arrows. Notice the blue drag arrow grows until it matches the gold weight arrow. At that moment the speed curve goes flat.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnJump" title="Spacebar">Jump</button>
+      <button type="button" class="btn" id="btnChute">Open parachute</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="pBelly" aria-pressed="true">Belly-to-earth</button>
+      <button type="button" class="chip" id="pSit" aria-pressed="false">Sit-fly</button>
+      <button type="button" class="chip" id="pHead" aria-pressed="false">Head-down</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: you keep speeding up</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Skydiver + gear mass <em id="mLabel">80 kg</em></span>
+        <input type="range" id="mass" min="50" max="130" step="1" value="80" aria-label="Skydiver plus gear mass in kilograms">
+      </label>
+      <label class="sl grow">
+        <span>Exit altitude <em id="hLabel">4000 m</em></span>
+        <input type="range" id="alt" min="1500" max="12000" step="100" value="4000" aria-label="Exit altitude in meters above sea level">
+      </label>
+      <span class="hint" id="modeHint">Drag grows with v² until it equals weight.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Freefall · forces on the skydiver</b><span id="fallMeta">time ×2</span></div>
+      <canvas id="cvFall" width="760" height="440" aria-label="A skydiver falling past clouds with arrows for weight and air drag and an altitude tape"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Speed vs time</b><span id="chartMeta">dashed = local v_t</span></div>
+      <canvas id="cvChart" width="480" height="440" aria-label="Graph of speed versus time approaching terminal velocity, and a drag versus weight bar"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Gravity pulls with m·g, always</h2>
+      <p>Your weight doesn’t change as you fall. An 80 kg skydiver is pulled down with 785 N at the door of the plane, at 120 mph, and under the canopy. At the start there’s no drag yet, so you gain 9.8 m/s every second.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Drag grows with speed squared</h2>
+      <p>Air resistance is <code>F = ½·ρ·C<sub>d</sub>A·v²</code>. Twice as fast means four times the drag. As speed builds, drag catches up with weight and the <em>net</em> force, and so the acceleration, shrinks toward zero.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Terminal: drag = weight</h2>
+      <p>Setting drag equal to weight gives <code>v<sub>t</sub> = √(2mg / ρC<sub>d</sub>A)</code>. Tuck into head-down (small C<sub>d</sub>A) and it rises to ~85 m/s. Open a canopy (huge C<sub>d</sub>A) and it drops to ~5 m/s. Thinner air up high means faster falls there.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“You keep speeding up” / “gravity stops”</h2>
+      <p>Both are wrong. Without air you <em>would</em> speed up forever (the red line in myth mode). With air you don’t, but not because gravity quits. At terminal velocity gravity is fully on and balanced by an equal drag force. Zero <em>net</em> force means constant speed (Newton’s first law), not zero speed.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Skydiving numbers">
+    <div class="stat">
+      <div class="k">Belly-to-earth</div>
+      <div class="v">≈ 54 m/s</div>
+      <div class="s">≈ 120 mph · 195 km/h</div>
+    </div>
+    <div class="stat">
+      <div class="k">Head-down</div>
+      <div class="v">≈ 80–90 m/s</div>
+      <div class="s">≈ 180–200 mph</div>
+    </div>
+    <div class="stat">
+      <div class="k">Under canopy</div>
+      <div class="v">≈ 5–6 m/s</div>
+      <div class="s">descent rate</div>
+    </div>
+    <div class="stat">
+      <div class="k">Time to reach ~99% v<sub>t</sub></div>
+      <div class="v">≈ 15 s</div>
+      <div class="s">belly · ~2.6·v<sub>t</sub>/g</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Equation of motion.</strong> Vertical only: <code>m·dv/dt = m·g − ½·ρ(h)·C<sub>d</sub>A·v²</code>, with g = 9.80665 m/s² held constant (it is only ~0.3% weaker at 10 km). Integrated with 4th-order Runge–Kutta at 5 ms steps. At constant ρ this reproduces the exact solution <code>v = v<sub>t</sub>·tanh(g·t/v<sub>t</sub>)</code>, and the validator checks that. The plane’s forward speed at exit and any horizontal drift are ignored.</li>
+      <li><strong>Air density</strong> from the International Standard Atmosphere: <code>T = 288.15 − 0.0065·h</code> K, <code>p = 101325·(T/288.15)<sup>5.2559</sup></code> Pa up to 11 km, isothermal 216.65 K above, and <code>ρ = p/(287.05·T)</code>. That gives 1.225 kg/m³ at sea level and 0.819 at 4 km. Real days differ by a few percent. The ground is taken to be at sea level.</li>
+      <li><strong>Drag areas</strong> C<sub>d</sub>A are effective values chosen to match typical published speeds for an 80 kg jumper: belly-to-earth 0.44 m² (≈ 54 m/s at sea level, ≈ 120 mph), sit-fly 0.30 m² (≈ 65 m/s), head-down 0.18 m² (≈ 84 m/s). Real values vary with body size, jumpsuit, and arch. The page holds C<sub>d</sub>A fixed when you change mass, so <code>v<sub>t</sub> ∝ √m</code>. Real heavier people are also larger, which weakens that effect.</li>
+      <li><strong>Parachute.</strong> A simplified deployment: 1 s of pilot chute and line stretch (C<sub>d</sub>A ≈ 1.5 m²), then 2.5 s of inflation with C<sub>d</sub>A rising smoothly to an effective 42 m², which gives ≈ 5.5 m/s steady descent for 80 kg at sea level. Peak opening deceleration comes out around 3–5 g, in the range jumpers report for normal openings. Real ram-air canopies also glide forward at ~10 m/s. Only the vertical rate is modeled. If you don’t open it, the canopy opens automatically at 900 m, a typical deployment altitude.</li>
+      <li><strong>Time display.</strong> Freefall plays at ×2 speed and canopy flight at ×10 so a whole jump fits in about a minute. Clocks and readouts show real elapsed time.</li>
+      <li><strong>For teachers.</strong> Newton’s first and second laws with a velocity-dependent force (NGSS HS-PS2-1). Common misconceptions are that heavier objects keep accelerating, that a constant speed needs a net force, or that gravity stops at terminal velocity. Heavier jumpers <em>do</em> reach a higher v<sub>t</sub> (√m), which is why skydivers wear weight belts to match speeds with lighter friends.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-terminal-velocity.js =====
+  var G = 9.80665;          // m/s²
+  var R_AIR = 287.05;       // J/(kg·K)
+  var POSITIONS = {
+    belly: { key: 'belly', label: 'Belly-to-earth', cda: 0.44 },
+    sit: { key: 'sit', label: 'Sit-fly', cda: 0.30 },
+    head: { key: 'head', label: 'Head-down', cda: 0.18 }
+  };
+  var CDA_PILOT = 1.5, CDA_CANOPY = 42;   // m² effective
+  var T_LINE = 1.0, T_INFL = 2.5;          // s
+  var AUTO_PULL = 900;                     // m
+  var DT = 0.005;                          // s integration step
+  var WARP_FREE = 2, WARP_CANOPY = 10;
+
+  // International Standard Atmosphere (troposphere + lower stratosphere)
+  function isa(h) {
+    h = Math.max(0, h);
+    var T, p;
+    if (h <= 11000) {
+      T = 288.15 - 0.0065 * h;
+      p = 101325 * Math.pow(T / 288.15, G / (R_AIR * 0.0065));
+    } else {
+      T = 216.65;
+      var p11 = 101325 * Math.pow(216.65 / 288.15, G / (R_AIR * 0.0065));
+      p = p11 * Math.exp(-G * (h - 11000) / (R_AIR * T));
+    }
+    return { T: T, p: p, rho: p / (R_AIR * T) };
+  }
+  function airDensity(h) { return isa(h).rho; }
+
+  function dragForce(rho, cda, v) { return 0.5 * rho * cda * v * Math.abs(v); }
+  function terminalVelocity(m, rho, cda) { return Math.sqrt(2 * m * G / (rho * cda)); }
+
+  // Effective CdA at time since deploy (tD < 0: not deployed)
+  function canopyCdA(bodyCdA, tD) {
+    if (tD < 0) return bodyCdA;
+    if (tD < T_LINE) return bodyCdA + (CDA_PILOT - bodyCdA) * (tD / T_LINE);
+    var f = Math.min(1, (tD - T_LINE) / T_INFL);
+    var s = f * f * (3 - 2 * f);  // smoothstep inflation
+    return CDA_PILOT + (CDA_CANOPY - CDA_PILOT) * s;
+  }
+
+  // Acceleration (down positive)
+  function accel(m, cda, h, v) { return G - dragForce(airDensity(h), cda, v) / m; }
+
+  // One RK4 step of (h, v) with CdA as a function of time since deploy
+  function rk4Step(s, m, bodyCdA, dt, rhoFixed) {
+    function f(h, v, t) {
+      var tD = s.deployAt < 0 ? -1 : (t - s.deployAt);
+      var cda = canopyCdA(bodyCdA, tD);
+      var rho = rhoFixed ? rhoFixed : airDensity(h);
+      return { dh: -v, dv: G - dragForce(rho, cda, v) / m };
+    }
+    var k1 = f(s.h, s.v, s.t);
+    var k2 = f(s.h + k1.dh * dt / 2, s.v + k1.dv * dt / 2, s.t + dt / 2);
+    var k3 = f(s.h + k2.dh * dt / 2, s.v + k2.dv * dt / 2, s.t + dt / 2);
+    var k4 = f(s.h + k3.dh * dt, s.v + k3.dv * dt, s.t + dt);
+    s.h += dt / 6 * (k1.dh + 2 * k2.dh + 2 * k3.dh + k4.dh);
+    s.v += dt / 6 * (k1.dv + 2 * k2.dv + 2 * k3.dv + k4.dv);
+    s.t += dt;
+    return s;
+  }
+
+  // Headless full-jump simulation (used by validator)
+  function simulateJump(m, bodyCdA, h0, deployAlt, tMax) {
+    var s = { h: h0, v: 0, t: 0, deployAt: -1 };
+    var out = { tFreefall: null, vMaxFree: 0, peakDecelG: 0, landV: null, tLand: null, vAt900: null };
+    var steps = Math.round((tMax || 900) / DT);
+    for (var i = 0; i < steps; i++) {
+      if (s.deployAt < 0 && s.h <= deployAlt) { s.deployAt = s.t; out.tFreefall = s.t; out.vAt900 = s.v; }
+      rk4Step(s, m, bodyCdA, DT);
+      if (s.deployAt < 0) out.vMaxFree = Math.max(out.vMaxFree, s.v);
+      var tD = s.deployAt < 0 ? -1 : s.t - s.deployAt;
+      var a = G - dragForce(airDensity(s.h), canopyCdA(bodyCdA, tD), s.v) / m;
+      if (-a / G > out.peakDecelG) out.peakDecelG = -a / G;
+      if (s.h <= 0) { out.landV = s.v; out.tLand = s.t; break; }
+    }
+    return out;
+  }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_BIG = '600 20px Fraunces, Georgia, serif';
+
+  var state = {
+    m: 80, pos: POSITIONS.belly, h0: 4000, myth: false,
+    sim: { h: 4000, v: 0, t: 0, deployAt: -1 }, mode: 'ready', // ready | fall | landed
+    hist: [], lastTs: 0, cloudY: 0, peakG: 0
+  };
+  var CLOUDS = [];
+  for (var ci = 0; ci < 14; ci++) CLOUDS.push({ x: ((ci * 0.618) % 1), y: ((ci * 0.37 + 0.11) % 1), s: 0.6 + ((ci * 0.29) % 0.8) });
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elJump = $('btnJump'), elChute = $('btnChute'), chipMyth = $('chipMyth');
+  var pChips = { belly: $('pBelly'), sit: $('pSit'), head: $('pHead') };
+  var elM = $('mass'), elH = $('alt'), elML = $('mLabel'), elHL = $('hLabel');
+  var elHint = $('modeHint'), elFallMeta = $('fallMeta'), elChartMeta = $('chartMeta'), elReadout = $('readout');
+  var surfaces = {
+    fall: { canvas: $('cvFall'), ctx: null, w: 0, h: 0, cssH: 440 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 440 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+
+  function curCdA() {
+    var s = state.sim;
+    return canopyCdA(state.pos.cda, s.deployAt < 0 ? -1 : s.t - s.deployAt);
+  }
+  function forcesNow() {
+    var s = state.sim, rho = airDensity(s.h), cda = curCdA();
+    var W = state.m * G, D = dragForce(rho, cda, s.v);
+    return { rho: rho, cda: cda, W: W, D: D, a: (W - D) / state.m, vt: terminalVelocity(state.m, rho, cda) };
+  }
+
+  function jump() {
+    state.sim = { h: state.h0, v: 0, t: 0, deployAt: -1 };
+    state.mode = 'fall'; state.hist = [{ t: 0, v: 0 }]; state.peakG = 0;
+    updateLabels();
+  }
+  function deploy() {
+    if (state.mode === 'fall' && state.sim.deployAt < 0) { state.sim.deployAt = state.sim.t; updateLabels(); }
+  }
+
+  function stepSim(realDt) {
+    if (state.mode !== 'fall') return;
+    var s = state.sim;
+    var warp = s.deployAt < 0 ? WARP_FREE : WARP_CANOPY;
+    var n = Math.max(1, Math.round(realDt * warp / DT));
+    for (var i = 0; i < n; i++) {
+      if (s.deployAt < 0 && s.h <= AUTO_PULL) s.deployAt = s.t;
+      rk4Step(s, state.m, state.pos.cda, DT);
+      var a = forcesNow().a;
+      if (-a / G > state.peakG) state.peakG = -a / G;
+      if (s.h <= 0) { s.h = 0; state.mode = 'landed'; break; }
+    }
+    var last = state.hist[state.hist.length - 1];
+    if (!last || s.t - last.t > 0.2) { if (state.hist.length < 3000) state.hist.push({ t: s.t, v: s.v }); }
+    state.cloudY += s.v * realDt * warp * 0.9;
+    if (state.mode === 'landed') updateLabels();
+  }
+
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len, ah = head || 9;
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.5, y2 - uy * ah + ux * ah * 0.5);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.5, y2 - uy * ah - ux * ah * 0.5);
+    ctx.closePath(); ctx.fill();
+  }
+
+  function drawDiver(ctx, x, y, sc, pos) {
+    ctx.strokeStyle = '#d7def2'; ctx.fillStyle = '#d7def2'; ctx.lineCap = 'round'; ctx.lineWidth = 5 * sc;
+    ctx.beginPath();
+    if (pos === 'head') {
+      ctx.arc(x, y + 30 * sc, 8 * sc, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(x, y + 22 * sc); ctx.lineTo(x, y - 12 * sc);
+      ctx.moveTo(x, y - 12 * sc); ctx.lineTo(x - 7 * sc, y - 40 * sc);
+      ctx.moveTo(x, y - 12 * sc); ctx.lineTo(x + 7 * sc, y - 40 * sc);
+      ctx.moveTo(x, y + 14 * sc); ctx.lineTo(x - 10 * sc, y + 30 * sc);
+      ctx.moveTo(x, y + 14 * sc); ctx.lineTo(x + 10 * sc, y + 30 * sc);
+      ctx.stroke();
+    } else if (pos === 'sit') {
+      ctx.arc(x, y - 30 * sc, 8 * sc, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(x, y - 22 * sc); ctx.lineTo(x, y + 6 * sc);
+      ctx.moveTo(x, y + 6 * sc); ctx.lineTo(x + 20 * sc, y + 8 * sc); ctx.lineTo(x + 22 * sc, y + 30 * sc);
+      ctx.moveTo(x, y + 6 * sc); ctx.lineTo(x - 20 * sc, y + 8 * sc); ctx.lineTo(x - 22 * sc, y + 30 * sc);
+      ctx.moveTo(x, y - 14 * sc); ctx.lineTo(x - 24 * sc, y - 20 * sc);
+      ctx.moveTo(x, y - 14 * sc); ctx.lineTo(x + 24 * sc, y - 20 * sc);
+      ctx.stroke();
+    } else {
+      // belly-to-earth, seen from the side: horizontal body, arched limbs up
+      ctx.arc(x - 30 * sc, y, 8 * sc, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(x - 22 * sc, y); ctx.lineTo(x + 12 * sc, y);
+      ctx.moveTo(x - 16 * sc, y); ctx.lineTo(x - 26 * sc, y - 20 * sc);
+      ctx.moveTo(x + 12 * sc, y); ctx.lineTo(x + 30 * sc, y - 8 * sc); ctx.lineTo(x + 40 * sc, y - 20 * sc);
+      ctx.stroke();
+    }
+  }
+
+  function drawFall() {
+    var surf = surfaces.fall;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var s = state.sim, fn = forcesNow();
+    // sky darkens with altitude
+    var alt = Math.min(1, s.h / 12000);
+    var sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, alt > 0.6 ? '#070b22' : '#0d1a3e');
+    sky.addColorStop(1, alt > 0.6 ? '#0e1a44' : '#1b3563');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+    // clouds scroll upward with fall speed
+    for (var i = 0; i < CLOUDS.length; i++) {
+      var c = CLOUDS[i];
+      var span = H + 120;
+      var cy = ((c.y * span - state.cloudY * 3 * c.s) % span + span) % span - 60;
+      var cx = c.x * (W - 140) + 20;
+      ctx.fillStyle = 'rgba(215,222,242,' + (0.05 + 0.07 * c.s) + ')';
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, 44 * c.s, 12 * c.s, 0, 0, Math.PI * 2);
+      ctx.ellipse(cx + 26 * c.s, cy - 6 * c.s, 30 * c.s, 11 * c.s, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    // ground appears below 400 m
+    var narrow = W < 500;
+    var diverY = H * 0.46, diverX = narrow ? W * 0.3 : W * 0.42;
+    if (s.h < 400) {
+      var gy = diverY + 40 + s.h / 400 * (H - diverY);
+      ctx.fillStyle = '#1e3a2a';
+      ctx.fillRect(0, gy, W, H - gy + 2);
+      ctx.fillStyle = 'rgba(126,224,161,0.25)';
+      ctx.fillRect(0, gy, W, 3);
+    }
+    // canopy
+    var tD = s.deployAt < 0 ? -1 : s.t - s.deployAt;
+    var sc = Math.min(1.1, Math.max(0.7, W / 700));
+    if (tD >= 0) {
+      var inf = tD < T_LINE ? 0.08 : Math.min(1, 0.08 + (tD - T_LINE) / T_INFL);
+      var cw = 150 * sc * inf + 20, ch = 40 * sc * inf + 8, top = diverY - 150 * sc;
+      ctx.strokeStyle = 'rgba(215,222,242,0.5)'; ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(diverX - cw / 2, top + ch); ctx.lineTo(diverX, diverY - 20 * sc);
+      ctx.moveTo(diverX + cw / 2, top + ch); ctx.lineTo(diverX, diverY - 20 * sc);
+      ctx.moveTo(diverX, top + ch); ctx.lineTo(diverX, diverY - 20 * sc);
+      ctx.stroke();
+      ctx.fillStyle = '#ff7e5f';
+      ctx.beginPath();
+      ctx.moveTo(diverX - cw / 2, top + ch);
+      ctx.quadraticCurveTo(diverX, top - ch, diverX + cw / 2, top + ch);
+      ctx.closePath(); ctx.fill();
+    }
+    drawDiver(ctx, diverX, diverY, sc, tD >= T_LINE ? 'sit' : state.pos.key);
+    // Forces (scale: weight arrow = 90 px)
+    var Lw = Math.min(90, H * 0.2);
+    var dLen = Math.min(3 * Lw, Lw * fn.D / fn.W);
+    var ax = diverX + 70 * sc;
+    drawArrow(ctx, ax, diverY + 6, ax, diverY + 6 + Lw, '#ffc24a', 3, 10);
+    if (dLen > 2) drawArrow(ctx, ax + 16, diverY - 6, ax + 16, diverY - 6 - dLen, '#5ec8e5', 3, 10);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('weight ' + fmt(fn.W, 0) + ' N', ax + 8, diverY + Lw + 2);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('drag ' + fmt(fn.D, 0) + ' N' + (fn.D / fn.W > 3 ? ' (off scale)' : ''), ax + 26, Math.max(16, diverY - 10 - dLen + 12));
+    var net = fn.W - fn.D;
+    ctx.fillStyle = Math.abs(net) < 0.02 * fn.W ? '#7ee0a1' : '#d7def2';
+    ctx.fillText(Math.abs(net) < 0.02 * fn.W ? (narrow ? 'net ≈ 0 · steady' : 'net ≈ 0 → steady speed') : 'net ' + (net > 0 ? '↓ ' : '↑ ') + fmt(Math.abs(net), 0) + ' N', ax + 8, diverY + Lw + 18);
+    if (state.myth) {
+      ctx.fillStyle = 'rgba(8,11,28,0.8)';
+      ctx.fillRect(10, 10, Math.min(W - 20, 390), 42);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth: no air → v = g·t forever', 20, 30);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText((narrow ? 'No-air speed now: ' : 'Without air you’d now be at ') + fmt(G * s.t, 0) + ' m/s' + (narrow ? '' : '. Gravity stays on.'), 20, 46);
+    }
+    // altitude tape
+    var tx = W - (narrow ? 42 : 58), tTop = state.myth ? 64 : 18, tBot = H - 40;
+    ctx.strokeStyle = 'rgba(139,147,173,0.5)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(tx, tTop); ctx.lineTo(tx, tBot); ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    var hTop = Math.max(state.h0, 1000);
+    for (var hh = 0; hh <= hTop; hh += (hTop > 6000 ? 2000 : 1000)) {
+      var yy = tBot - hh / hTop * (tBot - tTop);
+      ctx.fillRect(tx - 4, yy, 8, 1);
+      ctx.fillText((hh / 1000) + ' km', tx + 7, yy + 3);
+    }
+    var yp = tBot - Math.max(0, s.h) / hTop * (tBot - tTop);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.beginPath(); ctx.moveTo(tx - 4, yp); ctx.lineTo(tx - 12, yp - 5); ctx.lineTo(tx - 12, yp + 5); ctx.closePath(); ctx.fill();
+    var ya = tBot - AUTO_PULL / hTop * (tBot - tTop);
+    ctx.fillStyle = 'rgba(255,126,95,0.7)';
+    ctx.fillRect(tx - 6, ya, 12, 1.5);
+    // HUD
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText(fmt(s.v, 1) + ' m/s · ' + fmt(s.v * 2.23694, 0) + ' mph', 14, H - 30);
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('alt ' + fmt(Math.max(0, s.h), 0) + ' m · t ' + fmt(s.t, 1) + ' s · ρ ' + fmt(fn.rho, 3), 14, H - 14);
+    if (state.mode === 'landed') {
+      ctx.font = FONT_BIG;
+      ctx.fillStyle = '#7ee0a1';
+      ctx.fillText('Landed at ' + fmt(s.v, 1) + ' m/s', 14, state.myth ? 80 : 32);
+    } else if (state.mode === 'ready') {
+      ctx.font = FONT_BIG;
+      ctx.fillStyle = '#ffc24a';
+      ctx.fillText('Press Jump', 14, state.myth ? 80 : 32);
+    }
+    elFallMeta.textContent = state.mode === 'fall' ? 'time ×' + (s.deployAt < 0 ? WARP_FREE : WARP_CANOPY) : (state.mode === 'landed' ? 'landed' : 'ready');
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var s = state.sim, fn = forcesNow();
+    var L = 40, R = W - 14, T = 22, B = H - 118;
+    var tMax = Math.max(40, Math.ceil((s.t + 5) / 20) * 20);
+    var vt0 = terminalVelocity(state.m, airDensity(state.h0), state.pos.cda);
+    var vTop = Math.max(60, Math.ceil(Math.max(vt0, terminalVelocity(state.m, 1.225, state.pos.cda)) * 1.15 / 20) * 20);
+    function X(t) { return L + t / tMax * (R - L); }
+    function Y(v) { return B - Math.min(vTop, v) / vTop * (B - T); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    var tStep = tMax > 160 ? 60 : (tMax > 80 ? 40 : 10);
+    for (var t = 0; t <= tMax; t += tStep) {
+      ctx.beginPath(); ctx.moveTo(X(t), T); ctx.lineTo(X(t), B); ctx.stroke();
+      ctx.fillText(String(t), X(t) - 5, B + 13);
+    }
+    for (var v = 0; v <= vTop; v += 20) {
+      ctx.beginPath(); ctx.moveTo(L, Y(v)); ctx.lineTo(R, Y(v)); ctx.stroke();
+      ctx.fillText(String(v), L - 24, Y(v) + 3);
+    }
+    ctx.fillText('time (s) · speed (m/s)', (L + R) / 2 - 60, B + 26);
+    // myth: v = g t
+    if (state.myth) {
+      ctx.strokeStyle = 'rgba(255,126,95,0.85)'; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(Math.min(tMax, vTop / G)), Y(Math.min(vTop, G * tMax))); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('no air: v = g·t', X(Math.min(tMax, vTop / G) * 0.9) + 8, Y(Math.min(vTop, G * tMax) * 0.93));
+    }
+    // local terminal velocity
+    ctx.strokeStyle = 'rgba(255,194,74,0.8)'; ctx.setLineDash([4, 4]); ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(L, Y(fn.vt)); ctx.lineTo(R, Y(fn.vt)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('v_t here ' + fmt(fn.vt, 1), R - 104, Math.max(T + 10, Y(fn.vt) - 5));
+    // history
+    ctx.strokeStyle = '#5ec8e5'; ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    for (var i = 0; i < state.hist.length; i++) {
+      var p = state.hist[i];
+      if (i === 0) ctx.moveTo(X(p.t), Y(p.v)); else ctx.lineTo(X(p.t), Y(p.v));
+    }
+    if (state.mode !== 'ready') ctx.lineTo(X(s.t), Y(s.v));
+    ctx.stroke();
+    ctx.fillStyle = '#5ec8e5';
+    ctx.beginPath(); ctx.arc(X(s.t), Y(s.v), 4.5, 0, Math.PI * 2); ctx.fill();
+    // drag vs weight bar
+    var by = H - 80, bx = 18, bw = W - 36;
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#d7def2';
+    ctx.fillText('drag / weight', bx, by - 6);
+    ctx.fillStyle = 'rgba(94,200,229,0.08)'; ctx.fillRect(bx, by, bw, 16);
+    var ratio = fn.D / fn.W;
+    ctx.fillStyle = ratio > 1.02 ? '#ff7e5f' : (ratio > 0.98 ? '#7ee0a1' : '#5ec8e5');
+    ctx.fillRect(bx, by, bw * Math.min(1, ratio / 1.5), 16);
+    ctx.fillStyle = '#ffc24a'; ctx.fillRect(bx + bw / 1.5 - 1, by - 3, 2, 22);
+    ctx.fillText('= weight', Math.min(bx + bw / 1.5 + 5, W - 70), by + 30);
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = ratio > 0.98 && ratio < 1.02 ? '#7ee0a1' : '#d7def2';
+    ctx.fillText(fmt(ratio * 100, 0) + '%' + (ratio > 1.02 ? ' → slowing' : (ratio > 0.98 ? ' → terminal' : ' → speeding up')), bx, by + 34);
+  }
+
+  function renderReadout() {
+    var s = state.sim, fn = forcesNow();
+    var html = '';
+    function kv(k, v, sub, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + sub + '</div></div>';
+    }
+    kv('Speed', fmt(s.v, 1) + ' m/s', fmt(s.v * 3.6, 0) + ' km/h · ' + fmt(s.v * 2.23694, 0) + ' mph', '');
+    kv('Drag vs weight', fmt(fn.D, 0) + ' / ' + fmt(fn.W, 0) + ' N', 'drag = ' + fmt(fn.D / fn.W * 100, 0) + '% of weight', Math.abs(fn.D / fn.W - 1) < 0.02 ? 'ok' : '');
+    kv('Acceleration', (fn.a >= 0 ? '+' : '−') + fmt(Math.abs(fn.a), 2) + ' m/s²', fmt(fn.a / G, 2) + ' g (down +) · peak decel ' + fmt(state.peakG, 1) + ' g', fn.a < -0.5 ? 'warm' : '');
+    kv('Time · altitude', fmt(s.t, 1) + ' s · ' + fmt(Math.max(0, s.h), 0) + ' m', state.myth ? 'no-air speed now: ' + fmt(G * s.t, 0) + ' m/s' : (s.deployAt < 0 ? 'freefall' : 'under canopy'), state.myth ? 'warm' : '');
+    kv('Terminal velocity here', fmt(fn.vt, 1) + ' m/s', '√(2mg/ρC_dA) · ρ ' + fmt(fn.rho, 3) + ' · C_dA ' + fmt(fn.cda, 2) + ' m²', 'sun');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elML.textContent = fmt(state.m, 0) + ' kg · weight ' + fmt(state.m * G, 0) + ' N';
+    elHL.textContent = fmt(state.h0, 0) + ' m · ' + fmt(state.h0 * 3.28084, 0) + ' ft';
+    for (var k in pChips) setChip(pChips[k], state.pos.key === k);
+    setChip(chipMyth, state.myth);
+    elJump.textContent = state.mode === 'fall' ? 'Restart' : 'Jump';
+    elChute.disabled = !(state.mode === 'fall' && state.sim.deployAt < 0);
+    var fn = forcesNow();
+    if (state.myth) elHint.textContent = 'Myth mode · red line = speed with no air. Real speed levels off because drag balances weight.';
+    else if (state.sim.deployAt >= 0) elHint.textContent = 'Canopy · huge C_dA, so drag briefly exceeds weight and you slow down to a new, low terminal speed.';
+    else if (state.mode === 'fall' && Math.abs(fn.D / fn.W - 1) < 0.02) elHint.textContent = 'Terminal · drag = weight, net force ≈ 0, speed constant. Gravity is still ' + fmt(fn.W, 0) + ' N.';
+    else elHint.textContent = 'Drag grows with v² until it equals weight.';
+    elChartMeta.textContent = 'dashed = local v_t';
+  }
+
+  function render() {
+    renderReadout();
+    drawFall();
+    drawChart();
+  }
+
+  var labelTimer = 0;
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (dt > 0) stepSim(dt);
+    labelTimer += dt;
+    if (labelTimer > 0.25) { labelTimer = 0; updateLabels(); }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  elJump.addEventListener('click', jump);
+  elChute.addEventListener('click', deploy);
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  Object.keys(pChips).forEach(function (k) {
+    pChips[k].addEventListener('click', function () { state.pos = POSITIONS[k]; updateLabels(); });
+  });
+  elM.addEventListener('input', function () { state.m = parseFloat(elM.value); updateLabels(); });
+  elH.addEventListener('input', function () {
+    state.h0 = parseFloat(elH.value);
+    state.mode = 'ready'; state.sim = { h: state.h0, v: 0, t: 0, deployAt: -1 }; state.hist = []; state.peakG = 0;
+    updateLabels();
+  });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      if (state.mode === 'fall' && state.sim.deployAt < 0) deploy(); else jump();
+    }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  state.sim.h = state.h0;
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__tvPhysics = {
+    isa: isa, airDensity: airDensity, dragForce: dragForce, terminalVelocity: terminalVelocity,
+    canopyCdA: canopyCdA, accel: accel, rk4Step: rk4Step, simulateJump: simulateJump,
+    POSITIONS: POSITIONS, G: G, CDA_CANOPY: CDA_CANOPY, AUTO_PULL: AUTO_PULL, DT: DT
+  };
+  window.__tvState = state;
+  window.__tvApi = { jump: jump, deploy: deploy, stepSim: stepSim };
+})();
+</script>
+</body>
+</html>
