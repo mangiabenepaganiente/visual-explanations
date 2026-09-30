@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Your Eyes Don’t Send Out Rays — How Vision Really Works | Classroom</title>
+<meta name="description" content="Classroom vision explainer: light from a lamp bounces off objects and a tiny fraction enters your pupil. Eyes send out nothing. Live ray-tracing sim.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="how do we see, extramission misconception, eyes send out rays, light enters the eye, diffuse reflection, pupil size, inverse square law, ray tracing, vision physics, classroom physics">
+<link rel="canonical" href="eyes-light.html">
+<meta property="og:title" content="Why Your Eyes Don’t Send Out Rays">
+<meta property="og:description" content="Seeing is receiving. Light leaves a lamp, scatters off the object, and a few rays happen to enter your pupil. Turn the light off and nothing arrives. Live sim.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 420px; }
+@media (max-width: 720px) { .card canvas { height: 330px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · light &amp; vision</a></p>
+  <h1>Why your eyes don’t send out rays</h1>
+  <p class="lede">Many people, adults included, picture sight as something going <em>out</em> of the eyes. It’s the reverse. A <strong>light source</strong> sends light out in all directions. Some of it hits an object and <strong>scatters</strong> off its rough surface. A tiny fraction of that happens to head toward you and <strong>enters your pupil</strong>, and the lens focuses it onto the <strong>retina</strong>. Seeing is receiving. In a sealed, dark room nothing arrives, so you see nothing, however hard you look.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Light off</strong>. Notice the count of rays reaching your eye stops dead, and the retina image goes black, even though your eye is still open and aimed at the apple.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnLight" aria-pressed="true" title="Spacebar">Light off</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="oApple" aria-pressed="true">Red apple</button>
+      <button type="button" class="chip" id="oMug" aria-pressed="false">White mug</button>
+      <button type="button" class="chip" id="oVelvet" aria-pressed="false">Black velvet</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: eye beams</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Lamp position <em id="lampLabel">1.2 m</em></span>
+        <input type="range" id="lampX" min="0.3" max="3.7" step="0.05" value="1.2" aria-label="Horizontal position of the lamp in meters">
+      </label>
+      <label class="sl grow">
+        <span>Eye distance from object <em id="eyeLabel">1.6 m</em></span>
+        <input type="range" id="eyeD" min="0.6" max="2.2" step="0.05" value="1.6" aria-label="Distance from the eye to the object in meters">
+      </label>
+      <label class="sl grow">
+        <span>Pupil diameter <em id="pupilLabel">4.0 mm</em></span>
+        <input type="range" id="pupil" min="2" max="8" step="0.1" value="4" aria-label="Pupil diameter in millimeters">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint">Pupil</span>
+      <button type="button" class="chip" id="pBright" aria-pressed="false">Bright room · 2 mm</button>
+      <button type="button" class="chip" id="pDark" aria-pressed="false">Dark-adapted · 8 mm</button>
+      <span class="hint" id="modeHint">Light travels lamp → object → eye. Nothing leaves the eye.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Side view · traced rays</b><span id="roomMeta">2D ray tracing</span></div>
+      <canvas id="cvRoom" width="760" height="420" aria-label="Side view of a dark room with a lamp, an object on a table, and a person's eye; light rays leave the lamp, scatter off the object, and a few enter the eye"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Inside the eye</b><span id="eyeMeta">magnified</span></div>
+      <canvas id="cvEye" width="480" height="420" aria-label="Magnified eye showing rays passing through the pupil and focusing on the retina, with ray counts"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>A source makes the light</h2>
+      <p>Lamps, the Sun, and screens emit light. Everything else you see is only <em>passing on</em> light it received. Turn the lamp off in a sealed room and there is simply no light to pass on.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Objects scatter it everywhere</h2>
+      <p>A rough, matte surface sends the light it doesn’t absorb off in all directions (diffuse reflection). That’s why you can see the apple from anywhere in the room. A white mug returns ~80% of the light, a red apple ~30%, and black velvet only ~3%.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Your pupil catches a sliver</h2>
+      <p>Only rays aimed at a hole a few millimeters wide get in. The lens bends every ray from one point on the apple to one point on the retina, forming an upside-down image. Widening the pupil from 2 to 8 mm gives <code>(8/2)² = 16×</code> the area, which is why the pupil opens in the dark.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Eyes send out rays to see”</h2>
+      <p>This idea (extramission) goes back to ancient Greece, and surveys find a sizable share of students, and even adults, still hold it. Toggle the myth: the red beams leave your eye. If that were how sight worked, you could see in a pitch-dark room. You can’t. The eye is a <strong>detector</strong>, and nothing in it sends anything out.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Vision numbers">
+    <div class="stat">
+      <div class="k">Pupil, bright → dark</div>
+      <div class="v">2 → 8 mm</div>
+      <div class="s">16× the light-gathering area</div>
+    </div>
+    <div class="stat">
+      <div class="k">Lamp twice as far</div>
+      <div class="v">¼ the light</div>
+      <div class="s">inverse-square law</div>
+    </div>
+    <div class="stat">
+      <div class="k">Matte reflectance</div>
+      <div class="v">3%–80%</div>
+      <div class="s">velvet · apple · white mug</div>
+    </div>
+    <div class="stat">
+      <div class="k">Light out of the eye</div>
+      <div class="v">0</div>
+      <div class="s">eyes are receivers</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Real ray tracing, in 2D.</strong> Each frame, about 5,000 rays leave the point lamp in random directions, spread evenly. Directions that can reach the object are sampled more densely, and the counts are reweighted so “per million emitted” means per million rays spread evenly over all directions. They are intersected exactly with the object (a circle), the tabletop, the viewer’s head, the pupil opening, and the walls. At the object a ray survives with probability equal to the surface’s reflectance and leaves in a <strong>Lambertian</strong> (cosine-weighted) random direction: ideal diffuse reflection. Only rays that pass through the pupil opening from outside, within 60° of the eye’s axis, count as reaching the eye. Steeper rays are treated as blocked by brow and eyelids. The pupil is drawn enlarged, but hit-testing uses its true size.</li>
+      <li><strong>Honest simplifications.</strong> The room is a flat 2D slice, so rays spread over a circle, not a sphere, and the ray counts fall off as 1/r instead of 1/r². The walls and table are perfectly black (real rooms bounce a lot of light around, which is why shadows aren’t pitch black). Only one bounce is traced. Colors and wavelengths aren’t traced. Reflectances are rough typical values: white glazed mug ≈ 0.8, red apple ≈ 0.3 averaged over visible light, black velvet ≈ 0.03.</li>
+      <li><strong>3D readouts.</strong> Illuminance on the object uses the real 3D inverse-square law, <code>E ∝ 1/d²</code>, shown relative to a lamp 1 m away. Pupil area is <code>π(d/2)²</code>. The relative image brightness on the retina is proportional to <em>object luminance × pupil area</em>, with luminance = reflectance × E / π. It does <em>not</em> depend on how far away you stand: the image gets smaller, but not dimmer.</li>
+      <li><strong>Eye optics.</strong> The retina image is found with the chief ray through the center of the lens (a simplified reduced eye, ~24 mm long), which is why it comes out inverted. Focusing adjustments (accommodation), the cornea’s share of the bending, and aberrations are ignored.</li>
+      <li><strong>Misconception research.</strong> Extramission beliefs have been documented in surveys of U.S. college students (Winer, Cottrell and colleagues, <em>American Psychologist</em>, 2002) and in physics-education studies of how students explain vision. Reported rates vary widely with how the question is asked.</li>
+      <li><strong>For teachers.</strong> Waves and electromagnetic radiation: an object is seen when light reflected from its surface enters the eye (NGSS 4-PS4-2, MS-PS4-2). Good follow-ups: the dark-box demo (a sealed shoebox with an object inside and a peephole), and why cats’ eyes “shine” (reflected lamp light, not light made by the eye).</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Scene + optics constants — mirrored in validate-eyes-light.js =====
+  var ROOM_W = 4.0, ROOM_H = 2.6;           // m
+  var LAMP_Y = 2.3;
+  var OBJ = { x: 2.7, y: 0.93, r: 0.15 };   // object circle
+  var TABLE = { x1: 2.35, x2: 3.1, y: 0.78 };
+  var EYE_Y = 1.0, EYE_R = 0.012;           // eyeball radius (m)
+  var HEAD_R = 0.1;
+  var OBJECTS = {
+    apple: { key: 'apple', label: 'Red apple', albedo: 0.3, col: '#d9443a' },
+    mug: { key: 'mug', label: 'White mug', albedo: 0.8, col: '#e8ecf5' },
+    velvet: { key: 'velvet', label: 'Black velvet', albedo: 0.03, col: '#26222c' }
+  };
+  var RAYS_UNIFORM = 1200;   // per frame, uniform over all directions (drawing + direct lamp→eye)
+  var RAYS_CONE = 4000;      // per frame, uniform within the cone of directions that can reach the object
+
+  // Deterministic RNG (mulberry32)
+  function makeRng(seed) {
+    var a = seed >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // Ray–circle: smallest t > eps, or -1
+  function rayCircle(ox, oy, dx, dy, cx, cy, r) {
+    var fx = ox - cx, fy = oy - cy;
+    var b = fx * dx + fy * dy, c = fx * fx + fy * fy - r * r;
+    var disc = b * b - c;
+    if (disc < 0) return -1;
+    var s = Math.sqrt(disc);
+    var t1 = -b - s, t2 = -b + s;
+    if (t1 > 1e-9) return t1;
+    if (t2 > 1e-9) return t2;
+    return -1;
+  }
+  // Ray–segment: t > eps, or -1
+  function raySeg(ox, oy, dx, dy, x1, y1, x2, y2) {
+    var ex = x2 - x1, ey = y2 - y1;
+    var den = dx * ey - dy * ex;
+    if (Math.abs(den) < 1e-15) return -1;
+    var t = ((x1 - ox) * ey - (y1 - oy) * ex) / den;
+    var u = ((x1 - ox) * dy - (y1 - oy) * dx) / den;
+    if (t > 1e-9 && u >= 0 && u <= 1) return t;
+    return -1;
+  }
+  // Exit distance from inside the room box
+  function rayBox(ox, oy, dx, dy) {
+    var t = Infinity;
+    if (dx > 0) t = Math.min(t, (ROOM_W - ox) / dx); else if (dx < 0) t = Math.min(t, -ox / dx);
+    if (dy > 0) t = Math.min(t, (ROOM_H - oy) / dy); else if (dy < 0) t = Math.min(t, -oy / dy);
+    return t;
+  }
+  // Lambertian (cosine-weighted) direction about normal (nx, ny): 2D pdf cos θ / 2
+  function lambertDir(nx, ny, rng) {
+    var u = rng() * 2 - 1;           // sin θ uniform in [-1, 1] → pdf ∝ cos θ
+    var c = Math.sqrt(1 - u * u);
+    var tx = -ny, ty = nx;
+    return { x: nx * c + tx * u, y: ny * c + ty * u, sin: u, cos: c };
+  }
+
+  function buildScene(s) {
+    var ex = OBJ.x - s.eyeD;
+    var pupilX = ex + EYE_R;
+    return {
+      lamp: { x: s.lampX, y: LAMP_Y, on: s.lightOn },
+      obj: OBJ, albedo: s.obj.albedo,
+      eye: { x: ex, y: EYE_Y, pupilX: pupilX, half: s.pupil / 2000 },
+      head: { x: ex - (HEAD_R - EYE_R + 0.002), y: EYE_Y, r: HEAD_R }
+    };
+  }
+
+  // Trace one ray from the lamp. Returns a record for statistics/drawing.
+  function traceLampRay(sc, rng) {
+    var a = rng() * Math.PI * 2;
+    var dx = Math.cos(a), dy = Math.sin(a);
+    return traceFrom(sc, sc.lamp.x, sc.lamp.y, dx, dy, rng, 0);
+  }
+  // Stratified emission: the same uniform distribution, restricted to the cone that contains the object.
+  function objectCone(sc) {
+    var dx = sc.obj.x - sc.lamp.x, dy = sc.obj.y - sc.lamp.y, d = Math.hypot(dx, dy);
+    var half = Math.asin(Math.min(1, sc.obj.r * 1.02 / d));
+    return { center: Math.atan2(dy, dx), half: half, frac: 2 * half / (2 * Math.PI) };
+  }
+  function traceConeRay(sc, cone, rng) {
+    var a = cone.center + (rng() * 2 - 1) * cone.half;
+    return traceFrom(sc, sc.lamp.x, sc.lamp.y, Math.cos(a), Math.sin(a), rng, 0);
+  }
+  // Cone-sampled batch: statistics expressed per uniformly-emitted ray (weight = cone fraction)
+  function traceConeBatch(sc, n, rng) {
+    var st = { traced: 0, equivEmitted: 0, hitObj: 0, reflected: 0, eyeFromObj: 0 };
+    if (!sc.lamp.on) return st;
+    var cone = objectCone(sc);
+    for (var i = 0; i < n; i++) {
+      var r = traceConeRay(sc, cone, rng);
+      st.traced++;
+      if (r.what === 'obj') { st.hitObj++; if (r.bounce) st.reflected++; }
+      if (r.eye && !r.direct) st.eyeFromObj++;
+    }
+    st.equivEmitted = n / cone.frac;
+    return st;
+  }
+  function nearestHit(sc, ox, oy, dx, dy, allowObj) {
+    var best = rayBox(ox, oy, dx, dy), what = 'wall';
+    if (allowObj) { var to = rayCircle(ox, oy, dx, dy, sc.obj.x, sc.obj.y, sc.obj.r); if (to > 0 && to < best) { best = to; what = 'obj'; } }
+    var tt = raySeg(ox, oy, dx, dy, TABLE.x1, TABLE.y, TABLE.x2, TABLE.y); if (tt > 0 && tt < best) { best = tt; what = 'table'; }
+    var tp = raySeg(ox, oy, dx, dy, sc.eye.pupilX, sc.eye.y - sc.eye.half, sc.eye.pupilX, sc.eye.y + sc.eye.half);
+    if (tp > 0 && tp < best && dx < -0.5) { best = tp; what = 'pupil'; }   // within 60° of the eye's axis (brow/lids block the rest)
+    var th = rayCircle(ox, oy, dx, dy, sc.head.x, sc.head.y, sc.head.r); if (th > 0 && th < best) { best = th; what = 'head'; }
+    return { t: best, what: what };
+  }
+  function traceFrom(sc, ox, oy, dx, dy, rng, depth) {
+    var h = nearestHit(sc, ox, oy, dx, dy, depth === 0);
+    var px = ox + dx * h.t, py = oy + dy * h.t;
+    var rec = { x0: ox, y0: oy, x1: px, y1: py, what: h.what, bounce: null, eye: false, direct: false };
+    if (h.what === 'pupil') { rec.eye = true; rec.direct = depth === 0; rec.entry = { x: px, y: py }; rec.from = { x: ox, y: oy }; return rec; }
+    if (h.what === 'obj' && depth === 0) {
+      if (rng() < sc.albedo) {
+        var nx = (px - sc.obj.x) / sc.obj.r, ny = (py - sc.obj.y) / sc.obj.r;
+        var d = lambertDir(nx, ny, rng);
+        rec.bounce = traceFrom(sc, px, py, d.x, d.y, rng, 1);
+        if (rec.bounce.eye) { rec.eye = true; rec.entry = rec.bounce.entry; rec.from = { x: px, y: py }; }
+      } else {
+        rec.absorbed = true;
+      }
+    }
+    return rec;
+  }
+
+  // Batch trace for statistics (used by the page and the validator)
+  function traceBatch(sc, n, rng) {
+    var st = { emitted: 0, hitObj: 0, reflected: 0, eyeFromObj: 0, eyeDirect: 0 };
+    if (!sc.lamp.on) return st;
+    for (var i = 0; i < n; i++) {
+      var r = traceLampRay(sc, rng);
+      st.emitted++;
+      if (r.what === 'obj') { st.hitObj++; if (r.bounce) st.reflected++; }
+      if (r.eye) { if (r.direct) st.eyeDirect++; else st.eyeFromObj++; }
+    }
+    return st;
+  }
+
+  // 3D photometry for readouts
+  function pupilArea(dmm) { return Math.PI * dmm * dmm / 4; }                 // mm²
+  function illuminanceRel(lx, ly, px, py) { var d2 = (lx - px) * (lx - px) + (ly - py) * (ly - py); return 1 / d2; } // relative to 1 m
+  function imageBrightnessRel(albedo, Erel, areaMm2) { return albedo * Erel / Math.PI * areaMm2; }
+  // Chief ray through lens centre → retina point (reduced eye, retina at back of the globe)
+  function retinaPoint(qx, qy, eye) {
+    var cx = eye.x + EYE_R * 0.83, cy = eye.y;       // lens centre just behind pupil
+    var dx = cx - qx, dy = cy - qy, L = Math.hypot(dx, dy);
+    dx /= L; dy /= L;
+    var t = rayCircle(cx, cy, dx, dy, eye.x, eye.y, EYE_R);
+    return { x: cx + dx * t, y: cy + dy * t };
+  }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var state = {
+    lightOn: true, lampX: 1.2, eyeD: 1.6, pupil: 4, obj: OBJECTS.apple, myth: false,
+    stats: null, paths: [], hits: [], lastTs: 0, anim: 0, flash: 0, rate: 0, rateT: 0, rateN: 0
+  };
+  var rng = makeRng(20260930);
+  var REF = imageBrightnessRel(OBJECTS.apple.albedo, illuminanceRel(1.2, LAMP_Y, OBJ.x, OBJ.y + OBJ.r), pupilArea(4));
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elLight = $('btnLight'), chipMyth = $('chipMyth');
+  var oChips = { apple: $('oApple'), mug: $('oMug'), velvet: $('oVelvet') };
+  var elBright = $('pBright'), elDark = $('pDark');
+  var elLamp = $('lampX'), elEye = $('eyeD'), elPupil = $('pupil');
+  var elLampL = $('lampLabel'), elEyeL = $('eyeLabel'), elPupilL = $('pupilLabel');
+  var elHint = $('modeHint'), elRoomMeta = $('roomMeta'), elEyeMeta = $('eyeMeta'), elReadout = $('readout');
+  var surfaces = {
+    room: { canvas: $('cvRoom'), ctx: null, w: 0, h: 0, cssH: 420 },
+    eye: { canvas: $('cvEye'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+
+  function resetStats() {
+    state.stats = { emitted: 0, uniform: 0, hitObj: 0, reflected: 0, eyeFromObj: 0, eyeDirect: 0 };
+    state.paths = []; state.hits = [];
+  }
+
+  function recordHit(r) {
+    state.hits.push({ rec: r, age: 0 });
+    if (state.hits.length > 18) state.hits.shift();
+    state.flash = 1;
+  }
+
+  function simulate() {
+    var sc = buildScene(state);
+    if (!sc.lamp.on) { state.paths.length = 0; return; }
+    var st = state.stats;
+    // (1) uniform rays: what the room looks like, plus light going straight from lamp to eye
+    for (var i = 0; i < RAYS_UNIFORM; i++) {
+      var r = traceLampRay(sc, rng);
+      st.uniform++;
+      if (r.eye && r.direct) { st.eyeDirect++; recordHit(r); }
+      if (i % 60 === 0) state.paths.push({ rec: r, age: 0 });
+    }
+    // (2) the directions that can hit the object, sampled densely (same physics, weighted by cone fraction)
+    var cone = objectCone(sc);
+    for (var j = 0; j < RAYS_CONE; j++) {
+      var q = traceConeRay(sc, cone, rng);
+      if (q.what === 'obj') { st.hitObj++; if (q.bounce) st.reflected++; }
+      if (q.eye && !q.direct) { st.eyeFromObj++; recordHit(q); }
+      if (j % 400 === 0) state.paths.push({ rec: q, age: 0 });
+    }
+    st.emitted += RAYS_CONE / cone.frac;
+    while (state.paths.length > 200) state.paths.shift();
+  }
+
+  function drawArrowHead(ctx, x, y, dx, dy, col, s) {
+    var L = Math.hypot(dx, dy) || 1; dx /= L; dy /= L;
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - dx * s - dy * s * 0.5, y - dy * s + dx * s * 0.5); ctx.lineTo(x - dx * s + dy * s * 0.5, y - dy * s - dx * s * 0.5); ctx.closePath(); ctx.fill();
+  }
+
+  function drawRoom() {
+    var surf = surfaces.room;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var sc = buildScene(state);
+    var S = Math.min((W - 20) / ROOM_W, (H - 20) / ROOM_H);
+    var ox = (W - ROOM_W * S) / 2, oy = (H + ROOM_H * S) / 2;
+    function X(x) { return ox + x * S; }
+    function Y(y) { return oy - y * S; }
+    ctx.fillStyle = '#04050c';
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = state.lightOn ? '#070a18' : '#020308';
+    ctx.fillRect(X(0), Y(ROOM_H), ROOM_W * S, ROOM_H * S);
+    ctx.strokeStyle = 'rgba(139,147,173,0.35)'; ctx.lineWidth = 1;
+    ctx.strokeRect(X(0), Y(ROOM_H), ROOM_W * S, ROOM_H * S);
+    // rays (fading sample)
+    ctx.lineWidth = 1;
+    for (var i = 0; i < state.paths.length; i++) {
+      var p = state.paths[i], r = p.rec, al = Math.max(0, 0.3 - p.age * 0.012);
+      if (al <= 0) continue;
+      ctx.strokeStyle = 'rgba(255,194,74,' + al + ')';
+      ctx.beginPath(); ctx.moveTo(X(r.x0), Y(r.y0)); ctx.lineTo(X(r.x1), Y(r.y1)); ctx.stroke();
+      if (r.bounce) {
+        ctx.strokeStyle = state.obj.key === 'apple' ? 'rgba(255,110,90,' + al + ')' : 'rgba(215,222,242,' + al + ')';
+        ctx.beginPath(); ctx.moveTo(X(r.bounce.x0), Y(r.bounce.y0)); ctx.lineTo(X(r.bounce.x1), Y(r.bounce.y1)); ctx.stroke();
+      }
+    }
+    // successful rays (bright)
+    for (var k = 0; k < state.hits.length; k++) {
+      var hrec = state.hits[k].rec, a2 = Math.max(0.12, 0.9 - state.hits[k].age * 0.01);
+      ctx.lineWidth = 1.4;
+      ctx.strokeStyle = 'rgba(255,194,74,' + a2 + ')';
+      ctx.beginPath(); ctx.moveTo(X(hrec.x0), Y(hrec.y0)); ctx.lineTo(X(hrec.x1), Y(hrec.y1)); ctx.stroke();
+      if (hrec.bounce) {
+        ctx.strokeStyle = 'rgba(94,200,229,' + a2 + ')';
+        ctx.beginPath(); ctx.moveTo(X(hrec.bounce.x0), Y(hrec.bounce.y0)); ctx.lineTo(X(hrec.bounce.x1), Y(hrec.bounce.y1)); ctx.stroke();
+      }
+    }
+    // table
+    ctx.fillStyle = '#3a2c20';
+    ctx.fillRect(X(TABLE.x1), Y(TABLE.y), (TABLE.x2 - TABLE.x1) * S, 5);
+    ctx.fillRect(X(TABLE.x1 + 0.05), Y(TABLE.y), 4, TABLE.y * S);
+    ctx.fillRect(X(TABLE.x2 - 0.07), Y(TABLE.y), 4, TABLE.y * S);
+    // object (lit brightness ∝ E·albedo)
+    var Erel = illuminanceRel(sc.lamp.x, sc.lamp.y, OBJ.x, OBJ.y + OBJ.r);
+    var lit = state.lightOn ? Math.min(1, 0.25 + 0.75 * Erel * 1.2) : 0.06;
+    ctx.globalAlpha = lit;
+    ctx.fillStyle = state.obj.col;
+    ctx.beginPath(); ctx.arc(X(OBJ.x), Y(OBJ.y), OBJ.r * S, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
+    if (state.obj.key === 'velvet' || !state.lightOn) { ctx.strokeStyle = 'rgba(139,147,173,0.3)'; ctx.stroke(); }
+    // lamp
+    ctx.strokeStyle = 'rgba(139,147,173,0.5)';
+    ctx.beginPath(); ctx.moveTo(X(sc.lamp.x), Y(ROOM_H)); ctx.lineTo(X(sc.lamp.x), Y(LAMP_Y) - 8); ctx.stroke();
+    ctx.fillStyle = state.lightOn ? '#ffc24a' : '#3a3f4f';
+    ctx.beginPath(); ctx.arc(X(sc.lamp.x), Y(LAMP_Y), 7, 0, Math.PI * 2); ctx.fill();
+    if (state.lightOn) {
+      ctx.fillStyle = 'rgba(255,194,74,0.15)';
+      ctx.beginPath(); ctx.arc(X(sc.lamp.x), Y(LAMP_Y), 16, 0, Math.PI * 2); ctx.fill();
+    }
+    // head + eye (eye drawn enlarged)
+    ctx.fillStyle = '#1c2340';
+    ctx.beginPath(); ctx.arc(X(sc.head.x), Y(sc.head.y), HEAD_R * S, 0, Math.PI * 2); ctx.fill();
+    ctx.fillRect(X(sc.head.x) - HEAD_R * S * 0.5, Y(sc.head.y) + HEAD_R * S * 0.8, HEAD_R * S, Y(0) - Y(sc.head.y) - HEAD_R * S * 0.8);
+    var eR = Math.max(5, HEAD_R * S * 0.28);
+    ctx.fillStyle = '#d7def2';
+    ctx.beginPath(); ctx.arc(X(sc.eye.x) - eR * 0.3, Y(sc.eye.y), eR, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#0a0f24';
+    var pr = Math.max(1.5, eR * 0.2 * state.pupil / 4);
+    ctx.beginPath(); ctx.ellipse(X(sc.eye.x) + eR * 0.55, Y(sc.eye.y), pr * 0.5, pr * 1.2, 0, 0, Math.PI * 2); ctx.fill();
+    if (state.flash > 0) {
+      ctx.strokeStyle = 'rgba(94,200,229,' + state.flash + ')'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(X(sc.eye.x), Y(sc.eye.y), eR + 5, 0, Math.PI * 2); ctx.stroke();
+    }
+    // myth beams from the eye
+    if (state.myth) {
+      ctx.strokeStyle = 'rgba(255,126,95,0.8)'; ctx.lineWidth = 1.6; ctx.setLineDash([6, 5]);
+      ctx.lineDashOffset = -state.anim * 30;
+      for (var b = -2; b <= 2; b++) {
+        var tx = OBJ.x - 0.02, ty = OBJ.y + b * OBJ.r * 0.4;
+        ctx.beginPath(); ctx.moveTo(X(sc.eye.x) + eR, Y(sc.eye.y)); ctx.lineTo(X(tx) - OBJ.r * S * 0.6, Y(ty)); ctx.stroke();
+      }
+      ctx.setLineDash([]); ctx.lineDashOffset = 0;
+      ctx.fillStyle = 'rgba(8,11,28,0.85)';
+      ctx.fillRect(10, 10, Math.min(W - 20, 420), 42);
+      ctx.font = FONT_DISPLAY; ctx.fillStyle = '#ff7e5f';
+      ctx.fillText(state.lightOn ? 'Myth: the eye sends out beams ✗' : 'Myth predicts you’d still see it ✗', 20, 30);
+      ctx.font = FONT_MONO_10; ctx.fillStyle = '#d7def2';
+      ctx.fillText(state.lightOn ? 'No light leaves the eye. Blue = rays that really arrive.' : 'Reality: lamp off → zero rays arrive → black.', 20, 46);
+    }
+    // labels
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    ctx.fillText(state.lightOn ? 'lamp' : 'lamp (off)', Math.min(X(sc.lamp.x) + 12, W - 70), Y(LAMP_Y) + 4);
+    ctx.fillText(state.obj.label.toLowerCase(), X(OBJ.x) - 30, Y(OBJ.y) - OBJ.r * S - 8);
+    ctx.fillText('eye', X(sc.eye.x) - 8, Y(sc.eye.y) - HEAD_R * S - 6);
+    if (!state.lightOn && !state.myth) {
+      ctx.font = FONT_DISPLAY; ctx.fillStyle = '#8b93ad';
+      ctx.fillText('Sealed and dark: no light, nothing to see', 20, 30);
+    }
+    elRoomMeta.textContent = state.lightOn ? fmt((RAYS_UNIFORM + RAYS_CONE) / 1000, 1) + 'k rays/frame · 2D' : 'no source · no rays';
+  }
+
+  function drawEye() {
+    var surf = surfaces.eye;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var sc = buildScene(state);
+    var R = Math.min(W * 0.26, H * 0.24);
+    var cx = W * 0.54, cy = H * 0.3;
+    var k = R / EYE_R; // px per metre inside the magnified eye
+    // globe
+    ctx.fillStyle = '#12183a';
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(215,222,242,0.5)'; ctx.lineWidth = 2; ctx.stroke();
+    // retina (back arc)
+    var bright = state.lightOn ? Math.min(1, imageBrightnessRel(state.obj.albedo, illuminanceRel(sc.lamp.x, sc.lamp.y, OBJ.x, OBJ.y + OBJ.r), pupilArea(state.pupil)) / REF * 0.5) : 0;
+    ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.arc(cx, cy, R - 2, Math.PI * 0.62, Math.PI * 1.38); ctx.stroke();
+    // iris with pupil gap
+    var gap = state.pupil / 2000 * k;
+    var ix = cx + R * 0.83;
+    ctx.strokeStyle = '#5ec8e5'; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.moveTo(ix, cy - R * 0.62); ctx.lineTo(ix, cy - gap); ctx.moveTo(ix, cy + gap); ctx.lineTo(ix, cy + R * 0.62); ctx.stroke();
+    // lens
+    ctx.fillStyle = 'rgba(215,222,242,0.18)';
+    ctx.beginPath(); ctx.ellipse(ix - 8, cy, 7, Math.max(gap + 6, R * 0.3), 0, 0, Math.PI * 2); ctx.fill();
+    // recent rays: entry point in pupil → retina point (chief-ray image of the object point)
+    for (var i = 0; i < state.hits.length; i++) {
+      var h = state.hits[i], r = h.rec;
+      var al = Math.max(0.15, 1 - h.age * 0.01);
+      var ey = (r.entry.y - sc.eye.y) * k;
+      var dir = { x: r.entry.x - r.from.x, y: r.entry.y - r.from.y };
+      var rp = retinaPoint(r.from.x, r.from.y, sc.eye);
+      var rx = cx + (rp.x - sc.eye.x) * k, ry = cy - (rp.y - sc.eye.y) * k;
+      var run = Math.min(60, W - 4 - ix);
+      var inx = ix + run, iny = cy - ey + dir.y / Math.abs(dir.x || 1e-9) * run;
+      ctx.strokeStyle = r.direct ? 'rgba(255,194,74,' + al + ')' : 'rgba(94,200,229,' + al + ')';
+      ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.moveTo(inx, iny); ctx.lineTo(ix, cy - ey); ctx.lineTo(rx, ry); ctx.stroke();
+      ctx.fillStyle = r.direct ? '#ffc24a' : state.obj.col;
+      ctx.beginPath(); ctx.arc(rx, ry, 2.5, 0, Math.PI * 2); ctx.fill();
+    }
+    if (state.myth) {
+      ctx.strokeStyle = 'rgba(255,126,95,0.8)'; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.moveTo(ix, cy); ctx.lineTo(W - 4, cy - 20); ctx.moveTo(ix, cy); ctx.lineTo(W - 4, cy + 20); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font = FONT_MONO_10; ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('✗ myth: nothing leaves the eye', 14, 22);
+    }
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    ctx.fillText('retina', cx - R - 4, cy + R + 14);
+    ctx.fillText('pupil ' + fmt(state.pupil, 1) + ' mm', Math.min(ix - 30, W - 90), cy + R + 14);
+    // "what you see" swatch
+    var sy = H * 0.66;
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#d7def2';
+    ctx.fillText('Retina image', 14, sy);
+    ctx.fillStyle = '#000';
+    ctx.fillRect(14, sy + 8, 64, 48);
+    ctx.globalAlpha = bright;
+    ctx.fillStyle = state.obj.col;
+    ctx.beginPath(); ctx.arc(46, sy + 32, 14, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    ctx.fillText('(inverted)', 14, sy + 70);
+    // counters
+    var st = state.stats;
+    var bx = 110, bw = W - bx - 14;
+    ctx.font = FONT_MONO_11;
+    var rows = [
+      ['emitted (equiv.)', st.emitted > 0 ? fmt(st.emitted / 1e6, 2) + 'M' : '0', '#ffc24a'],
+      ['hit the object', st.hitObj, '#d7def2'],
+      ['scattered by it', st.reflected, '#d7def2'],
+      ['entered pupil', st.eyeFromObj, '#5ec8e5']
+    ];
+    for (var j = 0; j < rows.length; j++) {
+      var yy = sy + 14 + j * 22;
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText(rows[j][0], bx, yy);
+      ctx.fillStyle = rows[j][2];
+      ctx.textAlign = 'right';
+      ctx.fillText(String(rows[j][1]), bx + bw, yy);
+      ctx.textAlign = 'left';
+    }
+    ctx.fillStyle = state.lightOn ? '#7ee0a1' : '#ff7e5f';
+    ctx.font = FONT_MONO_13B;
+    ctx.fillText(state.lightOn ? (st.eyeFromObj > 0 ? 'light arriving → you see it' : 'waiting for rays…') : 'no light → you see nothing', bx, sy + 104);
+    elEyeMeta.textContent = 'magnified ×' + fmt(k / S_ROOM(), 0);
+  }
+  function S_ROOM() { var s = surfaces.room; return Math.max(1, Math.min((s.w - 20) / ROOM_W, (s.h - 20) / ROOM_H)); }
+
+  function renderReadout() {
+    var sc = buildScene(state), st = state.stats;
+    var Erel = illuminanceRel(sc.lamp.x, sc.lamp.y, OBJ.x, OBJ.y + OBJ.r);
+    var A = pupilArea(state.pupil);
+    var bright = state.lightOn ? imageBrightnessRel(state.obj.albedo, Erel, A) / REF : 0;
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    var per = st.emitted ? (st.eyeFromObj / st.emitted * 1e6) : 0;
+    kv('Rays reaching the eye', String(st.eyeFromObj) + ' from object', state.lightOn ? '≈ ' + fmt(per, 1) + ' per million emitted (2D)' + (st.eyeDirect ? ' · +' + st.eyeDirect + ' straight from lamp' : '') : 'lamp off: none emitted', state.lightOn ? '' : 'warm');
+    kv('Light on the object', state.lightOn ? fmt(Erel, 2) + '× ' : '0', state.lightOn ? 'vs lamp at 1 m · 1/d², d = ' + fmt(Math.sqrt(1 / Erel), 2) + ' m' : 'no source', 'sun');
+    kv('Pupil area', fmt(A, 1) + ' mm²', fmt(A / pupilArea(2), 1) + '× a 2 mm pupil · π(d/2)²', '');
+    kv('Image brightness', fmt(bright, 2) + '×', 'reflectance ' + fmt(state.obj.albedo, 2) + ' × E × area · vs default', bright > 0 ? 'ok' : 'warm');
+    kv(state.myth ? 'Light leaving the eye' : 'Scattered by object', state.myth ? '0 rays' : String(st.reflected), state.myth ? 'myth beams don’t exist ✗' : 'of ' + st.hitObj + ' that hit it (' + fmt(state.obj.albedo * 100, 0) + '% reflect)', state.myth ? 'warm' : '');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elLampL.textContent = fmt(state.lampX, 2) + ' m';
+    elEyeL.textContent = fmt(state.eyeD, 2) + ' m';
+    elPupilL.textContent = fmt(state.pupil, 1) + ' mm';
+    elLight.textContent = state.lightOn ? 'Light off' : 'Light on';
+    elLight.setAttribute('aria-pressed', state.lightOn ? 'true' : 'false');
+    for (var k in oChips) setChip(oChips[k], state.obj.key === k);
+    setChip(elBright, Math.abs(state.pupil - 2) < 1e-9);
+    setChip(elDark, Math.abs(state.pupil - 8) < 1e-9);
+    setChip(chipMyth, state.myth);
+    if (state.myth) elHint.textContent = state.lightOn ? 'Myth mode · red beams are what extramission imagines. Nothing like them exists.' : 'Myth mode · the myth says you’d still see. Zero rays arrive, so you don’t.';
+    else if (!state.lightOn) elHint.textContent = 'Dark room · no source, so nothing reaches the eye.';
+    else elHint.textContent = 'Light travels lamp → object → eye. Nothing leaves the eye.';
+  }
+
+  function render() {
+    renderReadout();
+    drawRoom();
+    drawEye();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    for (var i = 0; i < state.paths.length; i++) state.paths[i].age++;
+    for (var j = 0; j < state.hits.length; j++) state.hits[j].age++;
+    state.flash = Math.max(0, state.flash - dt * 2);
+    simulate();
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function changed() { resetStats(); updateLabels(); }
+  elLight.addEventListener('click', function () { state.lightOn = !state.lightOn; changed(); });
+  Object.keys(oChips).forEach(function (k) { oChips[k].addEventListener('click', function () { state.obj = OBJECTS[k]; changed(); }); });
+  elBright.addEventListener('click', function () { state.pupil = 2; elPupil.value = '2'; changed(); });
+  elDark.addEventListener('click', function () { state.pupil = 8; elPupil.value = '8'; changed(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elLamp.addEventListener('input', function () { state.lampX = parseFloat(elLamp.value); changed(); });
+  elEye.addEventListener('input', function () { state.eyeD = parseFloat(elEye.value); changed(); });
+  elPupil.addEventListener('input', function () { state.pupil = parseFloat(elPupil.value); changed(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); state.lightOn = !state.lightOn; changed(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  resetStats();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__eyePhysics = {
+    makeRng: makeRng, rayCircle: rayCircle, raySeg: raySeg, rayBox: rayBox, lambertDir: lambertDir,
+    buildScene: buildScene, traceLampRay: traceLampRay, traceBatch: traceBatch, pupilArea: pupilArea,
+    objectCone: objectCone, traceConeBatch: traceConeBatch,
+    illuminanceRel: illuminanceRel, imageBrightnessRel: imageBrightnessRel, retinaPoint: retinaPoint,
+    OBJECTS: OBJECTS, OBJ: OBJ, LAMP_Y: LAMP_Y, EYE_R: EYE_R
+  };
+  window.__eyeState = state;
+})();
+</script>
+</body>
+</html>
