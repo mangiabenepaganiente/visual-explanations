@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How a Straw Really Works — Air Pressure Pushes the Drink Up | Classroom</title>
+<meta name="description" content="Classroom straw explainer: you don’t suck liquid up. Air pressure pushes it, so h = ΔP/ρg and even a vacuum lifts water only 10.3 m. On the Moon: nothing.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="how does a straw work, atmospheric pressure, suction misconception, 10 meter water limit, barometer, pressure difference, hydrostatic pressure, drinking straw on the moon, classroom physics">
+<link rel="canonical" href="straw.html">
+<meta property="og:title" content="How a Straw Really Works">
+<meta property="og:description" content="Suction doesn’t pull. Lower the pressure in your mouth and the atmosphere pushes the drink up the straw, at most ~10.3 m of water. No air, no straw. Live sim.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 440px; }
+@media (max-width: 720px) { .card canvas { height: 360px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · air pressure</a></p>
+  <h1>How a straw really works</h1>
+  <p class="lede">It feels like you <em>pull</em> the drink up. You don’t: a vacuum can’t pull anything. When you lower the pressure in your mouth, the <strong>air pressing on the drink’s surface</strong> is left unbalanced and <strong>pushes</strong> the liquid up the straw. It rises until the column’s weight balances the difference: <strong>h = ΔP/(ρ·g)</strong>. Even a perfect vacuum lifts water only about <strong>10.3 m</strong>, and on the airless Moon a straw lifts nothing at all.</p>
+
+  <p class="try"><b>Try this</b>Pick <strong>Moon</strong>, then drag the <strong>suction</strong> slider all the way up. Notice the liquid doesn’t move. With no air above the cup, there’s nothing to push it.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <span class="hint">Where</span>
+      <button type="button" class="chip on" id="pSea" aria-pressed="true">Sea level</button>
+      <button type="button" class="chip" id="pDenver" aria-pressed="false">Denver</button>
+      <button type="button" class="chip" id="pEverest" aria-pressed="false">Everest summit</button>
+      <button type="button" class="chip" id="pMoon" aria-pressed="false">Moon</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: suction pulls the drink</button>
+    </div>
+    <div class="row">
+      <span class="hint">Drink</span>
+      <button type="button" class="chip on" id="lWater" aria-pressed="true">Water</button>
+      <button type="button" class="chip" id="lJuice" aria-pressed="false">Orange juice</button>
+      <button type="button" class="chip" id="lShake" aria-pressed="false">Milkshake</button>
+      <button type="button" class="chip" id="lMercury" aria-pressed="false">Mercury</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Suction: mouth pressure lowered by <em id="dpLabel">3.0 kPa</em></span>
+        <input type="range" id="dp" min="0" max="101" step="0.5" value="3" aria-label="How much lower than outside air the pressure in your mouth is, in kilopascals">
+      </label>
+      <label class="sl grow">
+        <span>Straw height above the drink <em id="lenLabel">0.20 m</em></span>
+        <input type="range" id="len" min="0.05" max="12" step="0.05" value="0.2" aria-label="Height from the liquid surface to your mouth in meters">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint">Straw</span>
+      <button type="button" class="chip on" id="sCup" aria-pressed="true">Cup · 20 cm</button>
+      <button type="button" class="chip" id="sTall" aria-pressed="false">2 m</button>
+      <button type="button" class="chip" id="sBalcony" aria-pressed="false">3rd-floor balcony · 9 m</button>
+      <button type="button" class="chip" id="sTower" aria-pressed="false">12 m</button>
+      <span class="hint" id="modeHint">Air pushes; your mouth only removes some push from above.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Cup, straw, and air</b><span id="sceneMeta">to scale</span></div>
+      <canvas id="cvStraw" width="760" height="440" aria-label="A drink in a cup with a straw up to a mouth, arrows showing air pressure pushing on the liquid surface, and the liquid column height"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Pressure inside the straw</b><span id="chartMeta">hydrostatic profile</span></div>
+      <canvas id="cvChart" width="480" height="440" aria-label="Graph of pressure versus height inside the straw, and bars of maximum lift height at different places"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Air is already pushing on the drink</h2>
+      <p>At sea level the air presses on every square meter of the drink with about <code>101 kPa</code>, roughly 10 tonnes-force. With the straw open to the air, that push acts equally inside and outside the straw, so nothing moves.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Your mouth removes push from above</h2>
+      <p>Your cheeks and tongue enlarge your mouth, which lowers the pressure in it by <code>ΔP</code>. Now the air outside pushes harder on the drink than the mouth air pushes down the straw. The difference shoves liquid up the tube.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>The column stops at h = ΔP/ρg</h2>
+      <p>Liquid rises until the column’s own weight per area, <code>ρ·g·h</code>, equals ΔP. A 20 cm straw of water needs only ~2 kPa. A perfect vacuum (ΔP = full air pressure) caps water at <code>101325/(1000·9.81) ≈ 10.3 m</code>. That’s why old suction pumps couldn’t raise water from deeper wells.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“You suck the liquid up”</h2>
+      <p>“Suction” isn’t a pulling force. Low pressure can’t grab a liquid. If it could, sucking harder would lift water any height, and a straw would work on the Moon. Toggle the myth: it predicts the red column. Reality: the lift is capped by the outside air pressure, and with no air it is zero.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Straw numbers">
+    <div class="stat">
+      <div class="k">Perfect-vacuum water lift</div>
+      <div class="v">10.33 m</div>
+      <div class="s">sea level · p/ρg</div>
+    </div>
+    <div class="stat">
+      <div class="k">Mercury barometer</div>
+      <div class="v">760 mm</div>
+      <div class="s">same idea, ρ 13.6× water</div>
+    </div>
+    <div class="stat">
+      <div class="k">Sipping a 20 cm straw</div>
+      <div class="v">≈ 2 kPa</div>
+      <div class="s">≈ 2% below air pressure</div>
+    </div>
+    <div class="stat">
+      <div class="k">Strong mouth suction</div>
+      <div class="v">≈ 10–20 kPa</div>
+      <div class="s">approx · varies by person</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Hydrostatics.</strong> In a still liquid column, pressure falls with height as <code>p(z) = p<sub>out</sub> − ρ·g·z</code>. The column stops where that equals the mouth pressure: <code>h = ΔP/(ρ·g)</code>, with <code>ΔP = p<sub>out</sub> − p<sub>mouth</sub></code>. Mouth pressure can’t drop below zero, so <code>ΔP ≤ p<sub>out</sub></code> and <code>h<sub>max</sub> = p<sub>out</sub>/(ρ·g)</code>. g = 9.80665 m/s² on Earth and 1.62 m/s² on the Moon.</li>
+      <li><strong>Outside air pressure</strong>: sea level 101.325 kPa (standard atmosphere). Denver (1609 m) 83.4 kPa (standard atmosphere). Everest summit 33.7 kPa, the measured typical value, which is a little higher than the standard-atmosphere 31.4 kPa. The Moon’s surface pressure is about 10<sup>−10</sup> Pa, effectively zero. Weather shifts all of these by a few percent.</li>
+      <li><strong>Densities</strong> (approximate, room temperature): water 1000 kg/m³ (998 at 20 °C), orange juice ≈ 1045, milkshake ≈ 1100 (varies with recipe), mercury 13 595 (0 °C, the standard barometer value that gives 760 mm). Density sets the height. A thick milkshake is hard to drink mostly because of <em>viscosity</em>, which slows the flow. This static model doesn’t include viscosity. The animation eases toward the equilibrium height and is not a flow simulation.</li>
+      <li><strong>The real ceiling is a little lower.</strong> Water boils when its pressure drops to its vapor pressure (≈ 2.3 kPa at 20 °C), so a real vacuum pump lifts cold water about 10.1 m, not 10.3 m. The straw’s own capillary rise (a millimeter or so for a drinking straw) is ignored.</li>
+      <li><strong>Human suction.</strong> Sipping through a normal straw takes only a couple of kPa. Strong, sustained mouth suction is roughly 10–20 kPa. Published maximums vary widely with method and person, so treat the upper range as approximate. That is why a few-meter straw is already very hard to drink from.</li>
+      <li><strong>Drawing.</strong> Heights are to scale vertically. The cup, straw width, and face are drawn at a fixed readable size.</li>
+      <li><strong>For teachers.</strong> Pressure and forces (NGSS MS-PS2-2, HS-PS2-1). Related demos: the collapsing can, Torricelli’s barometer, and the 10 m limit on suction pumps that puzzled Galileo’s era. The key idea: fluids are pushed from high pressure toward low. “Suction” is the name for removing a push, not adding a pull.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-straw.js =====
+  var G_EARTH = 9.80665, G_MOON = 1.62;
+  var PLACES = {
+    sea: { key: 'sea', label: 'Sea level', p: 101325, g: G_EARTH },
+    denver: { key: 'denver', label: 'Denver · 1609 m', p: 83400, g: G_EARTH },
+    everest: { key: 'everest', label: 'Everest summit', p: 33700, g: G_EARTH },
+    moon: { key: 'moon', label: 'Moon', p: 0, g: G_MOON }
+  };
+  var LIQUIDS = {
+    water: { key: 'water', label: 'Water', rho: 1000, col: '#5ec8e5' },
+    juice: { key: 'juice', label: 'Orange juice', rho: 1045, col: '#ffa84a' },
+    shake: { key: 'shake', label: 'Milkshake', rho: 1100, col: '#f2c9d8' },
+    mercury: { key: 'mercury', label: 'Mercury', rho: 13595, col: '#b8c0cc' }
+  };
+  var STRAWS = { cup: 0.2, tall: 2, balcony: 9, tower: 12 };
+
+  // Pressure difference actually achievable (mouth pressure ≥ 0)
+  function effectiveDP(dpReq, pOut) { return Math.max(0, Math.min(dpReq, pOut)); }
+  function riseHeight(dp, rho, g) { return dp / (rho * g); }
+  function maxHeight(pOut, rho, g) { return pOut / (rho * g); }
+  function suctionNeeded(L, rho, g) { return rho * g * L; }
+  function pressureAt(z, pOut, rho, g) { return pOut - rho * g * z; }
+  // Full static state for a straw of height L (liquid surface to mouth)
+  function strawState(dpReq, L, place, liq) {
+    var dp = effectiveDP(dpReq, place.p);
+    var h = riseHeight(dp, liq.rho, place.g);
+    var hMax = maxHeight(place.p, liq.rho, place.g);
+    var need = suctionNeeded(L, liq.rho, place.g);
+    return {
+      dp: dp, pMouth: place.p - dp, h: h, hMax: hMax, need: need,
+      reaches: h >= L - 1e-12, possible: need <= place.p + 1e-9,
+      column: Math.min(h, L)
+    };
+  }
+  // Myth: "suction pulls" — lift independent of outside air, unbounded
+  function mythHeight(dpReq, rho) { return dpReq / (rho * G_EARTH); }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var state = { dp: 3000, L: 0.2, place: PLACES.sea, liq: LIQUIDS.water, myth: false, col: 0, lastTs: 0, anim: 0 };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var pChips = { sea: $('pSea'), denver: $('pDenver'), everest: $('pEverest'), moon: $('pMoon') };
+  var lChips = { water: $('lWater'), juice: $('lJuice'), shake: $('lShake'), mercury: $('lMercury') };
+  var sChips = { cup: $('sCup'), tall: $('sTall'), balcony: $('sBalcony'), tower: $('sTower') };
+  var chipMyth = $('chipMyth');
+  var elDP = $('dp'), elLen = $('len'), elDPL = $('dpLabel'), elLenL = $('lenLabel');
+  var elHint = $('modeHint'), elSceneMeta = $('sceneMeta'), elReadout = $('readout');
+  var surfaces = {
+    straw: { canvas: $('cvStraw'), ctx: null, w: 0, h: 0, cssH: 440 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 440 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  function fmtH(m) { return m >= 1 ? fmt(m, 2) + ' m' : fmt(m * 100, 1) + ' cm'; }
+
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len, ah = head || 9;
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.5, y2 - uy * ah + ux * ah * 0.5);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.5, y2 - uy * ah - ux * ah * 0.5);
+    ctx.closePath(); ctx.fill();
+  }
+
+  function drawStraw() {
+    var surf = surfaces.straw;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var ss = strawState(state.dp, state.L, state.place, state.liq);
+    var moon = state.place.key === 'moon';
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, moon ? '#05060f' : '#0b1432');
+    bg.addColorStop(1, moon ? '#0b0c16' : '#0d1a3a');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+    // vertical scale
+    var surfY = H - 70, topY = 64;
+    var mythH = mythHeight(state.dp, state.liq.rho);
+    var span = Math.max(state.L * 1.08, 0.3);
+    var S = (surfY - topY) / span; // px per m
+    var sx = W < 500 ? W * 0.36 : W * 0.4;
+    var cupW = 110, cupH = 70;
+    // cup
+    ctx.fillStyle = state.liq.col;
+    ctx.globalAlpha = 0.85;
+    ctx.fillRect(sx - cupW / 2, surfY, cupW, cupH - 12);
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'rgba(215,222,242,0.7)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(sx - cupW / 2 - 4, surfY - 20); ctx.lineTo(sx - cupW / 2, surfY + cupH - 12); ctx.lineTo(sx + cupW / 2, surfY + cupH - 12); ctx.lineTo(sx + cupW / 2 + 4, surfY - 20); ctx.stroke();
+    // straw
+    var mouthY = surfY - state.L * S;
+    var sw = 10;
+    ctx.fillStyle = 'rgba(215,222,242,0.10)';
+    ctx.fillRect(sx - sw / 2, mouthY, sw, surfY + cupH * 0.6 - mouthY);
+    // liquid column (animated)
+    var colPx = state.col * S;
+    ctx.fillStyle = state.liq.col;
+    ctx.fillRect(sx - sw / 2 + 1.5, surfY - colPx, sw - 3, colPx + cupH * 0.6);
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)'; ctx.lineWidth = 1.2;
+    ctx.strokeRect(sx - sw / 2, mouthY, sw, surfY + cupH * 0.6 - mouthY);
+    // mouth/face
+    ctx.fillStyle = '#d7def2';
+    ctx.beginPath(); ctx.arc(sx + 24, mouthY - 30, 26, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#0b1432';
+    ctx.beginPath(); ctx.arc(sx + 32, mouthY - 38, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = ss.dp > 0 ? '#ff7e5f' : '#8b93ad';
+    ctx.beginPath(); ctx.ellipse(sx + 3, mouthY - 10, 7, 5, 0, 0, Math.PI * 2); ctx.fill();
+    // drinking droplets when column reaches mouth
+    if (ss.reaches && ss.dp > 0 && state.col >= state.L * 0.98) {
+      ctx.fillStyle = state.liq.col;
+      var ph = (state.anim * 2) % 1;
+      ctx.beginPath(); ctx.arc(sx, mouthY - 4 - ph * 8, 2.5, 0, Math.PI * 2); ctx.fill();
+    }
+    // air pressure arrows on the free surface (length ∝ p_out)
+    var aLen = 34 * state.place.p / 101325;
+    var nA = 5;
+    for (var i = 0; i < nA; i++) {
+      var axp = sx - cupW / 2 + 12 + i * (cupW - 24) / (nA - 1);
+      if (Math.abs(axp - sx) < 12) continue;
+      if (aLen > 2) drawArrow(ctx, axp, surfY - 6 - aLen, axp, surfY - 2, '#ffc24a', 2, 7);
+    }
+    // mouth pressure arrow inside straw top (down)
+    var mLen = 34 * ss.pMouth / 101325;
+    if (mLen > 2) drawArrow(ctx, sx, mouthY + 4, sx, mouthY + 4 + mLen, 'rgba(255,194,74,0.55)', 1.6, 6);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText(moon ? 'no air → no push' : 'air pushes ' + fmt(state.place.p / 1000, 1) + ' kPa', sx + cupW / 2 + 10, surfY - 8);
+    ctx.fillStyle = 'rgba(255,194,74,0.8)';
+    ctx.fillText('mouth ' + fmt(ss.pMouth / 1000, 1) + ' kPa', sx + 56, mouthY - 22);
+    // height markers
+    var mx = sx - cupW / 2 - 24;
+    ctx.strokeStyle = 'rgba(139,147,173,0.6)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(mx, surfY); ctx.lineTo(mx, mouthY); ctx.stroke();
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('L ' + fmtH(state.L), mx - 4, (surfY + mouthY) / 2);
+    ctx.textAlign = 'left';
+    // equilibrium height line (if below mouth)
+    if (!ss.reaches && ss.h > 0) {
+      var hy = surfY - ss.h * S;
+      ctx.strokeStyle = 'rgba(94,200,229,0.7)'; ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(sx - 30, hy); ctx.lineTo(sx + 30, hy); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('stalls at ' + fmtH(ss.h), sx + 36, hy + 4);
+    }
+    // perfect-vacuum limit
+    var ly = surfY - ss.hMax * S;
+    if (ly > topY - 30 && ss.hMax > 0) {
+      ctx.strokeStyle = 'rgba(255,126,95,0.6)'; ctx.setLineDash([2, 5]);
+      ctx.beginPath(); ctx.moveTo(8, ly); ctx.lineTo(W - 8, ly); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#ff7e5f';
+      ctx.textAlign = 'right';
+      ctx.fillText('vacuum limit ' + fmtH(ss.hMax), W - 10, ly - 4);
+      ctx.textAlign = 'left';
+    }
+    // myth ghost column
+    if (state.myth) {
+      var mh = Math.min(mythH, state.L);
+      ctx.fillStyle = 'rgba(255,126,95,0.35)';
+      ctx.fillRect(sx + sw / 2 + 4, surfY - mh * S, sw - 3, mh * S);
+      for (var k = 0; k < 3; k++) {
+        var yy = mouthY + 20 + k * 16;
+        if (yy < surfY - 10) drawArrow(ctx, sx + 24, yy + 12, sx + 24, yy, '#ff7e5f', 1.6, 6);
+      }
+      ctx.fillStyle = 'rgba(8,11,28,0.8)';
+      ctx.fillRect(10, 10, Math.min(W - 20, 390), 42);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth: your mouth pulls the drink up', 20, 30);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(moon ? 'Myth predicts ' + fmtH(mythH) + ' even on the Moon. Reality: 0.' : 'Red = myth (no limit). Real limit is set by the air outside.', 20, 46);
+    }
+    // HUD
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = ss.reaches && ss.dp > 0 ? '#7ee0a1' : '#d7def2';
+    var verdict = ss.dp <= 0 ? (moon ? 'Moon: nothing rises' : 'no suction · level stays put') : (ss.reaches ? 'drink reaches your mouth ✓' : 'column stalls below your mouth');
+    ctx.fillText(verdict, 14, state.myth ? 72 : 24);
+    elSceneMeta.textContent = 'to scale · ' + fmt(S, S < 10 ? 1 : 0) + ' px/m';
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var ss = strawState(state.dp, state.L, state.place, state.liq);
+    var pl = state.place;
+    var L = 44, R = W - 16, T = 26, B = H * 0.56;
+    var zTop = Math.max(state.L, 0.1) * 1.1;
+    var span = Math.max(2000, pl.p - ss.pMouth);
+    var pHi = pl.p + span * 0.12 + 300, pLo = Math.max(0, ss.pMouth - span * 0.35 - 300);
+    if (pl.p === 0) { pLo = 0; pHi = 10000; }
+    function X(p) { return L + (p - pLo) / (pHi - pLo) * (R - L); }
+    function Y(z) { return B - z / zTop * (B - T); }
+    var rawStep = (pHi - pLo) / 4, mag = Math.pow(10, Math.floor(Math.log(rawStep) / Math.LN10));
+    var nice = rawStep / mag < 2 ? 1 : (rawStep / mag < 5 ? 2 : 5);
+    var step = nice * mag;
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    for (var p = Math.ceil(pLo / step) * step; p <= pHi; p += step) {
+      ctx.beginPath(); ctx.moveTo(X(p), T); ctx.lineTo(X(p), B); ctx.stroke();
+      var lbl = String(+(p / 1000).toFixed(step < 1000 ? 1 : 0));
+      ctx.fillText(lbl, X(p) - lbl.length * 3, B + 13);
+    }
+    ctx.fillText('pressure in straw (kPa)' + (pLo > 0 ? ' · zoomed' : ''), (L + R) / 2 - 80, B + 26);
+    ctx.fillText('0 m', 4, B + 3);
+    ctx.fillText(fmtH(state.L), 4, Y(state.L) + 3);
+    ctx.strokeStyle = 'rgba(139,147,173,0.5)';
+    ctx.beginPath(); ctx.moveTo(L, Y(state.L)); ctx.lineTo(R, Y(state.L)); ctx.stroke();
+    // outside pressure line
+    ctx.strokeStyle = 'rgba(255,194,74,0.6)'; ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(X(pl.p), T); ctx.lineTo(X(pl.p), B); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('outside', Math.min(X(pl.p) + 4, R - 50), T + 8);
+    // profile: liquid part then air (mouth) part
+    ctx.strokeStyle = state.liq.col; ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    ctx.moveTo(X(pl.p), Y(0));
+    var zc = Math.min(ss.h, state.L);
+    ctx.lineTo(X(pressureAt(zc, pl.p, state.liq.rho, pl.g)), Y(zc));
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)'; ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    ctx.moveTo(X(ss.pMouth), Y(zc)); ctx.lineTo(X(ss.pMouth), Y(state.L));
+    ctx.stroke();
+    ctx.fillStyle = state.liq.col;
+    ctx.fillText('liquid', X(pl.p) - 44 < L ? X(pl.p) + 6 : X(pl.p) - 44, Y(0) - 6);
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('mouth air ' + fmt(ss.pMouth / 1000, 1), Math.max(L + 2, Math.min(X(ss.pMouth) + 4, R - 110)), Math.max(T + 22, Y(state.L) + 14));
+    // bars: max lift at each place for this liquid
+    var by = B + 50;
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#d7def2';
+    ctx.fillText('Max lift, perfect vacuum · ' + state.liq.label.toLowerCase(), 14, by);
+    var keys = ['sea', 'denver', 'everest', 'moon'];
+    var hTop = maxHeight(PLACES.sea.p, state.liq.rho, G_EARTH);
+    var rowH = Math.max(16, (H - by - 16) / 4);
+    for (var i = 0; i < keys.length; i++) {
+      var P = PLACES[keys[i]], hm = maxHeight(P.p, state.liq.rho, P.g);
+      var y = by + 10 + i * rowH;
+      var bw = (R - 120) * hm / hTop;
+      ctx.fillStyle = 'rgba(94,200,229,0.08)'; ctx.fillRect(110, y, R - 120, rowH - 6);
+      ctx.fillStyle = P === pl ? '#5ec8e5' : 'rgba(94,200,229,0.4)';
+      ctx.fillRect(110, y, bw, rowH - 6);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = P === pl ? '#d7def2' : '#8b93ad';
+      ctx.fillText(P.label.split(' ·')[0], 14, y + rowH / 2);
+      ctx.fillText(fmtH(hm), Math.min(110 + bw + 6, R - 52), y + rowH / 2);
+    }
+  }
+
+  function renderReadout() {
+    var ss = strawState(state.dp, state.L, state.place, state.liq);
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    var capped = state.dp > state.place.p;
+    kv('Pressure difference ΔP', fmt(ss.dp / 1000, 1) + ' kPa', 'outside ' + fmt(state.place.p / 1000, 1) + ' − mouth ' + fmt(ss.pMouth / 1000, 1) + (capped ? ' · capped: mouth ≥ 0' : ''), capped ? 'warm' : '');
+    kv('Liquid rise height', fmtH(ss.h), (ss.reaches ? 'ΔP/ρg · reaches the mouth (L = ' + fmtH(state.L) + ')' : 'ΔP/ρg · stalls ' + fmtH(state.L - ss.h) + ' below the mouth'), ss.reaches && ss.dp > 0 ? 'ok' : '');
+    kv('Max possible (vacuum)', fmtH(ss.hMax), 'p_out/ρg · ' + state.liq.label.toLowerCase() + ' · ' + state.place.label.split(' ·')[0], 'sun');
+    kv('Suction needed for this straw', fmt(ss.need / 1000, 2) + ' kPa', ss.possible ? (ss.need > 20000 ? 'beyond strong human suction (~10–20)' : 'ρ·g·L') : 'impossible: more than all the air pressure', ss.possible ? (ss.need > 20000 ? 'warm' : '') : 'warm');
+    kv(state.myth ? 'Myth predicts' : 'Air push on drink', state.myth ? fmtH(mythHeight(state.dp, state.liq.rho)) : fmt(state.place.p * Math.PI * 0.025 * 0.025, 0) + ' N', state.myth ? 'no ceiling, even on the Moon ✗' : 'on a 5 cm-wide drink surface (p·A)', state.myth ? 'warm' : '');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elDPL.textContent = fmt(state.dp / 1000, 1) + ' kPa' + (state.dp / 1000 > 20 ? ' · beyond human' : (state.dp / 1000 >= 10 ? ' · strong' : ''));
+    elLenL.textContent = fmtH(state.L);
+    for (var k in pChips) setChip(pChips[k], state.place.key === k);
+    for (var l in lChips) setChip(lChips[l], state.liq.key === l);
+    for (var s in sChips) setChip(sChips[s], Math.abs(STRAWS[s] - state.L) < 1e-9);
+    setChip(chipMyth, state.myth);
+    var ss = strawState(state.dp, state.L, state.place, state.liq);
+    if (state.myth) elHint.textContent = 'Myth mode · red column = “suction pulls” prediction. It ignores the air outside and has no ceiling.';
+    else if (state.place.key === 'moon') elHint.textContent = 'Moon · no air above the drink, so there is no push to unbalance. The straw can’t work.';
+    else if (!ss.possible) elHint.textContent = 'Even a perfect vacuum can only support ' + fmtH(ss.hMax) + ' of this liquid here.';
+    else elHint.textContent = 'Air pushes; your mouth only removes some push from above.';
+  }
+
+  function render() {
+    renderReadout();
+    drawStraw();
+    drawChart();
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    var target = strawState(state.dp, state.L, state.place, state.liq).column;
+    state.col += (target - state.col) * Math.min(1, dt * 4);
+    if (Math.abs(target - state.col) < 1e-5) state.col = target;
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  Object.keys(pChips).forEach(function (k) { pChips[k].addEventListener('click', function () { state.place = PLACES[k]; updateLabels(); }); });
+  Object.keys(lChips).forEach(function (k) { lChips[k].addEventListener('click', function () { state.liq = LIQUIDS[k]; updateLabels(); }); });
+  Object.keys(sChips).forEach(function (k) {
+    sChips[k].addEventListener('click', function () { state.L = STRAWS[k]; elLen.value = String(state.L); state.col = Math.min(state.col, state.L); updateLabels(); });
+  });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elDP.addEventListener('input', function () { state.dp = parseFloat(elDP.value) * 1000; updateLabels(); });
+  elLen.addEventListener('input', function () { state.L = parseFloat(elLen.value); state.col = Math.min(state.col, state.L); updateLabels(); });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__strawPhysics = {
+    effectiveDP: effectiveDP, riseHeight: riseHeight, maxHeight: maxHeight, suctionNeeded: suctionNeeded,
+    pressureAt: pressureAt, strawState: strawState, mythHeight: mythHeight,
+    PLACES: PLACES, LIQUIDS: LIQUIDS, G_EARTH: G_EARTH, G_MOON: G_MOON
+  };
+  window.__strawState = state;
+})();
+</script>
+</body>
+</html>
