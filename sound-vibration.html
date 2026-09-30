@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sound Is a Vibration, Not Flying Air — Longitudinal Pressure Waves, Molecules That Only Jiggle</title>
+<meta name="description" content="Classroom sound explainer: sound is a pressure wave, not moving air. Molecules jiggle under a micron as the wave runs at 343 m/s. Live demo. NGSS MS-PS4.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="sound waves, longitudinal wave, compression, rarefaction, particle displacement, wavelength, speed of sound, sound in water, sound in steel, vacuum, decibels, misconception, classroom physics">
+<meta property="og:title" content="Sound Is a Vibration, Not Flying Air">
+<meta property="og:description" content="Sound isn’t air flying from the speaker to your ear. Molecules jiggle less than a micron while the pressure pattern races on at 343 m/s. Live particles, pressure graph and tone for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+.lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+.btn.tone { background: rgba(255, 194, 74, 0.12); color: var(--sun2); border-color: rgba(255, 194, 74, 0.45); min-width: 104px; }
+.card canvas.tall { height: 440px; }
+@media (max-width: 720px) { .card canvas.tall { height: 360px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · sound waves</a></p>
+  <h1>Sound is a vibration, not flying air</h1>
+  <p class="lede">When a speaker plays, no air travels from it to your ear. Each air molecule is nudged forward, pushes its neighbours, and <strong>swings back</strong>, moving far less than the width of a hair. What travels is the <strong>pattern</strong>: a chain of squeezed (compression) and stretched (rarefaction) regions that runs through the air at about <strong>343 m/s</strong>. Sound is a <strong>longitudinal pressure wave</strong>, and with no molecules to push, as in a vacuum, there is no sound at all.</p>
+
+  <p class="try"><b>Try this</b>Watch one <strong>red tracer</strong> molecule. Notice it only rocks back and forth around its home spot while the compressions sweep past it again and again.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn tone" id="btnTone" aria-pressed="false" title="Plays a sine tone (sound on)">Play tone ♪</button>
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="true" title="Spacebar">Pause</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: sound is air flying to your ear</button>
+      <span class="hint">Sound plays only when you press Play tone.</span>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Frequency <em id="fLabel">1000 Hz</em></span>
+        <input type="range" id="freq" min="0" max="1" step="0.0001" value="0.5663" aria-label="Frequency, logarithmic from 20 hertz to 20 kilohertz">
+      </label>
+      <label class="sl grow">
+        <span>Loudness (sound pressure level) <em id="dbLabel">94 dB</em></span>
+        <input type="range" id="db" min="0" max="140" step="1" value="94" aria-label="Sound pressure level in decibels re 20 micropascals">
+      </label>
+    </div>
+    <div class="row">
+      <span class="lbl">Medium</span>
+      <button type="button" class="chip on" id="mAir">Air 20 °C</button>
+      <button type="button" class="chip" id="mWater">Water</button>
+      <button type="button" class="chip" id="mSteel">Steel</button>
+      <button type="button" class="chip" id="mVac">Vacuum</button>
+      <span class="hint" id="modeHint"></span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Molecules + pressure</b><span id="sceneMeta">window = 3 wavelengths</span></div>
+      <canvas id="cvScene" class="tall" width="760" height="440" aria-label="Rows of molecules pushed by a speaker, showing compressions and rarefactions, red tracer molecules that only oscillate, and a pressure graph"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Position–time: molecule vs wave</b><span id="chartMeta">slowed</span></div>
+      <canvas id="cvChart" class="tall" width="520" height="440" aria-label="Position versus time diagram: the tracer molecule wiggles in place while wave crests travel steadily across"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>A push handed along</h2>
+      <p>The speaker cone shoves the layer of air in front of it. That layer squeezes the next, which squeezes the next. Each molecule returns to where it started as the cone pulls back, so the air as a whole goes nowhere. Only the push (energy) is passed along.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Longitudinal: back and forth along the path</h2>
+      <p>The molecules move <em>along</em> the direction the sound travels, not up and down like a rope wave. Where they bunch up, pressure is a little higher (compression); where they spread out, a little lower (rarefaction). Even a loud 94 dB tone changes air pressure by only 1 Pa, about one part in 100,000.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>The medium sets the speed</h2>
+      <p>Wave speed depends on how stiff and how dense the medium is: <code>c = √(K/ρ)</code>. Water is much stiffer than air, and steel stiffer still, so sound runs at ~1,480 and ~5,960 m/s. The frequency comes from the source, so the wavelength <code>λ = c/f</code> stretches in faster media.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Sound is air travelling to your ear”</h2>
+      <p>If the air itself had to travel, a word spoken across a room would come with a 1,236 km/h wind. Instead the molecules move micrometres or less, and far quieter sounds move them less than the width of an atom. Turn on myth mode to see what flying air would look like, then watch the tracers go nowhere in reality.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Sound reference numbers">
+    <div class="stat">
+      <div class="k">Speed in air, 20 °C</div>
+      <div class="v">343 m/s</div>
+      <div class="s">1 kHz → λ = 34.3 cm</div>
+    </div>
+    <div class="stat">
+      <div class="k">Water · steel</div>
+      <div class="v">≈ 1,480 · 5,960 m/s</div>
+      <div class="s">no medium → no sound</div>
+    </div>
+    <div class="stat">
+      <div class="k">94 dB SPL</div>
+      <div class="v">1 Pa rms</div>
+      <div class="s">1 kHz in air → ξ ≈ 0.39 µm</div>
+    </div>
+    <div class="stat">
+      <div class="k">0 dB (hearing threshold)</div>
+      <div class="v">ξ ≈ 8 pm</div>
+      <div class="s">1 kHz · ~1/20 of an atom</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Plane progressive wave, linear acoustics.</strong> Displacement <code>ξ(x,t) = ξ₀·sin(ωt − kx)</code>, pressure <code>p = ρc·∂ξ/∂t</code>, so <code>p = ρ·c·u</code> and <code>ξ = p/(ρ·c·ω)</code>, with <code>ω = 2πf</code>, <code>k = ω/c</code>, <code>λ = c/f</code>. Real sources spread out, so the amplitude falls with distance; this is the idealized single plane wave. Above roughly 140–150 dB non-linear effects begin to matter and the linear formulas stop being accurate.</li>
+      <li><strong style="color:var(--text)">Decibels.</strong> <code>p<sub>rms</sub> = 20 µPa × 10<sup>dB/20</sup></code> (the airborne reference). So 94 dB is 1.00 Pa rms. Displacement and velocity readouts are rms values; peak values are √2 larger (shown as sub-readings). Underwater acoustics normally quotes dB re 1 µPa instead, which is 26 dB higher for the same pressure. Here every medium uses the same 20 µPa reference so the <em>same pressure</em> is compared across media.</li>
+      <li><strong style="color:var(--text)">Check.</strong> Air at 20 °C: <code>ρ = 1.204 kg/m³</code>, <code>c = 343.2 m/s</code>, <code>ρc ≈ 413 Pa·s/m</code>. At 94 dB and 1 kHz: <code>ξ = 1.00/(413 × 6283) ≈ 3.9×10⁻⁷ m = 0.39 µm</code> rms, <code>u = p/ρc ≈ 2.4 mm/s</code>, <code>λ = 0.343 m</code>. At 0 dB it is about 8 pm, smaller than an atom (~0.1–0.3 nm).</li>
+      <li><strong style="color:var(--text)">Media.</strong> Water (20 °C): <code>ρ = 998 kg/m³</code>, <code>c ≈ 1,482 m/s</code>. Steel: <code>ρ = 7,850 kg/m³</code>, longitudinal bulk-wave speed ≈ 5,960 m/s (a thin rod is slower, ≈ 5,100 m/s, and solids also carry slower shear waves, not shown). The same pressure moves molecules far less in dense, stiff media because <code>ρc</code> is thousands of times larger.</li>
+      <li><strong style="color:var(--text)">Thermal motion is not shown.</strong> Real air molecules already dart about randomly at ~470 m/s and collide every ~70 nm. Sound is a tiny, organized drift on top of that chaos, far smaller than the random motion, which is why it takes collisions to pass it along and why sound speed is similar to molecular speeds.</li>
+      <li><strong style="color:var(--text)">Drawing.</strong> The window auto-zooms to three wavelengths; motion is slowed to about 0.6 cycles per second and displacement is exaggerated (the factor is shown on the canvas). The tone is a sine synthesized only after you click; your speaker’s real loudness is not the SPL on the slider.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Waves and their properties; mechanical waves need a medium (NGSS MS-PS4-1, MS-PS4-2, HS-PS4-1). Name the misconception: “sound is air (or a thing) travelling to the ear.” Classic demos: a slinky pushed end-on, or the bell in a jar as the air is pumped out.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics (exported; checked by validate-sound-vibration.js) =====
+  var P_REF = 20e-6; // Pa
+  var F_MIN = 20, F_MAX = 20000;
+  var MEDIA = {
+    air:    { name: 'Air 20 °C', rho: 1.204, c: 343.2 },
+    water:  { name: 'Water',     rho: 998,   c: 1482 },
+    steel:  { name: 'Steel',     rho: 7850,  c: 5960 },
+    vacuum: { name: 'Vacuum',    rho: 0,     c: 0 }
+  };
+
+  function freqFromSlider(s) { return F_MIN * Math.pow(F_MAX / F_MIN, s); }
+  function sliderFromFreq(f) { return Math.log(f / F_MIN) / Math.log(F_MAX / F_MIN); }
+  function pressureRms(db) { return P_REF * Math.pow(10, db / 20); }
+  function splFromPressure(p) { return 20 * Math.log10(p / P_REF); }
+  function hasMedium(m) { return !!(m && m.rho > 0 && m.c > 0); }
+  function wavelength(m, f) { return hasMedium(m) ? m.c / f : null; }
+  function impedance(m) { return hasMedium(m) ? m.rho * m.c : null; }
+  // rms particle velocity u = p/(ρc) and rms displacement ξ = p/(ρcω)
+  function particleVelocity(m, db) { return hasMedium(m) ? pressureRms(db) / (m.rho * m.c) : null; }
+  function displacement(m, db, f) { return hasMedium(m) ? pressureRms(db) / (m.rho * m.c * 2 * Math.PI * f) : null; }
+  function intensity(m, db) { var p = pressureRms(db); return hasMedium(m) ? p * p / (m.rho * m.c) : null; }
+  // Displacement field of a plane wave (peak amplitude A): ξ(x,t) = A·sin(ωt − kx); pressure = ρcω·A·cos(ωt − kx)
+  function field(A, k, w, x, t) { return A * Math.sin(w * t - k * x); }
+  function pressureField(m, A, k, w, x, t) { return m.rho * m.c * w * A * Math.cos(w * t - k * x); }
+
+  // ===== Fonts cached outside draw loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 16px Fraunces, Georgia, serif';
+
+  var F_VIS = 0.6;      // drawn cycles per second
+  var WAVES = 3;        // wavelengths across the window
+  var ROWS = 9;
+
+  var state = {
+    s: sliderFromFreq(1000), f: 1000, db: 94, medium: 'air', myth: false, playing: true,
+    tv: 0, clock: 0, lastTs: 0, toneOn: false, history: []
+  };
+  var audioCtx = null, osc = null, gainNode = null;
+  var jitter = [];
+  (function seed() {
+    var s = 11;
+    function rnd() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+    for (var i = 0; i < 4000; i++) jitter.push(rnd() - 0.5);
+  })();
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elTone = $('btnTone'), elPlay = $('btnPlay'), elMyth = $('chipMyth');
+  var elF = $('freq'), elDb = $('db'), elFL = $('fLabel'), elDbL = $('dbLabel');
+  var elHint = $('modeHint'), elReadout = $('readout'), elSceneMeta = $('sceneMeta'), elChartMeta = $('chartMeta');
+  var medChips = { air: $('mAir'), water: $('mWater'), steel: $('mSteel'), vacuum: $('mVac') };
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 440 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 440 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  function fmtLen(m) {
+    var a = Math.abs(m);
+    if (a >= 1) return m.toFixed(a >= 10 ? 1 : 2) + ' m';
+    if (a >= 0.01) return (m * 100).toFixed(1) + ' cm';
+    if (a >= 1e-3) return (m * 1000).toFixed(2) + ' mm';
+    if (a >= 1e-7) return (m * 1e6).toFixed(a >= 1e-5 ? 1 : 2) + ' µm';
+    if (a >= 1e-9) return (m * 1e9).toFixed(2) + ' nm';
+    return (m * 1e12).toFixed(2) + ' pm';
+  }
+  function fmtVel(v) {
+    var a = Math.abs(v);
+    if (a >= 1) return v.toFixed(2) + ' m/s';
+    if (a >= 1e-3) return (v * 1000).toFixed(2) + ' mm/s';
+    if (a >= 1e-6) return (v * 1e6).toFixed(2) + ' µm/s';
+    return (v * 1e9).toFixed(2) + ' nm/s';
+  }
+  function fmtHz(f) { return f >= 1000 ? (f / 1000).toFixed(f >= 10000 ? 1 : 2) + ' kHz' : f.toFixed(0) + ' Hz'; }
+
+  function current() {
+    var m = MEDIA[state.medium];
+    var ok = hasMedium(m);
+    return {
+      m: m, ok: ok, p: pressureRms(state.db), lam: wavelength(m, state.f), xi: displacement(m, state.db, state.f),
+      u: particleVelocity(m, state.db), z: impedance(m), I: intensity(m, state.db)
+    };
+  }
+
+  // ===== Tone: user-initiated only =====
+  function toneGain() {
+    if (state.medium === 'vacuum') return 0.0001;
+    return 0.02 + 0.14 * Math.max(0, Math.min(1, (state.db - 30) / 100));
+  }
+  function startTone() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return false;
+    if (!audioCtx) audioCtx = new AC();
+    if (audioCtx.state === 'suspended' && audioCtx.resume) audioCtx.resume();
+    var now = audioCtx.currentTime;
+    osc = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = state.f;
+    gainNode = audioCtx.createGain();
+    gainNode.gain.setValueAtTime(0.0001, now);
+    gainNode.gain.linearRampToValueAtTime(toneGain(), now + 0.05);
+    osc.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    osc.start(now);
+    return true;
+  }
+  function stopTone() {
+    if (osc && audioCtx) {
+      var now = audioCtx.currentTime;
+      gainNode.gain.setValueAtTime(gainNode.gain.value || toneGain(), now);
+      gainNode.gain.linearRampToValueAtTime(0.0001, now + 0.05);
+      osc.stop(now + 0.08);
+    }
+    osc = null; gainNode = null;
+  }
+  function updateTone() {
+    if (!osc || !audioCtx) return;
+    var now = audioCtx.currentTime;
+    osc.frequency.setTargetAtTime(state.f, now, 0.02);
+    gainNode.gain.setTargetAtTime(toneGain(), now, 0.03);
+  }
+
+  function updateLabels() {
+    var c = current();
+    elFL.textContent = fmtHz(state.f);
+    elDbL.textContent = state.db.toFixed(0) + ' dB (' + (c.p >= 1 ? c.p.toFixed(2) + ' Pa' : (c.p * 1000).toFixed(c.p >= 0.01 ? 1 : 3) + ' mPa') + ' rms)';
+    Object.keys(medChips).forEach(function (k) { setChip(medChips[k], k === state.medium); });
+    setChip(elMyth, state.myth);
+    elPlay.textContent = state.playing ? 'Pause' : 'Play';
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    elTone.textContent = state.toneOn ? 'Stop tone ■' : 'Play tone ♪';
+    elTone.setAttribute('aria-pressed', state.toneOn ? 'true' : 'false');
+    elSceneMeta.textContent = c.ok ? 'window = 3λ = ' + fmtLen(3 * c.lam) : 'vacuum: nothing to push';
+    elChartMeta.textContent = 'slowed ×' + Math.round(state.f / F_VIS).toLocaleString('en-US');
+    if (state.myth) elHint.textContent = 'Myth mode: molecules stream away from the speaker. Real sound would need a 343 m/s (1,236 km/h) wind to do that.';
+    else if (!c.ok) elHint.textContent = 'No molecules, no sound: the cone moves but nothing carries the push.';
+    else elHint.textContent = 'Same pressure in each medium: stiffer, denser media move their molecules less.';
+  }
+
+  function renderReadout(c) {
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    if (!c.ok) {
+      kv('Wavelength λ', '—', 'no wave in a vacuum', '');
+      kv('Wave speed', '0', 'nothing to carry it', 'warm');
+      kv('Pressure swing', '—', 'no pressure without molecules', '');
+      kv('Molecule motion', '—', 'there are no molecules', '');
+      kv('Molecule speed', '—', '—', '');
+    } else {
+      kv('Wavelength λ', fmtLen(c.lam), 'c / f = ' + c.m.c.toFixed(0) + ' / ' + state.f.toFixed(0), '');
+      kv('Wave speed', c.m.c.toFixed(0) + ' m/s', (c.m.c * 3.6).toFixed(0) + ' km/h · the pattern', 'sun');
+      kv('Pressure swing', (c.p >= 1 ? c.p.toFixed(2) + ' Pa' : (c.p * 1000).toFixed(3) + ' mPa'), 'rms · ' + (c.p / 101325 * 1e6).toFixed(c.p < 0.01 ? 4 : 2) + ' ppm of 1 atm', '');
+      kv('Molecule motion ξ', fmtLen(c.xi), 'rms · peak ' + fmtLen(c.xi * Math.SQRT2) + ' · ' + (c.xi / c.lam < 1e-4 ? (c.lam / c.xi).toExponential(1) + '× smaller than λ' : ''), 'warm');
+      kv('Molecule speed u', fmtVel(c.u), 'rms · ' + (c.u / c.m.c).toExponential(1) + ' of wave speed', 'warm');
+    }
+    elReadout.innerHTML = html;
+  }
+
+  // Drawn amplitude chosen as a strain k·A so the bunching is visible: louder → bigger squeeze
+  function visualStrain() {
+    return Math.max(0.12, Math.min(0.62, 0.12 + 0.5 * (state.db - 20) / 120));
+  }
+
+  function drawScene(c) {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var x0 = 58, x1 = W - 40;
+    var top = 34, bot = H * 0.62;
+    var span = x1 - x0;
+    var w = 2 * Math.PI * F_VIS;
+    var k = 2 * Math.PI * WAVES / span;
+    var cols = Math.max(24, Math.min(70, Math.round(span / (state.medium === 'air' ? 11 : 8))));
+    var sp = span / cols;
+    var A = c.ok ? visualStrain() / k : 0;
+    var t = state.tv;
+
+    // speaker
+    var cone = c.ok || state.medium === 'vacuum' ? 7 * Math.sin(w * t) * (A > 0 ? Math.min(1.4, A / 12) : 0.6) : 0;
+    ctx.fillStyle = '#39415e';
+    ctx.fillRect(12, (top + bot) / 2 - 40, 18, 80);
+    ctx.fillStyle = '#d7def2';
+    ctx.beginPath();
+    ctx.moveTo(30, (top + bot) / 2 - 24); ctx.lineTo(44 + cone, (top + bot) / 2 - 60); ctx.lineTo(44 + cone, (top + bot) / 2 + 60); ctx.lineTo(30, (top + bot) / 2 + 24); ctx.closePath();
+    ctx.globalAlpha = 0.35; ctx.fill(); ctx.globalAlpha = 1;
+    ctx.strokeStyle = '#d7def2'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(44 + cone, (top + bot) / 2 - 60); ctx.lineTo(44 + cone, (top + bot) / 2 + 60); ctx.stroke();
+    ctx.lineWidth = 1;
+    // ear
+    ctx.strokeStyle = 'rgba(215,222,242,0.5)';
+    ctx.beginPath(); ctx.arc(W - 16, (top + bot) / 2, 12, -Math.PI / 2, Math.PI / 2); ctx.stroke();
+
+    if (state.medium === 'vacuum') {
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.textAlign = 'center';
+      ctx.fillText('Vacuum: no molecules, so no sound', (x0 + x1) / 2, (top + bot) / 2);
+      ctx.font = FONT_MONO_11;
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText('the cone still moves, but there is nothing for it to push', (x0 + x1) / 2, (top + bot) / 2 + 22);
+      ctx.textAlign = 'left';
+    } else {
+      var rowH = (bot - top) / ROWS;
+      // pressure tint strips (warm = compression, cool = rarefaction)
+      if (!state.myth) {
+        for (var sx = x0; sx < x1; sx += 4) {
+          var pv = Math.cos(w * t - k * (sx + 2 - x0));
+          ctx.fillStyle = pv > 0 ? 'rgba(255,194,74,' + (0.13 * pv).toFixed(3) + ')' : 'rgba(94,200,229,' + (-0.09 * pv).toFixed(3) + ')';
+          ctx.fillRect(sx, top - 2, 4, bot - top + 4);
+        }
+      }
+      var tracerCols = [Math.round(cols * 0.2), Math.round(cols * 0.5), Math.round(cols * 0.8)];
+      var mythDrift = state.myth ? (t * 0.35 * span) % span : 0;
+      var dotR = state.medium === 'air' ? 2.2 : 2.6;
+      for (var r = 0; r < ROWS; r++) {
+        var y = top + (r + 0.5) * rowH;
+        for (var i = 0; i <= cols; i++) {
+          var j = jitter[(r * 97 + i) % jitter.length];
+          var home = x0 + i * sp + (state.medium === 'steel' ? 0 : j * sp * 0.3);
+          var x;
+          if (state.myth) { x = x0 + ((home - x0 + mythDrift) % span + span) % span; }
+          else x = home + field(A, k, w, home - x0, t);
+          var isTracer = r === Math.floor(ROWS / 2) && tracerCols.indexOf(i) >= 0;
+          if (isTracer) continue;
+          var yy = y + (state.medium === 'steel' ? 0 : jitter[(r * 131 + i * 7) % jitter.length] * rowH * 0.35);
+          ctx.fillStyle = state.medium === 'steel' ? 'rgba(200,210,230,0.75)' : state.medium === 'water' ? 'rgba(94,200,229,0.75)' : 'rgba(215,222,242,0.7)';
+          ctx.fillRect(x - dotR, yy - dotR, dotR * 2, dotR * 2);
+        }
+      }
+      // tracers
+      var ty = top + (Math.floor(ROWS / 2) + 0.5) * rowH;
+      tracerCols.forEach(function (ci, n) {
+        var home = x0 + ci * sp;
+        var x = state.myth ? x0 + ((home - x0 + mythDrift) % span + span) % span : home + field(A, k, w, home - x0, t);
+        // home bracket
+        ctx.strokeStyle = 'rgba(255,126,95,0.5)';
+        ctx.beginPath(); ctx.moveTo(home - A, ty + 12); ctx.lineTo(home - A, ty + 16); ctx.lineTo(home + A, ty + 16); ctx.lineTo(home + A, ty + 12); ctx.stroke();
+        ctx.fillStyle = '#ff7e5f';
+        ctx.beginPath(); ctx.arc(x, ty, 5, 0, Math.PI * 2); ctx.fill();
+        if (n === 0) {
+          ctx.font = FONT_MONO_10;
+          ctx.fillText(state.myth ? 'tracer drifts away ✗' : 'red tracers: stay home', home - 30, bot + 14);
+        }
+      });
+      // crest marker travelling (compression)
+      if (!state.myth) {
+        ctx.font = FONT_MONO_10;
+        var qb = Math.floor(w * t / (2 * Math.PI));
+        for (var q = qb - WAVES - 2; q <= qb + 1; q++) {
+          // compression where ∂ξ/∂x is most negative: cos(ωt − kx) = 1 → x = (ωt − 2πq)/k
+          var xc = x0 + (w * t - 2 * Math.PI * q) / k;
+          if (xc < x0 || xc > x1) continue;
+          ctx.fillStyle = '#ffc24a';
+          ctx.fillText('C', xc - 3, top - 6);
+          var xr = xc + Math.PI / k;
+          if (xr > x0 && xr < x1) { ctx.fillStyle = '#5ec8e5'; ctx.fillText('R', xr - 3, top - 6); }
+        }
+      }
+    }
+
+    // pressure graph
+    var gy0 = bot + 30, gy1 = H - 26, gm = (gy0 + gy1) / 2, gh = (gy1 - gy0) / 2 - 4;
+    ctx.strokeStyle = 'rgba(94,200,229,0.2)';
+    ctx.beginPath(); ctx.moveTo(x0, gm); ctx.lineTo(x1, gm); ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('pressure', 4, gm - 6);
+    ctx.fillText('p₀ ± ' + (c.p * Math.SQRT2 >= 1 ? (c.p * Math.SQRT2).toFixed(2) + ' Pa' : (c.p * Math.SQRT2 * 1000).toFixed(2) + ' mPa'), 4, gm + 14);
+    if (c.ok && !state.myth) {
+      ctx.strokeStyle = '#ffc24a'; ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (var px = 0; px <= 200; px++) {
+        var xx = x0 + span * px / 200;
+        var yv = gm - gh * Math.cos(w * t - k * (xx - x0));
+        if (px === 0) ctx.moveTo(xx, yv); else ctx.lineTo(xx, yv);
+      }
+      ctx.stroke(); ctx.lineWidth = 1;
+      // wavelength ruler
+      var lx0 = x0 + (w * t / k) % (2 * Math.PI / k);
+      var lx1 = lx0 + 2 * Math.PI / k;
+      if (lx1 > x1) { lx0 -= 2 * Math.PI / k; lx1 -= 2 * Math.PI / k; }
+      if (lx0 < x0) { lx0 += 2 * Math.PI / k; lx1 += 2 * Math.PI / k; }
+      if (lx1 <= x1) {
+        ctx.strokeStyle = 'rgba(215,222,242,0.6)';
+        ctx.beginPath(); ctx.moveTo(lx0, gy1 + 2); ctx.lineTo(lx1, gy1 + 2); ctx.moveTo(lx0, gy1 - 3); ctx.lineTo(lx0, gy1 + 7); ctx.moveTo(lx1, gy1 - 3); ctx.lineTo(lx1, gy1 + 7); ctx.stroke();
+        ctx.fillStyle = '#d7def2';
+        ctx.fillText('λ = ' + fmtLen(c.lam), (lx0 + lx1) / 2 - 30, gy1 + 16);
+      }
+    } else if (state.myth && c.ok) {
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('flying air would be a wind, not a pressure wave', x0 + 10, gm - 8);
+    }
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    if (c.ok) {
+      var exag = (A * (3 * c.lam / span)) / (c.xi * Math.SQRT2);
+      ctx.fillText('motion exaggerated ~' + exag.toExponential(0).replace('e+', '×10^') + ' · slowed', x0, 20);
+    }
+  }
+
+  function drawChart(c) {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var gx0 = 40, gx1 = W - 14, gy0 = H - 70, gy1 = 30;
+    var tSpan = 4; // drawn seconds on the time axis (≈ 2.4 cycles)
+    var w = 2 * Math.PI * F_VIS, k = 2 * Math.PI * WAVES / (gx1 - gx0);
+    ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+    ctx.beginPath(); ctx.moveTo(gx0, gy1); ctx.lineTo(gx0, gy0); ctx.lineTo(gx1, gy0); ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('position along the path →', gx1 - 150, gy0 + 14);
+    ctx.save(); ctx.translate(14, gy1 + 120); ctx.rotate(-Math.PI / 2); ctx.fillText('time (newest at top) →', 0, 0); ctx.restore();
+    if (!c.ok) {
+      ctx.fillStyle = '#ff7e5f';
+      ctx.font = FONT_MONO_11;
+      ctx.fillText('vacuum: no world-lines to draw', gx0 + 20, (gy0 + gy1) / 2);
+      return;
+    }
+    var t = state.tv;
+    function ty(tt) { return gy0 - (gy0 - gy1) * (tt - (t - tSpan)) / tSpan; }
+    // crest world-lines: x = (ωt − 2πq)/k → slope = c on this diagram
+    var span = gx1 - gx0;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(gx0, gy1, span, gy0 - gy1); ctx.clip();
+    ctx.strokeStyle = 'rgba(255,194,74,0.55)'; ctx.lineWidth = 1.5;
+    var ta = t - tSpan, tb = t;
+    var qb2 = Math.floor(w * tb / (2 * Math.PI));
+    for (var q = qb2 - 12; q <= qb2 + 2; q++) {
+      var xa = gx0 + (w * ta - 2 * Math.PI * q) / k, xb = gx0 + (w * tb - 2 * Math.PI * q) / k;
+      if (Math.max(xa, xb) < gx0 || Math.min(xa, xb) > gx1) continue;
+      ctx.beginPath(); ctx.moveTo(xa, ty(ta)); ctx.lineTo(xb, ty(tb)); ctx.stroke();
+    }
+    // tracer world-lines
+    var A = visualStrain() / k;
+    ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 2;
+    for (var n = 0; n < 3; n++) {
+      var home = gx0 + span * (0.2 + 0.3 * n);
+      var prevX = null;
+      ctx.beginPath();
+      for (var s = 0; s <= 120; s++) {
+        var tt = t - tSpan + tSpan * s / 120;
+        var x = state.myth ? gx0 + ((home - gx0 + tt * 0.35 * span) % span + span) % span : home + A * Math.sin(w * tt - k * (home - gx0));
+        var yv = ty(tt);
+        if (prevX === null || Math.abs(x - prevX) > span / 2) ctx.moveTo(x, yv); else ctx.lineTo(x, yv);
+        prevX = x;
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('wave crests: slanted = travelling at ' + c.m.c.toFixed(0) + ' m/s', gx0 + 4, gy0 + 32);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText(state.myth ? 'myth: molecules drift off with the sound ✗' : 'tracer molecules: wiggle, stay put (±' + fmtLen(c.xi * Math.SQRT2) + ')', gx0 + 4, gy0 + 50);
+  }
+
+  function render() {
+    var c = current();
+    renderReadout(c);
+    drawScene(c);
+    drawChart(c);
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.clock += dt;
+    if (state.playing) state.tv += dt;
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function setMedium(k) { state.medium = k; updateLabels(); updateTone(); }
+
+  elTone.addEventListener('click', function () {
+    if (state.toneOn) { stopTone(); state.toneOn = false; }
+    else { state.toneOn = startTone(); }
+    updateLabels();
+  });
+  elPlay.addEventListener('click', function () { state.playing = !state.playing; updateLabels(); });
+  elMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elF.addEventListener('input', function () { state.s = parseFloat(elF.value); state.f = freqFromSlider(state.s); updateLabels(); updateTone(); });
+  elDb.addEventListener('input', function () { state.db = parseFloat(elDb.value); updateLabels(); updateTone(); });
+  Object.keys(medChips).forEach(function (k) { medChips[k].addEventListener('click', function () { setMedium(k); }); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); elPlay.click(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  state.f = freqFromSlider(parseFloat(elF.value));
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__soundPhysics = {
+    P_REF: P_REF, MEDIA: MEDIA, F_MIN: F_MIN, F_MAX: F_MAX,
+    freqFromSlider: freqFromSlider, sliderFromFreq: sliderFromFreq, pressureRms: pressureRms, splFromPressure: splFromPressure,
+    hasMedium: hasMedium, wavelength: wavelength, impedance: impedance, particleVelocity: particleVelocity,
+    displacement: displacement, intensity: intensity, field: field, pressureField: pressureField
+  };
+})();
+</script>
+</body>
+</html>
