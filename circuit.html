@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why a Broken Circuit Kills the Bulb — Current Needs a Complete Loop (Series, Parallel, Drift Speed)</title>
+<meta name="description" content="Classroom circuit explainer: bulbs don’t use up current. It needs a complete loop; one cut stops it everywhere. Live ammeters + drift speed. NGSS MS-PS3.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="electric circuit, complete circuit, open circuit, current is not used up, series circuit, parallel circuit, ammeter, Ohm's law, electron drift velocity, misconception, classroom physics">
+<meta property="og:title" content="Why a Broken Circuit Kills the Bulb">
+<meta property="og:description" content="Current isn’t used up by the bulb and one wire isn’t enough. The same current flows in and out, and a single cut stops it everywhere at once. Live ammeters, series/parallel and drift speed for classrooms.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code { font-family: var(--mono); font-size: 12.5px; color: #8fd4e8; }
+
+@media (max-width: 1100px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 720px) {
+  .viz, .causes, .readout, .stats { grid-template-columns: 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+.lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+.btn.sw { background: rgba(255, 194, 74, 0.12); color: var(--sun2); border-color: rgba(255, 194, 74, 0.45); min-width: 118px; }
+#cvScene { cursor: crosshair; }
+.card canvas.tall { height: 430px; }
+@media (max-width: 720px) { .card canvas.tall { height: 340px; } }
+.chip[disabled] { opacity: 0.35; cursor: not-allowed; }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · electric circuits</a></p>
+  <h1>Why a broken circuit kills the bulb</h1>
+  <p class="lede">A battery doesn’t squirt electricity into a bulb to be used up. The wires and the filament are <strong>already full of free electrons</strong>. The battery pushes on all of them at once, but only if there is an <strong>unbroken loop</strong> from one terminal back to the other. Then the <strong>same current</strong> flows into the bulb and out of it; what the bulb takes is <strong>energy</strong>, not charge. Cut the loop anywhere and the current stops <strong>everywhere</strong>, almost instantly.</p>
+
+  <p class="try"><b>Try this</b>Click any wire in the circuit to cut it. Notice every ammeter drops to zero together, even the ones on the other side of the bulb from the cut.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn sw" id="btnSwitch" aria-pressed="true">Switch: closed</button>
+      <button type="button" class="btn" id="btnHeal">Repair all cuts</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: the bulb uses up current</button>
+    </div>
+    <div class="row">
+      <span class="lbl">Circuit</span>
+      <button type="button" class="chip on" id="modeSingle">1 bulb</button>
+      <button type="button" class="chip" id="modeSeries">2 in series</button>
+      <button type="button" class="chip" id="modeParallel">2 in parallel</button>
+      <span class="lbl">Cut</span>
+      <button type="button" class="chip" id="cutPlus" aria-pressed="false">+ wire</button>
+      <button type="button" class="chip" id="cutMid" aria-pressed="false">middle</button>
+      <button type="button" class="chip" id="cutMinus" aria-pressed="false">− wire</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Battery voltage <em id="vLabel">6.0 V</em></span>
+        <input type="range" id="volt" min="1.5" max="12" step="0.5" value="6" aria-label="Battery voltage in volts">
+      </label>
+      <label class="sl grow">
+        <span>Bulb 1 resistance <em id="r1Label">12 Ω</em></span>
+        <input type="range" id="r1" min="2" max="50" step="1" value="12" aria-label="Bulb 1 resistance in ohms">
+      </label>
+      <label class="sl grow">
+        <span>Bulb 2 resistance <em id="r2Label">12 Ω</em></span>
+        <input type="range" id="r2" min="2" max="50" step="1" value="12" aria-label="Bulb 2 resistance in ohms">
+      </label>
+    </div>
+    <div class="row">
+      <span class="lbl">Wire cross-section</span>
+      <button type="button" class="chip on" id="area05">0.5 mm²</button>
+      <button type="button" class="chip" id="area1">1 mm²</button>
+      <button type="button" class="chip" id="area25">2.5 mm²</button>
+      <span class="hint" id="modeHint"></span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Click a wire to cut it</b><span id="sceneMeta">dots = electrons</span></div>
+      <canvas id="cvScene" class="tall" width="760" height="430" aria-label="Circuit diagram with a battery, switch, one or two bulbs, ammeters and moving electrons; click a wire to cut or repair it"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Around the loop</b><span id="chartMeta">current · voltage</span></div>
+      <canvas id="cvChart" class="tall" width="520" height="430" aria-label="Bar chart of the current at each ammeter and a graph of voltage around the loop"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Charge goes round, it isn’t used up</h2>
+      <p>Charge is conserved and doesn’t pile up in a wire, so whatever flows into a bulb flows out of it. In a single loop the current is the same at every point: <code>I = V / R<sub>total</sub></code>. What the bulb takes is energy: each coulomb arrives with more volts than it leaves with, and the difference lights the filament.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>No loop, no push</h2>
+      <p>At a gap the electrons have nowhere to go. A tiny bit of charge piles up at the cut ends in about a nanosecond, and its field cancels the battery’s push inside the wire. The whole battery voltage then appears across the gap, and the current everywhere else is zero, including right next to the battery.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Fast signal, slow electrons</h2>
+      <p>Flip the switch and the push travels as an electromagnetic field at a large fraction of light speed, reaching a bulb in nanoseconds. The electrons themselves only drift at a fraction of a millimetre per second: <code>v<sub>d</sub> = I/(n·A·e)</code>. The bulb lights at once because the filament’s own electrons start moving.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“The bulb uses up current” · “one wire is enough”</h2>
+      <p>If bulbs used up current, the ammeter after a bulb would read less than the one before it, and a second bulb in series would glow dimmer than the first. Neither happens. And with only one wire (any cut), nothing lights. Turn on myth mode to see the “used up” readings the myth predicts next to the real ones.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Circuit reference numbers">
+    <div class="stat">
+      <div class="k">Ohm’s law</div>
+      <div class="v">I = V / R</div>
+      <div class="s">series: R₁ + R₂ · parallel: add currents</div>
+    </div>
+    <div class="stat">
+      <div class="k">Free electrons in copper</div>
+      <div class="v">8.5×10²⁸ /m³</div>
+      <div class="s">about one per atom</div>
+    </div>
+    <div class="stat">
+      <div class="k">Drift, 1 A in 1 mm²</div>
+      <div class="v">≈ 7.4×10⁻⁵ m/s</div>
+      <div class="s">0.074 mm/s · 1 m in ~3.8 h</div>
+    </div>
+    <div class="stat">
+      <div class="k">Switch-on signal</div>
+      <div class="v">~ns per metre</div>
+      <div class="s">field moves at ~⅔ c in cables</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong style="color:var(--text)">Ideal DC circuit.</strong> An ideal battery (no internal resistance), zero-resistance wires and ideal ammeters, solved with Ohm’s law and Kirchhoff’s rules. Single bulb <code>I = V/R₁</code>; series <code>I = V/(R₁ + R₂)</code>, <code>V₁ = I·R₁</code>, <code>V₁ + V₂ = V</code>; parallel <code>I₁ = V/R₁</code>, <code>I₂ = V/R₂</code>, main current <code>I₁ + I₂</code>. Real batteries have internal resistance (so adding a parallel bulb dims the others slightly) and real wires have a little resistance.</li>
+      <li><strong style="color:var(--text)">Bulbs are treated as fixed resistors.</strong> A real tungsten filament’s resistance is roughly 10–15× higher hot than cold, so its current is not strictly proportional to voltage, and there is an inrush surge at switch-on. Treat each slider value as the hot, glowing resistance (a 6 V, 3 W flashlight bulb is about 12 Ω hot). Brightness is drawn from power <code>P = I²R</code>.</li>
+      <li><strong style="color:var(--text)">Drift speed.</strong> <code>v<sub>d</sub> = I/(n·A·e)</code> with <code>n = 8.5×10²⁸ m⁻³</code> for copper (one free electron per atom), <code>e = 1.602×10⁻¹⁹ C</code>. Check: 1 A in 1 mm² gives <code>1/(8.5×10²⁸ × 10⁻⁶ × 1.602×10⁻¹⁹) ≈ 7.3×10⁻⁵ m/s</code>, about 0.07 mm/s. On top of this slow drift, the electrons also move randomly at ~10⁶ m/s (Fermi speed), which the drawing leaves out. The drawn dots are sped up enormously so you can see the flow.</li>
+      <li><strong style="color:var(--text)">How fast does the bulb react?</strong> The change in the field that pushes the electrons travels along the wires as an electromagnetic wave, at a sizeable fraction of <code>c</code> (about ⅔ c in typical cables), so a 1 m loop settles in a few nanoseconds (a little longer as the surface charges rearrange). The page shows this as instant.</li>
+      <li><strong style="color:var(--text)">Electrons vs conventional current.</strong> Dots are electrons, which drift from the battery’s − terminal around to its + terminal. Conventional current (arrows, what ammeters report) is defined the other way. Both describe the same flow.</li>
+      <li><strong style="color:var(--text)">Myth readings.</strong> The red “used up” numbers are not physics; they show what an ammeter <em>would</em> read if each bulb consumed half the current passing through it. Classroom ammeters show the real (equal) readings.</li>
+      <li><strong style="color:var(--text)">For teachers.</strong> Electric circuits, energy transfer and conservation (NGSS MS-PS2-3, MS-PS3-5, HS-PS3-1; UK KS3 current and potential difference). Name the misconceptions: “current is used up by the bulb”, “one wire from the battery is enough”, and “electrons race from the battery to the bulb.” Classic check: put ammeters on both sides of a bulb.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics (exported; checked by validate-circuit.js) =====
+  var N_CU = 8.5e28;          // free electrons per m³ in copper
+  var E_CHARGE = 1.602176634e-19; // C
+  var C_LIGHT = 299792458;    // m/s
+  var SIGNAL_FRACTION = 2 / 3; // typical cable velocity factor
+  var MYTH_KEEP = 0.5;        // fraction of current the myth says survives each bulb
+
+  // cuts: { plus, mid, minus, switchOpen }
+  function solve(V, R1, R2, mode, cuts) {
+    cuts = cuts || {};
+    var mainOpen = !!(cuts.plus || cuts.minus || cuts.switchOpen);
+    var out = { mode: mode, V: V, I: 0, I1: 0, I2: 0, V1: 0, V2: 0, Vgap: 0, P1: 0, P2: 0, Req: null, open: false, meters: [] };
+    if (mode === 'single') {
+      out.Req = R1;
+      if (mainOpen || cuts.mid) { out.open = true; out.Vgap = V; }
+      else { out.I = V / R1; out.I1 = out.I; }
+      out.V1 = out.I1 * R1;
+      out.meters = [{ key: 'A1', label: 'before bulb', I: out.I }, { key: 'A2', label: 'after bulb', I: out.I }];
+    } else if (mode === 'series') {
+      out.Req = R1 + R2;
+      if (mainOpen || cuts.mid) { out.open = true; out.Vgap = V; }
+      else { out.I = V / (R1 + R2); out.I1 = out.I; out.I2 = out.I; }
+      out.V1 = out.I1 * R1; out.V2 = out.I2 * R2;
+      out.meters = [{ key: 'A1', label: 'before bulb 1', I: out.I }, { key: 'A2', label: 'between bulbs', I: out.I }, { key: 'A3', label: 'after bulb 2', I: out.I }];
+    } else {
+      out.Req = R1 * R2 / (R1 + R2);
+      if (mainOpen) { out.open = true; out.Vgap = V; }
+      else {
+        out.I1 = V / R1;
+        out.I2 = cuts.mid ? 0 : V / R2;
+        if (cuts.mid) out.Vgap = V;
+        out.I = out.I1 + out.I2;
+      }
+      out.V1 = out.I1 * R1; out.V2 = out.I2 * R2;
+      out.meters = [{ key: 'A1', label: 'main (out)', I: out.I }, { key: 'A2', label: 'bulb 1 branch', I: out.I1 }, { key: 'A3', label: 'bulb 2 branch', I: out.I2 }, { key: 'A4', label: 'main (back)', I: out.I }];
+    }
+    out.P1 = out.I1 * out.I1 * R1;
+    out.P2 = mode === 'single' ? 0 : out.I2 * out.I2 * R2;
+    out.Pbatt = V * out.I;
+    return out;
+  }
+  // What the "current is used up" myth would show on each ammeter
+  function mythMeters(s) {
+    if (s.mode === 'single') return [s.I, s.I * MYTH_KEEP];
+    if (s.mode === 'series') return [s.I, s.I * MYTH_KEEP, s.I * MYTH_KEEP * MYTH_KEEP];
+    return [s.I, s.I1, s.I2, (s.I1 + s.I2) * MYTH_KEEP];
+  }
+  function driftVelocity(I, areaM2, n) {
+    return I / ((n || N_CU) * areaM2 * E_CHARGE);
+  }
+  function signalTime(lengthM) {
+    return lengthM / (SIGNAL_FRACTION * C_LIGHT);
+  }
+
+  // ===== Fonts cached outside draw loops =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_12 = '12px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_METER = '500 11px "IBM Plex Mono", ui-monospace, monospace';
+
+  var AREAS = { area05: 0.5e-6, area1: 1e-6, area25: 2.5e-6 };
+  var state = {
+    V: 6, R1: 12, R2: 12, mode: 'single', cuts: { plus: false, mid: false, minus: false, switchOpen: false },
+    areaKey: 'area05', myth: false, lastTs: 0, clock: 0, phase: {}
+  };
+  var geo = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var elSwitch = $('btnSwitch'), elHeal = $('btnHeal'), elMyth = $('chipMyth');
+  var modeChips = { single: $('modeSingle'), series: $('modeSeries'), parallel: $('modeParallel') };
+  var cutChips = { plus: $('cutPlus'), mid: $('cutMid'), minus: $('cutMinus') };
+  var areaChips = { area05: $('area05'), area1: $('area1'), area25: $('area25') };
+  var elV = $('volt'), elR1 = $('r1'), elR2 = $('r2'), elVL = $('vLabel'), elR1L = $('r1Label'), elR2L = $('r2Label');
+  var elHint = $('modeHint'), elReadout = $('readout'), elSceneMeta = $('sceneMeta'), elChartMeta = $('chartMeta');
+  var cvScene = $('cvScene');
+  var surfaces = {
+    scene: { canvas: cvScene, ctx: null, w: 0, h: 0, cssH: 430 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 430 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (!el) return;
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+
+  // ===== Geometry: polylines ordered in the conventional-current direction (+ terminal → − terminal) =====
+  function layout(W, H, mode) {
+    var L = 58, R = W - 56, T = 66, B = H - 52, mid = (T + B) / 2;
+    var g = { L: L, R: R, T: T, B: B, mid: mid, segs: [], bulbs: [], meters: [], batt: { x: L, y: mid } };
+    var bh = 22;
+    g.sw = { x: L, y: T + (mid - 30 - T) * 0.5 };
+    if (mode === 'single') {
+      g.segs.push({ cut: 'plus', flow: 'I', pts: [[L, mid - 30], [L, T], [R, T], [R, mid - bh]] });
+      g.segs.push({ cut: 'minus', flow: 'I', pts: [[R, mid + bh], [R, B], [L, B], [L, mid + 30]] });
+      g.bulbs.push({ x: R, y: mid, n: 1 });
+      g.meters.push({ x: (L + R) / 2, y: T }, { x: (L + R) / 2, y: B });
+    } else if (mode === 'series') {
+      var Xm = L + (R - L) * 0.5;
+      g.segs.push({ cut: 'plus', flow: 'I', pts: [[L, mid - 30], [L, T], [Xm - bh, T]] });
+      g.segs.push({ cut: 'mid', flow: 'I', pts: [[Xm + bh, T], [R, T], [R, mid - bh]] });
+      g.segs.push({ cut: 'minus', flow: 'I', pts: [[R, mid + bh], [R, B], [L, B], [L, mid + 30]] });
+      g.bulbs.push({ x: Xm, y: T, n: 1, horiz: true }, { x: R, y: mid, n: 2 });
+      g.meters.push({ x: L + (Xm - L) * 0.62, y: T }, { x: Xm + (R - Xm) * 0.5, y: T }, { x: Xm, y: B });
+    } else {
+      var Xj = L + (R - L) * 0.52;
+      g.segs.push({ cut: 'plus', flow: 'I', pts: [[L, mid - 30], [L, T], [Xj, T]] });
+      g.segs.push({ cut: null, flow: 'I1', pts: [[Xj, T], [R, T], [R, mid - bh]] });
+      g.segs.push({ cut: null, flow: 'I1', pts: [[R, mid + bh], [R, B], [Xj, B]] });
+      g.segs.push({ cut: 'mid', flow: 'I2', pts: [[Xj, T], [Xj, mid - bh]] });
+      g.segs.push({ cut: 'mid', flow: 'I2', pts: [[Xj, mid + bh], [Xj, B]], noCutMark: true });
+      g.segs.push({ cut: 'minus', flow: 'I', pts: [[Xj, B], [L, B], [L, mid + 30]] });
+      g.bulbs.push({ x: R, y: mid, n: 1 }, { x: Xj, y: mid, n: 2 });
+      g.meters.push({ x: L + (Xj - L) * 0.62, y: T }, { x: Xj + (R - Xj) * 0.5, y: T }, { x: Xj, y: T + (mid - bh - T) * 0.5 }, { x: L + (Xj - L) * 0.62, y: B });
+      g.junctions = [[Xj, T], [Xj, B]];
+    }
+    g.segs.forEach(function (s, i) {
+      s.id = i;
+      s.lens = []; s.len = 0;
+      for (var k = 1; k < s.pts.length; k++) { var d = Math.hypot(s.pts[k][0] - s.pts[k - 1][0], s.pts[k][1] - s.pts[k - 1][1]); s.lens.push(d); s.len += d; }
+      s.cutAt = pointAt(s, s.cut === 'plus' ? 0.72 : s.cut === 'minus' ? 0.45 : 0.5);
+    });
+    return g;
+  }
+  function pointAt(s, f) {
+    var d = f * s.len;
+    for (var k = 0; k < s.lens.length; k++) {
+      if (d <= s.lens[k] || k === s.lens.length - 1) {
+        var u = s.lens[k] > 0 ? Math.min(1, d / s.lens[k]) : 0;
+        return [s.pts[k][0] + (s.pts[k + 1][0] - s.pts[k][0]) * u, s.pts[k][1] + (s.pts[k + 1][1] - s.pts[k][1]) * u];
+      }
+      d -= s.lens[k];
+    }
+    return s.pts[0];
+  }
+  function distToSeg(px, py, s) {
+    var best = 1e9;
+    for (var k = 1; k < s.pts.length; k++) {
+      var ax = s.pts[k - 1][0], ay = s.pts[k - 1][1], bx = s.pts[k][0], by = s.pts[k][1];
+      var dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy;
+      var u = l2 > 0 ? Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / l2)) : 0;
+      best = Math.min(best, Math.hypot(px - ax - u * dx, py - ay - u * dy));
+    }
+    return best;
+  }
+
+  function current() {
+    var s = solve(state.V, state.R1, state.R2, state.mode, state.cuts);
+    var area = AREAS[state.areaKey];
+    s.area = area;
+    s.vd = driftVelocity(s.I, area);
+    s.vd1 = driftVelocity(s.I1, area);
+    s.myth = mythMeters(s);
+    return s;
+  }
+
+  function fmtA(I) { return I >= 1 ? I.toFixed(2) + ' A' : (I * 1000).toFixed(0) + ' mA'; }
+  function fmtDur(sec) {
+    if (!isFinite(sec)) return '∞ (no current)';
+    if (sec < 120) return sec.toFixed(0) + ' s';
+    if (sec < 7200) return (sec / 60).toFixed(0) + ' min';
+    if (sec < 172800) return (sec / 3600).toFixed(1) + ' h';
+    return (sec / 86400).toFixed(1) + ' days';
+  }
+
+  function updateLabels() {
+    elVL.textContent = state.V.toFixed(1) + ' V';
+    elR1L.textContent = state.R1.toFixed(0) + ' Ω';
+    elR2L.textContent = state.R2.toFixed(0) + ' Ω' + (state.mode === 'single' ? ' (unused)' : '');
+    elR2.disabled = state.mode === 'single';
+    Object.keys(modeChips).forEach(function (k) { setChip(modeChips[k], k === state.mode); });
+    Object.keys(cutChips).forEach(function (k) { setChip(cutChips[k], !!state.cuts[k]); });
+    cutChips.mid.disabled = state.mode === 'single';
+    cutChips.mid.textContent = state.mode === 'parallel' ? 'bulb 2 branch' : 'middle';
+    Object.keys(areaChips).forEach(function (k) { setChip(areaChips[k], k === state.areaKey); });
+    setChip(elMyth, state.myth);
+    elSwitch.textContent = state.cuts.switchOpen ? 'Switch: open' : 'Switch: closed';
+    elSwitch.setAttribute('aria-pressed', state.cuts.switchOpen ? 'false' : 'true');
+    var s = current();
+    elSceneMeta.textContent = 'dots = electrons';
+    elChartMeta.textContent = state.myth ? 'real vs “used up” myth' : 'current · voltage';
+    if (state.myth) elHint.textContent = 'Myth mode: red numbers are what “the bulb uses up current” predicts. Real ammeters read the same before and after every bulb.';
+    else if (s.open) elHint.textContent = 'Open circuit: 0 A everywhere. The full ' + state.V.toFixed(1) + ' V now sits across the gap.';
+    else if (state.mode === 'parallel' && state.cuts.mid) elHint.textContent = 'Only bulb 2’s branch is cut: bulb 1 still has its own complete loop through the battery.';
+    else elHint.textContent = 'Complete loop. Try the cut chips, or click directly on a wire.';
+  }
+
+  function renderReadout(s) {
+    var html = '';
+    function kv(k, v, sub, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + sub + '</div></div>';
+    }
+    var meters = s.meters.map(function (m) { return m.key + ' ' + fmtA(m.I); }).join(' · ');
+    kv('Ammeters', s.open ? '0 A everywhere' : (state.mode === 'parallel' ? fmtA(s.I) + ' main' : fmtA(s.I) + ' at every one'), meters, s.open ? 'warm' : '');
+    if (state.mode === 'single') kv('Voltages', 'bulb ' + s.V1.toFixed(2) + ' V', s.open ? 'gap ' + s.Vgap.toFixed(1) + ' V (the whole battery)' : '= battery ' + state.V.toFixed(1) + ' V', 'sun');
+    else if (state.mode === 'series') kv('Voltages', s.V1.toFixed(2) + ' + ' + s.V2.toFixed(2) + ' V', s.open ? 'gap ' + s.Vgap.toFixed(1) + ' V' : 'bulbs share the battery’s ' + state.V.toFixed(1) + ' V', 'sun');
+    else kv('Voltages', s.V1.toFixed(2) + ' V · ' + s.V2.toFixed(2) + ' V', s.Vgap > 0 ? 'gap ' + s.Vgap.toFixed(1) + ' V' : 'each branch gets the full battery', 'sun');
+    kv('Power (brightness)', (s.P1 + s.P2).toFixed(2) + ' W', 'bulb 1 ' + s.P1.toFixed(2) + ' W' + (state.mode === 'single' ? '' : ' · bulb 2 ' + s.P2.toFixed(2) + ' W') + ' · battery ' + s.Pbatt.toFixed(2) + ' W', '');
+    kv('Electron drift', s.I > 0 ? (s.vd * 1000).toFixed(3) + ' mm/s' : '0', 'I/(nAe) in ' + (s.area * 1e6).toFixed(1) + ' mm² copper · 1 m takes ' + fmtDur(1 / s.vd), 'warm');
+    kv('“Go” signal, 1 m', (signalTime(1) * 1e9).toFixed(1) + ' ns', 'field at ~⅔ c · vs electron trip ' + fmtDur(1 / s.vd), '');
+    elReadout.innerHTML = html;
+  }
+
+  function flowOf(s, seg) { return seg.flow === 'I1' ? s.I1 : seg.flow === 'I2' ? s.I2 : s.I; }
+
+  function drawBulb(ctx, b, P, broken) {
+    var glow = 1 - Math.exp(-P / 1.2);
+    if (glow > 0.01) {
+      var gr = ctx.createRadialGradient(b.x, b.y, 2, b.x, b.y, 18 + 40 * glow);
+      gr.addColorStop(0, 'rgba(255,214,120,' + (0.85 * glow).toFixed(3) + ')');
+      gr.addColorStop(1, 'rgba(255,194,74,0)');
+      ctx.fillStyle = gr;
+      ctx.beginPath(); ctx.arc(b.x, b.y, 18 + 40 * glow, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.fillStyle = glow > 0.01 ? 'rgba(255,230,160,' + (0.25 + 0.7 * glow).toFixed(3) + ')' : '#1a2140';
+    ctx.strokeStyle = '#d7def2';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(b.x, b.y, 17, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    // filament
+    ctx.strokeStyle = glow > 0.01 ? '#fff4d0' : '#8b93ad';
+    ctx.beginPath();
+    if (b.horiz) { ctx.moveTo(b.x - 17, b.y); for (var i = 0; i <= 6; i++) ctx.lineTo(b.x - 9 + i * 3, b.y + (i % 2 ? -5 : 5)); ctx.lineTo(b.x + 17, b.y); }
+    else { ctx.moveTo(b.x, b.y - 17); for (var j = 0; j <= 6; j++) ctx.lineTo(b.x + (j % 2 ? -5 : 5), b.y - 9 + j * 3); ctx.lineTo(b.x, b.y + 17); }
+    ctx.stroke();
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('bulb ' + b.n, b.horiz ? b.x - 18 : b.x - 60, b.horiz ? b.y + 32 : b.y + 4);
+  }
+
+  function drawScene(s) {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    geo = layout(W, H, state.mode);
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    var g = geo;
+
+    // wires
+    g.segs.forEach(function (seg) {
+      var I = flowOf(s, seg);
+      ctx.strokeStyle = I > 0 ? 'rgba(94,200,229,0.75)' : 'rgba(139,147,173,0.55)';
+      ctx.lineWidth = 3 + (state.areaKey === 'area25' ? 2 : state.areaKey === 'area1' ? 1 : 0);
+      ctx.beginPath();
+      seg.pts.forEach(function (p, k) { if (k === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]); });
+      ctx.stroke();
+    });
+    ctx.lineWidth = 1;
+    // electrons: evenly spaced, drifting against conventional current
+    var spacing = 16;
+    g.segs.forEach(function (seg) {
+      var I = flowOf(s, seg);
+      var ph = state.phase[seg.flow] || 0;
+      ctx.fillStyle = I > 0 ? '#5ec8e5' : 'rgba(94,200,229,0.45)';
+      for (var d = ((-ph % spacing) + spacing) % spacing; d < seg.len; d += spacing) {
+        var p = pointAt(seg, d / seg.len);
+        ctx.beginPath(); ctx.arc(p[0], p[1], 2.2, 0, Math.PI * 2); ctx.fill();
+      }
+    });
+    // conventional current arrows
+    g.segs.forEach(function (seg) {
+      var I = flowOf(s, seg);
+      if (!(I > 0)) return;
+      var a = pointAt(seg, 0.25), b = pointAt(seg, 0.27);
+      var ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
+      ctx.fillStyle = '#ffc24a';
+      ctx.beginPath();
+      ctx.moveTo(a[0] + Math.cos(ang) * 7, a[1] + Math.sin(ang) * 7);
+      ctx.lineTo(a[0] + Math.cos(ang + 2.5) * 7, a[1] + Math.sin(ang + 2.5) * 7);
+      ctx.lineTo(a[0] + Math.cos(ang - 2.5) * 7, a[1] + Math.sin(ang - 2.5) * 7);
+      ctx.fill();
+    });
+    if (g.junctions) { ctx.fillStyle = '#d7def2'; g.junctions.forEach(function (j) { ctx.beginPath(); ctx.arc(j[0], j[1], 4, 0, Math.PI * 2); ctx.fill(); }); }
+
+    // cuts
+    g.segs.forEach(function (seg) {
+      if (!seg.cut || seg.noCutMark || !state.cuts[seg.cut]) return;
+      var p = seg.cutAt;
+      ctx.fillStyle = '#0a1028';
+      ctx.fillRect(p[0] - 9, p[1] - 9, 18, 18);
+      ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(p[0] - 7, p[1] - 7); ctx.lineTo(p[0] + 7, p[1] + 7); ctx.moveTo(p[0] + 7, p[1] - 7); ctx.lineTo(p[0] - 7, p[1] + 7); ctx.stroke();
+      ctx.lineWidth = 1;
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('cut · ' + s.Vgap.toFixed(1) + ' V across gap', Math.min(W - 150, p[0] + 12), p[1] + (p[1] > g.mid ? -12 : 22));
+    });
+
+    // battery
+    var bx = g.batt.x, by = g.batt.y;
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(bx - 22, by - 30, 44, 60);
+    ctx.strokeStyle = '#d7def2'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(bx - 18, by - 8); ctx.lineTo(bx + 18, by - 8); ctx.stroke();
+    ctx.lineWidth = 6;
+    ctx.beginPath(); ctx.moveTo(bx - 9, by + 6); ctx.lineTo(bx + 9, by + 6); ctx.stroke();
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(bx, by - 30); ctx.lineTo(bx, by - 8); ctx.moveTo(bx, by + 6); ctx.lineTo(bx, by + 30); ctx.stroke();
+    ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_12;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('+', bx + 22, by - 10);
+    ctx.fillText('−', bx + 22, by + 12);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText(state.V.toFixed(1) + ' V', bx - 50, by + 4);
+    // switch
+    var sw = g.sw;
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(sw.x - 6, sw.y - 14, 12, 28);
+    ctx.strokeStyle = state.cuts.switchOpen ? '#ff7e5f' : '#d7def2';
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(sw.x, sw.y + 12);
+    if (state.cuts.switchOpen) ctx.lineTo(sw.x - 14, sw.y - 10); else ctx.lineTo(sw.x, sw.y - 12);
+    ctx.stroke(); ctx.lineWidth = 1;
+    ctx.fillStyle = '#d7def2';
+    ctx.beginPath(); ctx.arc(sw.x, sw.y + 12, 2.5, 0, Math.PI * 2); ctx.arc(sw.x, sw.y - 12, 2.5, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = state.cuts.switchOpen ? '#ff7e5f' : '#8b93ad';
+    ctx.fillText(state.cuts.switchOpen ? 'switch open' : 'switch', sw.x + 10, sw.y + 4);
+
+    // bulbs
+    g.bulbs.forEach(function (b) { drawBulb(ctx, b, b.n === 1 ? s.P1 : s.P2); });
+
+    // ammeters
+    ctx.font = FONT_METER;
+    g.meters.forEach(function (m, i) {
+      var mtr = s.meters[i];
+      if (!mtr) return;
+      ctx.fillStyle = '#10162e';
+      ctx.strokeStyle = 'rgba(94,200,229,0.7)';
+      ctx.beginPath(); ctx.arc(m.x, m.y, 12, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('A', m.x - 4, m.y + 4);
+      var above = m.y <= g.mid;
+      var vert = Math.abs(m.x - g.L) > 1 && Math.abs(m.y - g.T) > 1 && Math.abs(m.y - g.B) > 1;
+      var tx = vert ? m.x + 16 : m.x - 26, tyy = vert ? m.y + 4 : (above ? m.y - 18 : m.y + 28);
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(mtr.key + ' ' + fmtA(mtr.I), tx, tyy);
+      if (state.myth) {
+        var mv = s.myth[i];
+        ctx.fillStyle = '#ff7e5f';
+        ctx.fillText('myth ' + fmtA(mv) + (Math.abs(mv - mtr.I) > 1e-9 ? ' ✗' : ''), tx, tyy + (vert ? 14 : (above ? -13 : 13)));
+      }
+    });
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText('dots = electrons (sped up) · arrows = current', 12, 16);
+  }
+
+  function drawChart(s) {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028';
+    ctx.fillRect(0, 0, W, H);
+    // ---- ammeter bars ----
+    var n = s.meters.length;
+    var x0 = 40, x1 = W - 14, y0 = H * 0.47, y1 = 36;
+    var Imax = Math.max(0.1, s.I, s.I1, s.I2) * 1.25;
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Current at each ammeter', 14, 20);
+    ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+    ctx.beginPath(); ctx.moveTo(x0, y1); ctx.lineTo(x0, y0); ctx.lineTo(x1, y0); ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(fmtA(Imax), 2, y1 + 4);
+    ctx.fillText('0', x0 - 12, y0 + 3);
+    var bw = (x1 - x0) / n;
+    for (var i = 0; i < n; i++) {
+      var I = s.meters[i].I;
+      var h = (y0 - y1) * I / Imax;
+      var bx = x0 + i * bw + bw * 0.2;
+      ctx.fillStyle = 'rgba(94,200,229,0.75)';
+      ctx.fillRect(bx, y0 - h, bw * 0.6, h);
+      if (state.myth) {
+        var mh = (y0 - y1) * s.myth[i] / Imax;
+        ctx.strokeStyle = '#ff7e5f'; ctx.setLineDash([4, 3]); ctx.lineWidth = 1.5;
+        ctx.strokeRect(bx + bw * 0.1, y0 - mh, bw * 0.4, mh);
+        ctx.setLineDash([]); ctx.lineWidth = 1;
+      }
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText(s.meters[i].key, bx, y0 + 13);
+      ctx.fillStyle = '#8b93ad';
+      ctx.fillText(s.meters[i].label.length > 12 && bw < 90 ? s.meters[i].label.slice(0, 11) + '…' : s.meters[i].label, bx - 4, y0 + 25);
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText(fmtA(I), bx, y0 - h - 5);
+    }
+    if (state.myth) { ctx.fillStyle = '#ff7e5f'; ctx.fillText('dashed red: “used up” myth', x1 - 170, 20); }
+
+    // ---- voltage around the loop (energy per coulomb) ----
+    var gy0 = H - 34, gy1 = H * 0.58 + 16, gx0 = 40, gx1 = W - 14;
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Voltage going round the loop (from − terminal)', 14, H * 0.58);
+    ctx.strokeStyle = 'rgba(94,200,229,0.25)';
+    ctx.beginPath(); ctx.moveTo(gx0, gy1); ctx.lineTo(gx0, gy0); ctx.lineTo(gx1, gy0); ctx.stroke();
+    function vy(v) { return gy0 - (gy0 - gy1) * v / Math.max(1e-9, state.V); }
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(state.V.toFixed(1) + 'V', 4, gy1 + 4);
+    ctx.fillText('0', gx0 - 12, gy0 + 3);
+    // stops along the loop: battery rise, wire, bulb drop(s), wire, (gap)
+    var pts = [], labels = [];
+    var seg = (gx1 - gx0) / 8;
+    function P(x, v) { pts.push([gx0 + x * seg, vy(v)]); }
+    P(0, 0); P(1, state.V); labels.push([0.5, 'battery']);
+    if (state.mode === 'series') {
+      var afterWire = state.V; // ideal wire: no drop
+      P(2.5, afterWire); P(3.5, afterWire - s.V1); labels.push([3, 'bulb 1']);
+      P(4.5, afterWire - s.V1); P(5.5, afterWire - s.V1 - s.V2); labels.push([5, 'bulb 2']);
+      if (s.open) { P(6.5, s.V - s.V1 - s.V2); P(7, 0); labels.push([6.8, 'gap']); }
+      P(8, 0);
+    } else {
+      var V1 = s.V1;
+      P(3, state.V); P(4, state.V - V1); labels.push([3.5, 'bulb 1']);
+      if (s.open) { P(6, state.V - V1); P(6.5, 0); labels.push([6.2, 'gap']); }
+      P(8, 0);
+    }
+    ctx.strokeStyle = '#ffc24a'; ctx.lineWidth = 2;
+    ctx.beginPath(); pts.forEach(function (p, k) { if (k === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]); }); ctx.stroke();
+    ctx.lineWidth = 1;
+    if (state.mode === 'parallel') {
+      ctx.strokeStyle = 'rgba(94,200,229,0.8)'; ctx.setLineDash([5, 4]); ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(gx0 + seg, vy(state.V)); ctx.lineTo(gx0 + 3 * seg, vy(state.V)); ctx.lineTo(gx0 + 4 * seg, vy(state.V - s.V2)); ctx.lineTo(gx0 + (s.Vgap > 0 && !s.open ? 6 : 8) * seg, vy(state.V - s.V2));
+      if (s.Vgap > 0 && !s.open) { ctx.lineTo(gx0 + 6.5 * seg, vy(0)); ctx.lineTo(gx0 + 8 * seg, vy(0)); }
+      ctx.stroke(); ctx.setLineDash([]); ctx.lineWidth = 1;
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('dashed: through bulb 2', gx0 + 4.4 * seg, gy1 + 12);
+    }
+    ctx.fillStyle = '#8b93ad';
+    labels.forEach(function (l) { ctx.fillText(l[1], gx0 + l[0] * seg - 16, gy0 + 13); });
+    ctx.fillStyle = 'rgba(168,176,200,0.85)';
+    ctx.fillText('battery lifts each coulomb; bulbs take the energy', 14, H - 8);
+  }
+
+  function render() {
+    var s = current();
+    renderReadout(s);
+    drawScene(s);
+    drawChart(s);
+  }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.clock += dt;
+    var s = current();
+    // visual drift speed ∝ current density (same wire everywhere), capped; electrons move against conventional current
+    ['I', 'I1', 'I2'].forEach(function (k) {
+      var I = k === 'I1' ? s.I1 : k === 'I2' ? s.I2 : s.I;
+      var v = Math.min(140, 90 * I / (AREAS[state.areaKey] * 1e6)) ;
+      state.phase[k] = (state.phase[k] || 0) + v * dt;
+      if (state.phase[k] > 1e6) state.phase[k] -= 1e6;
+    });
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function toggleCut(k) {
+    if (k === 'mid' && state.mode === 'single') return;
+    state.cuts[k] = !state.cuts[k];
+    updateLabels();
+  }
+  function setMode(m) {
+    state.mode = m;
+    if (m === 'single') state.cuts.mid = false;
+    updateLabels();
+  }
+
+  elSwitch.addEventListener('click', function () { state.cuts.switchOpen = !state.cuts.switchOpen; updateLabels(); });
+  elHeal.addEventListener('click', function () { state.cuts.plus = state.cuts.mid = state.cuts.minus = false; updateLabels(); });
+  elMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  Object.keys(modeChips).forEach(function (k) { modeChips[k].addEventListener('click', function () { setMode(k); }); });
+  Object.keys(cutChips).forEach(function (k) { cutChips[k].addEventListener('click', function () { toggleCut(k); }); });
+  Object.keys(areaChips).forEach(function (k) { areaChips[k].addEventListener('click', function () { state.areaKey = k; updateLabels(); }); });
+  elV.addEventListener('input', function () { state.V = parseFloat(elV.value); updateLabels(); });
+  elR1.addEventListener('input', function () { state.R1 = parseFloat(elR1.value); updateLabels(); });
+  elR2.addEventListener('input', function () { state.R2 = parseFloat(elR2.value); updateLabels(); });
+  cvScene.addEventListener('pointerdown', function (e) {
+    if (!geo) return;
+    var rect = cvScene.getBoundingClientRect();
+    var x = e.clientX - rect.left, y = e.clientY - rect.top;
+    var sw = geo.sw;
+    if (Math.hypot(x - sw.x, y - sw.y) < 16) { state.cuts.switchOpen = !state.cuts.switchOpen; updateLabels(); return; }
+    var best = null, bd = 14;
+    geo.segs.forEach(function (seg) { if (!seg.cut) return; var d = distToSeg(x, y, seg); if (d < bd) { bd = d; best = seg; } });
+    if (best) toggleCut(best.cut);
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  // Optional deep links, e.g. circuit.html#parallel or #series,myth,cut
+  try {
+    var hash = (window.location && window.location.hash) || '';
+    if (/series/.test(hash)) state.mode = 'series';
+    if (/parallel/.test(hash)) state.mode = 'parallel';
+    if (/myth/.test(hash)) state.myth = true;
+    if (/cut/.test(hash)) state.cuts.minus = true;
+  } catch (e) {}
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__circuitPhysics = {
+    N_CU: N_CU, E_CHARGE: E_CHARGE, C_LIGHT: C_LIGHT, SIGNAL_FRACTION: SIGNAL_FRACTION, MYTH_KEEP: MYTH_KEEP,
+    solve: solve, mythMeters: mythMeters, driftVelocity: driftVelocity, signalTime: signalTime, layout: layout
+  };
+})();
+</script>
+</body>
+</html>
