@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Batteries Don’t Store Electricity — A Battery Is an Energy Pump | Classroom</title>
+<meta name="description" content="Classroom battery sim: a battery stores chemical energy and pumps charges already in the wire. Net charge stays zero; an AA holds ~3.75 Wh, not electrons.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="do batteries store electricity, battery misconception, chemical energy, electron flow, mAh meaning, watt hours, battery capacity, drift velocity, AA battery energy, classroom physics, electric circuits">
+<link rel="canonical" href="battery.html">
+<meta property="og:title" content="Why Batteries Don’t Store Electricity">
+<meta property="og:description" content="A battery isn’t a tank of electrons. It’s a chemical energy pump that pushes charges already in the wire around a loop. Watch the energy leave while net charge stays zero.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 430px; }
+@media (max-width: 720px) { .card canvas { height: 340px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · energy &amp; circuits</a></p>
+  <h1>Why batteries don’t store electricity</h1>
+  <p class="lede">It’s natural to picture a battery as a tank of electrons that drains into the bulb. It isn’t. The wires are <strong>already full of mobile electrons</strong>. A battery is a <strong>chemical energy pump</strong>: its reactions push those electrons around the loop, and every electron that leaves one terminal is matched by one arriving at the other. So the battery’s <strong>net charge stays zero</strong>. What runs out is <strong>chemical energy</strong>, about <strong>3.75 Wh</strong> in an AA cell.</p>
+
+  <p class="try"><b>Try this</b>Set the speed to <strong>1 hour / s</strong> and press <strong>▶ Run</strong>. Notice the battery’s net charge stays at 0 C the whole time, even as its chemical energy runs down to empty.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false">▶ Run</button>
+      <button type="button" class="btn" id="btnReset">New battery</button>
+      <span class="hint">Speed</span>
+      <button type="button" class="chip" id="w1" aria-pressed="false">real time</button>
+      <button type="button" class="chip" id="w60" aria-pressed="false">1 min / s</button>
+      <button type="button" class="chip on" id="w3600" aria-pressed="true">1 hour / s</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: a battery is a tank of electrons</button>
+    </div>
+    <div class="row">
+      <span class="hint">Battery</span>
+      <button type="button" class="chip on" id="bAA" aria-pressed="true">AA alkaline · 1.5 V</button>
+      <button type="button" class="chip" id="b9V" aria-pressed="false">9 V alkaline</button>
+      <button type="button" class="chip" id="bLi" aria-pressed="false">Li-ion 18650 · 3.7 V</button>
+      <label class="sl grow">
+        <span>Load resistance <em id="rLabel">4.9 Ω · flashlight bulb</em></span>
+        <input type="range" id="rLoad" min="0" max="100" step="1" value="30" aria-label="Resistance of the load connected to the battery, logarithmic scale from 0.5 to 1000 ohms">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint">Electrons drift slowly, but energy reaches the bulb almost instantly.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>The loop</b><span id="sceneMeta">electron motion not to scale</span></div>
+      <canvas id="cvLoop" width="760" height="430" aria-label="A battery connected to a bulb by wires; electrons already in the wire circulate around the loop while energy flows from the battery to the bulb"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Where the energy goes</b><span id="chartMeta">at this load</span></div>
+      <canvas id="cvChart" width="480" height="430" aria-label="Graph of chemical energy remaining and energy delivered over time, and usable capacity against current"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>The charges are already there</h2>
+      <p>Copper has about <code>8.5×10²⁸</code> free electrons per cubic meter. Just 30 cm of ordinary hook-up wire holds about <code>10²²</code> of them before you connect anything. Close the switch and they all start drifting together, like a bike chain. Nothing has to travel from the battery to the bulb first.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>The battery is a pump, not a tank</h2>
+      <p>Chemical reactions at the two electrodes push electrons out of the <code>−</code> terminal and take the same number back in at <code>+</code>, every second. Each coulomb gets <code>V</code> joules of energy (1.5 J for an AA), which it gives up in the bulb. Net charge in the battery stays zero.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>mAh counts charge pumped, Wh counts energy</h2>
+      <p>“2500 mAh” means the cell can push 2.5 A for an hour (9000 C) <em>through</em> the circuit before its chemicals run out. The stored thing is energy: <code>2.5 Ah × 1.5 V = 3.75 Wh = 13.5 kJ</code>. Drain it hard and less is usable.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“A battery is a tank of electrons that empties into the bulb”</h2>
+      <p>If it were, the bulb and wires would fill with extra electrons. 9000 C piled on a bulb would put it at an absurd ~10¹⁵ volts, and a “dead” battery would be strongly charged. Neither happens. A dead battery has the same electrons it started with. Its chemicals are just used up. Toggle the myth to see the tank picture fail.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Battery numbers">
+    <div class="stat">
+      <div class="k">AA alkaline energy</div>
+      <div class="v">≈ 3.75 Wh</div>
+      <div class="s">2500 mAh × 1.5 V · 13.5 kJ</div>
+    </div>
+    <div class="stat">
+      <div class="k">1 ampere</div>
+      <div class="v">6.24×10¹⁸ e/s</div>
+      <div class="s">1 C/s ÷ 1.602×10⁻¹⁹ C</div>
+    </div>
+    <div class="stat">
+      <div class="k">Electron drift speed</div>
+      <div class="v">≈ 0.04 mm/s</div>
+      <div class="s">0.3 A in 0.5 mm² copper</div>
+    </div>
+    <div class="stat">
+      <div class="k">Net charge in a battery</div>
+      <div class="v">0 C</div>
+      <div class="s">full, half, or dead</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Circuit.</strong> An ideal EMF with internal resistance r driving a resistive load R: <code>I = ε/(R + r)</code>. Power to the load is <code>I²R</code>, heat inside the battery is <code>I²r</code>, and the chemical energy used is <code>ε·I·t</code>, their sum. The validator checks this energy balance. Electrons per second = <code>I/e</code>, with e = 1.602176634×10⁻¹⁹ C.</li>
+      <li><strong>Battery presets</strong> (typical, approximate): AA alkaline ε 1.5 V, r ≈ 0.15 Ω, 2500 mAh at light drain. 9 V alkaline ε 9 V, r ≈ 1.7 Ω, 550 mAh. Li-ion 18650 ε 3.7 V (nominal), r ≈ 0.05 Ω, 3000 mAh. “Chemical energy” is nominal voltage × rated capacity: 3.75, 4.95 and 11.1 Wh.</li>
+      <li><strong>Capacity depends on drain.</strong> Alkaline cells deliver far less charge at high current. We use a Peukert-style curve, <code>C<sub>eff</sub> = C·(I<sub>ref</sub>/I)<sup>k−1</sup></code> above I<sub>ref</sub>. AA: I<sub>ref</sub> 100 mA, k 1.3. 9 V: 25 mA, 1.2. Li-ion: 600 mA, 1.05. This is a rough fit to typical datasheet curves (an AA gives about 1.2–1.5 Ah at 0.5–1 A). Real capacity also depends on cutoff voltage, temperature and rest periods.</li>
+      <li><strong>Constant voltage simplification.</strong> We hold ε fixed until empty. A real alkaline cell sags from about 1.6 V to about 0.9 V as it discharges, and Li-ion goes from 4.2 V to 3.0 V. We also skip self-discharge.</li>
+      <li><strong>Drift speed</strong> <code>v = I/(n·A·e)</code> with n = 8.49×10²⁸ m⁻³ for copper and a 0.5 mm² wire. Electrons crawl at fractions of a millimeter per second, but the electric field that sets them all moving spreads through the circuit at a large fraction of light speed. That’s why the bulb lights instantly.</li>
+      <li><strong>Drawing.</strong> Dot speed is scaled logarithmically with current so it stays visible. The dots stand for a tiny sample of the ~10²² mobile electrons. Myth mode shows what the tank picture would predict and is deliberately wrong. Its voltage figure treats the piled-up charge as sitting on a 1 cm sphere, <code>V = kQ/r</code>.</li>
+      <li><strong>For teachers.</strong> Energy transfer in circuits (MS-PS3, HS-PS3-1, HS-PS3-3), conservation of charge. Pairs with the broken-circuit explainer (why the path must be closed). This page is about what a battery stores. A good discussion question: why does a battery’s “mAh” rating tell you nothing about energy unless you also know the voltage?</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-battery.js =====
+  var E_CHARGE = 1.602176634e-19, N_CU = 8.49e28, WIRE_A = 0.5e-6, K_E = 8.9875517923e9;
+  var TYPES = {
+    aa: { key: 'aa', label: 'AA alkaline', emf: 1.5, r: 0.15, cap: 2.5, iRef: 0.1, k: 1.3 },
+    nine: { key: 'nine', label: '9 V alkaline', emf: 9, r: 1.7, cap: 0.55, iRef: 0.025, k: 1.2 },
+    li: { key: 'li', label: 'Li-ion 18650', emf: 3.7, r: 0.05, cap: 3.0, iRef: 0.6, k: 1.05 }
+  };
+  function sliderToR(x) { return 0.5 * Math.pow(2000, x / 100); }
+  function current(b, R) { return b.emf / (R + b.r); }
+  function loadPower(b, R) { var I = current(b, R); return I * I * R; }
+  function heatPower(b, R) { var I = current(b, R); return I * I * b.r; }
+  function chemPower(b, R) { return b.emf * current(b, R); }
+  function terminalV(b, R) { return current(b, R) * R; }
+  function effCapacity(b, I) { return I <= b.iRef ? b.cap : b.cap * Math.pow(b.iRef / I, b.k - 1); }   // Ah
+  function chemEnergyWh(b) { return b.emf * b.cap; }
+  function electronsPerSecond(I) { return I / E_CHARGE; }
+  function driftSpeed(I) { return I / (N_CU * WIRE_A * E_CHARGE); }
+  function lifeHours(b, R) { var I = current(b, R); return effCapacity(b, I) / I; }
+  // Advance a battery state s = { soc (0..1), t (s), eLoad (J), eHeat (J), q (C), nOut, nIn }
+  function stepBattery(s, b, R, dt) {
+    if (s.soc <= 0) return s;
+    var I = current(b, R);
+    var tLeft = s.soc * effCapacity(b, I) * 3600 / I;
+    var h = Math.min(dt, tLeft);
+    s.soc = Math.max(0, s.soc - I * h / (effCapacity(b, I) * 3600));
+    if (h >= tLeft) s.soc = 0;
+    s.t += h; s.eLoad += I * I * R * h; s.eHeat += I * I * b.r * h; s.eChem += b.emf * I * h;
+    s.q += I * h;
+    s.nOut += I * h / E_CHARGE; s.nIn += I * h / E_CHARGE;   // out of −, into +: always equal
+    return s;
+  }
+  function newBattery() { return { soc: 1, t: 0, eLoad: 0, eHeat: 0, eChem: 0, q: 0, nOut: 0, nIn: 0 }; }
+  function netCharge(s) { return (s.nIn - s.nOut) * E_CHARGE; }
+  function mythVoltage(q) { return K_E * q / 0.01; }
+
+  // ===== UI =====
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function clamp(x, a, b) { return x < a ? a : (x > b ? b : x); }
+  function fmt(x, d) {
+    if (!isFinite(x)) return '—';
+    var s = x.toFixed(d);
+    if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+    return s;
+  }
+  function fmtSig(x, s) {
+    if (!isFinite(x)) return '∞';
+    if (x === 0) return '0';
+    var a = Math.abs(x);
+    if (a >= 1e5 || a < 1e-3) {
+      var e = Math.floor(Math.log(a) / Math.LN10), m = x / Math.pow(10, e);
+      if (Math.abs(m) >= 9.995) { m /= 10; e += 1; }
+      return m.toFixed(Math.max(0, s - 1)) + '×10' + supNum(e);
+    }
+    var dec = Math.max(0, s - 1 - Math.floor(Math.log(a) / Math.LN10));
+    return x.toFixed(Math.min(dec, 6));
+  }
+  function supNum(e) {
+    var map = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+    return String(e).split('').map(function (c) { return map[c] || c; }).join('');
+  }
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len, ah = Math.min(head || 9, len);
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.5, y2 - uy * ah + ux * ah * 0.5);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.5, y2 - uy * ah - ux * ah * 0.5);
+    ctx.closePath(); ctx.fill();
+  }
+  function rrect(ctx, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r); ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h); ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r); ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+  function banner(ctx, W, title, sub, y, fTitle, fSub) {
+    var bw = Math.min(W - 20, 430);
+    ctx.fillStyle = 'rgba(8,11,28,0.84)';
+    rrect(ctx, 10, y, bw, sub ? 42 : 26, 8); ctx.fill();
+    ctx.font = fTitle; ctx.fillStyle = '#ff7e5f';
+    ctx.fillText(title, 20, y + 19);
+    if (sub) { ctx.font = fSub; ctx.fillStyle = '#d7def2'; ctx.fillText(sub, 20, y + 35); }
+  }
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_SIGN = '600 16px "IBM Plex Mono", ui-monospace, monospace';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { b: TYPES.aa, x: 30, R: sliderToR(30), warp: 3600, playing: false, myth: false, bat: newBattery(), lastTs: 0, anim: 0, phase: 0, epos: 0 };
+  var elR = $('rLoad'), elRL = $('rLabel'), elPlay = $('btnPlay'), elHint = $('modeHint'), elReadout = $('readout'), chipMyth = $('chipMyth');
+  var bChips = { aa: $('bAA'), nine: $('b9V'), li: $('bLi') };
+  var wChips = { w1: 1, w60: 60, w3600: 3600 };
+  var surfaces = {
+    loop: { canvas: $('cvLoop'), ctx: null, w: 0, h: 0, cssH: 430 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 430 }
+  };
+  var NDOTS = 56;
+
+  function loadName(R) {
+    if (R < 2) return 'near short circuit';
+    if (R < 15) return 'flashlight bulb';
+    if (R < 80) return 'small motor / LED strip';
+    if (R < 400) return 'LED + resistor';
+    return 'clock / remote';
+  }
+
+  function drawLoop() {
+    var surf = surfaces.loop;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, b = state.b, s = state.bat;
+    var I = s.soc > 0 ? current(b, state.R) : 0, P = I * I * state.R;
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0b1432'); bg.addColorStop(1, '#0d1a3a');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    var small = W < 520;
+    var x0 = small ? 54 : 90, x1 = W - (small ? 54 : 90), y0 = 78, y1 = H - 64;
+    // battery body (left side, centered vertically)
+    var bw = small ? 50 : 64, bh = Math.min(150, (y1 - y0) * 0.6), by = (y0 + y1) / 2 - bh / 2;
+    // bulb (right)
+    var bulbR = small ? 20 : 26, bulbY = (y0 + y1) / 2;
+    // wire path: + top of battery → top wire → bulb → bottom wire → − bottom of battery → through battery
+    var path = [[x0, by], [x0, y0], [x1, y0], [x1, bulbY - bulbR], [x1, bulbY + bulbR], [x1, y1], [x0, y1], [x0, by + bh], [x0, by]];
+    var segs = [], total = 0;
+    for (var i = 0; i < path.length - 1; i++) { var l = Math.hypot(path[i + 1][0] - path[i][0], path[i + 1][1] - path[i][1]); segs.push(l); total += l; }
+    function at(d) {
+      d = ((d % total) + total) % total;
+      for (var j = 0; j < segs.length; j++) { if (d <= segs[j]) { var f = segs[j] ? d / segs[j] : 0; return [path[j][0] + (path[j + 1][0] - path[j][0]) * f, path[j][1] + (path[j + 1][1] - path[j][1]) * f]; } d -= segs[j]; }
+      return path[0];
+    }
+    // wires
+    ctx.strokeStyle = 'rgba(255,170,90,0.55)'; ctx.lineWidth = 6; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(x0, by); ctx.lineTo(x0, y0); ctx.lineTo(x1, y0); ctx.lineTo(x1, bulbY - bulbR); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x1, bulbY + bulbR); ctx.lineTo(x1, y1); ctx.lineTo(x0, y1); ctx.lineTo(x0, by + bh); ctx.stroke();
+    // energy flow chevrons (battery → bulb, through the space between the wires)
+    if (I > 0) {
+      var nCh = 6, rate = clamp(Math.log(1 + P * 50) / 4, 0.1, 1.5);
+      for (var c = 0; c < nCh; c++) {
+        var f = ((state.phase * rate * 0.25 + c / nCh) % 1);
+        var ex = x0 + bw / 2 + 14 + f * (x1 - bulbR - 18 - x0 - bw / 2 - 14);
+        ctx.globalAlpha = 0.25 + 0.6 * Math.sin(Math.PI * f);
+        ctx.strokeStyle = '#ffc24a'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(ex - 6, bulbY - 9); ctx.lineTo(ex + 3, bulbY); ctx.lineTo(ex - 6, bulbY + 9); ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      ctx.font = FONT_MONO_10; ctx.fillStyle = '#ffc24a';
+      ctx.fillText('energy → ' + fmtSig(P, 3) + ' W', (x0 + x1) / 2 - 40, bulbY - 16);
+    }
+    // bulb glow
+    var glow = I > 0 ? clamp(Math.log(1 + P * 4) / Math.log(1 + 4 * 3), 0, 1) : 0;
+    if (glow > 0.01) {
+      var gr = ctx.createRadialGradient(x1, bulbY, 2, x1, bulbY, bulbR * 3.2);
+      gr.addColorStop(0, 'rgba(255,214,120,' + (0.85 * glow).toFixed(3) + ')'); gr.addColorStop(1, 'rgba(255,214,120,0)');
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x1, bulbY, bulbR * 3.2, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.fillStyle = 'rgba(255,240,200,' + (0.12 + 0.6 * glow).toFixed(3) + ')';
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(x1, bulbY, bulbR, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad'; ctx.textAlign = 'center';
+    ctx.fillText(fmtSig(state.R, 3) + ' Ω', x1, bulbY + bulbR + 16);
+    ctx.textAlign = 'left';
+    // battery: chemical store gauge
+    ctx.fillStyle = '#121a38'; rrect(ctx, x0 - bw / 2, by, bw, bh, 8); ctx.fill();
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)'; ctx.stroke();
+    var lev = s.soc;
+    var gcol = lev > 0.25 ? 'rgba(126,224,161,0.55)' : 'rgba(255,126,95,0.6)';
+    ctx.fillStyle = gcol; rrect(ctx, x0 - bw / 2 + 5, by + 5 + (bh - 10) * (1 - lev), bw - 10, (bh - 10) * lev, 5); ctx.fill();
+    ctx.fillStyle = 'rgba(215,222,242,0.6)'; ctx.fillRect(x0 - 8, by - 6, 16, 6);
+    ctx.font = FONT_SIGN; ctx.fillStyle = '#ff7e5f'; ctx.fillText('+', x0 + bw / 2 + 6, by + 14);
+    ctx.fillStyle = '#5ec8e5'; ctx.fillText('−', x0 + bw / 2 + 6, by + bh - 4);
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#d7def2'; ctx.textAlign = 'center';
+    ctx.fillText('chem', x0, by + 16); ctx.fillText(Math.round(lev * 100) + '%', x0, by + 30);
+    ctx.textAlign = 'left';
+    // electrons
+    var dotR = small ? 2.6 : 3.2;
+    if (!state.myth) {
+      for (var k = 0; k < NDOTS; k++) {
+        // electrons flow: out of − (bottom) → bottom wire → bulb → top wire → into + : i.e. backwards along path
+        var p = at(-state.epos + k * total / NDOTS);
+        ctx.fillStyle = '#5ec8e5'; ctx.beginPath(); ctx.arc(p[0], p[1], dotR, 0, Math.PI * 2); ctx.fill();
+      }
+    } else {
+      // tank picture: electrons leave the battery and pile up in the bulb; battery's own dots deplete
+      var shipped = Math.min(1, 1 - s.soc + (I > 0 ? 0.02 : 0));
+      var nLeft = Math.round(NDOTS * 0.5 * (1 - shipped));
+      for (k = 0; k < nLeft; k++) {
+        ctx.fillStyle = '#ff7e5f';
+        ctx.beginPath(); ctx.arc(x0 - bw / 2 + 10 + (k % 4) * (bw - 20) / 3, by + bh - 10 - Math.floor(k / 4) * 9, dotR, 0, Math.PI * 2); ctx.fill();
+      }
+      var nPile = NDOTS * 0.5 - nLeft;
+      for (k = 0; k < nPile; k++) {
+        var aa = k * 2.399, rr = Math.sqrt(k) * 4.2;
+        ctx.fillStyle = '#ff7e5f';
+        ctx.beginPath(); ctx.arc(x1 + Math.cos(aa) * rr, bulbY + Math.sin(aa) * rr, dotR, 0, Math.PI * 2); ctx.fill();
+      }
+      banner(ctx, W, 'Myth: electrons drain from a tank into the bulb', 'Red = myth. Wires would end up charged; they don’t.', H - 52, FONT_DISPLAY, FONT_MONO_10);
+    }
+    // HUD
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = s.soc > 0 ? '#7ee0a1' : '#ff7e5f';
+    ctx.fillText(s.soc > 0 ? 'I = ' + fmtSig(I * 1000, 3) + ' mA · net charge in battery: 0 C' : 'chemicals used up · still 0 C net charge', 14, 24);
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#d7def2';
+    ctx.fillText(fmtSig(electronsPerSecond(I), 3) + ' electrons/s out of −, same number into +', 14, 42);
+    $('sceneMeta').textContent = state.myth ? 'myth picture' : 'electron motion not to scale';
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, b = state.b, s = state.bat;
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var I = current(b, state.R), life = lifeHours(b, state.R);
+    var L = 46, R = W - 14, T = 26, B = H * 0.5;
+    var eMax = chemEnergyWh(b);
+    function X(h) { return L + h / life * (R - L); }
+    function Y(e) { return B - e / eMax * (B - T); }
+    ctx.font = FONT_MONO_10; ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1; ctx.fillStyle = '#8b93ad';
+    for (var q = 0; q <= 4; q++) { var e = eMax * q / 4; ctx.beginPath(); ctx.moveTo(L, Y(e)); ctx.lineTo(R, Y(e)); ctx.stroke(); ctx.fillText(fmt(e, 2), 6, Y(e) + 3); }
+    ctx.fillText('energy (Wh) over the battery’s life at this load', L, T - 10);
+    ctx.fillText('0', L - 3, B + 14); ctx.fillText(fmtDur(life * 3600), R - 60, B + 14);
+    // usable at this drain vs nominal
+    var usable = effCapacity(b, I) * b.emf;
+    ctx.strokeStyle = 'rgba(255,194,74,0.5)'; ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(L, Y(usable)); ctx.lineTo(R, Y(usable)); ctx.stroke(); ctx.setLineDash([]);
+    if (usable < eMax * 0.97) { ctx.fillStyle = '#ffc24a'; ctx.fillText('usable at this drain', R - 128, Y(usable) - 4); }
+    // remaining chemical (line from usable down to 0), delivered (0 up to usable·R/(R+r)), heat
+    var fLoad = state.R / (state.R + b.r);
+    ctx.lineWidth = 2.2;
+    ctx.strokeStyle = '#7ee0a1'; ctx.beginPath(); ctx.moveTo(X(0), Y(usable)); ctx.lineTo(X(life), Y(0)); ctx.stroke();
+    ctx.strokeStyle = '#ffc24a'; ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(life), Y(usable * fLoad)); ctx.stroke();
+    ctx.strokeStyle = '#ff7e5f'; ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(life), Y(usable * (1 - fLoad))); ctx.stroke();
+    ctx.fillStyle = '#7ee0a1'; ctx.fillText('chemical left', L + 6, Y(usable) + 14);
+    ctx.fillStyle = '#ffc24a'; ctx.fillText('to the load', R - 76, Y(usable * fLoad) + (fLoad > 0.85 ? 14 : -6));
+    ctx.fillStyle = '#ff7e5f'; ctx.fillText('heat in battery', R - 100, Y(usable * (1 - fLoad)) - 6);
+    var th = s.t / 3600;
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(X(Math.min(th, life)), T); ctx.lineTo(X(Math.min(th, life)), B); ctx.stroke();
+    // capacity vs current (log x)
+    var T2 = H * 0.64, B2 = H - 24;
+    var lo = -3, hi = 1.3;
+    function X2(i) { return L + (Math.log(i) / Math.LN10 - lo) / (hi - lo) * (R - L); }
+    function Y2(c) { return B2 - c / (b.cap * 1.1) * (B2 - T2); }
+    ctx.fillStyle = '#8b93ad'; ctx.fillText('usable capacity (mAh) vs current (A)', L, T2 - 10);
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    for (var ex = lo; ex <= 1; ex++) { var xx = X2(Math.pow(10, Math.ceil(ex))); ctx.beginPath(); ctx.moveTo(xx, T2); ctx.lineTo(xx, B2); ctx.stroke(); ctx.fillText(String(+Math.pow(10, Math.ceil(ex)).toPrecision(1)), xx - 8, B2 + 14); }
+    ctx.fillText(String(Math.round(b.cap * 1000)), 6, Y2(b.cap) + 3);
+    ctx.fillText('0', 18, B2 + 3);
+    ctx.strokeStyle = '#5ec8e5'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (var lg = lo; lg <= hi + 1e-9; lg += 0.05) { var cx = X2(Math.pow(10, lg)), cy = Y2(effCapacity(b, Math.pow(10, lg))); if (lg === lo) ctx.moveTo(cx, cy); else ctx.lineTo(cx, cy); }
+    ctx.stroke();
+    if (I >= Math.pow(10, lo) && I <= Math.pow(10, hi)) {
+      ctx.fillStyle = '#ffc24a'; ctx.beginPath(); ctx.arc(X2(I), Y2(effCapacity(b, I)), 4.5, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+  function fmtDur(sec) {
+    if (sec < 120) return fmt(sec, 0) + ' s';
+    if (sec < 7200) return fmt(sec / 60, 0) + ' min';
+    if (sec < 172800) return fmt(sec / 3600, 1) + ' h';
+    return fmt(sec / 86400, 1) + ' days';
+  }
+
+  function renderReadout() {
+    var b = state.b, s = state.bat, on = s.soc > 0;
+    var I = on ? current(b, state.R) : 0;
+    var html = '';
+    function kv(k, v, sub, cls) { html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + sub + '</div></div>'; }
+    kv('Current', fmtSig(I * 1000, 3) + ' mA', 'ε/(R + r) · terminal ' + fmt(on ? terminalV(b, state.R) : 0, 2) + ' V · drift ' + fmtSig(driftSpeed(I) * 1000, 2) + ' mm/s');
+    kv('Power to load', fmtSig(I * I * state.R, 3) + ' W', 'heat inside battery ' + fmtSig(I * I * b.r, 2) + ' W', 'sun');
+    kv('Energy delivered', fmtSig(s.eLoad / 3600, 3) + ' Wh', fmtSig(s.eLoad / 1000, 3) + ' kJ in ' + fmtDur(s.t));
+    kv('Chemical energy left', fmt(s.soc * 100, 1) + '%', on ? 'empty in ' + fmtDur(s.soc * lifeHours(b, state.R) * 3600) + ' · rated ' + fmt(chemEnergyWh(b), 2) + ' Wh' : 'used up · rated ' + fmt(chemEnergyWh(b), 2) + ' Wh', s.soc > 0.25 ? 'ok' : 'warm');
+    if (state.myth) kv('Tank myth predicts', fmtSig(s.q, 3) + ' C on the bulb', '≈ ' + fmtSig(mythVoltage(s.q), 2) + ' V. Real net charge: ' + fmt(netCharge(s), 0) + ' C', 'warm');
+    else kv('Electrons through', fmtSig(electronsPerSecond(I), 3) + ' /s', 'total ' + fmtSig(s.nOut, 3) + ' (' + fmtSig(s.q / 3.6, 3) + ' mAh) · net charge ' + fmt(netCharge(s), 0) + ' C', 'ok');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elRL.textContent = fmtSig(state.R, 3) + ' Ω · ' + loadName(state.R);
+    elR.value = String(state.x);
+    for (var k in bChips) setChip(bChips[k], state.b.key === k);
+    for (var w in wChips) setChip($(w), state.warp === wChips[w]);
+    setChip(chipMyth, state.myth);
+    elPlay.textContent = state.playing ? '❚❚ Pause' : (state.bat.soc <= 0 ? '↺ New & run' : '▶ Run');
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    var I = current(state.b, state.R);
+    if (state.myth) elHint.textContent = 'Myth mode · in the tank picture the bulb fills with electrons. Reality: same electrons, going around.';
+    else if (state.bat.soc <= 0) elHint.textContent = 'Dead battery: it still holds all its electrons. Only the chemical energy is gone.';
+    else if (effCapacity(state.b, I) < state.b.cap * 0.8) elHint.textContent = 'Heavy drain: only ' + Math.round(effCapacity(state.b, I) * 1000) + ' of ' + Math.round(state.b.cap * 1000) + ' mAh is usable at this current.';
+    else elHint.textContent = 'Electrons drift at ' + fmtSig(driftSpeed(I) * 1000, 2) + ' mm/s, but energy reaches the bulb almost instantly.';
+  }
+
+  function render() { renderReadout(); drawLoop(); drawChart(); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    var on = state.bat.soc > 0;
+    if (state.playing) {
+      stepBattery(state.bat, state.b, state.R, dt * state.warp);
+      if (state.bat.soc <= 0) state.playing = false;
+    }
+    var I = on ? current(state.b, state.R) : 0;
+    state.phase += dt * (on ? 1 : 0);
+    state.epos += dt * 14 * Math.log(1 + I * 20);
+    updateLabels();
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  elPlay.addEventListener('click', function () {
+    if (state.bat.soc <= 0) state.bat = newBattery();
+    state.playing = !state.playing; updateLabels();
+  });
+  $('btnReset').addEventListener('click', function () { state.bat = newBattery(); state.playing = false; updateLabels(); });
+  Object.keys(wChips).forEach(function (id) { $(id).addEventListener('click', function () { state.warp = wChips[id]; updateLabels(); }); });
+  Object.keys(bChips).forEach(function (k) { bChips[k].addEventListener('click', function () { state.b = TYPES[k]; state.bat = newBattery(); updateLabels(); }); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elR.addEventListener('input', function () { state.x = parseFloat(elR.value); state.R = sliderToR(state.x); updateLabels(); });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__batteryPhysics = {
+    sliderToR: sliderToR, current: current, loadPower: loadPower, heatPower: heatPower, chemPower: chemPower, terminalV: terminalV,
+    effCapacity: effCapacity, chemEnergyWh: chemEnergyWh, electronsPerSecond: electronsPerSecond, driftSpeed: driftSpeed, lifeHours: lifeHours,
+    stepBattery: stepBattery, newBattery: newBattery, netCharge: netCharge, mythVoltage: mythVoltage, TYPES: TYPES, E_CHARGE: E_CHARGE
+  };
+  window.__batteryState = state;
+})();
+</script>
+</body>
+</html>
