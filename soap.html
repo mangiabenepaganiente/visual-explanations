@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Soap Cleans Grease — Micelles Carry Oil Away, Not Dissolve It | Classroom</title>
+<meta name="description" content="Classroom soap explainer: soap molecules grab oil with one end and water with the other, forming micelles above the CMC that carry grease away. Live model.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="how does soap work, micelles, critical micelle concentration, CMC, sodium dodecyl sulfate, surfactant, hydrophobic hydrophilic, amphiphilic, surface tension, Krafft point, classroom chemistry, misconception">
+<link rel="canonical" href="soap.html">
+<meta property="og:title" content="Why Soap Cleans Grease — Micelles, Not Magic">
+<meta property="og:description" content="Oil and water won’t mix. Soap molecules have an oil-loving tail and a water-loving head, wrap grease into micelles, and let plain water rinse it away.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 420px; }
+@media (max-width: 720px) { .card canvas { height: 360px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · kitchen chemistry</a></p>
+  <h1>Why soap cleans grease</h1>
+  <p class="lede">Water alone slides right over a greasy pan. Oil is <strong>nonpolar</strong>, water is <strong>polar</strong>, and water molecules would rather stick to each other than to oil. A soap molecule is two-faced. It has a <strong>water-loving head</strong> and an <strong>oil-loving tail</strong>. At low concentration the molecules just line the surfaces. Above the <strong>critical micelle concentration</strong> (CMC, 8.2 mM for the classic soap molecule sodium dodecyl sulfate at 25 °C) they cluster into <strong>micelles</strong>, balls with the tails tucked inside. Scrubbing tears grease into droplets, the micelles wrap them in an oily core, and the rinse water carries them off. Nothing is dissolved or destroyed. The grease is packaged and moved.</p>
+
+  <p class="try"><b>Try this</b>Drag <strong>Soap concentration</strong> past the dashed CMC line (about 8 mM). Notice that the surface tension stops falling at that point and micelles appear. Only then does most of the grease lift off the plate.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnRinse" title="Spacebar">Rinse</button>
+      <button type="button" class="btn" id="btnReset">New greasy plate</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="pWater" aria-pressed="false">Plain water</button>
+      <button type="button" class="chip" id="pHalf" aria-pressed="false">½ × CMC</button>
+      <button type="button" class="chip" id="pTwo" aria-pressed="false">2 × CMC</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: soap dissolves grease</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Soap concentration <em id="cLabel">2.0 mM</em></span>
+        <input type="range" id="conc" min="0" max="30" step="0.1" value="2" aria-label="Soap concentration in millimoles per liter">
+      </label>
+      <label class="sl grow">
+        <span>Scrubbing <em id="aLabel">60%</em></span>
+        <input type="range" id="agit" min="0" max="100" step="1" value="60" aria-label="Scrubbing or agitation strength in percent">
+      </label>
+      <label class="sl grow">
+        <span>Water temperature <em id="tLabel">40 °C</em></span>
+        <input type="range" id="temp" min="5" max="60" step="1" value="40" aria-label="Water temperature in degrees Celsius">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint">Below the CMC: soap lines the surfaces, but there are no micelles to carry oil.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Up close: grease on a plate</b><span id="sceneMeta">not to scale</span></div>
+      <canvas id="cvScene" width="760" height="420" aria-label="Cross-section of a greasy plate under water, showing soap molecules, micelles wrapping oil droplets, and rinsing"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Surface tension &amp; grease</b><span id="chartMeta">vs concentration</span></div>
+      <canvas id="cvChart" width="480" height="420" aria-label="Surface tension versus soap concentration with the critical micelle concentration marked, and a bar showing where the grease is"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Oil and water don’t mix</h2>
+      <p>Water molecules are polar and hold onto each other with hydrogen bonds. Oil molecules are long nonpolar chains that can’t join in. Pushing them apart costs energy, so water beads up and slides past grease. Hot water and scrubbing help a little, but the oil just settles back onto the plate.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>A molecule with two personalities</h2>
+      <p>Soap is <em>amphiphilic</em>. It has a charged head (for SDS, <code>–OSO₃⁻ Na⁺</code>) that water loves and a 12-carbon tail that hides from water. The molecules crowd onto any oil–water or air–water surface, tails out of the water. That is why surface tension falls from <code>72</code> to about <code>38 mN/m</code>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Micelles: oily pockets you can rinse</h2>
+      <p>Once the surfaces are full, at the CMC, extra molecules team up into micelles of about 60, tails inward. That core is a tiny drop of oily space. Grease torn loose by scrubbing ends up inside or coated by a soap shell, and the charged heads keep the droplets from merging back onto the plate. Rinsing flushes them away.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Soap dissolves grease”</h2>
+      <p>Soap doesn’t break grease down chemically. Every oil molecule that leaves the plate still exists, carried off in a micelle or a soap-coated droplet. Toggle the myth and count: nothing is destroyed, only moved. It also isn’t brute strength: below the CMC, soap barely lifts any grease.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Soap numbers">
+    <div class="stat">
+      <div class="k">SDS CMC at 25 °C</div>
+      <div class="v">8.2 mM</div>
+      <div class="s">≈ 0.24% by mass</div>
+    </div>
+    <div class="stat">
+      <div class="k">Surface tension</div>
+      <div class="v">72 → ~38 mN/m</div>
+      <div class="s">water → at the CMC</div>
+    </div>
+    <div class="stat">
+      <div class="k">Molecules per micelle</div>
+      <div class="v">≈ 60</div>
+      <div class="s">SDS aggregation number</div>
+    </div>
+    <div class="stat">
+      <div class="k">Micelle size</div>
+      <div class="v">≈ 4 nm across</div>
+      <div class="s">~20,000× thinner than a hair</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Which soap.</strong> All numbers use sodium dodecyl sulfate (SDS), the textbook model surfactant. Its CMC is 8.2 mM at 25 °C (Mukerjee &amp; Mysels, <em>Critical Micelle Concentrations of Aqueous Surfactant Systems</em>, NSRDS-NBS 36, 1971). The aggregation number is about 62 and the micelle diameter about 4 nm. Bar soap (sodium stearate and oleate) and dish detergents (blends of LAS, SLES, and nonionics) have different CMCs, often lower, but the same mechanism.</li>
+      <li><strong>Micelle fraction (pseudo-phase model).</strong> Free single molecules (monomers) top out at the CMC, and everything above it goes into micelles. So the fraction in micelles is <code>(C − CMC)/C</code>, which is 50% at 2× CMC. The real transition is slightly rounded over a narrow range.</li>
+      <li><strong>Surface tension.</strong> Pure water uses the IAPWS equation (71.97 mN/m at 25 °C). Below the CMC the soap lowers it following the Szyszkowski isotherm <code>γ = γ₀ − n·RTΓ<sub>max</sub> ln(1 + K·C)</code>, with n = 2 for an ionic surfactant without added salt, Γ<sub>max</sub> = 3.4 µmol/m², and K chosen so γ ≈ 38.5 mN/m at the CMC at 25 °C. That gives about 62 mN/m at 1 mM, close to measured SDS curves. Measured SDS values at the CMC are roughly 35–40 mN/m. Above the CMC, γ stays flat. That flat break is how the CMC is measured.</li>
+      <li><strong>Temperature (approximate).</strong> SDS’s CMC has a shallow minimum near room temperature (fit: ≈ 8.4 mM at 10 °C, 9.7 mM at 60 °C). Below SDS’s <strong>Krafft point</strong> (≈ 16 °C), the surfactant crystallizes out before it can reach the CMC, so no micelles form. Commercial detergents are blended to avoid this. Warm water also softens solid fats like butter or lard, modeled as a smooth step around 32 °C.</li>
+      <li><strong>Cleaning kinetics are a simplified, labeled model.</strong> Grease is split into “on the plate”, “lifted into the water”, and “rinsed away”. Scrubbing lifts it at a rate that grows with agitation, warmth, monomers (a little) and micelles (a lot). Lifted oil settles back at a rate that micelles suppress. Each Rinse flushes whatever is lifted. The rate constants are tuned for illustration, not taken from measurements. Real cleaning also depends on grease type, the surface, water hardness (calcium makes soap scum), and enzymes or builders in detergents.</li>
+      <li><strong>Germs.</strong> Handwashing works mainly by this same lift-and-rinse. Soap can also break apart the fatty envelope of some viruses, but it is not a disinfectant in the way bleach or alcohol are. Scrub for about 20 seconds.</li>
+      <li><strong>For teachers.</strong> Covers polarity, intermolecular forces, structure and function of molecules (NGSS HS-PS1-3, MS-PS1-2; AP Chemistry intermolecular forces). Misconceptions to name: “soap dissolves or destroys grease”, “more soap is always better” (beyond a few × CMC, returns diminish), and “hot water alone cleans”.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Model — mirrored in validate-soap.js =====
+  var CMC25 = 8.2;          // mM, SDS at 25 °C (Mukerjee & Mysels 1971)
+  var KRAFFT = 16;          // °C, approximate SDS Krafft point
+  var N_AGG = 62;           // SDS aggregation number
+  var GAMMA_MAX = 3.4e-6;   // mol/m², Szyszkowski Γmax (approximate)
+  var N_GIBBS = 2;          // ionic surfactant, no added salt
+  var R_GAS = 8.314462618;
+  var N_A = 6.02214076e23;
+  var GAMMA_AT_CMC = 38.5;  // mN/m target at 25 °C
+
+  function cmcAt(T) { return CMC25 + 0.0011 * ((T - 23) * (T - 23) - 4); }      // mM, U-shaped fit
+  function solubility(T) { return T >= KRAFFT ? Infinity : cmcAt(T) * Math.exp((T - KRAFFT) / 3); }
+  function dissolved(C, T) { return Math.min(C, solubility(T)); }
+  function waterTension(T) {                                                       // IAPWS, mN/m
+    var tau = 1 - (T + 273.15) / 647.096;
+    return 235.8 * Math.pow(tau, 1.256) * (1 - 0.625 * tau);
+  }
+  // Szyszkowski K (per mM) fixed so γ(CMC25) = 38.5 mN/m at 25 °C
+  var K_SZ = (Math.exp((waterTension(25) - GAMMA_AT_CMC) / (N_GIBBS * R_GAS * 298.15 * GAMMA_MAX * 1000)) - 1) / CMC25;
+  function surfaceTension(C, T) {
+    var ce = Math.min(dissolved(C, T), cmcAt(T));
+    return waterTension(T) - N_GIBBS * R_GAS * (T + 273.15) * GAMMA_MAX * 1000 * Math.log(1 + K_SZ * ce);
+  }
+  function micelleFraction(C, T) {
+    var ce = dissolved(C, T), c = cmcAt(T);
+    return C > 0 && ce > c ? (ce - c) / C : 0;
+  }
+  function micelleConc(C, T) { var ce = dissolved(C, T), c = cmcAt(T); return Math.max(0, ce - c) / N_AGG; } // mM of micelles
+  function greaseSoftness(T) { return 0.35 + 0.65 / (1 + Math.exp(-(T - 32) / 4)); }
+  function rates(C, A, T) {
+    var c = cmcAt(T), ce = dissolved(C, T);
+    var mono = Math.min(ce, c) / c, x = Math.max(0, ce - c) / c, mic = x / (x + 0.6);
+    return {
+      lift: 0.12 * (0.15 + A) * greaseSoftness(T) * (0.04 + 0.25 * mono + 1.2 * mic),
+      redeposit: 0.12 * (1 - 0.97 * mic) * (1 - 0.5 * mono),
+      mono: mono, mic: mic, x: x
+    };
+  }
+  // Exact solution of the linear two-state exchange over dt (stable for any dt). g = {plate, lifted, rinsed}
+  function washStep(g, C, A, T, dt) {
+    var r = rates(C, A, T), k = r.lift + r.redeposit, m = g.plate + g.lifted;
+    if (m <= 0 || k <= 0) return g;
+    var eq = m * r.lift / k;
+    var lifted = eq + (g.lifted - eq) * Math.exp(-k * dt);
+    return { plate: m - lifted, lifted: lifted, rinsed: g.rinsed };
+  }
+  function rinse(g) { return { plate: g.plate, lifted: 0, rinsed: g.rinsed + g.lifted }; }
+  function freshPlate() { return { plate: 1, lifted: 0, rinsed: 0 }; }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var state = { C: 2, A: 0.6, T: 40, myth: false, grease: freshPlate(), t: 0, lastTs: 0, rinseT: 0, rinses: 0 };
+  var $ = function (id) { return document.getElementById(id); };
+  var elC = $('conc'), elA = $('agit'), elT = $('temp');
+  var elCL = $('cLabel'), elAL = $('aLabel'), elTL = $('tLabel'), elHint = $('modeHint');
+  var btnRinse = $('btnRinse'), btnReset = $('btnReset'), chipMyth = $('chipMyth');
+  var presets = { pWater: 0, pHalf: 0.5, pTwo: 2 };
+  var elReadout = $('readout'), elChartMeta = $('chartMeta');
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 420 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  // deterministic PRNG for particle layout
+  var seed = 1234567;
+  function rnd() { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; }
+  var N_OIL = 40, N_MONO = 22, N_MIC = 14;
+  var oil = [], monos = [], mics = [];
+  function initParticles() {
+    oil = []; monos = []; mics = [];
+    for (var i = 0; i < N_OIL; i++) {
+      oil.push({ u: (i + 0.5 + (rnd() - 0.5) * 0.6) / N_OIL, s: 0, x: 0, y: 0, vx: 0, vy: 0, h: 0, r: 4.5 + rnd() * 2.5, ph: rnd() * 6.28, gone: 0 });
+    }
+    for (var j = 0; j < N_MONO; j++) monos.push({ x: rnd(), y: rnd() * 0.7, a: rnd() * 6.28, ph: rnd() * 6.28 });
+    for (var k = 0; k < N_MIC; k++) mics.push({ x: rnd(), y: 0.08 + rnd() * 0.55, rot: rnd() * 6.28, ph: rnd() * 6.28, gone: 0 });
+  }
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  var SUP = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+  function sci(x) {
+    var e = Math.floor(Math.log(x) / Math.LN10), m = x / Math.pow(10, e);
+    if (m >= 9.95) { m /= 10; e += 1; }
+    return m.toFixed(1) + ' × 10' + String(e).split('').map(function (ch) { return SUP[ch]; }).join('');
+  }
+
+  // Sync discrete droplets with the continuous model (stuck s=0, lifted s=1, rinsed s=2)
+  function syncOil() {
+    var g = state.grease;
+    var wantRinsed = Math.round(g.rinsed * N_OIL), wantLifted = Math.round(g.lifted * N_OIL);
+    var cR = 0, cL = 0, i;
+    for (i = 0; i < N_OIL; i++) { if (oil[i].s === 2) cR++; else if (oil[i].s === 1) cL++; }
+    for (i = 0; i < N_OIL && cR < wantRinsed; i++) if (oil[i].s === 1) { oil[i].s = 2; oil[i].gone = 0; cR++; cL--; }
+    for (i = N_OIL - 1; i >= 0 && cL > wantLifted; i--) if (oil[i].s === 1) { oil[i].s = 0; cL--; }
+    for (i = 0; i < N_OIL && cL < wantLifted; i++) {
+      var j = (i * 7) % N_OIL;
+      if (oil[j].s === 0) { oil[j].s = 1; oil[j].h = 0; cL++; }
+    }
+  }
+
+  function drawMolecule(ctx, x, y, ang, len, headCol) {
+    // tail points along ang from the head
+    ctx.strokeStyle = 'rgba(255,194,74,0.85)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(x, y);
+    var c = Math.cos(ang), s = Math.sin(ang);
+    for (var k = 1; k <= 4; k++) {
+      var d = len * k / 4, w = (k % 2 ? 1.6 : -1.6);
+      ctx.lineTo(x + c * d - s * w, y + s * d + c * w);
+    }
+    ctx.stroke();
+    ctx.fillStyle = headCol || '#5ec8e5';
+    ctx.beginPath(); ctx.arc(x, y, 2.4, 0, Math.PI * 2); ctx.fill();
+  }
+  function drawMicelle(ctx, x, y, rCore, nMol, rot, withOil) {
+    if (withOil) {
+      ctx.fillStyle = 'rgba(255,194,74,0.85)';
+      ctx.beginPath(); ctx.arc(x, y, rCore, 0, Math.PI * 2); ctx.fill();
+    }
+    var rH = rCore + 6;
+    for (var k = 0; k < nMol; k++) {
+      var a = rot + k / nMol * Math.PI * 2;
+      drawMolecule(ctx, x + Math.cos(a) * rH, y + Math.sin(a) * rH, a + Math.PI, 5.5, '#5ec8e5');
+    }
+  }
+
+  function drawScene(dt) {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var r = rates(state.C, state.A, state.T);
+    var plateY = H * 0.80;
+    var g = ctx.createLinearGradient(0, 0, 0, plateY);
+    g.addColorStop(0, '#0d2140'); g.addColorStop(1, '#0b1834');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, plateY);
+    ctx.fillStyle = '#c9d0de'; ctx.fillRect(0, plateY, W, H - plateY);
+    ctx.fillStyle = '#aab3c6'; ctx.fillRect(0, plateY, W, 4);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#55607a';
+    ctx.fillText('plate', 10, H - 12);
+    var shake = state.A * 3.2;
+    var rinsing = state.rinseT > 0;
+    var flow = rinsing ? 900 * dt : 0;
+    syncOil();
+    // stuck grease (and droplets resting on the plate)
+    for (var i = 0; i < N_OIL; i++) {
+      var o = oil[i];
+      var baseX = 14 + o.u * (W - 28);
+      if (o.s === 0) {
+        o.h += (0 - o.h) * Math.min(1, dt * 3);
+        if (o.h < 0.02) { o.x = baseX; o.y = plateY; }
+        else { o.x += (baseX - o.x) * Math.min(1, dt * 2); o.y = plateY - o.h * (plateY * 0.6); }
+      } else if (o.s === 1) {
+        o.h += (1 - o.h) * Math.min(1, dt * 0.9);
+        var hy = plateY - 14 - o.h * (plateY * (0.18 + 0.6 * ((i * 37) % 11) / 11));
+        o.x = baseX + Math.sin(state.t * (0.7 + state.A * 2) + o.ph) * (8 + shake * 6) + (rinsing ? 0 : 0);
+        o.y = hy + Math.cos(state.t * (0.9 + state.A * 2.3) + o.ph) * (4 + shake * 3);
+      } else {
+        o.gone += flow;
+        o.x = baseX + o.gone; o.y = plateY * 0.45 + Math.sin(o.ph) * plateY * 0.25;
+      }
+      if (o.s === 2 && o.x > W + 30) continue;
+      if (o.s === 0 && o.h < 0.02) {
+        ctx.fillStyle = '#e7b54a';
+        ctx.beginPath(); ctx.ellipse(o.x + Math.sin(state.t * 9 + o.ph) * shake * 0.4, plateY, o.r * 1.9, o.r * 1.15, 0, Math.PI, 0); ctx.fill();
+        if (r.mono > 0.05 && !state.myth) {
+          var nm = Math.round(r.mono * 4);
+          for (var q = 0; q < nm; q++) {
+            var aa = Math.PI + (q + 0.5) / nm * Math.PI;
+            var hx = o.x + Math.cos(aa) * (o.r * 1.9 + 4), hy2 = plateY + Math.sin(aa) * (o.r * 1.15 + 4);
+            drawMolecule(ctx, hx, hy2, aa + Math.PI, 5, '#5ec8e5');
+          }
+        }
+      } else {
+        var wrapped = r.mic > 0.05;
+        if (wrapped) drawMicelle(ctx, o.x, o.y, o.r, 12, state.t * 0.4 + o.ph, true);
+        else {
+          ctx.fillStyle = '#e7b54a';
+          ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2); ctx.fill();
+        }
+        if (state.myth) {
+          ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.arc(o.x, o.y, o.r + 9, 0, Math.PI * 2); ctx.stroke();
+        }
+      }
+    }
+    // empty micelles (count ∝ how far above the CMC)
+    var nMic = Math.min(N_MIC, Math.round(N_MIC * Math.min(1, r.x / 2.5)));
+    for (var m = 0; m < nMic; m++) {
+      var mc = mics[m];
+      if (rinsing) mc.gone += flow;
+      var mx = ((mc.x * W + mc.gone + Math.sin(state.t * (0.5 + state.A) + mc.ph) * (10 + shake * 6)) % (W + 40));
+      var my = mc.y * plateY + Math.cos(state.t * 0.7 + mc.ph) * (5 + shake * 3);
+      drawMicelle(ctx, mx, my, 2.5, 10, state.t * 0.6 + mc.ph, false);
+    }
+    // free monomers (count ∝ monomer level)
+    var nMono = Math.round(N_MONO * Math.min(1, r.mono));
+    for (var n = 0; n < nMono; n++) {
+      var mo = monos[n];
+      var ax = mo.x * W + Math.sin(state.t * (0.6 + state.A * 1.5) + mo.ph) * (14 + shake * 8);
+      var ay = 18 + mo.y * plateY * 0.95 + Math.cos(state.t * 0.8 + mo.ph) * 6;
+      drawMolecule(ctx, ax, ay, mo.a + state.t * 0.3, 6, '#5ec8e5');
+    }
+    // air–water surface lined with soap (heads in water, tails up)
+    ctx.fillStyle = 'rgba(94,200,229,0.25)';
+    ctx.fillRect(0, 0, W, 2);
+    if (r.mono > 0.05) {
+      var step = Math.max(9, 26 - r.mono * 16);
+      for (var sx = 6; sx < W; sx += step) drawMolecule(ctx, sx, 9, -Math.PI / 2, 6, '#5ec8e5');
+    }
+    // HUD
+    ctx.font = FONT_DISPLAY;
+    var gl = state.grease;
+    ctx.fillStyle = r.mic > 0.05 ? '#7ee0a1' : '#ffc24a';
+    ctx.fillText(r.mic > 0.05 ? 'Micelles carry the grease' : (state.C <= 0 ? 'Plain water: oil won’t stay lifted' : (dissolved(state.C, state.T) < state.C ? 'Too cold: soap crystallizes, no micelles' : 'Below the CMC: no micelles yet')), 14, 34);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('on plate ' + fmt(gl.plate * 100, 0) + '% · lifted ' + fmt(gl.lifted * 100, 0) + '% · rinsed away ' + fmt(gl.rinsed * 100, 0) + '%', 14, 50);
+    if (rinsing) {
+      ctx.fillStyle = 'rgba(94,200,229,0.12)';
+      ctx.fillRect(0, 0, W, plateY);
+      ctx.font = FONT_MONO_13B;
+      ctx.fillStyle = '#5ec8e5';
+      ctx.fillText('RINSE →', W - 84, 34);
+    }
+    if (state.myth) {
+      var bw = Math.min(W - 20, 420), by = 60;
+      ctx.fillStyle = 'rgba(8,11,28,0.85)';
+      ctx.fillRect(10, by, bw, 44);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth: soap destroys the grease', 18, by + 18);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText('Oil molecules destroyed: 0. Every droplet (red ring) is moved, not erased.', 18, by + 34, bw - 16);
+    }
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var T = state.T, c = cmcAt(T);
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Surface tension vs soap', 14, 24);
+    var L = 44, R = W - 14, Tp = 42, B = H * 0.50;
+    var LMIN = -1, LMAX = 2;   // log10 mM: 0.1 … 100
+    function X(C) { var l = Math.log(Math.max(C, 0.1)) / Math.LN10; return L + (l - LMIN) / (LMAX - LMIN) * (R - L); }
+    function Y(gm) { return B - (gm - 30) / (75 - 30) * (B - Tp); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    [0.1, 1, 10, 100].forEach(function (cv) {
+      ctx.beginPath(); ctx.moveTo(X(cv), Tp); ctx.lineTo(X(cv), B); ctx.stroke();
+      ctx.fillText(String(cv), Math.min(X(cv) - 6, R - 18), B + 13);
+    });
+    [30, 45, 60, 75].forEach(function (gv) {
+      ctx.beginPath(); ctx.moveTo(L, Y(gv)); ctx.lineTo(R, Y(gv)); ctx.stroke();
+      ctx.fillText(String(gv), L - 22, Y(gv) + 3);
+    });
+    ctx.fillText('mN/m', 4, Tp - 6);
+    ctx.fillText('soap, mM (log)', R - 88, B + 26);
+    ctx.strokeStyle = '#5ec8e5'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (var i = 0; i <= 120; i++) {
+      var lc = LMIN + (LMAX - LMIN) * i / 120, cc = Math.pow(10, lc);
+      var y = Y(surfaceTension(cc, T));
+      if (i === 0) ctx.moveTo(X(cc), y); else ctx.lineTo(X(cc), y);
+    }
+    ctx.stroke();
+    if (isFinite(solubility(T)) && solubility(T) < c) {
+      ctx.fillStyle = 'rgba(255,126,95,0.12)';
+      ctx.fillRect(X(solubility(T)), Tp, R - X(solubility(T)), B - Tp);
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('crystallizes (below Krafft)', Math.max(L + 4, Math.min(R - 170, X(solubility(T)) + 4)), Tp + 12);
+    }
+    ctx.strokeStyle = 'rgba(255,194,74,0.8)';
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(X(c), Tp); ctx.lineTo(X(c), B); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('CMC ' + fmt(c, 1) + ' mM', Math.min(X(c) + 5, R - 84), Tp + 26);
+    var gNow = surfaceTension(state.C, T);
+    var px = state.C > 0.1 ? X(state.C) : L;
+    ctx.beginPath(); ctx.arc(px, Y(gNow), 5.5, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#d7def2';
+    var lab = fmt(gNow, 1) + ' mN/m';
+    ctx.fillText(lab, Math.max(L + 2, Math.min(px + 9, R - lab.length * 6.6)), Y(gNow) - 9);
+
+    // Grease bar
+    var gl = state.grease, by = H * 0.62, bx = 14, bw = W - 28;
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Where the grease is', 14, by - 12);
+    var segs = [[gl.rinsed, '#7ee0a1', 'rinsed away'], [gl.lifted, '#5ec8e5', 'lifted'], [gl.plate, '#e7b54a', 'on plate']];
+    var x0 = bx;
+    segs.forEach(function (sg) {
+      ctx.fillStyle = sg[1];
+      ctx.fillRect(x0, by, bw * sg[0], 18);
+      x0 += bw * sg[0];
+    });
+    ctx.strokeStyle = 'rgba(215,222,242,0.3)'; ctx.strokeRect(bx, by, bw, 18);
+    ctx.font = FONT_MONO_10;
+    var ly = by + 34, lx = bx;
+    segs.forEach(function (sg) {
+      ctx.fillStyle = sg[1];
+      ctx.fillRect(lx, ly - 8, 8, 8);
+      ctx.fillStyle = '#d7def2';
+      var t = sg[2] + ' ' + fmt(sg[0] * 100, 0) + '%';
+      ctx.fillText(t, lx + 12, ly);
+      lx += t.length * 6.2 + 26;
+    });
+    // micelle cross-section diagram
+    var cy = H - 58, cx = W - 70;
+    drawMicelle(ctx, cx, cy, 13, 16, state.t * 0.2, true);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    ctx.fillText('micelle: heads out (water)', cx - 34, cy - 10);
+    ctx.fillText('tails in, around an oil core', cx - 34, cy + 4);
+    ctx.fillText('~60 molecules · ~4 nm', cx - 34, cy + 18);
+    ctx.textAlign = 'left';
+    elChartMeta.textContent = fmt(T, 0) + ' °C';
+  }
+
+  function renderReadout() {
+    var T = state.T, c = cmcAt(T), r = rates(state.C, state.A, T), gl = state.grease;
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    var ce = dissolved(state.C, T);
+    kv('Soap vs CMC', fmt(state.C, 1) + ' mM · ' + fmt(state.C / c, 2) + '× CMC', 'CMC ' + fmt(c, 2) + ' mM at ' + fmt(T, 0) + ' °C' + (ce < state.C ? ' · only ' + fmt(ce, 1) + ' mM dissolves' : ''), state.C >= c && ce >= c ? 'ok' : 'sun');
+    kv('Soap in micelles', fmt(micelleFraction(state.C, T) * 100, 0) + '%', micelleConc(state.C, T) > 0 ? sci(micelleConc(state.C, T) * 1e-6 * N_A) + ' micelles per mL' : 'none below the CMC', '');
+    kv('Surface tension', fmt(surfaceTension(state.C, T), 1) + ' mN/m', 'plain water ' + fmt(waterTension(T), 1) + ' · approx. above CMC', '');
+    kv(state.myth ? 'Grease destroyed' : 'Lifted into the water', state.myth ? '0%' : fmt(gl.lifted * 100, 0) + '%', state.myth ? 'it’s moved: on plate + lifted + rinsed = 100%' : (r.mic > 0.05 ? 'held off the plate by micelles' : 'settles back without micelles'), state.myth ? 'warm' : '');
+    kv('Grease rinsed away', fmt(gl.rinsed * 100, 0) + '%', state.rinses + ' rinse' + (state.rinses === 1 ? '' : 's') + ' · on plate ' + fmt(gl.plate * 100, 0) + '%', gl.rinsed > 0.7 ? 'ok' : 'sun');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    var c = cmcAt(state.T);
+    elCL.textContent = fmt(state.C, 1) + ' mM · ' + fmt(state.C / c, 2) + '× CMC';
+    elAL.textContent = fmt(state.A * 100, 0) + '%';
+    elTL.textContent = fmt(state.T, 0) + ' °C';
+    setChip(chipMyth, state.myth);
+    for (var k in presets) setChip($(k), Math.abs(state.C - presets[k] * c) < 0.06);
+    var r = rates(state.C, state.A, state.T);
+    if (state.myth) elHint.textContent = 'Myth mode · red rings mark every oil droplet that left the plate. None vanish; the bars always add to 100%.';
+    else if (dissolved(state.C, state.T) < state.C && dissolved(state.C, state.T) < c) elHint.textContent = 'Below ~16 °C pure SDS crystallizes before reaching the CMC, so micelles can’t form. Warm the water.';
+    else if (state.C <= 0) elHint.textContent = 'Plain water: scrubbing knocks a little oil loose, but it settles straight back.';
+    else if (r.mic < 0.05) elHint.textContent = 'Below the CMC: soap lines the surfaces and lowers tension, but there are no micelles to carry oil.';
+    else elHint.textContent = 'Above the CMC: micelles wrap torn-off droplets and keep them off the plate. Press Rinse.';
+  }
+
+  function render(dt) { renderReadout(); drawScene(dt || 0); drawChart(); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.t += dt;
+    if (dt > 0) state.grease = washStep(state.grease, state.C, state.A, state.T, dt);
+    if (state.rinseT > 0) state.rinseT = Math.max(0, state.rinseT - dt);
+    render(dt);
+    requestAnimationFrame(tick);
+  }
+
+  function doRinse() {
+    state.grease = rinse(state.grease);
+    state.rinses++;
+    state.rinseT = 1.1;
+    for (var k = 0; k < mics.length; k++) mics[k].gone = 0;
+  }
+  function doReset() { state.grease = freshPlate(); state.rinses = 0; seed = 1234567; initParticles(); }
+
+  btnRinse.addEventListener('click', doRinse);
+  btnReset.addEventListener('click', doReset);
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  Object.keys(presets).forEach(function (id) {
+    $(id).addEventListener('click', function () {
+      state.C = Math.round(presets[id] * cmcAt(state.T) * 10) / 10;
+      elC.value = String(state.C);
+      updateLabels();
+    });
+  });
+  elC.addEventListener('input', function () { state.C = parseFloat(elC.value); updateLabels(); });
+  elA.addEventListener('input', function () { state.A = parseFloat(elA.value) / 100; updateLabels(); });
+  elT.addEventListener('input', function () { state.T = parseFloat(elT.value); updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); doRinse(); }
+  });
+  window.addEventListener('resize', function () { render(0); });
+
+  initParticles();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__soapModel = {
+    cmcAt: cmcAt, solubility: solubility, dissolved: dissolved, waterTension: waterTension, surfaceTension: surfaceTension,
+    micelleFraction: micelleFraction, micelleConc: micelleConc, rates: rates, washStep: washStep, rinse: rinse, freshPlate: freshPlate,
+    greaseSoftness: greaseSoftness, sci: sci, CMC25: CMC25, KRAFFT: KRAFFT, N_AGG: N_AGG, K_SZ: K_SZ
+  };
+  window.__soapState = state;
+  window.__soapApi = { doRinse: doRinse, doReset: doReset };
+})();
+</script>
+</body>
+</html>
