@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why You Stay Dizzy After You Stop Spinning — Inner-Ear Fluid Lag | Classroom</title>
+<meta name="description" content="Classroom explainer: fluid in your inner-ear canals lags behind your head, so when you stop spinning your ears say you’re turning the other way. Live sim.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why do you get dizzy after spinning, semicircular canals, endolymph, cupula, vestibular system, velocity storage, nystagmus, post-rotatory dizziness, time constant, high-pass filter, classroom biology, misconception">
+<link rel="canonical" href="dizzy.html">
+<meta property="og:title" content="Why You Stay Dizzy After You Stop Spinning">
+<meta property="og:description" content="Your inner ear only senses changes in spin. Keep turning and the signal fades; stop and it swings the other way, so the room seems to spin. Live model.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 420px; }
+@media (max-width: 720px) { .card canvas { height: 380px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · your body</a></p>
+  <h1>Why you stay dizzy after you stop spinning</h1>
+  <p class="lede">Each inner ear has three fluid-filled loops called the <strong>semicircular canals</strong>. When your head starts to turn, the fluid inside (endolymph) <strong>lags behind</strong>, like coffee in a cup you twist. It bends a jelly flap across the canal, the <strong>cupula</strong>, and hair cells in the flap report “turning.” Keep spinning at a steady rate and the flap springs back within seconds, so the signal fades and you feel almost still. Then you <strong>stop</strong>. The fluid keeps going and bends the flap the <strong>other way</strong>, so your ears report spin in the opposite direction while your eyes say you’re standing still.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Spin</strong> and let the 30 seconds run out. Notice the gold “feels like” line fades toward zero while you’re still spinning, then flips below zero the moment you stop.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnSpin" title="Spacebar">Spin</button>
+      <button type="button" class="btn" id="btnStop">Stop now</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip" id="eOpen" aria-pressed="false">Eyes open</button>
+      <button type="button" class="chip on" id="eClosed" aria-pressed="true">Eyes closed</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: your brain is sloshing</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Spin rate <em id="rLabel">180 °/s</em></span>
+        <input type="range" id="rate" min="30" max="360" step="10" value="180" aria-label="Spin rate in degrees per second">
+      </label>
+      <label class="sl grow">
+        <span>Spin duration <em id="dLabel">30 s</em></span>
+        <input type="range" id="dur" min="5" max="60" step="1" value="30" aria-label="How long the spin lasts in seconds">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint">Sitting still. Ears and eyes agree.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>You, the canal, your eyes</b><span id="sceneMeta">top view · canal enlarged</span></div>
+      <canvas id="cvScene" width="760" height="420" aria-label="Top view of a person spinning on a chair, a magnified semicircular canal with its cupula bending, and eyes showing nystagmus"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Real vs felt rotation</b><span id="chartMeta">last 60 s</span></div>
+      <canvas id="cvTrace" width="480" height="420" aria-label="Time traces of actual head rotation, perceived rotation and cupula deflection over the last 60 seconds"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>The fluid lags, the flap bends</h2>
+      <p>The canal walls turn with your skull at once. The endolymph inside is held back by its own inertia, so relative to the canal it flows backward and pushes on the cupula. Hair cells in the cupula turn that bend into nerve signals. The canals sense <em>changes</em> in spin, that is, angular acceleration, and report it as rotation speed.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Steady spin fades away</h2>
+      <p>The cupula is springy, so during a steady spin it relaxes back over a few seconds (time constant ≈ 5–7 s). The brain stretches that out to about 15–20 s with a circuit called <em>velocity storage</em>. Mathematically it’s a high-pass filter: a step in spin rate gives a felt rotation of <code>ω₀·e<sup>−t/τ</sup></code>. After 30 s, you hardly feel the spin.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Stop, and the signal flips</h2>
+      <p>Stopping is a sudden change of −ω₀. The fluid keeps going, the flap bends the other way, and you feel <code>−ω₀·e<sup>−t/τ</sup></code>: turning backward. Your eyes jerk in a reflex rhythm called <em>nystagmus</em> as they try to track that false spin. Your eyes, which see a still room, disagree with your ears. That conflict is the dizzy, sick feeling.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Your brain is sloshing around” · “it’s blood rushing”</h2>
+      <p>Your brain is firmly cushioned and doesn’t swirl when you spin. Blood isn’t the cause either. The sensation comes from a few drops of fluid in three canals each about 0.3 mm across, plus the brain’s processing of their signal. Toggle the myth: the brain stays put while the cupula does all the bending.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Spin numbers">
+    <div class="stat">
+      <div class="k">Cupula time constant</div>
+      <div class="v">≈ 6 s</div>
+      <div class="s">measured 4–7 s in primates</div>
+    </div>
+    <div class="stat">
+      <div class="k">Felt time constant</div>
+      <div class="v">≈ 16 s</div>
+      <div class="s">velocity storage, eyes closed</div>
+    </div>
+    <div class="stat">
+      <div class="k">After a long spin at 180 °/s</div>
+      <div class="v">≈ −64 °/s at 16 s</div>
+      <div class="s">≈ −ω₀·e⁻¹ one τ after stopping</div>
+    </div>
+    <div class="stat">
+      <div class="k">Canals per ear</div>
+      <div class="v">3</div>
+      <div class="s">at right angles: yaw, pitch, roll</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Torsion-pendulum canal → first-order high-pass.</strong> The classic Steinhausen model treats the canal as a heavily damped torsion pendulum. Over everyday frequencies, cupula deflection follows head angular velocity through a high-pass filter: <code>dc/dt = dω/dt − c/τ<sub>c</sub></code>, with τ<sub>c</sub> = 6 s. Deflection is shown in “°/s equivalent”, the head speed it signals, not in micrometres. (The real cupula moves by only nanometres to micrometres.)</li>
+      <li><strong>Felt rotation (velocity storage).</strong> The brain extends the canal signal with a central integrator (Raphan, Matsuo &amp; Cohen 1979). We model the felt rotation as one high-pass filter with τ = 16 s when your eyes are closed or it’s dark, a typical value inside the 15–20 s range. With your eyes open in a lit room, vision cuts velocity storage short, so the vestibular term decays with about the cupula’s own 6 s. Vision is also blended in (60% weight) for the felt rotation. Real perception adds adaptation, so the after-spin is often a bit weaker than this simple model gives.</li>
+      <li><strong>Mismatch</strong> is the vestibular estimate minus the true head rotation, which is also what your eyes report in a lit room. It’s a stand-in for the sensory conflict thought to drive dizziness and motion sickness, not a measured quantity.</li>
+      <li><strong>Nystagmus.</strong> The eyes drift opposite to the vestibular signal (gain about 0.6 in the dark) and snap back in quick phases. When you fix your gaze on something with your eyes open, the drift is mostly suppressed, drawn here at 20%.</li>
+      <li><strong>Chair.</strong> Spin-up and stopping use a 0.15 s time constant, nearly a step. Only the horizontal (yaw) canal is modeled. Real canals come in three planes, and tilting your head while spinning stirs the others, which is why that makes you so much dizzier. Time constants are from Fernández &amp; Goldberg (1971) and standard vestibular texts. Individual values vary.</li>
+      <li><strong>Safety.</strong> Spin seated, with space around you, and stop if you feel sick. Dizziness that comes without spinning, or that lasts, is worth seeing a doctor about.</li>
+      <li><strong>For teachers.</strong> Covers the senses and the nervous system, inertia in a fluid, feedback and signal processing (NGSS MS-LS1-8, HS-LS1-2, HS-PS2-1). The decaying step response is a nice real-world exponential. Misconceptions to name: “your brain sloshes”, “blood rushes to your head”, and “you feel rotation itself rather than changes in rotation”.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Model — mirrored in validate-dizzy.js =====
+  var TAU_CUPULA = 6, TAU_DARK = 16, TAU_LIGHT = 6, VISION_W = 0.6, TAU_CHAIR = 0.15;
+  var NYST_GAIN = 0.6, NYST_FIX = 0.2;
+
+  // Analytic first-order high-pass response to a step ω0 at t = 0 (spin), stopped at time T
+  function stepResponse(w0, tau, t, T) {
+    if (t < 0) return 0;
+    if (T === undefined || t < T) return w0 * Math.exp(-t / tau);
+    return w0 * Math.exp(-T / tau) * Math.exp(-(t - T) / tau) - w0 * Math.exp(-(t - T) / tau);
+  }
+  function freshModel() { return { w: 0, target: 0, c: 0, v: 0, t: 0, timer: 0 }; }
+  // Advance: m.w head rate follows m.target with a short chair lag; c, v are high-passed
+  function step(m, dt, eyesOpen) {
+    var n = Math.max(1, Math.ceil(dt / 0.002)), h = dt / n;
+    var tauV = eyesOpen ? TAU_LIGHT : TAU_DARK;
+    for (var i = 0; i < n; i++) {
+      if (m.timer > 0) { m.timer -= h; if (m.timer <= 0) { m.timer = 0; m.target = 0; } }
+      var w0 = m.w;
+      m.w += (m.target - m.w) * (1 - Math.exp(-h / TAU_CHAIR));
+      var dw = m.w - w0;
+      m.c = m.c * Math.exp(-h / TAU_CUPULA) + dw;
+      m.v = m.v * Math.exp(-h / tauV) + dw;
+      m.t += h;
+    }
+    return m;
+  }
+  function outputs(m, eyesOpen) {
+    var felt = eyesOpen ? VISION_W * m.w + (1 - VISION_W) * m.v : m.v;
+    return {
+      actual: m.w, cupula: m.c, vestibular: m.v, felt: felt,
+      mismatch: m.v - m.w,
+      nystagmus: -m.v * NYST_GAIN * (eyesOpen ? NYST_FIX : 1)
+    };
+  }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var state = { rate: 180, dur: 30, eyesOpen: false, myth: false, m: freshModel(), angle: 0, eyePos: 0, hist: [], histT: 0, lastTs: 0, anim: 0, sinceStop: null };
+  var $ = function (id) { return document.getElementById(id); };
+  var btnSpin = $('btnSpin'), btnStop = $('btnStop'), eOpen = $('eOpen'), eClosed = $('eClosed'), chipMyth = $('chipMyth');
+  var elR = $('rate'), elD = $('dur'), elRL = $('rLabel'), elDL = $('dLabel'), elHint = $('modeHint'), elReadout = $('readout');
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 420 },
+    trace: { canvas: $('cvTrace'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+  var HIST_DT = 0.1, HIST_N = 600;
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { var s = x.toFixed(d); return s === '-0' || s === '-0.0' ? s.slice(1) : s; }
+  function dirWord(w) { return Math.abs(w) < 2 ? 'still' : (w > 0 ? 'clockwise' : 'counter-clockwise'); }
+
+  function startSpin() { state.m.target = state.rate; state.m.timer = state.dur; state.sinceStop = null; updateLabels(); }
+  function stopNow() { if (state.m.target !== 0) state.sinceStop = 0; state.m.target = 0; state.m.timer = 0; updateLabels(); }
+
+  function simulate(dt) {
+    var wasMoving = state.m.target !== 0;
+    step(state.m, dt, state.eyesOpen);
+    if (wasMoving && state.m.target === 0) state.sinceStop = 0;
+    else if (state.sinceStop !== null) state.sinceStop += dt;
+    if (wasMoving !== (state.m.target !== 0)) updateLabels();
+    state.angle += state.m.w * dt * Math.PI / 180;
+    var o = outputs(state.m, state.eyesOpen);
+    // nystagmus sawtooth: slow drift at o.nystagmus (scaled), quick reset at the edge
+    state.eyePos += o.nystagmus * dt / 60;
+    if (state.eyePos > 1) state.eyePos = -0.6; else if (state.eyePos < -1) state.eyePos = 0.6;
+    if (Math.abs(o.nystagmus) < 1) state.eyePos *= Math.exp(-dt * 3);
+    state.histT += dt;
+    while (state.histT >= HIST_DT) {
+      state.histT -= HIST_DT;
+      state.hist.push({ a: o.actual, f: o.felt, c: o.cupula });
+      if (state.hist.length > HIST_N) state.hist.shift();
+    }
+  }
+
+  function drawArc(ctx, cx, cy, r, w, col, label) {
+    if (Math.abs(w) < 2) return;
+    var span = Math.min(2.6, Math.abs(w) / 360 * 2.6 + 0.4), dir = w > 0 ? 1 : -1;
+    var a0 = -Math.PI / 2 - dir * span / 2, a1 = -Math.PI / 2 + dir * span / 2;
+    ctx.strokeStyle = col; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(cx, cy, r, Math.min(a0, a1), Math.max(a0, a1)); ctx.stroke();
+    var ex = cx + Math.cos(a1) * r, ey = cy + Math.sin(a1) * r, tx = -Math.sin(a1) * dir, ty = Math.cos(a1) * dir;
+    ctx.fillStyle = col;
+    ctx.beginPath(); ctx.moveTo(ex + tx * 10, ey + ty * 10); ctx.lineTo(ex - ty * 6, ey + tx * 6); ctx.lineTo(ex + ty * 6, ey - tx * 6); ctx.closePath(); ctx.fill();
+    if (label) { ctx.font = FONT_MONO_10; ctx.fillText(label, cx - label.length * 3.05, cy - r - 10); }
+  }
+
+  function drawScene() {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0b1230'; ctx.fillRect(0, 0, W, H);
+    var o = outputs(state.m, state.eyesOpen);
+    var narrow = W < 520;
+    // --- person on chair (top view) ---
+    var pcx = narrow ? W * 0.27 : W * 0.24, pcy = H * 0.56, pr = Math.min(W * (narrow ? 0.17 : 0.13), H * 0.2);
+    ctx.fillStyle = 'rgba(94,200,229,0.06)';
+    ctx.beginPath(); ctx.arc(pcx, pcy, pr * 1.55, 0, Math.PI * 2); ctx.fill();
+    ctx.save();
+    ctx.translate(pcx, pcy); ctx.rotate(state.angle);
+    ctx.fillStyle = '#2a3560';
+    ctx.beginPath(); ctx.ellipse(0, 0, pr * 1.05, pr * 0.55, 0, 0, Math.PI * 2); ctx.fill();   // shoulders
+    ctx.fillStyle = '#c99b7d';
+    ctx.beginPath(); ctx.arc(0, 0, pr * 0.42, 0, Math.PI * 2); ctx.fill();                     // head
+    ctx.beginPath(); ctx.moveTo(-pr * 0.1, -pr * 0.40); ctx.lineTo(0, -pr * 0.55); ctx.lineTo(pr * 0.1, -pr * 0.40); ctx.closePath(); ctx.fill(); // nose
+    ctx.fillStyle = '#5ec8e5';
+    ctx.beginPath(); ctx.arc(-pr * 0.44, 0, pr * 0.08, 0, Math.PI * 2); ctx.fill();              // ears
+    ctx.beginPath(); ctx.arc(pr * 0.44, 0, pr * 0.08, 0, Math.PI * 2); ctx.fill();
+    if (state.myth) {
+      ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(0, 0, pr * 0.30, 0, Math.PI * 2); ctx.stroke();
+    }
+    ctx.restore();
+    drawArc(ctx, pcx, pcy, pr * 1.45, o.actual, '#5ec8e5', null);
+    drawArc(ctx, pcx, pcy, pr * 1.75, o.felt, '#ffc24a', null);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    var feltLab = 'feels like ' + fmt(o.felt, 0) + '°/s', realLab = 'real ' + fmt(o.actual, 0) + '°/s';
+    var ly = Math.min(H - 22, pcy + pr * 1.75 + 14);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText(realLab, Math.max(4, pcx - realLab.length * 3.05), ly);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText(feltLab, Math.max(4, pcx - feltLab.length * 3.05), ly + 14);
+    // --- canal inset ---
+    var ccx = narrow ? W * 0.74 : W * 0.62, ccy = narrow ? H * 0.40 : H * 0.48, cr = Math.min(narrow ? W * 0.17 : W * 0.13, H * 0.22);
+    ctx.strokeStyle = 'rgba(215,222,242,0.45)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(ccx, ccy, cr + 9, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(ccx, ccy, cr - 9, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = 'rgba(94,200,229,0.14)';
+    ctx.beginPath(); ctx.arc(ccx, ccy, cr + 9, 0, Math.PI * 2); ctx.arc(ccx, ccy, cr - 9, 0, Math.PI * 2, true); ctx.fill();
+    // fluid markers displaced (relative to the canal) opposite to the cupula signal; exaggerated
+    var disp = -o.cupula / 360 * 0.5;
+    ctx.fillStyle = '#5ec8e5';
+    for (var k = 0; k < 18; k++) {
+      var a = k / 18 * Math.PI * 2 + disp - Math.PI / 2;
+      var gap = Math.abs(((a + Math.PI / 2) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2));
+      if (gap < 0.25 || gap > Math.PI * 2 - 0.25) continue;
+      ctx.beginPath(); ctx.arc(ccx + Math.cos(a) * cr, ccy + Math.sin(a) * cr, 2.6, 0, Math.PI * 2); ctx.fill();
+    }
+    // cupula flap at the top of the ring, bending with c
+    var bend = Math.max(-1, Math.min(1, o.cupula / 240));
+    var fx = ccx, fy = ccy - cr;
+    ctx.strokeStyle = Math.abs(bend) > 0.05 ? '#ff7e5f' : '#d7def2';
+    ctx.lineWidth = 5; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(fx, fy - 9); ctx.quadraticCurveTo(fx - bend * 14, fy, fx - bend * 4, fy + 9); ctx.stroke();
+    ctx.lineCap = 'butt';
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#d7def2';
+    ctx.textAlign = 'center';
+    ctx.fillText('cupula', fx, fy - 16);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(narrow ? 'canal · head frame' : 'horizontal canal · fluid dots in head frame', ccx, ccy + cr + 26);
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('endolymph', ccx, ccy + 4);
+    if (state.myth) {
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('the bending is here,', ccx, ccy + 18);
+      ctx.fillText('not in the brain', ccx, ccy + 30);
+    }
+    ctx.textAlign = 'left';
+    // --- eyes (front view) with nystagmus ---
+    var ex0 = narrow ? W * 0.74 : W * 0.88, ey0 = narrow ? H * 0.80 : H * 0.48, er = narrow ? 13 : 15;
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'center';
+    ctx.fillText(state.eyesOpen ? 'eyes (fixating)' : 'eyes (closed: drift)', ex0, ey0 - er - 12);
+    for (var s = -1; s <= 1; s += 2) {
+      var ex = ex0 + s * er * 1.3;
+      ctx.fillStyle = '#e8ecf6';
+      ctx.beginPath(); ctx.ellipse(ex, ey0, er, er * 0.7, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#3a7d9a';
+      ctx.beginPath(); ctx.arc(ex + state.eyePos * er * 0.5, ey0, er * 0.38, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#080b1c';
+      ctx.beginPath(); ctx.arc(ex + state.eyePos * er * 0.5, ey0, er * 0.17, 0, Math.PI * 2); ctx.fill();
+      if (!state.eyesOpen) {
+        ctx.fillStyle = 'rgba(42,53,96,0.55)';
+        ctx.beginPath(); ctx.ellipse(ex, ey0, er, er * 0.7, 0, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    ctx.fillStyle = Math.abs(o.nystagmus) > 5 ? '#ffc24a' : '#8b93ad';
+    ctx.fillText(Math.abs(o.nystagmus) > 5 ? 'nystagmus ' + fmt(Math.abs(o.nystagmus), 0) + '°/s drift' : 'steady', ex0, ey0 + er + 18);
+    ctx.textAlign = 'left';
+    // HUD
+    ctx.font = FONT_DISPLAY;
+    var spinning = state.m.target !== 0;
+    var conflict = Math.abs(o.mismatch) > 15;
+    ctx.fillStyle = !conflict ? '#7ee0a1' : (spinning ? '#ffc24a' : '#ff7e5f');
+    var head;
+    if (spinning && Math.abs(o.felt) < Math.abs(o.actual) * 0.35) head = 'Still spinning, but it hardly feels like it';
+    else if (spinning) head = 'Spinning ' + dirWord(o.actual) + ' · ears agree';
+    else if (conflict) head = 'Stopped, but your ears say ' + dirWord(o.vestibular) + '!';
+    else head = 'Still · ears and eyes agree';
+    ctx.fillText(head, 14, 26);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(spinning ? 'spin ends in ' + fmt(state.m.timer, 0) + ' s' : (state.sinceStop !== null ? fmt(state.sinceStop, 1) + ' s since you stopped' : 'press Spin'), 14, 42);
+    if (state.myth) {
+      var bw = Math.min(W - 20, 340), by = 52;
+      ctx.fillStyle = 'rgba(8,11,28,0.85)';
+      ctx.fillRect(10, by, bw, 44);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth: the brain sloshes', 18, by + 18);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText('Brain (red ring) stays put. The canal flap bends.', 18, by + 34);
+    }
+  }
+
+  function drawTrace() {
+    var surf = surfaces.trace;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var L = 44, R = W - 12, T = 50, B = H - 34;
+    var hist = state.hist, n = hist.length;
+    var maxV = Math.max(90, state.rate * 1.1);
+    function X(i) { return R - (n - 1 - i) / (HIST_N - 1) * (R - L); }
+    function Y(v) { return (T + B) / 2 - Math.max(-maxV, Math.min(maxV, v)) / maxV * (B - T) / 2; }
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    var tick = maxV > 250 ? 150 : (maxV > 120 ? 100 : 50);
+    for (var tv = -Math.floor(maxV / tick) * tick; tv <= maxV; tv += tick) {
+      ctx.beginPath(); ctx.moveTo(L, Y(tv)); ctx.lineTo(R, Y(tv)); ctx.stroke();
+      ctx.fillText(String(tv), 4, Y(tv) + 3);
+    }
+    ctx.strokeStyle = 'rgba(215,222,242,0.35)';
+    ctx.beginPath(); ctx.moveTo(L, Y(0)); ctx.lineTo(R, Y(0)); ctx.stroke();
+    ctx.fillText('°/s', 4, T - 8);
+    var series = [
+      { k: 'a', col: '#5ec8e5', dash: [], lab: 'real head rotation' },
+      { k: 'c', col: '#ff7e5f', dash: [4, 4], lab: 'cupula bend (°/s equiv.)' },
+      { k: 'f', col: '#ffc24a', dash: [], lab: 'feels like' }
+    ];
+    series.forEach(function (s, si) {
+      ctx.strokeStyle = s.col; ctx.lineWidth = si === 2 ? 2.4 : 1.8; ctx.setLineDash(s.dash);
+      ctx.beginPath();
+      for (var i = 0; i < n; i++) { var y = Y(hist[i][s.k]); if (i === 0) ctx.moveTo(X(i), y); else ctx.lineTo(X(i), y); }
+      ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = s.col;
+      ctx.fillRect(L + (si % 2) * Math.min(170, (R - L) / 2), 12 + Math.floor(si / 2) * 14, 10, 3);
+      ctx.fillText(s.lab, L + 14 + (si % 2) * Math.min(170, (R - L) / 2), 16 + Math.floor(si / 2) * 14);
+    });
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('−60 s', L, H - 12);
+    ctx.fillText('now', R - 20, H - 12);
+    ctx.fillText('+ clockwise · − counter-clockwise', (L + R) / 2 - 96, H - 12);
+  }
+
+  function renderReadout() {
+    var o = outputs(state.m, state.eyesOpen);
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Actual head rotation', fmt(o.actual, 0) + ' °/s', dirWord(o.actual) + (state.m.target ? ' · ' + fmt(o.actual / 360, 2) + ' turns/s' : ''), '');
+    kv('Perceived rotation', fmt(o.felt, 0) + ' °/s', 'feels ' + dirWord(o.felt) + ' · τ = ' + (state.eyesOpen ? TAU_LIGHT + ' s + vision' : TAU_DARK + ' s (eyes closed)'), 'sun');
+    kv('Cupula deflection', fmt(o.cupula, 0) + ' °/s equiv.', Math.abs(o.cupula) < 2 ? 'upright' : 'bent ' + (o.cupula > 0 ? 'toward “clockwise”' : 'toward “counter-clockwise”') + ' · τ ' + TAU_CUPULA + ' s', Math.abs(o.cupula) > 20 ? 'warm' : '');
+    kv('Mismatch', fmt(o.mismatch, 0) + ' °/s', state.eyesOpen ? 'inner ear vs eyes' : 'inner ear vs reality', Math.abs(o.mismatch) > 15 ? 'warm' : 'ok');
+    if (state.myth) kv('Brain movement (myth check)', 'none', 'the sloshing is ~0.3 mm canals of endolymph', 'warm');
+    else kv('Nystagmus', fmt(Math.abs(o.nystagmus), 0) + ' °/s', state.eyesOpen ? 'slow drift, mostly suppressed by fixation' : 'eyes drift, then snap back', Math.abs(o.nystagmus) > 5 ? 'sun' : 'ok');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elRL.textContent = fmt(state.rate, 0) + ' °/s · ' + fmt(state.rate / 360, 2) + ' turns/s';
+    elDL.textContent = fmt(state.dur, 0) + ' s';
+    setChip(eOpen, state.eyesOpen);
+    setChip(eClosed, !state.eyesOpen);
+    setChip(chipMyth, state.myth);
+    btnSpin.textContent = state.m.target !== 0 ? 'Spin again' : 'Spin';
+    if (state.myth) elHint.textContent = 'Myth mode · the brain (red ring) never moves. The only thing that bends is the cupula in each canal.';
+    else if (state.m.target !== 0) elHint.textContent = 'Spinning: watch the felt rotation fade as the cupula springs back.';
+    else if (state.eyesOpen) elHint.textContent = 'Eyes open: vision says “still” and cuts the after-spin short.';
+    else elHint.textContent = 'Eyes closed: only your ears report, so the after-spin lasts longer.';
+  }
+
+  function render() { renderReadout(); drawScene(); drawTrace(); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (dt > 0) { simulate(dt); state.anim += dt; }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  btnSpin.addEventListener('click', startSpin);
+  btnStop.addEventListener('click', stopNow);
+  eOpen.addEventListener('click', function () { state.eyesOpen = true; updateLabels(); });
+  eClosed.addEventListener('click', function () { state.eyesOpen = false; updateLabels(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elR.addEventListener('input', function () { state.rate = parseFloat(elR.value); if (state.m.target !== 0) state.m.target = state.rate; updateLabels(); });
+  elD.addEventListener('input', function () { state.dur = parseFloat(elD.value); updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); if (state.m.target !== 0) stopNow(); else startSpin(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  for (var i = 0; i < HIST_N; i++) state.hist.push({ a: 0, f: 0, c: 0 });
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__dizzyModel = {
+    stepResponse: stepResponse, freshModel: freshModel, step: step, outputs: outputs,
+    TAU_CUPULA: TAU_CUPULA, TAU_DARK: TAU_DARK, TAU_LIGHT: TAU_LIGHT, VISION_W: VISION_W, TAU_CHAIR: TAU_CHAIR
+  };
+  window.__dizzyState = state;
+  window.__dizzyApi = { startSpin: startSpin, stopNow: stopNow, simulate: simulate };
+})();
+</script>
+</body>
+</html>
