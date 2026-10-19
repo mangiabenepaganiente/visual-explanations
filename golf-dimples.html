@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Golf Balls Have Dimples — The Drag Crisis, Turbulent Boundary Layers, Carry | Classroom</title>
+<meta name="description" content="Classroom golf explainer: dimples make the air hug the ball longer, shrinking the wake and halving drag (Cd 0.5 → 0.26). Compare smooth vs dimpled carry.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why golf balls have dimples, drag crisis, boundary layer, turbulent separation, Reynolds number, drag coefficient sphere, golf ball aerodynamics, Magnus lift, backspin, classroom physics, misconception">
+<link rel="canonical" href="golf-dimples.html">
+<meta property="og:title" content="Why Golf Balls Have Dimples">
+<meta property="og:description" content="A smooth ball would carry less than half as far. Dimples trip a turbulent boundary layer that clings longer, shrinking the wake and halving the drag.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 420px; }
+@media (max-width: 720px) { .card canvas { height: 340px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · sports physics</a></p>
+  <h1>Why golf balls have dimples</h1>
+  <p class="lede">It seems like a smooth ball should slip through the air more easily. At golf speeds it doesn’t. Air flowing over a smooth ball peels away early, about 80° around from the front, leaving a <strong>wide, low-pressure wake</strong> that drags the ball back. Dimples stir the thin layer of air touching the ball into <strong>turbulence</strong>. Turbulent air carries more momentum, so it <strong>clings until about 120°</strong> before letting go. The wake shrinks and the drag coefficient roughly <strong>halves, from about 0.5 to 0.26</strong>. A drive that carries about 245 m here would land near 100 m if the ball were smooth, and under 140 m even at the smooth ball’s best angle.</p>
+
+  <p class="try"><b>Try this</b>Tap <strong>Smooth ball</strong>, then <strong>Dimpled ball</strong>, and watch the wake. Notice the dark wake behind the dimpled ball is much narrower, because the flow hangs on around the back before it separates.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <span class="hint">Wake view</span>
+      <button type="button" class="chip" id="bSmooth" aria-pressed="false">Smooth ball</button>
+      <button type="button" class="chip on" id="bDimpled" aria-pressed="true">Dimpled ball</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip sun on" id="chipSpin" aria-pressed="true">Backspin lift (2,700 rpm)</button>
+      <button type="button" class="btn play" id="btnLaunch" title="Spacebar">Launch again</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: smooth is more aerodynamic</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Ball speed <em id="vLabel">70 m/s</em></span>
+        <input type="range" id="speed" min="20" max="80" step="1" value="70" aria-label="Ball launch speed in meters per second">
+      </label>
+      <label class="sl grow">
+        <span>Launch angle <em id="aLabel">12°</em></span>
+        <input type="range" id="angle" min="4" max="40" step="0.5" value="12" aria-label="Launch angle in degrees">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint">Dimpled: turbulent boundary layer, late separation, narrow wake.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b id="wakeTitle">Air around the ball</b><span id="wakeMeta">ball frame · schematic</span></div>
+      <canvas id="cvWake" width="760" height="420" aria-label="Airflow streamlines around a golf ball showing where the flow separates and how wide the wake is"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Flight paths</b><span id="flightMeta">height ×2</span></div>
+      <canvas id="cvFlight" width="480" height="420" aria-label="Side view of flight paths for a smooth and a dimpled golf ball launched at the same speed and angle"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>The wake is the drag</h2>
+      <p>At golf speeds almost all of a ball’s drag is <em>pressure drag</em>. Air at the front is squeezed to high pressure, and the region behind the ball is a low-pressure tumble of eddies. That pressure difference pushes the ball backward. A wider wake means more drag. Surface friction itself is a small part.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Turbulence clings longer</h2>
+      <p>The thin boundary layer on a smooth ball stays smooth (laminar) and runs out of momentum on the back side, so it separates near 80°. Dimples trip it into turbulence, which keeps mixing in fast-moving outer air. It survives the rising pressure on the back and separates near 120°. That shift is the <code>drag crisis</code>: Cd drops from about 0.5 to about 0.25.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Dimples move the crisis to golf speeds</h2>
+      <p>A smooth sphere has its own drag crisis, but only above <code>Re ≈ 3–4 × 10⁵</code>, faster than any drive. With D = 42.7 mm, a 70 m/s ball sits at <code>Re = vD/ν ≈ 2.0 × 10⁵</code>. Dimples trigger the switch already near 5 × 10⁴, so the ball has low drag for almost its whole flight. Dimples also make backspin lift strong and reliable.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“A smooth ball is more aerodynamic”</h2>
+      <p>Smooth wins only for skin friction, and that barely matters for a ball. Toggle the myth to see the flight it predicts (red dotted): a smooth ball with low drag and the same spin, outflying the dimpled one. In real wind-tunnel data the smooth ball has about twice the drag at these speeds and lands far shorter. Golfers found this out in the 1800s, when scuffed, hand-hammered balls flew farther than new smooth ones.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Golf ball numbers">
+    <div class="stat">
+      <div class="k">Re at 70 m/s</div>
+      <div class="v">≈ 2.0 × 10⁵</div>
+      <div class="s">vD/ν · D = 42.7 mm</div>
+    </div>
+    <div class="stat">
+      <div class="k">Drag coefficient</div>
+      <div class="v">0.50 → ~0.26</div>
+      <div class="s">smooth → dimpled</div>
+    </div>
+    <div class="stat">
+      <div class="k">Drag at 70 m/s</div>
+      <div class="v">≈ 1.1 N dimpled</div>
+      <div class="s">~2.5× the ball’s weight</div>
+    </div>
+    <div class="stat">
+      <div class="k">Dimples per ball</div>
+      <div class="v">≈ 300–500</div>
+      <div class="s">pattern varies by maker</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Ball and air.</strong> Diameter 42.67 mm and mass 45.93 g (the Rules of Golf minimum size and maximum mass). Air density ρ = 1.204 kg/m³ and kinematic viscosity ν ≈ 1.5 × 10⁻⁵ m²/s (about 20 °C, sea level). <code>Re = vD/ν</code>, drag <code>F = ½ρv²A·C<sub>d</sub></code>, and lift <code>½ρv²A·C<sub>L</sub></code> perpendicular to the velocity.</li>
+      <li><strong>Drag coefficients are representative curves fitted to wind-tunnel literature,</strong> not one specific ball. Smooth sphere: C<sub>d</sub> ≈ 0.5 across the subcritical range, with its drag crisis near Re ≈ 3.5 × 10⁵ (Achenbach 1972, <em>J. Fluid Mech.</em> 54:565). Dimpled ball: drag crisis near Re ≈ 5 × 10⁴, then C<sub>d</sub> ≈ 0.23 rising slowly to about 0.27 at driver speeds (Bearman &amp; Harvey 1976, “Golf ball aerodynamics”, <em>Aeronautical Quarterly</em> 27:112). Real balls differ by dimple design by roughly ±10%.</li>
+      <li><strong>Backspin lift (approximate).</strong> For the dimpled ball <code>C<sub>L</sub> ≈ 0.54·S<sup>0.4</sup></code>, with spin ratio S = ωr/v, capped at 0.35. This is a fit reported by Smits &amp; Smith (1994) and gives about 0.2 at launch for a 2,700 rpm drive. Spin decays with a 20 s time constant. Spin also adds some drag, which is ignored here. Smooth spinning spheres give weak and sometimes even reversed lift (inverse Magnus effect), so the smooth ball is flown without lift. That is a simplification, and it is why the drag-only dimpled path (dashed) is also shown for a fair comparison.</li>
+      <li><strong>Trajectory.</strong> 2D RK4 integration with a 5 ms step, C<sub>d</sub> re-evaluated from the instantaneous Re, no wind, flat ground, carry measured to the landing point (no roll). As a check, a tour-average drive (74.7 m/s, 10.9°, 2,686 rpm, from TrackMan PGA Tour averages) carries about 260 m in this model, against about 250 m measured.</li>
+      <li><strong>Wake picture is schematic.</strong> Streamlines use ideal flow around a circle up to the separation angle. Separation angle goes from about 80° (laminar) to about 120° (turbulent) in step with C<sub>d</sub>. Wake width is drawn from that angle. The real flow is three-dimensional and unsteady, and the wake sheds vortices.</li>
+      <li><strong>For teachers.</strong> Covers forces and motion, drag, and projectile motion with air resistance (NGSS HS-PS2-1, HS-ETS1-2). The counterintuitive design lesson is that roughness can reduce drag. Pair with a vacuum check: with C<sub>d</sub> = 0 the model returns the textbook range <code>v²·sin 2θ / g</code>.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics — mirrored in validate-golf-dimples.js =====
+  var RHO = 1.204, NU = 1.5e-5, G = 9.80665;
+  var D = 0.04267, MASS = 0.04593, AREA = Math.PI * D * D / 4;
+  var SPIN_RPM = 2700, SPIN_TAU = 20, CL_MAX = 0.35;
+
+  function reynolds(v) { return v * D / NU; }
+  function cdSmooth(Re) { return 0.10 + 0.40 / (1 + Math.pow(Re / 3.5e5, 10)); }
+  function cdDimpled(Re) {
+    var w = 1 / (1 + Math.pow(Re / 5e4, 8));
+    var post = 0.23 + 0.04 * Math.max(0, Math.min(1, (Re - 7e4) / 1.6e5));
+    return w * 0.5 + (1 - w) * post;
+  }
+  function cdFor(ball, Re) { return ball === 'smooth' ? cdSmooth(Re) : (ball === 'myth' ? 0.15 : cdDimpled(Re)); }
+  function liftCoeff(v, rpm) {
+    if (!rpm || v <= 0) return 0;
+    var S = rpm * 2 * Math.PI / 60 * (D / 2) / v;
+    return Math.min(CL_MAX, 0.54 * Math.pow(S, 0.4));
+  }
+  function dragForce(v, cd) { return 0.5 * RHO * v * v * AREA * cd; }
+  function separationAngle(cd) { return 80 + Math.max(0, Math.min(1, (0.5 - cd) / (0.5 - 0.23))) * 40; }
+  // opts: { ball: 'smooth'|'dimpled'|'myth'|'vacuum', rpm, dt, keep }
+  function fly(v0, deg, opts) {
+    opts = opts || {};
+    var th = deg * Math.PI / 180, dt = opts.dt || 0.005;
+    var s = [0, 0, v0 * Math.cos(th), v0 * Math.sin(th)], t = 0, apex = 0, pts = [[0, 0, 0]], keepEvery = Math.max(1, Math.round(0.02 / dt));
+    var rpm0 = opts.rpm || 0, n = 0;
+    function f(st, tt) {
+      var vx = st[2], vy = st[3], v = Math.sqrt(vx * vx + vy * vy);
+      if (opts.ball === 'vacuum' || v === 0) return [vx, vy, 0, -G];
+      var cd = cdFor(opts.ball, reynolds(v));
+      var cl = liftCoeff(v, rpm0 * Math.exp(-tt / SPIN_TAU));
+      var k = 0.5 * RHO * AREA * v / MASS;
+      return [vx, vy, -k * (cd * vx + cl * vy), -G + k * (-cd * vy + cl * vx)];
+    }
+    while (t < 30) {
+      var k1 = f(s, t);
+      var s2 = [s[0] + dt / 2 * k1[0], s[1] + dt / 2 * k1[1], s[2] + dt / 2 * k1[2], s[3] + dt / 2 * k1[3]], k2 = f(s2, t + dt / 2);
+      var s3 = [s[0] + dt / 2 * k2[0], s[1] + dt / 2 * k2[1], s[2] + dt / 2 * k2[2], s[3] + dt / 2 * k2[3]], k3 = f(s3, t + dt / 2);
+      var s4 = [s[0] + dt * k3[0], s[1] + dt * k3[1], s[2] + dt * k3[2], s[3] + dt * k3[3]], k4 = f(s4, t + dt);
+      var nx = [0, 1, 2, 3].map(function (i) { return s[i] + dt / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]); });
+      t += dt; n++;
+      if (nx[1] < 0 && t > dt * 2) {
+        var fr = s[1] / (s[1] - nx[1]);
+        var land = s[0] + fr * (nx[0] - s[0]), tl = t - dt + fr * dt;
+        pts.push([land, 0, tl]);
+        return { carry: land, time: tl, apex: apex, pts: pts, vLand: Math.hypot(nx[2], nx[3]) };
+      }
+      s = nx;
+      if (s[1] > apex) apex = s[1];
+      if (opts.keep !== false && n % keepEvery === 0) pts.push([s[0], s[1], t]);
+    }
+    return { carry: s[0], time: t, apex: apex, pts: pts, vLand: Math.hypot(s[2], s[3]) };
+  }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var state = { v: 70, deg: 12, ball: 'dimpled', spin: true, myth: false, t: 0, flightT: 0, lastTs: 0, paths: null };
+  var $ = function (id) { return document.getElementById(id); };
+  var bSmooth = $('bSmooth'), bDimpled = $('bDimpled'), chipSpin = $('chipSpin'), btnLaunch = $('btnLaunch'), chipMyth = $('chipMyth');
+  var elV = $('speed'), elA = $('angle'), elVL = $('vLabel'), elAL = $('aLabel'), elHint = $('modeHint');
+  var elReadout = $('readout'), elWakeTitle = $('wakeTitle'), elFlightMeta = $('flightMeta');
+  var surfaces = {
+    wake: { canvas: $('cvWake'), ctx: null, w: 0, h: 0, cssH: 420 },
+    flight: { canvas: $('cvFlight'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  function fmtRe(Re) { var e = Math.floor(Math.log(Re) / Math.LN10), m = Re / Math.pow(10, e); return m.toFixed(2) + ' × 10' + (e === 4 ? '⁴' : (e === 5 ? '⁵' : '⁶')); }
+
+  function computePaths() {
+    state.paths = {
+      smooth: fly(state.v, state.deg, { ball: 'smooth' }),
+      dimpledDrag: fly(state.v, state.deg, { ball: 'dimpled' }),
+      dimpledLift: state.spin ? fly(state.v, state.deg, { ball: 'dimpled', rpm: SPIN_RPM }) : null,
+      myth: fly(state.v, state.deg, { ball: 'myth', rpm: state.spin ? SPIN_RPM : 0 })
+    };
+    state.flightT = 0;
+  }
+  function bestDimpled() { var p = state.paths; return p.dimpledLift || p.dimpledDrag; }
+
+  // ---- streamlines (ideal flow around a circle, clipped at the wake boundary) ----
+  var streamCache = { key: '', lines: [] };
+  function streamlines(cx, cy, R, thetaS, W, H) {
+    var key = [cx, cy, R, thetaS.toFixed(1), W, H].join(',');
+    if (streamCache.key === key) return streamCache.lines;
+    var lines = [], nLines = 13, th = thetaS * Math.PI / 180;
+    var xs = cx - R * Math.cos(th);           // separation point x (front stagnation at cx − R)
+    var hs = R * Math.sin(th);
+    var spread = thetaS < 95 ? 0.12 : -0.12;
+    function wakeHalf(x) { return Math.max(R * 0.62, hs + (x - xs) * spread); }
+    for (var i = 0; i < nLines; i++) {
+      var y0 = (i - (nLines - 1) / 2) / ((nLines - 1) / 2) * Math.min(H * 0.46, R * 3.6);
+      if (Math.abs(y0) < R * 0.08) continue;
+      var pts = [], x = 0, y = cy + y0;
+      for (var k = 0; k < 400 && x < W; k++) {
+        var dx = x - cx, dy = y - cy, r2 = dx * dx + dy * dy;
+        var u = 1, v = 0;
+        if (r2 > R * R * 0.6) {
+          var R2 = R * R / (r2 * r2);
+          u = 1 - R2 * (dx * dx - dy * dy);
+          v = -R2 * 2 * dx * dy;
+        }
+        var sp = Math.sqrt(u * u + v * v) || 1;
+        x += 4 * u / sp; y += 4 * v / sp;
+        if (x > xs) {
+          var hw = wakeHalf(x), side = y0 > 0 ? 1 : -1;
+          if ((y - cy) * side < hw) y = cy + side * hw;
+        }
+        pts.push(x, y);
+      }
+      lines.push({ pts: pts, side: y0 > 0 ? 1 : -1 });
+    }
+    streamCache.key = key; streamCache.lines = lines; streamCache.wakeHalf = wakeHalf; streamCache.xs = xs;
+    return lines;
+  }
+
+  function drawWake() {
+    var surf = surfaces.wake;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0b1230'; ctx.fillRect(0, 0, W, H);
+    var Re = reynolds(state.v), cd = cdFor(state.ball, Re), thS = separationAngle(cd);
+    var R = Math.min(H * 0.16, W * 0.11), cx = W * 0.32, cy = H * 0.54;
+    var lines = streamlines(Math.round(cx), Math.round(cy), Math.round(R), thS, W, H);
+    var wakeHalf = streamCache.wakeHalf, xs = streamCache.xs;
+    // wake region
+    ctx.fillStyle = 'rgba(255,126,95,0.10)';
+    ctx.beginPath();
+    ctx.moveTo(xs, cy - wakeHalf(xs));
+    for (var x = xs; x <= W; x += 8) ctx.lineTo(x, cy - wakeHalf(x));
+    for (var x2 = W; x2 >= xs; x2 -= 8) ctx.lineTo(x2, cy + wakeHalf(x2));
+    ctx.closePath(); ctx.fill();
+    // eddies in wake
+    ctx.strokeStyle = 'rgba(255,126,95,0.55)';
+    ctx.lineWidth = 1.3;
+    for (var e = 0; e < 9; e++) {
+      var ex = xs + R * 0.6 + ((e * 0.13 + state.t * 0.25) % 1) * (W - xs);
+      var ehw = wakeHalf(ex);
+      var ey = cy + ((e % 3) - 1) * ehw * 0.55;
+      var er = Math.max(4, ehw * 0.32);
+      var a0 = state.t * (e % 2 ? 4 : -4) + e;
+      ctx.beginPath(); ctx.arc(ex, ey, er, a0, a0 + 4.2); ctx.stroke();
+    }
+    // streamlines with moving dashes
+    ctx.strokeStyle = 'rgba(94,200,229,0.55)';
+    ctx.lineWidth = 1.3;
+    ctx.setLineDash([10, 8]);
+    ctx.lineDashOffset = -state.t * 60;
+    lines.forEach(function (ln) {
+      var p = ln.pts;
+      ctx.beginPath(); ctx.moveTo(p[0], p[1]);
+      for (var i = 2; i < p.length; i += 2) ctx.lineTo(p[i], p[i + 1]);
+      ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    ctx.lineDashOffset = 0;
+    // ball
+    var dimpled = state.ball !== 'smooth';
+    var rg = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, R * 0.1, cx, cy, R);
+    rg.addColorStop(0, '#ffffff'); rg.addColorStop(1, '#aeb6c8');
+    ctx.fillStyle = rg;
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
+    if (dimpled) {
+      ctx.fillStyle = 'rgba(120,130,155,0.45)';
+      for (var ring = 0; ring < 4; ring++) {
+        var rr = R * (0.2 + ring * 0.22), nd = 6 + ring * 7;
+        for (var dd = 0; dd < nd; dd++) {
+          var aa = dd / nd * Math.PI * 2 + ring * 0.3;
+          ctx.beginPath(); ctx.arc(cx + Math.cos(aa) * rr, cy + Math.sin(aa) * rr, R * 0.055, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+      // turbulent boundary layer band
+      ctx.strokeStyle = 'rgba(126,224,161,0.7)';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([2, 3]);
+      ctx.beginPath(); ctx.arc(cx, cy, R + 4, Math.PI + 0.35, Math.PI + thS * Math.PI / 180); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, R + 4, Math.PI - thS * Math.PI / 180, Math.PI - 0.35); ctx.stroke();
+      ctx.setLineDash([]);
+    } else {
+      ctx.strokeStyle = 'rgba(94,200,229,0.8)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(cx, cy, R + 3, Math.PI + 0.2, Math.PI + thS * Math.PI / 180); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, cy, R + 3, Math.PI - thS * Math.PI / 180, Math.PI - 0.2); ctx.stroke();
+    }
+    // separation points
+    var tr = thS * Math.PI / 180;
+    var spx = cx - R * Math.cos(tr), spyT = cy - R * Math.sin(tr), spyB = cy + R * Math.sin(tr);
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath(); ctx.arc(spx, spyT, 4.5, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(spx, spyB, 4.5, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('separates ≈ ' + fmt(thS, 0) + '° from the front', Math.min(W - 190, spx + 8), spyT - 10);
+    ctx.fillStyle = '#ff7e5f';
+    var wpx = 2 * wakeHalf(cx + R * 2.5);
+    ctx.fillText('wake ≈ ' + fmt(wpx / (2 * R), 2) + ' ball widths', Math.min(W - 170, cx + R * 2.6), cy + wakeHalf(cx + R * 2.5) + 16);
+    // air arrow
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('air →', 10, cy - R * 3.9 > 50 ? cy - R * 3.9 : 62);
+    // HUD
+    ctx.fillStyle = 'rgba(11,18,48,0.82)';
+    ctx.fillRect(8, 8, Math.min(W - 16, 330), 42);
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = dimpled ? '#7ee0a1' : '#ff7e5f';
+    ctx.fillText((dimpled ? 'Dimpled: ' : 'Smooth: ') + 'Cd ≈ ' + fmt(cd, 2) + ' · Re ' + fmtRe(Re), 14, 26);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    var regime = dimpled ? (cd > 0.4 ? 'too slow: boundary layer still laminar' : 'turbulent boundary layer (green) clings') : (cd < 0.3 ? 'past the smooth drag crisis' : 'laminar boundary layer (blue) peels off early');
+    ctx.fillText(regime, 14, 42);
+  }
+
+  function drawFlight(dt) {
+    var surf = surfaces.flight;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var p = state.paths;
+    var list = [
+      { k: 'smooth', path: p.smooth, col: '#ff7e5f', dash: [], label: 'smooth' },
+      { k: 'drag', path: p.dimpledDrag, col: '#5ec8e5', dash: p.dimpledLift ? [5, 5] : [], label: p.dimpledLift ? 'dimpled, no spin' : 'dimpled' }
+    ];
+    if (p.dimpledLift) list.push({ k: 'lift', path: p.dimpledLift, col: '#7ee0a1', dash: [], label: 'dimpled + backspin' });
+    if (state.myth) list.push({ k: 'myth', path: p.myth, col: 'rgba(255,90,90,0.85)', dash: [2, 4], label: 'myth: smooth, Cd 0.15 ✗' });
+    var maxX = 50, maxY = 5, maxT = 0;
+    list.forEach(function (it) { maxX = Math.max(maxX, it.path.carry); maxY = Math.max(maxY, it.path.apex); maxT = Math.max(maxT, it.path.time); });
+    maxX *= 1.08;
+    var L = 34, R = W - 14, B = H - 34, T = 54;
+    var sx = (R - L) / maxX;
+    var ex = Math.max(1, Math.min(4, Math.floor(((B - T) / (maxY * 1.15)) / sx)));
+    var sy = sx * ex;
+    function X(x) { return L + x * sx; }
+    function Y(y) { return B - y * sy; }
+    // ground & ticks
+    ctx.fillStyle = '#123220'; ctx.fillRect(0, B, W, H - B);
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    var stepM = maxX > 220 ? 50 : (maxX > 90 ? 25 : 10);
+    ctx.strokeStyle = 'rgba(94,200,229,0.10)'; ctx.lineWidth = 1;
+    for (var m = 0; m <= maxX; m += stepM) {
+      ctx.beginPath(); ctx.moveTo(X(m), T - 10); ctx.lineTo(X(m), B); ctx.stroke();
+      if (X(m) < R - 26) ctx.fillText(String(m), X(m) - 6, B + 14);
+    }
+    ctx.fillText('m', R - 8, B + 14);
+    state.flightT += dt;
+    if (state.flightT > maxT + 1.5) state.flightT = 0;
+    list.forEach(function (it, idx) {
+      var pts = it.path.pts;
+      ctx.strokeStyle = it.col; ctx.lineWidth = 2; ctx.setLineDash(it.dash);
+      ctx.beginPath();
+      for (var i = 0; i < pts.length; i++) { if (i === 0) ctx.moveTo(X(pts[i][0]), Y(pts[i][1])); else ctx.lineTo(X(pts[i][0]), Y(pts[i][1])); }
+      ctx.stroke(); ctx.setLineDash([]);
+      // ball at current time
+      var tt = Math.min(state.flightT, it.path.time), j = 0;
+      while (j < pts.length - 1 && pts[j + 1][2] < tt) j++;
+      var a = pts[j], b = pts[Math.min(pts.length - 1, j + 1)], f = b[2] > a[2] ? (tt - a[2]) / (b[2] - a[2]) : 0;
+      var bx = a[0] + (b[0] - a[0]) * f, by = a[1] + (b[1] - a[1]) * f;
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(X(bx), Y(by), 3.5, 0, Math.PI * 2); ctx.fill();
+      // landing marker + label
+      ctx.fillStyle = it.col;
+      ctx.beginPath(); ctx.moveTo(X(it.path.carry), B); ctx.lineTo(X(it.path.carry) - 4, B - 8); ctx.lineTo(X(it.path.carry) + 4, B - 8); ctx.closePath(); ctx.fill();
+      ctx.font = FONT_MONO_10;
+      var lab = it.label + ' ' + fmt(it.path.carry, 0) + ' m';
+      ctx.fillText(lab, Math.max(4, Math.min(R - lab.length * 6.1, L)), 16 + idx * 13);
+      ctx.fillRect(Math.max(4, Math.min(R - lab.length * 6.1, L)) - 10, 12 + idx * 13, 6, 2);
+    });
+    elFlightMeta.textContent = ex > 1 ? 'height ×' + ex : 'to scale';
+  }
+
+  function renderReadout() {
+    var Re = reynolds(state.v), cdS = cdSmooth(Re), cdDm = cdDimpled(Re);
+    var p = state.paths, best = bestDimpled();
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Reynolds number', fmtRe(Re), 'vD/ν at launch · ' + fmt(state.v, 0) + ' m/s', '');
+    kv('Drag coefficient', fmt(cdS, 2) + ' → ' + fmt(cdDm, 2), 'smooth → dimpled · ' + fmt((1 - cdDm / cdS) * 100, 0) + '% less', 'sun');
+    var fD = dragForce(state.v, cdDm), fS = dragForce(state.v, cdS);
+    kv('Drag force at launch', fmt(fS, 2) + ' / ' + fmt(fD, 2) + ' N', 'smooth / dimpled · weight ' + fmt(MASS * G, 2) + ' N', '');
+    kv(state.myth ? 'Myth check: carry' : 'Carry', fmt(best.carry, 0) + ' m vs ' + fmt(p.smooth.carry, 0) + ' m', state.myth ? 'myth predicts smooth ' + fmt(p.myth.carry, 0) + ' m ✗' : 'dimpled' + (p.dimpledLift ? ' + spin' : '') + ' vs smooth · ×' + fmt(best.carry / p.smooth.carry, 1), state.myth ? 'warm' : 'ok');
+    kv(p.dimpledLift ? 'Backspin lift' : 'Flight time', p.dimpledLift ? 'C<sub>L</sub> ≈ ' + fmt(liftCoeff(state.v, SPIN_RPM), 2) : fmt(best.time, 1) + ' s',
+      p.dimpledLift ? 'apex ' + fmt(best.apex, 0) + ' m · ' + fmt(best.time, 1) + ' s in the air (approx.)' : 'apex ' + fmt(best.apex, 0) + ' m · drag only', '');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elVL.textContent = fmt(state.v, 0) + ' m/s · ' + fmt(state.v * 2.23694, 0) + ' mph';
+    elAL.textContent = fmt(state.deg, 1).replace('.0', '') + '°';
+    setChip(bSmooth, state.ball === 'smooth');
+    setChip(bDimpled, state.ball === 'dimpled');
+    setChip(chipSpin, state.spin);
+    setChip(chipMyth, state.myth);
+    elWakeTitle.textContent = state.ball === 'smooth' ? 'Air around a smooth ball' : 'Air around a dimpled ball';
+    var cd = cdFor(state.ball, reynolds(state.v));
+    if (state.myth) elHint.textContent = 'Myth mode · red dotted path is what you’d get if smooth balls had low drag. Real smooth balls land far shorter.';
+    else if (state.ball === 'smooth') elHint.textContent = 'Smooth: laminar boundary layer separates near ' + fmt(separationAngle(cd), 0) + '°, leaving a wide wake. Cd ≈ ' + fmt(cd, 2) + '.';
+    else if (cd > 0.4) elHint.textContent = 'Dimpled but slow: below Re ≈ 5×10⁴ even dimples can’t trip turbulence.';
+    else elHint.textContent = 'Dimpled: turbulent boundary layer clings to ~' + fmt(separationAngle(cd), 0) + '°, narrow wake, Cd ≈ ' + fmt(cd, 2) + '.';
+  }
+
+  function render(dt) { renderReadout(); drawWake(); drawFlight(dt || 0); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.t += dt;
+    render(dt);
+    requestAnimationFrame(tick);
+  }
+
+  bSmooth.addEventListener('click', function () { state.ball = 'smooth'; updateLabels(); });
+  bDimpled.addEventListener('click', function () { state.ball = 'dimpled'; updateLabels(); });
+  chipSpin.addEventListener('click', function () { state.spin = !state.spin; computePaths(); updateLabels(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  btnLaunch.addEventListener('click', function () { state.flightT = 0; });
+  elV.addEventListener('input', function () { state.v = parseFloat(elV.value); computePaths(); updateLabels(); });
+  elA.addEventListener('input', function () { state.deg = parseFloat(elA.value); computePaths(); updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); state.flightT = 0; }
+  });
+  window.addEventListener('resize', function () { render(0); });
+
+  computePaths();
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__golfPhysics = {
+    reynolds: reynolds, cdSmooth: cdSmooth, cdDimpled: cdDimpled, liftCoeff: liftCoeff, dragForce: dragForce,
+    separationAngle: separationAngle, fly: fly, RHO: RHO, NU: NU, D: D, MASS: MASS, AREA: AREA, G: G, SPIN_RPM: SPIN_RPM
+  };
+  window.__golfState = state;
+})();
+</script>
+</body>
+</html>
