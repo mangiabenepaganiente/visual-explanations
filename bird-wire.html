@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Birds Don’t Get Zapped on One Wire — Same Voltage Under Both Feet | Classroom</title>
+<meta name="description" content="Classroom explainer: a bird’s feet sit at nearly the same voltage, ~0.5 mV apart, so almost no current flows. Touch a pole and it’s thousands of volts.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why birds don't get shocked on power lines, bird on a wire, potential difference, voltage drop, Ohm's law, ACSR conductor resistance, electrical safety, squirrel power outage, classroom physics, misconception">
+<link rel="canonical" href="bird-wire.html">
+<meta property="og:title" content="Why Birds Don’t Get Zapped on One Wire">
+<meta property="og:description" content="Both feet sit at almost the same voltage — about half a millivolt apart — so almost no current flows through the bird. Touch a second wire and it’s kilovolts.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 420px; }
+@media (max-width: 720px) { .card canvas { height: 360px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · electricity</a></p>
+  <h1>Why birds don’t get zapped on one wire</h1>
+  <p class="lede">A power line can sit thousands of volts above the ground, yet a pigeon naps on it. Its feet aren’t rubber. Current only flows through something when there is a <strong>voltage difference across it</strong>, and both feet sit on the same wire at almost the same voltage. Push 100 A through a typical aluminum line (about 0.1 Ω per km) and two feet 5 cm apart are only <strong>about 0.5 millivolts</strong> apart, far less than a flashlight battery. Let a wing touch a second wire or the grounded pole, though, and the bird bridges <strong>thousands of volts</strong>.</p>
+
+  <p class="try"><b>Try this</b>Tap <strong>Wing touches the pole</strong>. Notice the voltage across the bird jumps from under a millivolt to about 7,200 volts, and the current through it jumps more than a million times.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <span class="hint">Bird touches</span>
+      <button type="button" class="chip on" id="cOne" aria-pressed="true">One wire only</button>
+      <button type="button" class="chip" id="cTwo" aria-pressed="false">Wing touches 2nd wire</button>
+      <button type="button" class="chip" id="cPole" aria-pressed="false">Wing touches the pole</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: birds have insulated feet</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Line current <em id="iLabel">100 A</em></span>
+        <input type="range" id="current" min="0" max="1000" step="5" value="100" aria-label="Current in the power line in amperes">
+      </label>
+      <label class="sl grow">
+        <span>Foot spacing <em id="dLabel">5 cm</em></span>
+        <input type="range" id="spacing" min="1" max="30" step="0.5" value="5" aria-label="Distance between the bird's feet in centimeters">
+      </label>
+      <label class="sl grow">
+        <span>Line voltage (phase to phase) <em id="vLabel">12.5 kV</em></span>
+        <input type="range" id="voltage" min="4" max="345" step="0.5" value="12.5" aria-label="Line voltage between phases in kilovolts">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint">Wire</span>
+      <button type="button" class="chip" id="wRaven" aria-pressed="false">Street line · ACSR 1/0</button>
+      <button type="button" class="chip on" id="wLinnet" aria-pressed="true">Feeder · ACSR 336</button>
+      <button type="button" class="chip" id="wDrake" aria-pressed="false">Transmission · ACSR 795</button>
+      <span class="hint" id="modeHint">One wire: both feet ride at the same voltage.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b id="sceneTitle">On the line</b><span id="sceneMeta">AC drift slowed for view</span></div>
+      <canvas id="cvScene" width="760" height="420" aria-label="A bird standing on a power line next to a pole, with current flowing in the wire and a magnified view of the wire between its feet"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Voltage &amp; current</b><span id="chartMeta">across the bird</span></div>
+      <canvas id="cvChart" width="480" height="420" aria-label="Chart of voltage drop along the wire between the feet, and a logarithmic scale of current through the bird with danger zones"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Current needs a voltage difference</h2>
+      <p>Ohm’s law, <code>I = ΔV / R</code>, cares about the <em>difference</em> in voltage across something, not how high above the ground it sits. The bird, the wire, and both feet all ride up and down together at about 7,200 V. Being “at high voltage” is harmless. Bridging two different voltages is not.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>The wire is a far better path</h2>
+      <p>Between the feet, the bird is in parallel with a few centimeters of thick aluminum, about 10 micro-ohms. The bird’s body is around a thousand ohms. Current splits in inverse proportion to resistance, so roughly <code>1 part in 100 million</code> takes the bird. The drop between the feet is <code>ΔV = I · R<sub>wire</sub> · d</code>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Two contacts make a path</h2>
+      <p>A wing on a second phase wire puts the full line-to-line voltage across the bird. A wing on a grounded pole or crossarm puts the phase-to-ground voltage across it. Either way the current is amps, not microamps. This is why large birds like hawks and eagles, and squirrels, are electrocuted and cause many power outages.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Birds have insulated feet” · “electricity only hurts people”</h2>
+      <p>Bird feet are skin and scale, and they conduct. Rubber feet wouldn’t matter on one wire, because there’s almost no voltage across them anyway. And they wouldn’t help if a wing touches the pole, because the current goes in through the wing. Birds get electrocuted exactly like people do when they bridge two voltages.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Bird on a wire numbers">
+    <div class="stat">
+      <div class="k">100 A · 0.1 Ω/km · 5 cm</div>
+      <div class="v">ΔV ≈ 0.5 mV</div>
+      <div class="s">a AA battery is 1,500 mV</div>
+    </div>
+    <div class="stat">
+      <div class="k">Bird current, one wire</div>
+      <div class="v">≈ 0.5 µA</div>
+      <div class="s">~1,000× below what you can feel</div>
+    </div>
+    <div class="stat">
+      <div class="k">12.47 kV line, phase to ground</div>
+      <div class="v">≈ 7,200 V</div>
+      <div class="s">what a wing on the pole bridges</div>
+    </div>
+    <div class="stat">
+      <div class="k">Eagle-safe spacing</div>
+      <div class="v">≥ 150 cm</div>
+      <div class="s">APLIC guidance, wire to wire/ground</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Voltage between the feet.</strong> The wire between the feet is a resistor <code>R<sub>seg</sub> = r · d</code>, with r the conductor resistance per length and d the foot spacing. The bird’s body is in parallel with it, so the bird’s current is <code>I<sub>bird</sub> = I<sub>line</sub> · R<sub>seg</sub> / (R<sub>seg</sub> + R<sub>bird</sub>)</code>. This is effectively <code>ΔV / R<sub>bird</sub></code>, since R<sub>seg</sub> is tiny. Line current is RMS AC, and so are the voltages and currents shown.</li>
+      <li><strong>Conductor resistance (representative, 20 °C DC, rounded).</strong> ACSR 1/0 “Raven” ≈ 0.54 Ω/km, ACSR 336.4 kcmil “Linnet” ≈ 0.17 Ω/km, ACSR 795 kcmil “Drake” ≈ 0.072 Ω/km. Real AC resistance at operating temperature is roughly 10–25% higher, which changes nothing here. The lede’s round example uses 0.1 Ω/km.</li>
+      <li><strong>Bird’s body resistance ≈ 1 kΩ (approximate).</strong> This is an order-of-magnitude stand-in. Real values depend on species, foot contact, and wet or dry conditions, and for a dry perched bird they are probably much higher. A higher value only makes the one-wire current smaller.</li>
+      <li><strong>Bridging.</strong> “Wing touches 2nd wire” puts the phase-to-phase voltage across the bird. “Touches the pole” assumes a grounded-wye system and grounded pole hardware, so it bridges <code>V<sub>LL</sub>/√3</code>. The current shown is <code>V / R<sub>bird</sub></code>. A real contact quickly becomes an arc. The fault current is set by the grid and cut off by fuses or reclosers, which is the outage. Avian-protection guidance (APLIC, <em>Suggested Practices for Avian Protection on Power Lines</em>, 2006) recommends about 150 cm of separation for eagles.</li>
+      <li><strong>The one current that does flow on one wire.</strong> AC lines swing their voltage 60 times a second, so a bird’s body must keep charging and discharging through its feet. Treating the bird as a small sphere (radius 8 cm, C = 4πε₀a ≈ 9 pF) gives <code>I = 2π·60·C·V</code>, about 24 µA on a 12.47 kV distribution line. That’s an order-of-magnitude estimate, and it is still below the 0.5 mA perception level. On the highest-voltage transmission lines it grows toward that level, and corona discharge appears.</li>
+      <li><strong>Danger bands</strong> are the human 60 Hz body-current zones from IEC 60479-1, shown only for scale: under ~0.5 mA not felt, ~0.5–10 mA felt, ~10–50 mA muscle lock, above ~50 mA the risk of heart fibrillation, and amps cause burns. Birds differ in detail but not in principle.</li>
+      <li><strong>Safety.</strong> Never touch, climb toward, or fly anything near a power line, and stay far away from downed wires. A person on a ladder or the ground is the “pole” in this picture. Their feet are grounded, so any contact puts the full phase voltage across the body.</li>
+      <li><strong>For teachers.</strong> Covers potential difference vs. potential, Ohm’s law, parallel paths, and current division (NGSS HS-PS3-5, MS-PS2-3; UK KS3/KS4 potential difference). The misconception to name is “high voltage alone shocks you” or “birds are insulated”.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics — mirrored in validate-bird-wire.js =====
+  var F_HZ = 60;
+  var EPS0 = 8.8541878128e-12;
+  var R_BIRD = 1000;           // Ω, approximate order of magnitude (foot to foot, or wing to feet)
+  var BIRD_RADIUS = 0.08;      // m, sphere stand-in for self-capacitance
+  var WIRES = {
+    raven: { key: 'raven', label: 'ACSR 1/0 “Raven”', ohmPerKm: 0.54, dia: 10.1 },
+    linnet: { key: 'linnet', label: 'ACSR 336 “Linnet”', ohmPerKm: 0.17, dia: 18.3 },
+    drake: { key: 'drake', label: 'ACSR 795 “Drake”', ohmPerKm: 0.072, dia: 28.1 }
+  };
+  var ZONES = [
+    { max: 5e-4, key: 'safe', label: 'SAFE', note: 'too small to feel' },
+    { max: 1e-2, key: 'felt', label: 'FELT', note: 'a tingle' },
+    { max: 5e-2, key: 'lock', label: 'DANGER', note: 'muscles lock' },
+    { max: Infinity, key: 'lethal', label: 'LETHAL', note: 'burns · heart stops' }
+  ];
+
+  function segResistance(ohmPerKm, d) { return ohmPerKm / 1000 * d; }                 // Ω for d metres
+  function footVoltage(I, ohmPerKm, d) { return I * segResistance(ohmPerKm, d); }       // V between feet
+  function birdShare(I, ohmPerKm, d, rb) {                                               // current divider
+    var rs = segResistance(ohmPerKm, d);
+    return I * rs / (rs + (rb || R_BIRD));
+  }
+  function phaseToGround(vLL) { return vLL / Math.sqrt(3); }
+  function birdCapacitance(a) { return 4 * Math.PI * EPS0 * (a || BIRD_RADIUS); }
+  function chargingCurrent(vLN, a) { return 2 * Math.PI * F_HZ * birdCapacitance(a) * vLN; }
+  function classify(I) {
+    for (var i = 0; i < ZONES.length; i++) if (I < ZONES[i].max) return ZONES[i];
+    return ZONES[ZONES.length - 1];
+  }
+  // Full situation: mode 'one' | 'two' | 'pole'; I in A, d in m, vLL in V
+  function situation(mode, I, ohmPerKm, d, vLL) {
+    var vLN = phaseToGround(vLL);
+    var dvFeet = footVoltage(I, ohmPerKm, d);
+    var iFeet = birdShare(I, ohmPerKm, d);
+    var iCap = chargingCurrent(vLN);
+    var across, iBody;
+    if (mode === 'two') { across = vLL; iBody = vLL / R_BIRD; }
+    else if (mode === 'pole') { across = vLN; iBody = vLN / R_BIRD; }
+    else { across = dvFeet; iBody = iFeet; }
+    var worst = mode === 'one' ? Math.max(iFeet, iCap) : iBody;
+    return {
+      vLN: vLN, dvFeet: dvFeet, iFeet: iFeet, iCap: iCap, across: across, iBody: iBody,
+      share: I > 0 ? iFeet / I : 0, zone: classify(worst), worst: worst, power: iBody * iBody * R_BIRD
+    };
+  }
+
+  // ===== formatting =====
+  function fmtV(v) {
+    var a = Math.abs(v);
+    if (a >= 1000) return (v / 1000).toFixed(a >= 1e5 ? 0 : 2) + ' kV';
+    if (a >= 1) return v.toFixed(a >= 100 ? 0 : 2) + ' V';
+    if (a >= 1e-4) return (v * 1e3).toFixed(a >= 0.1 ? 0 : 2) + ' mV';
+    if (a >= 1e-6 || a === 0) return (v * 1e6).toFixed(1) + ' µV';
+    return (v * 1e9).toFixed(1) + ' nV';
+  }
+  function fmtI(i) {
+    var a = Math.abs(i);
+    if (a >= 1) return i.toFixed(a >= 100 ? 0 : 1) + ' A';
+    if (a >= 1e-3) return (i * 1e3).toFixed(a >= 0.1 ? 0 : 2) + ' mA';
+    if (a >= 1e-7 || a === 0) return (i * 1e6).toFixed(a >= 1e-4 ? 0 : (a >= 1e-5 ? 1 : 2)) + ' µA';
+    return (i * 1e9).toFixed(1) + ' nA';
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  function partsIn(n) {
+    if (n >= 1e9) return (n / 1e9).toPrecision(2) + ' billion';
+    if (n >= 1e6) return (n / 1e6).toPrecision(2) + ' million';
+    return Math.round(n).toLocaleString('en-US');
+  }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var state = { mode: 'one', I: 100, d: 0.05, vLL: 12500, wire: WIRES.linnet, myth: false, t: 0, lastTs: 0, pulse: 0 };
+  var $ = function (id) { return document.getElementById(id); };
+  var modeChips = { one: $('cOne'), two: $('cTwo'), pole: $('cPole') };
+  var wireChips = { raven: $('wRaven'), linnet: $('wLinnet'), drake: $('wDrake') };
+  var chipMyth = $('chipMyth');
+  var elI = $('current'), elD = $('spacing'), elV = $('voltage');
+  var elIL = $('iLabel'), elDL = $('dLabel'), elVL = $('vLabel'), elHint = $('modeHint');
+  var elReadout = $('readout'), elSceneMeta = $('sceneMeta'), elChartMeta = $('chartMeta');
+  var surfaces = {
+    scene: { canvas: $('cvScene'), ctx: null, w: 0, h: 0, cssH: 420 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function current() { return situation(state.mode, state.I, state.wire.ohmPerKm, state.d, state.vLL); }
+
+  // ----- scene -----
+  function wireY(H, which) { return which === 0 ? H * 0.32 : H * 0.55; }
+
+  function drawWire(ctx, x0, x1, y, thick, glow) {
+    ctx.strokeStyle = glow ? 'rgba(255,126,95,0.35)' : 'rgba(94,200,229,0.10)';
+    ctx.lineWidth = thick + 6;
+    ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+    ctx.strokeStyle = '#9aa3b8';
+    ctx.lineWidth = thick;
+    ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(x0, y - thick * 0.25); ctx.lineTo(x1, y - thick * 0.25); ctx.stroke();
+  }
+
+  // Bird body centred at (bx, wire y) with half foot gap g (px). wing: null | {x, y} target point
+  function drawBird(ctx, bx, wy, g, scale, wing, myth) {
+    var s = scale;
+    var by = wy - 30 * s;
+    // legs
+    ctx.strokeStyle = '#e6b25a';
+    ctx.lineWidth = 2.2 * s;
+    ctx.beginPath();
+    ctx.moveTo(bx - 6 * s, by + 10 * s); ctx.lineTo(bx - g, wy - 2);
+    ctx.moveTo(bx + 6 * s, by + 10 * s); ctx.lineTo(bx + g, wy - 2);
+    ctx.stroke();
+    // feet (toes curling round the wire)
+    ctx.lineWidth = 2 * s;
+    [-g, g].forEach(function (fx) {
+      ctx.strokeStyle = myth ? '#ff7e5f' : '#e6b25a';
+      ctx.beginPath(); ctx.arc(bx + fx, wy, 4.5 * s, Math.PI * 1.05, Math.PI * 1.95); ctx.stroke();
+      if (myth) {
+        ctx.fillStyle = 'rgba(255,126,95,0.85)';
+        ctx.fillRect(bx + fx - 5 * s, wy - 9 * s, 10 * s, 6 * s);
+      }
+    });
+    // wing reaching out (drawn under body)
+    if (wing) {
+      ctx.fillStyle = '#4b5878';
+      ctx.beginPath();
+      ctx.moveTo(bx - 4 * s, by - 6 * s);
+      ctx.quadraticCurveTo((bx + wing.x) / 2 + 18 * s, (by + wing.y) / 2 - 10 * s, wing.x, wing.y);
+      ctx.quadraticCurveTo((bx + wing.x) / 2 - 2 * s, (by + wing.y) / 2 + 6 * s, bx + 8 * s, by + 6 * s);
+      ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = 'rgba(215,222,242,0.35)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    // tail
+    ctx.fillStyle = '#5a6788';
+    ctx.beginPath();
+    ctx.moveTo(bx - 14 * s, by + 2 * s); ctx.lineTo(bx - 34 * s, by + 14 * s); ctx.lineTo(bx - 30 * s, by + 4 * s); ctx.closePath(); ctx.fill();
+    // body
+    ctx.fillStyle = '#7d8bb0';
+    ctx.beginPath(); ctx.ellipse(bx, by, 19 * s, 13 * s, -0.12, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#9aa7c9';
+    ctx.beginPath(); ctx.ellipse(bx + 5 * s, by + 4 * s, 11 * s, 7 * s, -0.1, 0, Math.PI * 2); ctx.fill();
+    if (!wing) {
+      ctx.fillStyle = '#5f6d91';
+      ctx.beginPath(); ctx.ellipse(bx - 4 * s, by - 2 * s, 13 * s, 7 * s, -0.25, 0, Math.PI * 2); ctx.fill();
+    }
+    // head
+    ctx.fillStyle = '#8e9cc1';
+    ctx.beginPath(); ctx.arc(bx + 18 * s, by - 12 * s, 8.5 * s, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath(); ctx.moveTo(bx + 25 * s, by - 13 * s); ctx.lineTo(bx + 33 * s, by - 10 * s); ctx.lineTo(bx + 25 * s, by - 9 * s); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#080b1c';
+    ctx.beginPath(); ctx.arc(bx + 20 * s, by - 14 * s, 1.6 * s, 0, Math.PI * 2); ctx.fill();
+  }
+
+  function drawSpark(ctx, x, y, t) {
+    ctx.strokeStyle = '#fff3c4';
+    ctx.lineWidth = 1.6;
+    for (var k = 0; k < 6; k++) {
+      var a = k * 1.047 + t * 7.3, r = 8 + 6 * Math.abs(Math.sin(t * 13 + k));
+      ctx.beginPath(); ctx.moveTo(x, y);
+      ctx.lineTo(x + Math.cos(a) * r * 0.5 + Math.sin(t * 29 + k) * 2, y + Math.sin(a) * r * 0.5);
+      ctx.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r);
+      ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(255,194,74,0.45)';
+    ctx.beginPath(); ctx.arc(x, y, 12 + 3 * Math.sin(t * 20), 0, Math.PI * 2); ctx.fill();
+  }
+
+  function drawScene() {
+    var surf = surfaces.scene;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var S = current();
+    var g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#0b1433'); g.addColorStop(1, '#0a0f26');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    var narrow = W < 520;
+    var poleX = W * (narrow ? 0.86 : 0.88);
+    var yA = wireY(H, 0), yB = wireY(H, 1);
+    var thick = 2 + state.wire.dia * 0.16;
+    // pole + crossarm + ground wire
+    ctx.fillStyle = '#5b4632';
+    ctx.fillRect(poleX - 9, H * 0.12, 18, H * 0.88);
+    ctx.fillStyle = '#6d5640';
+    ctx.fillRect(poleX - 34, yA + 12, 68, 8);
+    ctx.fillRect(poleX - 34, yB + 12, 68, 8);
+    ctx.strokeStyle = '#7ee0a1';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath(); ctx.moveTo(poleX + 5, H * 0.14); ctx.lineTo(poleX + 5, H); ctx.stroke();
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#7ee0a1';
+    ctx.textAlign = 'right';
+    ctx.fillText('ground wire', poleX - 12, H - 10);
+    ctx.textAlign = 'left';
+    // insulators
+    [yA, yB].forEach(function (y) {
+      ctx.fillStyle = '#c9d4e6';
+      for (var k = 0; k < 3; k++) { ctx.beginPath(); ctx.ellipse(poleX - 28, y + 4 + k * 3, 6, 2, 0, 0, Math.PI * 2); ctx.fill(); }
+    });
+    var hot = state.mode !== 'one';
+    drawWire(ctx, 0, poleX - 28, yA, thick, hot);
+    drawWire(ctx, 0, poleX - 28, yB, thick, state.mode === 'two');
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('phase A · ' + fmtV(S.vLN) + ' to ground', 10, yA - thick - 8);
+    ctx.fillText('phase B · ' + fmtV(S.vLN) + ' to ground, shifted 120°', 10, yB + thick + 16);
+    // AC charge drift (slowed): dots oscillate along wire A and B
+    var amp = Math.min(46, 4 + state.I * 0.05);
+    var phA = Math.sin(state.t * 2 * Math.PI * 0.5);
+    var phB = Math.sin(state.t * 2 * Math.PI * 0.5 - 2.094);
+    ctx.fillStyle = '#5ec8e5';
+    for (var x = 10; x < poleX - 34; x += 22) {
+      if (state.I > 0) {
+        ctx.beginPath(); ctx.arc(x + amp * phA, yA, 1.7, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(x + 11 + amp * phB, yB, 1.7, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    if (state.myth) {
+      var bw = narrow ? W * 0.5 : Math.min(poleX - 200, 360), byy = yA + thick + (narrow ? 14 : 24);
+      ctx.fillStyle = 'rgba(8,11,28,0.85)';
+      ctx.fillRect(10, byy, bw, 54);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText(narrow ? 'Myth: rubber feet' : 'Myth: rubber feet protect birds', 18, byy + 18);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      if (narrow) { ctx.fillText('Red = insulated feet.', 18, byy + 32); ctx.fillText('Changes nothing.', 18, byy + 44); }
+      else { ctx.fillText('Red = insulated feet. One wire: already ~0 V.', 18, byy + 32); ctx.fillText('On the pole the wing still conducts.', 18, byy + 44); }
+    }
+    // bird position
+    var scale = narrow ? 0.9 : 1.1;
+    var gapPx = 6 + state.d * 100 * 1.6 * scale;
+    var bx, wing = null;
+    if (state.mode === 'pole') {
+      bx = poleX - 28 - gapPx - 70 * scale;
+      wing = { x: poleX - 9, y: yA - 38 * scale };
+    } else if (state.mode === 'two') {
+      bx = W * (narrow ? 0.68 : 0.62);
+      wing = { x: bx + 34 * scale, y: yB - 2 };
+    } else {
+      bx = W * (narrow ? 0.42 : 0.40);
+    }
+    drawBird(ctx, bx, yA - thick / 2, gapPx, scale, wing, state.myth);
+    if (wing) {
+      drawSpark(ctx, wing.x, wing.y, state.t);
+      // current through the body: dots running from feet to the wing tip
+      ctx.fillStyle = '#ffc24a';
+      for (var k = 0; k < 8; k++) {
+        var f = (k / 8 + state.t * 1.5) % 1;
+        var px = bx + (wing.x - bx) * f, py = yA - 20 * scale + (wing.y - (yA - 20 * scale)) * f;
+        ctx.beginPath(); ctx.arc(px, py, 2.2, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    // magnifier inset of the wire between the feet (one-wire mode)
+    var mr = narrow ? 58 : 72;
+    var mx = narrow ? mr + 10 : mr + 16, my = H - mr - 16;
+    if (state.mode === 'pole' && !narrow) mx = W * 0.40;
+    ctx.save();
+    ctx.beginPath(); ctx.arc(mx, my, mr, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(8,11,28,0.92)'; ctx.fill();
+    ctx.strokeStyle = 'rgba(94,200,229,0.5)'; ctx.lineWidth = 1.4; ctx.stroke();
+    ctx.clip();
+    ctx.fillStyle = '#9aa3b8';
+    ctx.fillRect(mx - mr, my - 6, mr * 2, 12);
+    var fx1 = mx - mr * 0.55, fx2 = mx + mr * 0.55;
+    ctx.fillStyle = state.myth ? '#ff7e5f' : '#e6b25a';
+    ctx.fillRect(fx1 - 5, my - 14, 10, 8); ctx.fillRect(fx2 - 5, my - 14, 10, 8);
+    // drift dots inside wire
+    ctx.fillStyle = '#5ec8e5';
+    for (var xx = mx - mr; xx < mx + mr; xx += 9) {
+      ctx.beginPath(); ctx.arc(xx + 6 * phA, my, 1.4, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.font = FONT_MONO_10;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('feet ' + fmt(state.d * 100, 1) + ' cm apart', mx, my - 24);
+    ctx.fillStyle = '#ffc24a';
+    ctx.fillText('ΔV ' + fmtV(S.dvFeet), mx, my + 24);
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('wire ' + fmt(segResistance(state.wire.ohmPerKm, state.d) * 1e6, 1) + ' µΩ', mx, my + 38);
+    ctx.textAlign = 'left';
+    ctx.restore();
+    // headline
+    ctx.font = FONT_DISPLAY;
+    var hl;
+    if (state.mode === 'one') { ctx.fillStyle = '#7ee0a1'; hl = 'Across the bird: ' + fmtV(S.across); }
+    else { ctx.fillStyle = '#ff7e5f'; hl = 'Across the bird: ' + fmtV(S.across) + ' · ' + fmtI(S.iBody); }
+    ctx.fillText(hl, 14, 26);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    var sub = state.mode === 'one' ? 'both feet on phase A · bird rides at ' + fmtV(S.vLN) :
+      (state.mode === 'two' ? 'wing on phase B · bridges phase to phase' : 'wing on grounded pole · bridges phase to ground');
+    ctx.fillText(sub, 14, 42);
+    elSceneMeta.textContent = narrow ? 'AC slowed ×120' : 'AC drift slowed ×120 · bird enlarged';
+  }
+
+  // ----- chart -----
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var S = current();
+    // Panel 1: potential drop along wire relative to the left foot
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Voltage drop along the wire', 14, 24);
+    var L = 52, R = W - 16, T = 40, B = H * 0.44;
+    var XMAX = 0.3; // m
+    var vMax = Math.max(1e-6, state.I * state.wire.ohmPerKm / 1000 * XMAX);
+    function X(x) { return L + x / XMAX * (R - L); }
+    function Y(v) { return B - v / vMax * (B - T); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    for (var cm = 0; cm <= 30; cm += 10) {
+      ctx.beginPath(); ctx.moveTo(X(cm / 100), T); ctx.lineTo(X(cm / 100), B); ctx.stroke();
+      ctx.fillText(cm + ' cm', Math.min(X(cm / 100) - 12, R - 32), B + 13);
+    }
+    for (var q = 0; q <= 2; q++) {
+      var vv = vMax * q / 2;
+      ctx.beginPath(); ctx.moveTo(L, Y(vv)); ctx.lineTo(R, Y(vv)); ctx.stroke();
+      ctx.fillText(q === 0 ? '0' : fmtV(vv).replace(' ', ''), 4, Y(vv) + 3);
+    }
+    ctx.strokeStyle = '#5ec8e5'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(XMAX), Y(vMax)); ctx.stroke();
+    var dvx = Math.min(state.d, XMAX);
+    ctx.fillStyle = 'rgba(255,194,74,0.18)';
+    ctx.fillRect(X(0), Y(footVoltage(state.I, state.wire.ohmPerKm, dvx)), X(dvx) - X(0), B - Y(footVoltage(state.I, state.wire.ohmPerKm, dvx)));
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath(); ctx.arc(X(0), Y(0), 4, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(X(dvx), Y(footVoltage(state.I, state.wire.ohmPerKm, dvx)), 4, 0, Math.PI * 2); ctx.fill();
+    ctx.font = FONT_MONO_11;
+    var lab = 'feet: ΔV = ' + fmtV(S.dvFeet);
+    ctx.fillText(lab, Math.min(X(dvx) + 8, R - lab.length * 6.6), Math.max(T + 12, Y(S.dvFeet) - 6));
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('ΔV = I · r · d  ·  ' + fmt(state.I, 0) + ' A × ' + state.wire.ohmPerKm + ' Ω/km', L, B + 28);
+
+    // Panel 2: log current scale with danger zones
+    var T2 = H * 0.62, B2 = T2 + 34, L2 = 16, R2 = W - 16;
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('Current through the bird', 14, T2 - 16);
+    var LMIN = -9, LMAX = 2;
+    function XL(i) { var l = Math.log(Math.max(i, 1e-12)) / Math.LN10; return L2 + (Math.max(LMIN, Math.min(LMAX, l)) - LMIN) / (LMAX - LMIN) * (R2 - L2); }
+    var bands = [[1e-9, 5e-4, 'rgba(126,224,161,0.22)'], [5e-4, 1e-2, 'rgba(255,194,74,0.22)'], [1e-2, 5e-2, 'rgba(255,126,95,0.25)'], [5e-2, 100, 'rgba(255,80,80,0.32)']];
+    bands.forEach(function (b) { ctx.fillStyle = b[2]; ctx.fillRect(XL(b[0]), T2, XL(b[1]) - XL(b[0]), B2 - T2); });
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    var ticks = W < 400 ? [1e-9, 1e-6, 1e-3, 1] : [1e-9, 1e-6, 1e-3, 1, 100];
+    ticks.forEach(function (tk) {
+      var tx = XL(tk);
+      ctx.fillRect(tx, B2, 1, 4);
+      var s = fmtI(tk).replace('.00', '').replace('.0', '');
+      ctx.fillText(s, Math.max(L2, Math.min(R2 - 34, tx - 12)), B2 + 15);
+    });
+    ctx.fillStyle = '#7ee0a1'; ctx.fillText('not felt', XL(1e-9) + 4, T2 + 12);
+    if (W > 380) { ctx.fillStyle = '#ffc24a'; ctx.fillText('felt', XL(5e-4) + 2, T2 + 12); }
+    ctx.fillStyle = '#ff7e5f'; ctx.fillText('heart', XL(5e-2) + 3, T2 + 12);
+    function marker(i, color, label, dy) {
+      var mx = XL(i);
+      ctx.fillStyle = color;
+      ctx.beginPath(); ctx.moveTo(mx, T2 - 2); ctx.lineTo(mx - 5, T2 - 10); ctx.lineTo(mx + 5, T2 - 10); ctx.closePath(); ctx.fill();
+      ctx.fillRect(mx - 1, T2, 2, B2 - T2);
+      ctx.font = FONT_MONO_10;
+      var lw = label.length * 6.2;
+      ctx.fillText(label, Math.max(L2, Math.min(R2 - lw, mx - lw / 2)), B2 + 30 + (dy || 0));
+    }
+    if (state.mode === 'one') {
+      marker(S.iFeet, '#5ec8e5', 'foot to foot ' + fmtI(S.iFeet), 0);
+      marker(S.iCap, '#c9a6ff', 'AC charging ' + fmtI(S.iCap), 14);
+    } else {
+      marker(S.iBody, '#ff7e5f', 'through the body ' + fmtI(S.iBody), 0);
+    }
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = S.zone.key === 'safe' ? '#7ee0a1' : (S.zone.key === 'felt' ? '#ffc24a' : '#ff7e5f');
+    ctx.fillText(S.zone.label + ' — ' + S.zone.note, 14, H - 30);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText('bands: human 60 Hz zones (IEC 60479-1), for scale', 14, H - 12);
+    elChartMeta.textContent = state.mode === 'one' ? 'one wire' : 'bridging';
+  }
+
+  function renderReadout() {
+    var S = current();
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Voltage between feet', fmtV(S.dvFeet), 'I·r·d · wire between feet ' + fmt(segResistance(state.wire.ohmPerKm, state.d) * 1e6, 1) + ' µΩ', 'sun');
+    if (state.mode === 'one') {
+      kv('Current through bird', fmtI(S.iFeet), '≈ 1 part in ' + (S.share > 0 ? partsIn(1 / S.share) : '∞') + ' of the line · R<sub>bird</sub> ≈ 1 kΩ (approx.)', 'ok');
+    } else {
+      kv('Current through bird', fmtI(S.iBody), 'V/R<sub>bird</sub> · ' + fmtV(S.across) + ' across the body', 'warm');
+    }
+    kv(state.mode === 'one' ? 'Bird’s voltage to ground' : 'Voltage across bird', state.mode === 'one' ? fmtV(S.vLN) : fmtV(S.across),
+      state.mode === 'one' ? 'both feet ride here · harmless alone' : (state.mode === 'two' ? 'phase to phase' : 'phase to ground, V<sub>LL</sub>/√3'), state.mode === 'one' ? '' : 'warm');
+    kv(state.myth ? 'Foot insulation needed' : 'AC charging current', state.myth ? 'none' : fmtI(S.iCap),
+      state.myth ? 'feet conduct; ΔV ≈ ' + fmtV(S.dvFeet) + ' anyway' : 'body recharging 60×/s · 9 pF sphere, order of magnitude', state.myth ? 'warm' : '');
+    kv('Danger verdict', S.zone.label, S.zone.note + (state.mode === 'one' ? '' : ' · ' + fmt(S.power / 1000, S.power > 1e5 ? 0 : 1) + ' kW in the body'),
+      S.zone.key === 'safe' ? 'ok' : (S.zone.key === 'felt' ? 'sun' : 'warm'));
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elIL.textContent = fmt(state.I, 0) + ' A';
+    elDL.textContent = fmt(state.d * 100, 1) + ' cm';
+    elVL.textContent = fmt(state.vLL / 1000, 1) + ' kV · ' + fmt(phaseToGround(state.vLL) / 1000, 1) + ' kV to ground';
+    for (var k in modeChips) setChip(modeChips[k], state.mode === k);
+    for (var w in wireChips) setChip(wireChips[w], state.wire.key === w);
+    setChip(chipMyth, state.myth);
+    var S = current();
+    if (state.myth) elHint.textContent = 'Myth mode · feet drawn insulated (red). On one wire nothing changes; on the pole the wing still conducts.';
+    else if (state.mode === 'one') elHint.textContent = 'One wire: both feet ride at ' + fmtV(S.vLN) + '; only ' + fmtV(S.dvFeet) + ' between them.';
+    else if (state.mode === 'two') elHint.textContent = 'Wing on phase B: ' + fmtV(S.across) + ' across the bird. Big birds spanning two wires die this way.';
+    else elHint.textContent = 'Wing on the grounded pole: ' + fmtV(S.across) + ' across the bird. Squirrels and raptors cause outages this way.';
+  }
+
+  function render() { renderReadout(); drawScene(); drawChart(); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.t += dt;
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  Object.keys(modeChips).forEach(function (k) {
+    modeChips[k].addEventListener('click', function () { state.mode = k; updateLabels(); });
+  });
+  Object.keys(wireChips).forEach(function (k) {
+    wireChips[k].addEventListener('click', function () { state.wire = WIRES[k]; updateLabels(); });
+  });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elI.addEventListener('input', function () { state.I = parseFloat(elI.value); updateLabels(); });
+  elD.addEventListener('input', function () { state.d = parseFloat(elD.value) / 100; updateLabels(); });
+  elV.addEventListener('input', function () { state.vLL = parseFloat(elV.value) * 1000; updateLabels(); });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__birdPhysics = {
+    segResistance: segResistance, footVoltage: footVoltage, birdShare: birdShare, phaseToGround: phaseToGround,
+    birdCapacitance: birdCapacitance, chargingCurrent: chargingCurrent, classify: classify, situation: situation,
+    fmtV: fmtV, fmtI: fmtI, WIRES: WIRES, R_BIRD: R_BIRD, ZONES: ZONES
+  };
+  window.__birdState = state;
+})();
+</script>
+</body>
+</html>
