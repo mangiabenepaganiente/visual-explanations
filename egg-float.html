@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Old Eggs Float — Density, Water Loss &amp; Archimedes | Classroom</title>
+<meta name="description" content="Classroom egg-float sim: water seeps out through the porous shell, the air cell grows and density falls below water. The float test shows age, not safety.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why do old eggs float, egg float test, egg density, air cell, archimedes principle, buoyancy, salt water egg, egg freshness, classroom physics, density lab">
+<link rel="canonical" href="egg-float.html">
+<meta property="og:title" content="Why Old Eggs Float">
+<meta property="og:description" content="An egg doesn’t float because rot gas inflates it. Water slowly escapes through the porous shell, the mass drops at constant volume, and density falls below water’s.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 430px; }
+@media (max-width: 720px) { .card canvas { height: 340px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · density &amp; buoyancy</a></p>
+  <h1>Why old eggs float</h1>
+  <p class="lede">A fresh egg is denser than water, about <strong>1.08–1.09 g/cm³</strong>, so it sinks and lies on its side. But an eggshell is full of tiny pores. Day by day, <strong>water vapor escapes</strong> and air seeps in to fill the <strong>air cell</strong> at the blunt end. The shell doesn’t shrink, so the egg loses mass at nearly <strong>constant volume</strong>, and its density drops. First it tilts, then it stands on end, and once it’s less dense than water, it floats.</p>
+
+  <p class="try"><b>Try this</b>Pick <strong>Counter</strong> and press <strong>▶ Age the egg</strong>. Notice the egg never gets bigger. It only gets lighter, until it tips up and finally floats.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false">▶ Age the egg</button>
+      <span class="hint">Stored</span>
+      <button type="button" class="chip on" id="sFridge" aria-pressed="true">Fridge · 4 °C</button>
+      <button type="button" class="chip" id="sRoom" aria-pressed="false">Counter · ~22 °C</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: it floats because rot gas puffs it up</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Egg age <em id="ageLabel">0 days</em></span>
+        <input type="range" id="age" min="0" max="240" step="1" value="0" aria-label="Days since the egg was laid">
+      </label>
+      <label class="sl grow">
+        <span>Liquid density <em id="rhoLabel">0.998 g/cm³ · tap water</em></span>
+        <input type="range" id="rhoF" min="0.998" max="1.197" step="0.001" value="0.998" aria-label="Density of the liquid in the glass, grams per cubic centimeter">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint">Liquid</span>
+      <button type="button" class="chip on" id="lTap" aria-pressed="true">Tap water</button>
+      <button type="button" class="chip" id="lSalty" aria-pressed="false">Salty · 1.05</button>
+      <button type="button" class="chip" id="lBrine" aria-pressed="false">Strong brine · 1.10</button>
+      <button type="button" class="chip" id="lSat" aria-pressed="false">Saturated · 1.197</button>
+      <span class="hint" id="modeHint">Fresh egg: denser than water, lies flat on the bottom.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>The glass</b><span id="sceneMeta">egg to scale</span></div>
+      <canvas id="cvGlass" width="760" height="430" aria-label="A glass of water with an egg that lies flat, tilts, stands on end, or floats depending on its density; the air cell inside grows with age"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Density over time</b><span id="chartMeta">fridge vs counter</span></div>
+      <canvas id="cvChart" width="480" height="430" aria-label="Graph of egg density against age for fridge and counter storage compared with the liquid density, plus weight and buoyant force bars"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>The shell leaks, slowly</h2>
+      <p>An eggshell has thousands of microscopic pores so the chick can breathe. They also let water vapor out. On a warm counter an egg loses very roughly <code>0.25%</code> of its mass a day. In the fridge it’s several times slower, about <code>0.04%</code>.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Same size, less mass</h2>
+      <p>The rigid shell keeps the volume fixed. As water leaves, air moves in and the air cell at the blunt end grows. Density is mass ÷ volume, so <code>ρ = m/V</code> falls steadily: 58 g in 53.5 cm³ is 1.085 g/cm³. Lose about 4.6 g and it’s below water.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Archimedes decides</h2>
+      <p>Water pushes up with a force equal to the weight of the water the egg displaces, <code>F<sub>b</sub> = ρ<sub>water</sub>·V·g</code>. While the egg is heavier than that, it sinks. The growing air cell makes the blunt end buoyant first, so the egg tilts and stands on end before it finally floats.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“It floats because rot gas puffs it up” · “sinkers are safe”</h2>
+      <p>The shell is rigid, so gas can’t inflate it. A floating egg is lighter, not bigger. The float test measures <em>water loss, which mostly means age</em>, not safety. A fresh, sinking egg can still carry Salmonella, and an old one may be fine. Go by storage, dates and smell.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Egg numbers">
+    <div class="stat">
+      <div class="k">Fresh egg density</div>
+      <div class="v">≈ 1.085 g/cm³</div>
+      <div class="s">approx · 1.08–1.09</div>
+    </div>
+    <div class="stat">
+      <div class="k">Water at 20 °C</div>
+      <div class="v">0.998 g/cm³</div>
+      <div class="s">saturated salt water ≈ 1.197</div>
+    </div>
+    <div class="stat">
+      <div class="k">Mass loss to float</div>
+      <div class="v">≈ 8%</div>
+      <div class="s">≈ 4.6 g from a 58 g egg</div>
+    </div>
+    <div class="stat">
+      <div class="k">Days to float</div>
+      <div class="v">≈ 1 mo · ≈ 7 mo</div>
+      <div class="s">counter · fridge (rough)</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Egg.</strong> A large egg: 58 g, fresh density 1.085 g/cm³ (published values cluster around 1.08–1.09), so its volume is 53.5 cm³. The shell is rigid, so volume stays constant. Fresh air cell 0.3 cm³, about 2.5 mm deep, within the USDA Grade AA limit of 1/8 inch (3.2 mm). Every gram of water lost is replaced by about 1 cm³ of air in the cell.</li>
+      <li><strong>Moisture loss rates</strong> (approximate, linear): counter (~22 °C) 0.25% of the starting mass per day, fridge (4 °C) 0.04% per day. Real rates depend on temperature, humidity, shell quality and whether the protective bloom was washed off (U.S. eggs are washed). Treat the day counts as rough. The <em>order</em> of events and the density threshold are the robust physics.</li>
+      <li><strong>Sink, tilt, stand, float.</strong> Floating is exact Archimedes: the egg floats when <code>ρ<sub>egg</sub> &lt; ρ<sub>liquid</sub></code>, with submerged fraction <code>ρ<sub>egg</sub>/ρ<sub>liquid</sub></code>. The tilt and stand-on-end bands (Δρ = ρ<sub>egg</sub> − ρ<sub>liquid</sub> above 0.06 lies flat, 0.03–0.06 tilts, 0–0.03 stands) are an illustrative mapping of the familiar float-test chart. The real angle depends on the air cell’s size and position and where the yolk sits.</li>
+      <li><strong>Air cell depth</strong> treats the air cell as an end cap of an ellipsoid (egg half-length 28.5 mm): cap fraction <code>(h/a)²(3 − h/a)/4</code>, solved for h. USDA grades: AA ≤ 1/8 in, A ≤ 3/16 in, B larger.</li>
+      <li><strong>Salt water.</strong> Density rises roughly linearly with salt, from 0.998 (fresh, 20 °C) to 1.197 g/cm³ when saturated (26.4% NaCl by mass). We interpolate linearly, which is good to about 1%. A fresh egg floats once the brine passes about 1.085, around 12% salt.</li>
+      <li><strong>Safety.</strong> The float test indicates <em>age and moisture loss</em>, not bacteria. Salmonella can be inside an egg that sinks, and spoilage depends mostly on temperature and time. Keep eggs refrigerated, cook them thoroughly, and throw out any egg that smells off. If in doubt, throw it out.</li>
+      <li><strong>For teachers.</strong> Density and buoyancy (MS-PS1-2, HS-PS2), mass conservation, and diffusion through a porous membrane. Classic lab: float eggs of different ages in water and salt water, weigh them on a 0.01 g scale over a few weeks, and compare with the curves here.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-egg-float.js =====
+  var G = 9.80665;
+  var EGG = { m0: 58, rho0: 1.085, air0: 0.3, halfLen: 28.5 };   // g, g/cm³, cm³, mm
+  EGG.V = EGG.m0 / EGG.rho0;
+  var RATES = { fridge: { key: 'fridge', label: 'Fridge · 4 °C', perDay: 0.0004 }, room: { key: 'room', label: 'Counter · ~22 °C', perDay: 0.0025 } };
+  var RHO_W = 0.998, RHO_SAT = 1.197, W_SAT = 26.4;
+  var BANDS = { flat: 0.06, stand: 0.03 };
+
+  function eggMass(days, rate) { return Math.max(EGG.m0 * 0.5, EGG.m0 * (1 - rate.perDay * days)); }
+  function eggDensity(m) { return m / EGG.V; }
+  function airCell(m) { return EGG.air0 + (EGG.m0 - m) / 1.0; }
+  // ellipsoid end-cap fraction f = (h/a)²(3 − h/a)/4 → depth h (mm)
+  function capDepth(airVol) {
+    var f = clamp(airVol / EGG.V, 0, 0.5), lo = 0, hi = 1;
+    for (var i = 0; i < 60; i++) { var mid = (lo + hi) / 2; if (mid * mid * (3 - mid) / 4 < f) lo = mid; else hi = mid; }
+    return (lo + hi) / 2 * EGG.halfLen;
+  }
+  function saltPercent(rho) { return clamp((rho - RHO_W) / (RHO_SAT - RHO_W) * W_SAT, 0, W_SAT); }
+  function saltGramsPerLiter(rho) { return rho * 1000 * saltPercent(rho) / 100; }
+  function daysToDensity(rhoTarget, rate) { return (1 - rhoTarget * EGG.V / EGG.m0) / rate.perDay; }
+  // Verdict, tilt angle (deg from horizontal), forces (N), submerged fraction
+  function eggState(days, rate, rhoF) {
+    var m = eggMass(days, rate), rho = eggDensity(m), d = rho - rhoF;
+    var W = m / 1000 * G, Vm3 = EGG.V * 1e-6;
+    var floats = d < 0;
+    var sub = floats ? rho / rhoF : 1;
+    var Fb = rhoF * 1000 * Vm3 * sub * G;
+    var verdict, angle;
+    if (floats) { verdict = 'floats'; angle = 90; }
+    else if (d >= BANDS.flat) { verdict = 'sinks · lies flat'; angle = 0; }
+    else if (d >= BANDS.stand) { verdict = 'sinks · tilts up'; angle = 90 * (BANDS.flat - d) / (BANDS.flat - BANDS.stand); }
+    else { verdict = 'sinks · stands on end'; angle = 90; }
+    var air = airCell(m);
+    return { m: m, rho: rho, V: EGG.V, d: d, W: W, Fb: Fb, N: floats ? 0 : W - Fb, sub: sub, floats: floats, verdict: verdict, angle: angle,
+      air: air, depth: capDepth(air), lossPct: (1 - m / EGG.m0) * 100 };
+  }
+  function usdaGrade(depthMm) { return depthMm <= 3.175 ? 'AA' : (depthMm <= 4.7625 ? 'A' : 'B'); }
+
+  // ===== UI =====
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function clamp(x, a, b) { return x < a ? a : (x > b ? b : x); }
+  function fmt(x, d) {
+    if (!isFinite(x)) return '—';
+    var s = x.toFixed(d);
+    if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+    return s;
+  }
+  function fmtSig(x, s) {
+    if (!isFinite(x)) return '∞';
+    if (x === 0) return '0';
+    var a = Math.abs(x);
+    if (a >= 1e5 || a < 1e-3) {
+      var e = Math.floor(Math.log(a) / Math.LN10), m = x / Math.pow(10, e);
+      if (Math.abs(m) >= 9.995) { m /= 10; e += 1; }
+      return m.toFixed(Math.max(0, s - 1)) + '×10' + supNum(e);
+    }
+    var dec = Math.max(0, s - 1 - Math.floor(Math.log(a) / Math.LN10));
+    return x.toFixed(Math.min(dec, 6));
+  }
+  function supNum(e) {
+    var map = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+    return String(e).split('').map(function (c) { return map[c] || c; }).join('');
+  }
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len, ah = Math.min(head || 9, len);
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.5, y2 - uy * ah + ux * ah * 0.5);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.5, y2 - uy * ah - ux * ah * 0.5);
+    ctx.closePath(); ctx.fill();
+  }
+  function rrect(ctx, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r); ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h); ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r); ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+  function banner(ctx, W, title, sub, y, fTitle, fSub) {
+    var bw = Math.min(W - 20, 430);
+    ctx.fillStyle = 'rgba(8,11,28,0.84)';
+    rrect(ctx, 10, y, bw, sub ? 42 : 26, 8); ctx.fill();
+    ctx.font = fTitle; ctx.fillStyle = '#ff7e5f';
+    ctx.fillText(title, 20, y + 19);
+    if (sub) { ctx.font = fSub; ctx.fillStyle = '#d7def2'; ctx.fillText(sub, 20, y + 35); }
+  }
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { days: 0, rate: RATES.fridge, rhoF: RHO_W, myth: false, playing: false, lastTs: 0, anim: 0, angleShown: 0, yShown: null };
+  var elAge = $('age'), elAgeL = $('ageLabel'), elRho = $('rhoF'), elRhoL = $('rhoLabel'), elPlay = $('btnPlay');
+  var elHint = $('modeHint'), elReadout = $('readout'), chipMyth = $('chipMyth');
+  var sChips = { fridge: $('sFridge'), room: $('sRoom') };
+  var lChips = { lTap: RHO_W, lSalty: 1.05, lBrine: 1.10, lSat: RHO_SAT };
+  var surfaces = {
+    glass: { canvas: $('cvGlass'), ctx: null, w: 0, h: 0, cssH: 430 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 430 }
+  };
+
+  function eggPath(ctx, a, b) {
+    ctx.beginPath();
+    for (var i = 0; i <= 64; i++) {
+      var t = i / 64 * Math.PI * 2;
+      var x = a * Math.cos(t), y = b * Math.sin(t) * (1 + 0.12 * Math.cos(t));
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+  }
+
+  function drawGlass() {
+    var surf = surfaces.glass;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var es = eggState(state.days, state.rate, state.rhoF);
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0b1432'); bg.addColorStop(1, '#0d1a3a');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    var gm = glassGeom(W, H), gw = gm.gw, gx = gm.gx, gTop = gm.gTop, gBot = gm.gBot, surfY = gm.surfY;
+    // liquid
+    var salt = saltPercent(state.rhoF) / W_SAT;
+    ctx.fillStyle = 'rgba(94,200,229,' + (0.16 + 0.14 * salt).toFixed(3) + ')';
+    ctx.fillRect(gx, surfY, gw, gBot - surfY);
+    ctx.strokeStyle = 'rgba(215,222,242,0.5)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(gx, gTop); ctx.lineTo(gx, gBot); ctx.lineTo(gx + gw, gBot); ctx.lineTo(gx + gw, gTop); ctx.stroke();
+    ctx.strokeStyle = 'rgba(94,200,229,0.7)'; ctx.beginPath(); ctx.moveTo(gx, surfY); ctx.lineTo(gx + gw, surfY); ctx.stroke();
+    var pxmm = gm.pxmm, a = gm.a, b = gm.b;
+    var ang = state.angleShown * Math.PI / 180;
+    var halfV = Math.abs(Math.sin(ang)) * a + Math.abs(Math.cos(ang)) * b;
+    if (state.yShown === null) state.yShown = targetY(es, gm);
+    var ex = gx + gw / 2, ey = state.yShown;
+    ctx.save();
+    ctx.translate(ex, ey); ctx.rotate(-ang);   // blunt end (+x) rotates up
+    eggPath(ctx, a, b);
+    ctx.fillStyle = '#f2e6d0'; ctx.fill();
+    // air cell at blunt end
+    ctx.save(); eggPath(ctx, a, b); ctx.clip();
+    var dpx = es.depth * pxmm;
+    ctx.fillStyle = 'rgba(94,200,229,0.55)';
+    ctx.fillRect(a - dpx, -b * 1.3, dpx + 2, b * 2.6);
+    // yolk
+    ctx.fillStyle = 'rgba(255,194,74,0.55)';
+    ctx.beginPath(); ctx.arc(-a * 0.08, 0, b * 0.5, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+    eggPath(ctx, a, b); ctx.strokeStyle = '#d7c7a8'; ctx.lineWidth = 1.5; ctx.stroke();
+    if (state.myth) {
+      // myth ghost: puffed-up egg
+      ctx.setLineDash([4, 4]); ctx.strokeStyle = '#ff7e5f';
+      var k = 1 + Math.min(0.35, es.lossPct / 25);
+      eggPath(ctx, a * k, b * k); ctx.stroke(); ctx.setLineDash([]);
+    }
+    ctx.restore();
+    // labels
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('air cell ' + fmt(es.air, 1) + ' cm³', Math.min(ex + a * 0.6 + 8, W - 120), Math.max(gTop - 26, ey - halfV - 6));
+    // force arrows (scaled to weight)
+    var fsc = 70 / es.W;
+    var fx = Math.min(gx + gw + 26, W - 30);
+    drawArrow(ctx, fx, ey, fx, ey + es.W * fsc, '#ff7e5f', 2.4, 8);
+    drawArrow(ctx, fx + 12, ey, fx + 12, ey - es.Fb * fsc, '#5ec8e5', 2.4, 8);
+    ctx.fillStyle = '#ff7e5f'; ctx.fillText('W', fx - 4, ey + es.W * fsc + 14);
+    ctx.fillStyle = '#5ec8e5'; ctx.fillText('F_b', fx + 4, ey - es.Fb * fsc - 6);
+    if (state.myth) banner(ctx, W, 'Myth: rot gas puffs the egg up', 'Dashed = myth. Real volume stays ' + fmt(EGG.V, 1) + ' cm³.', 10, FONT_DISPLAY, FONT_MONO_10);
+    // HUD
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = es.floats ? '#ff7e5f' : (es.angle > 0 ? '#ffc24a' : '#7ee0a1');
+    var hy = state.myth ? 68 : 24;
+    ctx.fillText(es.verdict, 14, hy);
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#d7def2';
+    ctx.fillText('day ' + state.days + ' · ' + fmt(es.rho, 3) + ' vs ' + fmt(state.rhoF, 3) + ' g/cm³', 14, hy + 18);
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var es = eggState(state.days, state.rate, state.rhoF);
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var L = 50, R = W - 14, T = 26, B = H * 0.66, dMax = 240;
+    var r0 = 0.97, r1 = 1.10;
+    function X(d) { return L + d / dMax * (R - L); }
+    function Y(r) { return B - (r - r0) / (r1 - r0) * (B - T); }
+    ctx.save(); ctx.beginPath(); ctx.rect(L, T, R - L, B - T); ctx.clip();
+    // bands relative to liquid
+    var f = state.rhoF;
+    ctx.fillStyle = 'rgba(255,126,95,0.10)'; ctx.fillRect(L, Y(f), R - L, B - Y(f));
+    ctx.fillStyle = 'rgba(255,194,74,0.08)'; ctx.fillRect(L, Y(f + BANDS.flat), R - L, Y(f) - Y(f + BANDS.flat));
+    ctx.fillStyle = 'rgba(126,224,161,0.06)'; ctx.fillRect(L, T, R - L, Y(f + BANDS.flat) - T);
+    ctx.restore();
+    ctx.font = FONT_MONO_10; ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1; ctx.fillStyle = '#8b93ad';
+    for (var r = 0.98; r <= 1.10 + 1e-9; r += 0.02) { ctx.beginPath(); ctx.moveTo(L, Y(r)); ctx.lineTo(R, Y(r)); ctx.stroke(); ctx.fillText(r.toFixed(2), 8, Y(r) + 3); }
+    for (var d = 0; d <= dMax; d += 60) { ctx.fillText(String(d), X(d) - 6, B + 14); }
+    ctx.fillText('egg density (g/cm³) vs age (days)', L, T - 10);
+    ctx.fillStyle = 'rgba(126,224,161,0.8)'; if (Y(f + BANDS.flat) - T > 14) ctx.fillText('lies flat', R - 64, T + 12);
+    ctx.fillStyle = 'rgba(255,194,74,0.9)'; if (Y(f + BANDS.flat) > T + 30) ctx.fillText('tilts / stands', R - 92, Math.max(T + 26, Y(f + BANDS.flat) + 12));
+    ctx.fillStyle = 'rgba(255,126,95,0.9)'; if (B - Y(f) > 14) ctx.fillText('floats', R - 46, B - 6);
+    // liquid line
+    ctx.strokeStyle = '#5ec8e5'; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.5;
+    if (f <= r1) { ctx.beginPath(); ctx.moveTo(L, Y(f)); ctx.lineTo(R, Y(f)); ctx.stroke(); }
+    ctx.setLineDash([]);
+    // curves
+    ['fridge', 'room'].forEach(function (k) {
+      var rate = RATES[k], on = state.rate === rate;
+      ctx.strokeStyle = k === 'room' ? (on ? '#ff7e5f' : 'rgba(255,126,95,0.35)') : (on ? '#ffc24a' : 'rgba(255,194,74,0.35)');
+      ctx.lineWidth = on ? 2.4 : 1.4;
+      ctx.save(); ctx.beginPath(); ctx.rect(L, T, R - L, B - T); ctx.clip();
+      ctx.beginPath();
+      for (var dd = 0; dd <= dMax; dd += 2) { var y = Y(eggDensity(eggMass(dd, rate))); if (dd === 0) ctx.moveTo(X(dd), y); else ctx.lineTo(X(dd), y); }
+      ctx.stroke(); ctx.restore();
+    });
+    ctx.fillStyle = '#ffc24a'; ctx.fillText('fridge', X(150), Y(eggDensity(eggMass(150, RATES.fridge))) - 8);
+    var dr = clamp(daysToDensity(1.0, RATES.room) * 0.6, 5, 200);
+    ctx.fillStyle = '#ff7e5f'; ctx.fillText('counter', X(dr) + 6, Y(eggDensity(eggMass(dr, RATES.room))));
+    // marker
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)'; ctx.beginPath(); ctx.moveTo(X(state.days), T); ctx.lineTo(X(state.days), B); ctx.stroke();
+    var my = Y(clamp(es.rho, r0, r1));
+    ctx.fillStyle = '#d7def2'; ctx.beginPath(); ctx.arc(X(state.days), my, 4, 0, Math.PI * 2); ctx.fill();
+    // force bars
+    var T2 = H * 0.76, bh = 14, maxF = Math.max(es.W, es.Fb) * 1.15;
+    ctx.fillStyle = '#8b93ad'; ctx.fillText('forces on the egg (mN)', L, T2 - 6);
+    function bar(y, v, col, lbl) {
+      ctx.fillStyle = 'rgba(94,200,229,0.08)'; ctx.fillRect(L + 40, y, R - L - 40, bh);
+      ctx.fillStyle = col; ctx.fillRect(L + 40, y, (R - L - 40) * v / maxF, bh);
+      ctx.fillStyle = '#d7def2'; ctx.fillText(lbl, 8, y + 11);
+      ctx.fillText(fmt(v * 1000, 0), Math.min(L + 44 + (R - L - 40) * v / maxF, R - 30), y + 11);
+    }
+    bar(T2 + 4, es.W, 'rgba(255,126,95,0.75)', 'weight');
+    bar(T2 + 26, es.Fb, 'rgba(94,200,229,0.75)', 'buoyant');
+    if (!es.floats) bar(T2 + 48, es.N, 'rgba(139,147,173,0.6)', 'bottom');
+  }
+
+  function renderReadout() {
+    var es = eggState(state.days, state.rate, state.rhoF);
+    var html = '';
+    function kv(k, v, s, cls) { html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>'; }
+    kv('Egg mass', fmt(es.m, 2) + ' g', '−' + fmt(EGG.m0 - es.m, 2) + ' g (' + fmt(es.lossPct, 1) + '%) water lost');
+    kv('Volume', fmt(es.V, 1) + ' cm³', 'rigid shell · unchanged' + (state.myth ? ' (myth: ' + fmt(es.V * Math.pow(1 + Math.min(0.35, es.lossPct / 25), 3), 0) + ')' : ''), state.myth ? 'warm' : '');
+    kv('Density', fmt(es.rho, 3) + ' g/cm³', 'liquid ' + fmt(state.rhoF, 3) + ' · Δ ' + (es.d >= 0 ? '+' : '−') + fmt(Math.abs(es.d), 3), es.floats ? 'warm' : 'sun');
+    kv('Air cell', fmt(es.air, 2) + ' cm³', fmt(es.depth, 1) + ' mm deep · USDA grade ' + usdaGrade(es.depth) + ' by air cell');
+    kv('Verdict', es.verdict, es.floats ? fmt((1 - es.sub) * 100, 1) + '% above the surface · F_b = W = ' + fmt(es.W * 1000, 0) + ' mN' : 'W ' + fmt(es.W * 1000, 0) + ' mN > F_b ' + fmt(es.Fb * 1000, 0) + ' mN', es.floats ? 'warm' : (es.angle > 0 ? 'sun' : 'ok'));
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elAgeL.textContent = state.days + ' days' + (state.days >= 7 ? ' · ' + fmt(state.days / 7, 1) + ' weeks' : '');
+    elAge.value = String(state.days);
+    var pct = saltPercent(state.rhoF);
+    elRhoL.textContent = fmt(state.rhoF, 3) + ' g/cm³ · ' + (pct < 0.3 ? 'tap water' : '≈ ' + fmt(pct, 1) + '% salt, ' + fmt(saltGramsPerLiter(state.rhoF), 0) + ' g/L');
+    elRho.value = String(state.rhoF);
+    for (var k in sChips) setChip(sChips[k], state.rate.key === k);
+    for (var l in lChips) setChip($(l), Math.abs(state.rhoF - lChips[l]) < 5e-4);
+    setChip(chipMyth, state.myth);
+    elPlay.textContent = state.playing ? '❚❚ Pause' : (state.days >= 240 ? '↺ Start over' : '▶ Age the egg');
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    var es = eggState(state.days, state.rate, state.rhoF);
+    var dF = daysToDensity(state.rhoF, state.rate);
+    if (state.myth) elHint.textContent = 'Myth mode · dashed outline = the puffed-up egg the myth predicts. The real shell never grows.';
+    else if (es.floats) elHint.textContent = 'Less dense than the liquid: it floats. This tells you it has lost water, not that it’s unsafe.';
+    else if (dF > 0 && isFinite(dF)) elHint.textContent = 'Stored like this, it would float after about ' + Math.ceil(dF) + ' days in this liquid.';
+    else elHint.textContent = 'Fresh egg: denser than the liquid, so it sinks.';
+  }
+
+  function render() { renderReadout(); drawGlass(); drawChart(); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    if (state.playing) {
+      state.dayAcc = (state.dayAcc || 0) + dt * (state.rate.key === 'room' ? 6 : 24);
+      if (state.dayAcc >= 1) { state.days = Math.min(240, state.days + Math.floor(state.dayAcc)); state.dayAcc -= Math.floor(state.dayAcc); }
+      if (state.days >= 240) state.playing = false;
+      updateLabels();
+    }
+    var es = eggState(state.days, state.rate, state.rhoF);
+    state.angleShown += (es.angle - state.angleShown) * Math.min(1, dt * 5);
+    // position easing handled in draw via yShown target
+    render();
+    var surf = surfaces.glass;
+    if (surf.h) {
+      var target = targetY(es, glassGeom(surf.w, surf.h));
+      state.yShown += (target - state.yShown) * Math.min(1, dt * 4);
+    }
+    requestAnimationFrame(tick);
+  }
+  function glassGeom(W, H) {
+    var gw = Math.min(W * 0.5, 260), gTop = 100, gBot = H - 30, surfY = gTop + 34;
+    var pxmm = Math.max(Math.min(gw * 0.42 / 57, (gBot - surfY) * 0.5 / 57), 1.2);
+    return { gw: gw, gx: (W - gw) / 2, gTop: gTop, gBot: gBot, surfY: surfY, pxmm: pxmm, a: EGG.halfLen * pxmm, b: 21.5 * pxmm };
+  }
+  // Floating: blunt end up, the part above the surface is an end cap holding (1 − submerged) of the volume
+  function targetY(es, gm) {
+    var ang = state.angleShown * Math.PI / 180;
+    if (es.floats) return gm.surfY + gm.a - capDepth((1 - es.sub) * EGG.V) * gm.pxmm;
+    return gm.gBot - (Math.abs(Math.sin(ang)) * gm.a + Math.abs(Math.cos(ang)) * gm.b) - 2;
+  }
+
+  elPlay.addEventListener('click', function () { if (state.days >= 240) state.days = 0; state.playing = !state.playing; updateLabels(); });
+  Object.keys(sChips).forEach(function (k) { sChips[k].addEventListener('click', function () { state.rate = RATES[k]; updateLabels(); }); });
+  Object.keys(lChips).forEach(function (id) { $(id).addEventListener('click', function () { state.rhoF = lChips[id]; updateLabels(); }); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elAge.addEventListener('input', function () { state.days = parseInt(elAge.value, 10); updateLabels(); });
+  elRho.addEventListener('input', function () { state.rhoF = parseFloat(elRho.value); updateLabels(); });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__eggPhysics = {
+    eggMass: eggMass, eggDensity: eggDensity, airCell: airCell, capDepth: capDepth, saltPercent: saltPercent, saltGramsPerLiter: saltGramsPerLiter,
+    daysToDensity: daysToDensity, eggState: eggState, usdaGrade: usdaGrade, EGG: EGG, RATES: RATES, RHO_W: RHO_W, RHO_SAT: RHO_SAT, BANDS: BANDS, G: G
+  };
+  window.__eggState = state;
+})();
+</script>
+</body>
+</html>
