@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Brain Freeze Isn’t in Your Brain — Cold Palate, Blood Vessels, Referred Pain | Classroom</title>
+<meta name="description" content="Classroom explainer: brain freeze is a chilled palate making vessels squeeze then widen; a nerve sends the pain to your forehead. Your brain stays 37 °C.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="brain freeze, ice cream headache, sphenopalatine ganglioneuralgia, referred pain, trigeminal nerve, anterior cerebral artery, vasodilation, why brain freeze happens, classroom biology, misconception">
+<link rel="canonical" href="brain-freeze.html">
+<meta property="og:title" content="Why Brain Freeze Isn’t in Your Brain">
+<meta property="og:description" content="Cold on the roof of your mouth makes blood vessels squeeze, then rush open. A facial nerve reports it as forehead pain. Your brain never gets cold.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 420px; }
+@media (max-width: 720px) { .card canvas { height: 360px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · your body</a></p>
+  <h1>Why brain freeze isn’t in your brain</h1>
+  <p class="lede">That stabbing forehead ache after a fast spoonful of ice cream has a medical name: <strong>sphenopalatine ganglioneuralgia</strong>. Your brain doesn’t get cold. It stays at about <strong>37 °C</strong> the whole time. The cold hits the <strong>roof of your mouth</strong>, where blood vessels first squeeze shut and then <strong>rush open</strong> to rewarm the tissue. In a small 2012 study, blood flow in the <strong>anterior cerebral artery</strong> tended to rise during brain freeze. The <strong>trigeminal nerve</strong> carries the signal, and your brain blames your forehead. That’s called <em>referred pain</em>.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>Take a bite</strong> and wait. Notice the pain doesn’t start when the cold touches your palate. It arrives about 10 seconds later, when the vessels swing from squeezing to widening.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnBite" title="Spacebar">Take a bite</button>
+      <button type="button" class="chip" id="chipEat" aria-pressed="false">Keep eating (a bite every 8 s)</button>
+      <button type="button" class="chip sun" id="chipTongue" aria-pressed="false">Press tongue to roof</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: your brain is freezing</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Ice cream temperature <em id="fLabel">−12 °C</em></span>
+        <input type="range" id="foodT" min="-18" max="15" step="1" value="-12" aria-label="Temperature of the food in degrees Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Contact time per bite <em id="cLabel">5 s</em></span>
+        <input type="range" id="contact" min="1" max="10" step="0.5" value="5" aria-label="How long each bite stays pressed on the roof of the mouth, in seconds">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint">Palate warm · no pain signal.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Inside your head</b><span id="sceneMeta">side view · schematic</span></div>
+      <canvas id="cvHead" width="760" height="420" aria-label="Side view of a head showing the roof of the mouth, the sphenopalatine ganglion, the trigeminal nerve, the anterior cerebral artery, and the forehead where pain is felt"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>The last 60 seconds</b><span id="chartMeta">illustrative model</span></div>
+      <canvas id="cvTrace" width="480" height="420" aria-label="Time traces of palate temperature, blood vessel width and pain signal over the last 60 seconds"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Cold hits the roof of your mouth</h2>
+      <p>Ice cream around <code>−12 °C</code> pressed against the palate pulls its surface temperature down fast. The palate is thin, packed with blood vessels and nerve endings, and sits just below a nerve hub behind your nose, the sphenopalatine ganglion. Cold drinks gulped against the palate do the same.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Squeeze, then flood</h2>
+      <p>Vessels first constrict to save heat, then dilate hard to warm the area back up. In a small 2012 study from Jorge Serrador’s lab (13 adults), flow in the <code>anterior cerebral artery</code> tended to rise during the pain and fall as it eased. The rapid widening is thought to set off the pain, but the evidence is still preliminary.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>The nerve blames your forehead</h2>
+      <p>Pain from the palate and these vessels travels on branches of the <code>trigeminal nerve</code>, the same nerve that serves your forehead and face. The brain can’t tell which branch the signal came from, so it reports pain in the forehead or behind the eyes. That’s referred pain, the same trick behind a heart attack felt in the arm.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Your brain is freezing”</h2>
+      <p>Your brain is wrapped in skull and fluid and fed about 750 mL of 37 °C blood every minute. A spoonful of ice cream can’t chill it measurably. Toggle the myth: the brain thermometer never moves while the pain comes and goes. Brain freeze is a <em>signal</em>, not a temperature.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Brain freeze numbers">
+    <div class="stat">
+      <div class="k">Pain starts</div>
+      <div class="v">≈ 10 s</div>
+      <div class="s">after the cold hits (varies)</div>
+    </div>
+    <div class="stat">
+      <div class="k">Typical length</div>
+      <div class="v">≈ 20–30 s</div>
+      <div class="s">rarely more than a minute or two</div>
+    </div>
+    <div class="stat">
+      <div class="k">Brain temperature</div>
+      <div class="v">≈ 37 °C</div>
+      <div class="s">unchanged by a bite</div>
+    </div>
+    <div class="stat">
+      <div class="k">Quick fix</div>
+      <div class="v">tongue to palate</div>
+      <div class="s">or sip something warm, slow down</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>This model is illustrative, not a physiological simulation.</strong> The shapes of the curves follow the published story: cold contact, brief vasoconstriction, then a delayed dilation that tracks the pain. The time constants are tuned so a 5 s bite of −12 °C ice cream gives pain starting about 8 s in and lasting about 20 s. Actual timing varies a lot between people. Many people never get brain freeze at all.</li>
+      <li><strong>Palate temperature.</strong> First-order heat balance: <code>dT/dt = (36 − T)/τ<sub>blood</sub> + contact·(T<sub>food</sub> − T)/τ<sub>food</sub> + tongue·(35 − T)/τ<sub>tongue</sub></code>, with τ = 15 s, 6 s and 3 s. The food is treated as staying at its starting temperature during contact, which overstates cooling for long contact.</li>
+      <li><strong>Vessels and pain.</strong> A cold stimulus <code>s = (29 °C − T)/10 °C</code> (0 when warmer) drives a fast transient constriction (high-pass, τ 2.5 s) and a delayed dilation (two 6 s low-pass stages). Pain rises once dilation passes a threshold. “Vessel width” is relative to resting and only illustrative. It is not a measured artery diameter. The 2012 study measured blood flow velocity, not diameter.</li>
+      <li><strong>Sources.</strong> Blatt M., Falvo M., Jasien J., Deegan B., Ó Laighin G. &amp; Serrador J., “Cerebral Vascular Blood Flow Changes During ‘Brain Freeze’”, <em>FASEB J</em> 26(S1):685.4 (2012), a conference abstract. Thirteen adults sipped ice water against the palate while transcranial Doppler tracked flow. Anterior cerebral artery flow velocity tended to rise (P = 0.078, a trend, not a firm result). Hulihan J., “Ice cream headache”, BMJ 1997;314:1364. Kaczorowski M. &amp; Kaczorowski J., “Ice cream evoked headaches (ICE-H) study”, BMJ 2002;325:1445, where eating fast roughly doubled the rate in students. The medical term is used in the International Classification of Headache Disorders (ICHD-3) as “headache attributed to ingestion or inhalation of a cold stimulus”.</li>
+      <li><strong>The tongue trick</strong> works in the model the same way it is thought to in life. It rewarms the palate quickly, so the cold stimulus ends sooner and the dilation fades. Warm water does the same. Eating slowly keeps the palate from cooling much in the first place.</li>
+      <li><strong>Brain temperature</strong> is shown as a constant 37 °C. The brain receives roughly 15% of cardiac output (about 750 mL/min) and is well insulated, so the heat absorbed by one bite is carried off by blood in the mouth and face long before it could reach the brain.</li>
+      <li><strong>For teachers.</strong> Covers the nervous system, sensory receptors, feedback in body systems, and heat transfer (NGSS MS-LS1-3, MS-LS1-8, HS-LS1-2). Misconceptions to name: “your brain freezes”, and “pain is felt where it happens” (referred pain).</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Illustrative model — mirrored in validate-brain-freeze.js =====
+  var P = {
+    T_BLOOD: 36, T_TONGUE: 35, T_BRAIN: 37,
+    TAU_BLOOD: 15, TAU_FOOD: 6, TAU_TONGUE: 3,
+    T_COLD: 29, SPAN: 10, TAU_HP: 2.5, TAU_DIL: 6, PAIN_TH: 0.3,
+    K_CON: 0.25, K_DIL: 0.22, BITE_EVERY: 8
+  };
+  function freshState() { return { Tp: P.T_BLOOD, lp: 0, d1: 0, d2: 0, t: 0 }; }
+  function stimulus(Tp) { return Math.max(0, Math.min(1.5, (P.T_COLD - Tp) / P.SPAN)); }
+  // advance model by dt; contact & tongue are 0/1, Tf food temperature
+  function step(m, dt, contact, tongue, Tf) {
+    var n = Math.max(1, Math.ceil(dt / 0.01)), h = dt / n;
+    for (var i = 0; i < n; i++) {
+      m.Tp += h * ((P.T_BLOOD - m.Tp) / P.TAU_BLOOD + contact * (Tf - m.Tp) / P.TAU_FOOD + tongue * (P.T_TONGUE - m.Tp) / P.TAU_TONGUE);
+      var s = stimulus(m.Tp);
+      m.lp += h * (s - m.lp) / P.TAU_HP;
+      m.d1 += h * (s - m.d1) / P.TAU_DIL;
+      m.d2 += h * (m.d1 - m.d2) / P.TAU_DIL;
+      m.t += h;
+    }
+    return m;
+  }
+  function outputs(m) {
+    var s = stimulus(m.Tp), hp = s - m.lp;
+    var width = 100 * (1 - P.K_CON * hp + P.K_DIL * m.d2);
+    var pain = Math.max(0, Math.min(1, (m.d2 - P.PAIN_TH) / (1 - P.PAIN_TH)));
+    return { Tp: m.Tp, s: s, width: width, pain: pain, brain: P.T_BRAIN };
+  }
+  // Single-bite experiment (for validation): returns onset/offset of pain > 5%
+  function singleBite(Tf, contactS, tongueAt, total) {
+    var m = freshState(), on = null, off = null, peak = 0, minW = 999, maxW = 0, minTp = 99, dt = 0.02;
+    for (var t = 0; t < (total || 90); t += dt) {
+      step(m, dt, t < contactS ? 1 : 0, tongueAt != null && t >= tongueAt ? 1 : 0, Tf);
+      var o = outputs(m);
+      peak = Math.max(peak, o.pain); minW = Math.min(minW, o.width); maxW = Math.max(maxW, o.width); minTp = Math.min(minTp, o.Tp);
+      if (o.pain > 0.05 && on === null) on = t;
+      if (on !== null && off === null && o.pain <= 0.05 && t > on) off = t;
+    }
+    return { onset: on, offset: off, duration: on !== null && off !== null ? off - on : 0, peak: peak, minWidth: minW, maxWidth: maxW, minTp: minTp, brain: P.T_BRAIN };
+  }
+
+  // ===== UI =====
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var state = {
+    Tf: -12, contactS: 5, tongue: false, eating: false, myth: false,
+    m: freshState(), contactLeft: 0, sinceBite: null, nextAuto: 0, hist: [], histT: 0, lastTs: 0, anim: 0
+  };
+  var $ = function (id) { return document.getElementById(id); };
+  var btnBite = $('btnBite'), chipEat = $('chipEat'), chipTongue = $('chipTongue'), chipMyth = $('chipMyth');
+  var elF = $('foodT'), elC = $('contact'), elFL = $('fLabel'), elCL = $('cLabel'), elHint = $('modeHint');
+  var elReadout = $('readout'), elChartMeta = $('chartMeta');
+  var surfaces = {
+    head: { canvas: $('cvHead'), ctx: null, w: 0, h: 0, cssH: 420 },
+    trace: { canvas: $('cvTrace'), ctx: null, w: 0, h: 0, cssH: 420 }
+  };
+  var HIST_DT = 0.1, HIST_N = 600;
+
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function fmt(x, d) { return x.toFixed(d); }
+  function fmtT(t) { return (t < 0 ? '−' : '') + Math.abs(t).toFixed(0) + ' °C'; }
+  function tempColor(T) {
+    var f = Math.max(0, Math.min(1, (T + 5) / 41));      // −5 → cold blue, 36 → warm pink
+    var r = Math.round(94 + (232 - 94) * f), g = Math.round(200 + (120 - 200) * f), b = Math.round(229 + (130 - 229) * f);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+  }
+
+  function bite() { state.contactLeft = state.contactS; state.sinceBite = 0; }
+
+  function simulate(dt) {
+    if (state.eating) {
+      state.nextAuto -= dt;
+      if (state.nextAuto <= 0) { bite(); state.nextAuto = P.BITE_EVERY; }
+    }
+    var contact = state.contactLeft > 0 ? 1 : 0;
+    step(state.m, dt, contact, state.tongue ? 1 : 0, state.Tf);
+    if (state.contactLeft > 0) state.contactLeft = Math.max(0, state.contactLeft - dt);
+    if (state.sinceBite !== null) state.sinceBite += dt;
+    state.histT += dt;
+    while (state.histT >= HIST_DT) {
+      state.histT -= HIST_DT;
+      var o = outputs(state.m);
+      state.hist.push({ Tp: o.Tp, w: o.width, p: o.pain, c: contact });
+      if (state.hist.length > HIST_N) state.hist.shift();
+    }
+  }
+
+  // ---- head drawing (unit coordinates → canvas) ----
+  function drawHead() {
+    var surf = surfaces.head;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0b1230'; ctx.fillRect(0, 0, W, H);
+    var o = outputs(state.m);
+    var narrow = W < 520;
+    var S = Math.min(H * 0.92, W * (narrow ? 0.95 : 0.62));
+    var ox = narrow ? (W - S) / 2 - S * 0.06 : W * 0.30 - S * 0.25, oy = H - S - 2;
+    function X(u) { return ox + u * S; }
+    function Y(v) { return oy + v * S; }
+    // head silhouette
+    ctx.fillStyle = '#1a2246';
+    ctx.strokeStyle = 'rgba(215,222,242,0.35)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(X(0.26), Y(1.0));
+    ctx.quadraticCurveTo(X(0.20), Y(0.80), X(0.12), Y(0.62));
+    ctx.quadraticCurveTo(X(0.04), Y(0.30), X(0.30), Y(0.10));
+    ctx.quadraticCurveTo(X(0.60), Y(-0.02), X(0.78), Y(0.18));
+    ctx.quadraticCurveTo(X(0.84), Y(0.27), X(0.84), Y(0.36));
+    ctx.lineTo(X(0.95), Y(0.50));
+    ctx.lineTo(X(0.87), Y(0.56));
+    ctx.quadraticCurveTo(X(0.92), Y(0.60), X(0.90), Y(0.63));
+    ctx.lineTo(X(0.86), Y(0.655));
+    ctx.lineTo(X(0.90), Y(0.69));
+    ctx.quadraticCurveTo(X(0.90), Y(0.80), X(0.83), Y(0.85));
+    ctx.quadraticCurveTo(X(0.70), Y(0.88), X(0.62), Y(0.86));
+    ctx.lineTo(X(0.62), Y(1.0));
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    // brain
+    ctx.fillStyle = state.myth ? 'rgba(232,140,160,0.30)' : 'rgba(232,140,160,0.22)';
+    ctx.beginPath(); ctx.ellipse(X(0.42), Y(0.33), 0.27 * S, 0.19 * S, -0.08, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(232,140,160,0.35)'; ctx.lineWidth = 1;
+    for (var k = 0; k < 5; k++) {
+      ctx.beginPath(); ctx.arc(X(0.30 + k * 0.06), Y(0.30 + (k % 2) * 0.05), 0.04 * S, 0.2, 2.6); ctx.stroke();
+    }
+    // forehead pain glow
+    if (o.pain > 0.01) {
+      var gx = X(0.76), gy = Y(0.22), gr = 0.16 * S;
+      var rg = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
+      rg.addColorStop(0, 'rgba(255,126,95,' + (0.85 * o.pain) + ')'); rg.addColorStop(1, 'rgba(255,126,95,0)');
+      ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.fill();
+    }
+    // nasal cavity hint
+    ctx.fillStyle = 'rgba(8,11,28,0.55)';
+    ctx.beginPath(); ctx.ellipse(X(0.78), Y(0.50), 0.10 * S, 0.035 * S, 0.1, 0, Math.PI * 2); ctx.fill();
+    // mouth cavity
+    ctx.fillStyle = '#0a0d22';
+    ctx.beginPath(); ctx.ellipse(X(0.72), Y(0.655), 0.15 * S, 0.045 * S, 0, 0, Math.PI * 2); ctx.fill();
+    // palate (roof of mouth) coloured by temperature
+    ctx.strokeStyle = tempColor(o.Tp);
+    ctx.lineWidth = Math.max(4, 0.022 * S);
+    ctx.beginPath(); ctx.moveTo(X(0.57), Y(0.63)); ctx.quadraticCurveTo(X(0.72), Y(0.585), X(0.86), Y(0.625)); ctx.stroke();
+    // tongue
+    var tongueUp = state.tongue ? 1 : 0;
+    ctx.fillStyle = '#d97a8a';
+    ctx.beginPath();
+    ctx.moveTo(X(0.58), Y(0.72));
+    ctx.quadraticCurveTo(X(0.66), Y(0.70 - 0.08 * tongueUp), X(0.78), Y(0.68 - 0.045 * tongueUp));
+    ctx.quadraticCurveTo(X(0.84), Y(0.69), X(0.82), Y(0.71));
+    ctx.quadraticCurveTo(X(0.70), Y(0.735), X(0.58), Y(0.72));
+    ctx.fill();
+    // ice cream + spoon during contact
+    if (state.contactLeft > 0) {
+      ctx.strokeStyle = '#c9d0de'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(X(0.80), Y(0.655)); ctx.lineTo(X(1.08), Y(0.70)); ctx.stroke();
+      ctx.fillStyle = tempColor(state.Tf);
+      ctx.beginPath(); ctx.ellipse(X(0.76), Y(0.64), 0.05 * S, 0.02 * S, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#f4f1ea';
+      ctx.beginPath(); ctx.ellipse(X(0.76), Y(0.635), 0.04 * S, 0.014 * S, 0, 0, Math.PI * 2); ctx.fill();
+    }
+    // anterior cerebral artery: width tracks the model
+    var wpx = Math.max(1.5, 0.012 * S * o.width / 100);
+    ctx.strokeStyle = o.width < 97 ? '#5ec8e5' : (o.width > 110 ? '#ff7e5f' : '#e86b7a');
+    ctx.lineWidth = wpx;
+    ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(X(0.50), Y(0.55)); ctx.quadraticCurveTo(X(0.66), Y(0.40), X(0.60), Y(0.20)); ctx.stroke();
+    ctx.lineCap = 'butt';
+    // trigeminal nerve path with signal pulses
+    var path = [[0.72, 0.60], [0.66, 0.50], [0.70, 0.36], [0.76, 0.22]];
+    ctx.strokeStyle = 'rgba(255,194,74,' + (0.35 + 0.5 * Math.max(o.pain, o.s * 0.3)) + ')';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    path.forEach(function (p, i) { if (i === 0) ctx.moveTo(X(p[0]), Y(p[1])); else ctx.lineTo(X(p[0]), Y(p[1])); });
+    ctx.stroke();
+    ctx.setLineDash([]);
+    if (o.pain > 0.02 || o.s > 0.1) {
+      var nP = 3;
+      for (var q = 0; q < nP; q++) {
+        var f = (state.anim * (0.4 + o.pain) + q / nP) % 1;
+        var seg = Math.min(2, Math.floor(f * 3)), lf = f * 3 - seg;
+        var a = path[seg], b = path[seg + 1];
+        ctx.fillStyle = '#ffc24a';
+        ctx.beginPath(); ctx.arc(X(a[0] + (b[0] - a[0]) * lf), Y(a[1] + (b[1] - a[1]) * lf), 3, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    // SPG
+    ctx.fillStyle = '#ffc24a';
+    ctx.beginPath(); ctx.arc(X(0.66), Y(0.50), 4.5, 0, Math.PI * 2); ctx.fill();
+    // labels
+    ctx.font = FONT_MONO_10;
+    function label(text, ux, uy, lx, ly, col) {
+      var tx = Math.max(4, Math.min(W - text.length * 6.1 - 4, lx));
+      ctx.strokeStyle = 'rgba(139,147,173,0.5)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(X(ux), Y(uy)); ctx.lineTo(tx + (lx < X(ux) ? text.length * 6.1 : 0), ly - 3); ctx.stroke();
+      ctx.fillStyle = col || '#d7def2';
+      ctx.fillText(text, tx, ly);
+    }
+    var Rcol = narrow ? W - 4 : X(1.02);
+    if (!narrow) {
+      label('forehead: where it hurts', 0.80, 0.20, X(0.98), Y(0.14), '#ff7e5f');
+      label('trigeminal nerve', 0.70, 0.36, X(0.98), Y(0.33), '#ffc24a');
+      label('sphenopalatine ganglion', 0.66, 0.50, X(0.98), Y(0.45), '#ffc24a');
+      label('palate ' + fmtT(o.Tp), 0.80, 0.61, X(1.0), Y(0.58), tempColor(o.Tp));
+      label('anterior cerebral artery', 0.62, 0.36, X(0.08), Y(0.62), '#e86b7a');
+    } else {
+      label('palate ' + fmtT(o.Tp), 0.62, 0.62, 6, Y(0.80), tempColor(o.Tp));
+    }
+    // brain thermometer
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#d7def2';
+    ctx.fillText('brain 37.0 °C', X(0.30), Y(0.36));
+    // HUD
+    ctx.font = FONT_DISPLAY;
+    ctx.fillStyle = o.pain > 0.05 ? '#ff7e5f' : (o.s > 0.05 ? '#5ec8e5' : '#7ee0a1');
+    var head = o.pain > 0.05 ? 'Brain freeze! Vessels flooding open' : (o.s > 0.05 ? (o.width < 99 ? 'Cold palate · vessels squeezing' : 'Vessels widening…') : 'Palate warm · no pain');
+    ctx.fillText(head, 14, 26);
+    ctx.font = FONT_MONO_10;
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(state.sinceBite !== null ? 't = ' + fmt(state.sinceBite, 1) + ' s since last bite' : 'press Take a bite', 14, 42);
+    if (state.myth) {
+      var bw = Math.min(W - 20, 330), by = 52;
+      ctx.fillStyle = 'rgba(8,11,28,0.85)';
+      ctx.fillRect(10, by, bw, 44);
+      ctx.font = FONT_DISPLAY;
+      ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('Myth: the brain freezes', 18, by + 18);
+      ctx.font = FONT_MONO_10;
+      ctx.fillStyle = '#d7def2';
+      ctx.fillText('Brain stays 37.0 °C. Only the palate chills.', 18, by + 34);
+    }
+  }
+
+  function drawTrace() {
+    var surf = surfaces.trace;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var L = 44, R = W - 12, top = 26, gap = 28, ph = (H - top - 34 - gap * 2) / 3;
+    var panels = [
+      { k: 'Tp', lo: -5, hi: 40, ticks: [0, 20, 37], lab: 'palate °C', col: '#5ec8e5' },
+      { k: 'w', lo: 70, hi: 140, ticks: [80, 100, 120], lab: 'vessel width %', col: '#e86b7a' },
+      { k: 'p', lo: 0, hi: 1, ticks: [0, 0.5, 1], lab: 'pain signal', col: '#ff7e5f' }
+    ];
+    var hist = state.hist, n = hist.length;
+    function X(i) { return R - (n - 1 - i) / (HIST_N - 1) * (R - L); }
+    panels.forEach(function (pn, pi) {
+      var T0 = top + pi * (ph + gap), B0 = T0 + ph;
+      function Y(v) { return B0 - (Math.max(pn.lo, Math.min(pn.hi, v)) - pn.lo) / (pn.hi - pn.lo) * ph; }
+      ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1;
+      ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+      pn.ticks.forEach(function (tv) {
+        ctx.beginPath(); ctx.moveTo(L, Y(tv)); ctx.lineTo(R, Y(tv)); ctx.stroke();
+        ctx.fillText(pn.k === 'p' ? String(Math.round(tv * 100)) : String(tv), 6, Y(tv) + 3);
+      });
+      ctx.fillStyle = pn.col;
+      ctx.fillText(pn.lab, L, T0 - 8);
+      // contact shading
+      ctx.fillStyle = 'rgba(94,200,229,0.08)';
+      for (var i = 0; i < n; i++) if (hist[i].c) ctx.fillRect(X(i) - 0.5, T0, (R - L) / (HIST_N - 1) + 1, ph);
+      if (pn.k === 'w') { ctx.strokeStyle = 'rgba(215,222,242,0.25)'; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(L, Y(100)); ctx.lineTo(R, Y(100)); ctx.stroke(); ctx.setLineDash([]); }
+      ctx.strokeStyle = pn.col; ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (var j = 0; j < n; j++) {
+        var v = hist[j][pn.k];
+        if (j === 0) ctx.moveTo(X(j), Y(v)); else ctx.lineTo(X(j), Y(v));
+      }
+      ctx.stroke();
+      if (pn.k === 'Tp' && state.myth) {
+        ctx.strokeStyle = '#ffc24a'; ctx.setLineDash([2, 3]);
+        ctx.beginPath(); ctx.moveTo(L, Y(37)); ctx.lineTo(R, Y(37)); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillStyle = '#ffc24a'; ctx.fillText('brain 37 °C (flat)', R - 112, Y(37) - 4);
+      }
+    });
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    ctx.fillText('−60 s', L, H - 14);
+    ctx.fillText('now', R - 20, H - 14);
+    ctx.fillStyle = 'rgba(94,200,229,0.6)';
+    ctx.fillText('shaded = cold in contact', (L + R) / 2 - 70, H - 14);
+  }
+
+  function renderReadout() {
+    var o = outputs(state.m);
+    var html = '';
+    function kv(k, v, s, cls) {
+      html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>';
+    }
+    kv('Palate temperature', fmt(o.Tp, 1) + ' °C', state.contactLeft > 0 ? 'cold in contact · food ' + fmtT(state.Tf) : (state.tongue ? 'tongue rewarming it' : 'blood rewarming it'), o.Tp < 25 ? '' : 'ok');
+    kv('Vessel width', fmt(o.width, 0) + '%', o.width < 98 ? 'constricting · relative to rest' : (o.width > 105 ? 'dilating · relative to rest' : 'near resting'), o.width > 110 ? 'warm' : '');
+    kv('Pain signal', fmt(o.pain * 100, 0) + ' / 100', o.pain > 0.05 ? 'trigeminal nerve → felt in forehead' : 'none', o.pain > 0.05 ? 'warm' : 'ok');
+    kv('Time since bite', state.sinceBite !== null ? fmt(state.sinceBite, 1) + ' s' : '—', state.eating ? 'keep eating: bite every 8 s' : 'pain usually starts ~10 s in', 'sun');
+    kv(state.myth ? 'Brain temperature (myth check)' : 'Brain temperature', fmt(o.brain, 1) + ' °C', state.myth ? 'unchanged · the brain never gets cold' : 'unchanged by a bite', state.myth ? 'warm' : 'ok');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    elFL.textContent = fmtT(state.Tf);
+    elCL.textContent = fmt(state.contactS, 1).replace('.0', '') + ' s';
+    setChip(chipEat, state.eating);
+    setChip(chipTongue, state.tongue);
+    setChip(chipMyth, state.myth);
+    if (state.myth) elHint.textContent = 'Myth mode · the brain line on the chart stays flat at 37 °C while pain comes and goes.';
+    else if (state.tongue) elHint.textContent = 'Tongue pressed to the roof: warm tissue rewarms the palate in a few seconds, so the attack ends sooner.';
+    else if (state.Tf > 20) elHint.textContent = 'Warm food: no cold stimulus.';
+    else elHint.textContent = 'Each bite chills the palate. The pain follows the delayed widening of the vessels, not the cold itself.';
+  }
+
+  function render() { renderReadout(); drawHead(); drawTrace(); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    if (dt > 0) { simulate(dt); state.anim += dt; }
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  btnBite.addEventListener('click', function () { bite(); updateLabels(); });
+  chipEat.addEventListener('click', function () { state.eating = !state.eating; state.nextAuto = 0; updateLabels(); });
+  chipTongue.addEventListener('click', function () { state.tongue = !state.tongue; updateLabels(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elF.addEventListener('input', function () { state.Tf = parseFloat(elF.value); updateLabels(); });
+  elC.addEventListener('input', function () { state.contactS = parseFloat(elC.value); updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); bite(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  for (var i = 0; i < HIST_N; i++) state.hist.push({ Tp: P.T_BLOOD, w: 100, p: 0, c: 0 });
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__freezeModel = { P: P, freshState: freshState, stimulus: stimulus, step: step, outputs: outputs, singleBite: singleBite };
+  window.__freezeState = state;
+  window.__freezeApi = { bite: bite, simulate: simulate };
+})();
+</script>
+</body>
+</html>
