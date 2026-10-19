@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Your Ears Pop on a Plane — Cabin Pressure &amp; the Eustachian Tube | Classroom</title>
+<meta name="description" content="Classroom ear-pop sim: cabin air drops to ~75 kPa, trapped middle-ear air bows the eardrum, and a swallow opens the tube. See why landing hurts more.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why do ears pop on a plane, eustachian tube, cabin pressure, cabin altitude 8000 ft, middle ear pressure, eardrum, ear barotrauma, airplane ear, classroom physics, air pressure">
+<link rel="canonical" href="ear-pop.html">
+<meta property="og:title" content="Why Your Ears Pop on a Plane">
+<meta property="og:description" content="The pop isn’t air leaving your head or your eardrum breaking. Trapped middle-ear air pushes the drum until a swallow opens the Eustachian tube. Live flight sim.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 430px; }
+.btn.swallow { background: rgba(255, 194, 74, 0.12); color: var(--sun2); border-color: rgba(255, 194, 74, 0.45); }
+.btn.swallow.flash { background: rgba(255, 194, 74, 0.32); }
+@media (max-width: 720px) { .card canvas { height: 340px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · air pressure &amp; the body</a></p>
+  <h1>Why your ears pop on a plane</h1>
+  <p class="lede">An airliner keeps its cabin at the air pressure of a mountain town, about <strong>6,000–8,000 ft</strong>, or roughly <strong>75–81 kPa</strong> instead of 101 kPa at sea level. Behind each eardrum is a small pocket of air, the <strong>middle ear</strong>, which is sealed except for a thin <strong>Eustachian tube</strong> to your throat. When the cabin pressure changes and that pocket can’t keep up, the pressure difference <strong>bows the eardrum</strong>. The pop is the tube opening and the pressures evening out. It happens more easily on the way up than on the way down.</p>
+
+  <p class="try"><b>Try this</b>Press <strong>▶ Fly</strong> and don’t touch Swallow. Notice that on the climb your ear vents itself with small pops, but on the way down the pressure difference just keeps growing.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn play" id="btnPlay" aria-pressed="false">▶ Fly</button>
+      <button type="button" class="btn swallow" id="btnSwallow">Swallow / yawn</button>
+      <div class="sep" aria-hidden="true"></div>
+      <span class="hint">Jump to</span>
+      <button type="button" class="chip" id="phGate">Gate</button>
+      <button type="button" class="chip" id="phClimb">Climb</button>
+      <button type="button" class="chip" id="phCruise">Cruise</button>
+      <button type="button" class="chip" id="phDescent">Descent</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: the pop is air leaving your head</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Flight time <em id="tLabel">0 min · gate</em></span>
+        <input type="range" id="tSlider" min="0" max="90" step="0.25" value="0" aria-label="Minutes into the flight">
+      </label>
+      <label class="sl grow">
+        <span>Cabin altitude at cruise <em id="caLabel">7,000 ft · 78.2 kPa</em></span>
+        <input type="range" id="cabinAlt" min="0" max="8000" step="250" value="7000" aria-label="Equivalent cabin altitude during cruise, in feet">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint">Eustachian tube</span>
+      <button type="button" class="chip on" id="tClear" aria-pressed="true">Clear</button>
+      <button type="button" class="chip" id="tCold" aria-pressed="false">Head cold</button>
+      <button type="button" class="chip" id="tBlocked" aria-pressed="false">Badly congested</button>
+      <button type="button" class="chip sun" id="chipAuto" aria-pressed="false">Swallow every minute</button>
+      <span class="hint" id="modeHint">Scrubbing the timeline replays the flight without your manual swallows.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>Inside your ear</b><span id="earMeta">not to scale</span></div>
+      <canvas id="cvEar" width="760" height="430" aria-label="Cross-section of the ear: ear canal with cabin air, the eardrum bowing, the middle-ear air pocket, and the Eustachian tube to the throat"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>The flight</b><span id="chartMeta">90 min</span></div>
+      <canvas id="cvChart" width="480" height="430" aria-label="Graph of airplane altitude, cabin altitude, cabin pressure and middle-ear pressure over the flight"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>The cabin is a mountain town</h2>
+      <p>Planes cruise around 35,000 ft, where air pressure is about <code>24 kPa</code>. The cabin is pumped up, but not to sea level. U.S. rules cap the cabin at an equivalent <code>8,000 ft ≈ 75 kPa</code> in normal flight, so pressure falls by about a quarter on the climb and rises back on the way down.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Middle-ear air is trapped</h2>
+      <p>The middle ear is a sealed air pocket behind the eardrum. Its only vent is the Eustachian tube, which is normally <em>closed</em>. When cabin pressure changes, the trapped air keeps the old pressure and the difference pushes the drum. Even 1–2 kPa feels like fullness and muffled hearing.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Down is harder than up</h2>
+      <p>Climbing, the trapped air is <em>higher</em> than the cabin, and it pushes the floppy tube open by itself, giving small automatic pops. Descending, the cabin is higher and squeezes the tube shut. Only swallowing or yawning pulls it open, and if you wait too long the difference can hold it closed.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Air is escaping from your head” · “that was your eardrum breaking”</h2>
+      <p>The middle ear isn’t connected to your brain or sinuses behind it. Air moves only through the tube to your throat. The pop is the tube opening and the drum springing back to flat, not tearing. Rupture takes tens of kPa, far more than a normal flight. Toggle the myth to compare.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Ear pressure numbers">
+    <div class="stat">
+      <div class="k">Sea-level air</div>
+      <div class="v">101.3 kPa</div>
+      <div class="s">standard atmosphere</div>
+    </div>
+    <div class="stat">
+      <div class="k">Max cabin altitude</div>
+      <div class="v">8,000 ft</div>
+      <div class="s">≈ 75.3 kPa · FAA 14 CFR 25.841</div>
+    </div>
+    <div class="stat">
+      <div class="k">Outside at cruise</div>
+      <div class="v">≈ 24 kPa</div>
+      <div class="s">35,000 ft · standard atmosphere</div>
+    </div>
+    <div class="stat">
+      <div class="k">Felt as fullness</div>
+      <div class="v">≈ 0.5–2 kPa</div>
+      <div class="s">approx · varies by person</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Cabin pressure</strong> comes from the International Standard Atmosphere: <code>p = 101325·(1 − 2.25577×10⁻⁵·h)<sup>5.25588</sup></code> Pa with h in meters. 8,000 ft (2,438 m) gives 75.3 kPa; 6,000 ft gives 81.2 kPa. FAA rule 14 CFR 25.841 limits the cabin to 8,000 ft equivalent in normal operation. Many newer wide-bodies hold about 6,000 ft.</li>
+      <li><strong>Flight profile</strong> (illustrative): gate 0–5 min, climb 5–25 min, cruise 25–65 min, descent 65–87 min, landed at a sea-level airport. The cabin changes at roughly 300–400 ft/min, which is typical of airliner cabin climb and descent rates. Playback runs at 2 flight-minutes per second.</li>
+      <li><strong>Middle ear.</strong> Treated as a fixed volume of trapped air: its pressure changes only when the tube opens. Real eardrum stretch and slow gas absorption by the middle-ear lining are left out. Both are small over a flight.</li>
+      <li><strong>Tube behavior, approximate thresholds.</strong> Clear tube: when middle-ear pressure exceeds the cabin by about <code>1.5 kPa</code> the tube is pushed open passively and vents until about 30% of that remains. A swallow equalizes fully if the difference is under about <code>12 kPa</code> (≈ 90 mmHg). Above that, the negative pressure can hold the tube shut (“locking”). Head cold: 3 kPa passive vent, a swallow does half the job, locks above 6 kPa. Badly congested: 6 kPa, 15%, 2.5 kPa. These are rounded, order-of-magnitude values from the ENT and aviation-medicine literature. Real tubes vary a lot between people.</li>
+      <li><strong>How it feels</strong> (approximate bands for |Δp|): under 0.5 kPa nothing, up to 2 kPa fullness and muffled sound, up to 5 kPa discomfort, above that pain. Eardrum rupture is usually quoted at roughly 35 kPa (≈ 5 psi) or more, which a normal flight doesn’t reach.</li>
+      <li><strong>Not medical advice.</strong> If an ear stays blocked or painful after a flight, see a clinician. Babies cry on descent partly because sucking and swallowing open their tubes, so feeding during descent helps them.</li>
+      <li><strong>For teachers.</strong> Pressure differences and forces (NGSS MS-PS2, HS-PS2), gas laws, and structure and function in the body (MS-LS1-3). Pairs with the straw and air-weight explainers: here too, the air doesn’t pull. Higher pressure pushes toward lower.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-ear-pop.js =====
+  var P0 = 101325, FT = 0.3048;
+  function isaPressure(hMeters) { return P0 * Math.pow(1 - 2.25577e-5 * hMeters, 5.25588); }
+  function ftToPa(ft) { return isaPressure(ft * FT); }
+  var TUBES = {
+    clear: { key: 'clear', label: 'Clear', vent: 1500, residual: 0.3, swallowFrac: 1, lock: 12000 },
+    cold: { key: 'cold', label: 'Head cold', vent: 3000, residual: 0.3, swallowFrac: 0.5, lock: 6000 },
+    blocked: { key: 'blocked', label: 'Badly congested', vent: 6000, residual: 0.3, swallowFrac: 0.15, lock: 2500 }
+  };
+  var FLIGHT = { total: 90, climbStart: 5, climbEnd: 25, descStart: 65, descEnd: 87, cruisePlaneFt: 35000 };
+  function ramp(t, a, b) { return clamp((t - a) / (b - a), 0, 1); }
+  function cabinAltFt(tMin, cruiseCabinFt) {
+    return cruiseCabinFt * (ramp(tMin, FLIGHT.climbStart, FLIGHT.climbEnd) - ramp(tMin, FLIGHT.descStart, FLIGHT.descEnd));
+  }
+  function planeAltFt(tMin) {
+    return FLIGHT.cruisePlaneFt * (ramp(tMin, FLIGHT.climbStart, FLIGHT.climbEnd) - ramp(tMin, FLIGHT.descStart, FLIGHT.descEnd));
+  }
+  function cabinPressure(tMin, cruiseCabinFt) { return ftToPa(cabinAltFt(tMin, cruiseCabinFt)); }
+  function phaseOf(tMin) {
+    if (tMin < FLIGHT.climbStart) return 'gate';
+    if (tMin < FLIGHT.climbEnd) return 'climb';
+    if (tMin < FLIGHT.descStart) return 'cruise';
+    if (tMin < FLIGHT.descEnd) return 'descent';
+    return 'landed';
+  }
+  // Passive venting: middle ear higher than cabin by more than the opening pressure forces the tube open.
+  function passiveVent(pm, pc, tube) {
+    if (pm - pc > tube.vent) return { pm: pc + tube.vent * tube.residual, popped: true };
+    return { pm: pm, popped: false };
+  }
+  // Swallow / yawn: muscles pull the tube open, unless the difference has locked it.
+  function swallow(pm, pc, tube) {
+    var dp = pm - pc;
+    if (Math.abs(dp) > tube.lock) return { pm: pm, ok: false, locked: true };
+    return { pm: pm + (pc - pm) * tube.swallowFrac, ok: true, locked: false };
+  }
+  // One time step of the ear (dtSec of flight time). s = { t (min), pm, pops, lastAuto }
+  function stepEar(s, dtSec, cruiseCabinFt, tube, auto) {
+    s.t = Math.min(FLIGHT.total, s.t + dtSec / 60);
+    var pc = cabinPressure(s.t, cruiseCabinFt);
+    var v = passiveVent(s.pm, pc, tube);
+    if (v.popped) { s.pm = v.pm; s.pops++; s.lastPop = 'vent'; }
+    if (auto && s.t - s.lastAuto >= 1) {
+      s.lastAuto = Math.floor(s.t);
+      var before = s.pm, sw = swallow(s.pm, pc, tube);
+      s.pm = sw.pm;
+      if (Math.abs(before - s.pm) > 300) { s.pops++; s.lastPop = 'swallow'; }
+    }
+    return s;
+  }
+  function newEar(cruiseCabinFt) { return { t: 0, pm: cabinPressure(0, cruiseCabinFt), pops: 0, lastAuto: 0, lastPop: '' }; }
+  // Replay the flight from the gate to tEnd with 1 s steps; history sampled every 15 s.
+  function simulate(tEnd, cruiseCabinFt, tube, auto) {
+    var s = newEar(cruiseCabinFt), hist = [{ t: 0, pm: s.pm }], maxNeg = 0, maxPos = 0;
+    var n = Math.round(tEnd * 60);
+    for (var i = 0; i < n; i++) {
+      stepEar(s, 1, cruiseCabinFt, tube, auto);
+      var d = s.pm - cabinPressure(s.t, cruiseCabinFt);
+      if (d < maxNeg) maxNeg = d;
+      if (d > maxPos) maxPos = d;
+      if ((i + 1) % 15 === 0) hist.push({ t: s.t, pm: s.pm });
+    }
+    s.hist = hist; s.maxNeg = maxNeg; s.maxPos = maxPos;
+    return s;
+  }
+  function feel(dp) {
+    var a = Math.abs(dp);
+    if (a < 500) return 'nothing noticeable';
+    if (a < 2000) return 'fullness, muffled sound';
+    if (a < 5000) return 'discomfort';
+    if (a < 35000) return 'pain';
+    return 'rupture risk';
+  }
+  function bulge(dp) { return dp > 50 ? 'outward' : (dp < -50 ? 'inward' : 'flat'); }
+
+  // ===== UI =====
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function clamp(x, a, b) { return x < a ? a : (x > b ? b : x); }
+  function fmt(x, d) {
+    if (!isFinite(x)) return '—';
+    var s = x.toFixed(d);
+    if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+    return s;
+  }
+  function fmtSig(x, s) {
+    if (!isFinite(x)) return '∞';
+    if (x === 0) return '0';
+    var a = Math.abs(x);
+    if (a >= 1e5 || a < 1e-3) {
+      var e = Math.floor(Math.log(a) / Math.LN10), m = x / Math.pow(10, e);
+      if (Math.abs(m) >= 9.995) { m /= 10; e += 1; }
+      return m.toFixed(Math.max(0, s - 1)) + '×10' + supNum(e);
+    }
+    var dec = Math.max(0, s - 1 - Math.floor(Math.log(a) / Math.LN10));
+    return x.toFixed(Math.min(dec, 6));
+  }
+  function supNum(e) {
+    var map = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+    return String(e).split('').map(function (c) { return map[c] || c; }).join('');
+  }
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len, ah = Math.min(head || 9, len);
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.5, y2 - uy * ah + ux * ah * 0.5);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.5, y2 - uy * ah - ux * ah * 0.5);
+    ctx.closePath(); ctx.fill();
+  }
+  function rrect(ctx, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r); ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h); ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r); ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+  function banner(ctx, W, title, sub, y, fTitle, fSub) {
+    var bw = Math.min(W - 20, 430);
+    ctx.fillStyle = 'rgba(8,11,28,0.84)';
+    rrect(ctx, 10, y, bw, sub ? 42 : 26, 8); ctx.fill();
+    ctx.font = fTitle; ctx.fillStyle = '#ff7e5f';
+    ctx.fillText(title, 20, y + 19);
+    if (sub) { ctx.font = fSub; ctx.fillStyle = '#d7def2'; ctx.fillText(sub, 20, y + 35); }
+  }
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+  var FONT_POP = '700 22px Fraunces, Georgia, serif';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var state = {
+    cruiseFt: 7000, tube: TUBES.clear, auto: false, playing: false, myth: false,
+    ear: null, hist: [], lastTs: 0, anim: 0, popT: 0, popText: '', failT: 0, sampleAcc: 0
+  };
+  var elPlay = $('btnPlay'), elSw = $('btnSwallow'), elT = $('tSlider'), elTL = $('tLabel');
+  var elCA = $('cabinAlt'), elCAL = $('caLabel'), elHint = $('modeHint'), elReadout = $('readout');
+  var chipMyth = $('chipMyth'), chipAuto = $('chipAuto');
+  var tChips = { clear: $('tClear'), cold: $('tCold'), blocked: $('tBlocked') };
+  var phChips = { phGate: 0, phClimb: 12, phCruise: 40, phDescent: 66 };
+  var surfaces = {
+    ear: { canvas: $('cvEar'), ctx: null, w: 0, h: 0, cssH: 430 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 430 }
+  };
+
+  function replayTo(t) {
+    var s = simulate(t, state.cruiseFt, state.tube, state.auto);
+    state.ear = s; state.hist = s.hist.slice(); state.sampleAcc = 0;
+  }
+  function phaseLabel(p) { return { gate: 'gate', climb: 'climbing', cruise: 'cruise', descent: 'descending', landed: 'landed' }[p]; }
+
+  function doSwallow() {
+    var s = state.ear, pc = cabinPressure(s.t, state.cruiseFt);
+    var before = s.pm, r = swallow(s.pm, pc, state.tube);
+    s.pm = r.pm;
+    if (r.locked) { state.failT = 1.6; }
+    else if (Math.abs(before - s.pm) > 300) { s.pops++; state.popT = 0.7; state.popText = 'pop!'; }
+    else { state.popT = 0.5; state.popText = 'gulp'; }
+    elSw.classList.add('flash');
+    state.swFlash = 0.15;
+  }
+
+  function stepLive(dtSec) {
+    var s = state.ear, popsBefore = s.pops;
+    var steps = Math.max(1, Math.round(dtSec));
+    var sub = dtSec / steps;
+    for (var i = 0; i < steps; i++) {
+      stepEar(s, sub, state.cruiseFt, state.tube, state.auto);
+      state.sampleAcc += sub;
+      if (state.sampleAcc >= 15) { state.sampleAcc -= 15; state.hist.push({ t: s.t, pm: s.pm }); }
+    }
+    if (s.pops > popsBefore) { state.popT = 0.7; state.popText = 'pop!'; }
+    if (s.t >= FLIGHT.total) { state.playing = false; }
+  }
+
+  function drawEar() {
+    var surf = surfaces.ear;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var s = state.ear, pc = cabinPressure(s.t, state.cruiseFt), dp = s.pm - pc;
+    var small = W < 520;
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0b1432'); bg.addColorStop(1, '#0d1a3a');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    // head silhouette (skull area) at top
+    ctx.fillStyle = 'rgba(255,194,74,0.05)';
+    rrect(ctx, W * 0.42, 14, W * 0.56, H * 0.17, 18); ctx.fill();
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    if (!state.myth) ctx.fillText('skull & brain · sealed off', W * 0.45, 32);
+    // geometry
+    var cy = H * 0.44, canalH = small ? 46 : 60;
+    var x0 = W * 0.03, xd = W * 0.45, xm2 = W * 0.72;
+    var mTop = H * 0.27, mBot = H * 0.62;
+    // ear canal (cabin air)
+    ctx.fillStyle = 'rgba(94,200,229,0.12)';
+    ctx.fillRect(x0, cy - canalH / 2, xd - x0, canalH);
+    ctx.strokeStyle = 'rgba(215,222,242,0.35)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x0, cy - canalH / 2); ctx.lineTo(xd, cy - canalH / 2); ctx.moveTo(x0, cy + canalH / 2); ctx.lineTo(xd, cy + canalH / 2); ctx.stroke();
+    // middle ear cavity
+    var mfill = dp > 0 ? 'rgba(255,126,95,' : 'rgba(255,194,74,';
+    var inten = clamp(Math.abs(dp) / 12000, 0, 1);
+    ctx.fillStyle = mfill + (0.1 + 0.22 * inten).toFixed(3) + ')';
+    rrect(ctx, xd, mTop, xm2 - xd, mBot - mTop, 16); ctx.fill();
+    ctx.strokeStyle = 'rgba(215,222,242,0.35)'; ctx.stroke();
+    // ossicles
+    ctx.strokeStyle = 'rgba(215,222,242,0.55)'; ctx.lineWidth = 3;
+    var bx = clamp(-dp / 12000, -1, 1) * (small ? 6 : 10);
+    ctx.beginPath(); ctx.moveTo(xd + 4 + bx, cy); ctx.lineTo(xd + (xm2 - xd) * 0.35, cy - 26); ctx.lineTo(xd + (xm2 - xd) * 0.6, cy - 12); ctx.lineTo(xd + (xm2 - xd) * 0.82, cy - 18); ctx.stroke();
+    // inner ear (cochlea)
+    ctx.strokeStyle = 'rgba(94,200,229,0.4)'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    var cxq = W * 0.84, cyq = H * 0.38;
+    for (var a = 0; a < Math.PI * 5; a += 0.15) { var r = 4 + a * (small ? 1.6 : 2.4); var px = cxq + r * Math.cos(a), py = cyq + r * Math.sin(a); if (a === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py); }
+    ctx.stroke();
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    ctx.fillText('inner ear', cxq - 24, cyq + (small ? 40 : 52));
+    // eardrum: curved membrane, bulge ∝ dp (outward = toward canal = left)
+    var bmax = small ? 16 : 24;
+    var bpx = -Math.sign(dp) * bmax * Math.min(1, Math.sqrt(Math.abs(dp) / 12000));
+    ctx.strokeStyle = Math.abs(dp) > 5000 ? '#ff7e5f' : '#ffc24a'; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(xd, cy - canalH / 2 - 6); ctx.quadraticCurveTo(xd + bpx * 2, cy, xd, cy + canalH / 2 + 6); ctx.stroke();
+    // eustachian tube: from bottom of middle ear to throat
+    var tx1 = xd + (xm2 - xd) * 0.7, ty1 = mBot, tx2 = W * 0.9, ty2 = H * 0.9;
+    var open = state.openT > 0;
+    var tw = open ? (small ? 9 : 12) : 2;
+    ctx.strokeStyle = open ? 'rgba(126,224,161,0.85)' : 'rgba(215,222,242,0.45)';
+    ctx.lineWidth = tw; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(tx1, ty1); ctx.quadraticCurveTo(tx1 + 10, ty2 - 10, tx2, ty2); ctx.stroke();
+    ctx.lineCap = 'butt';
+    ctx.fillStyle = 'rgba(94,200,229,0.14)';
+    rrect(ctx, tx2 - 40, ty2 - 4, 80, H - ty2 - 4, 8); ctx.fill();
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    ctx.textAlign = 'right';
+    ctx.fillText('throat (cabin air)', W - 8, H - 12);
+    ctx.fillText(open ? 'tube OPEN' : (Math.abs(dp) > state.tube.lock && dp < 0 ? 'tube LOCKED shut' : 'Eustachian tube · closed'), W - 8, ty1 + 18 > ty2 - 30 ? ty2 - 30 : ty1 + 18);
+    ctx.textAlign = 'left';
+    // pressure arrows: canal side pushes right with length ∝ pc; middle ear pushes left ∝ pm
+    var Ls = small ? 70 : 110;
+    var lc = Ls * pc / P0, lm = Ls * s.pm / P0;
+    for (var k = -1; k <= 1; k++) {
+      var yy = cy + k * canalH * 0.28;
+      drawArrow(ctx, xd - 8 - lc, yy, xd - 8, yy, 'rgba(94,200,229,0.85)', 2, 7);
+    }
+    for (var j = -1; j <= 1; j++) {
+      var y2 = cy + j * canalH * 0.28 + (mBot - mTop) * 0.18 * (j === 0 ? 0 : j);
+      drawArrow(ctx, xd + 10 + lm, y2, xd + 10, y2, 'rgba(255,126,95,0.85)', 2, 7);
+    }
+    ctx.font = FONT_MONO_11;
+    ctx.fillStyle = '#5ec8e5';
+    ctx.fillText('cabin ' + fmt(pc / 1000, 1) + ' kPa', x0 + 4, cy - canalH / 2 - 10);
+    ctx.fillStyle = '#ff7e5f';
+    ctx.fillText('middle ear ' + fmt(s.pm / 1000, 1), xd + 8, mTop - 8);
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    ctx.fillText('ear canal', x0 + 4, cy + canalH / 2 + 16);
+    ctx.fillText('eardrum', xd - 26, cy + canalH / 2 + 30);
+    // pop flash
+    if (state.popT > 0) {
+      ctx.globalAlpha = clamp(state.popT / 0.4, 0, 1);
+      ctx.font = FONT_POP; ctx.fillStyle = '#7ee0a1';
+      ctx.fillText(state.popText, xd - 30, cy - canalH / 2 - 34);
+      ctx.globalAlpha = 1;
+    }
+    if (state.failT > 0) {
+      ctx.globalAlpha = clamp(state.failT / 0.5, 0, 1);
+      ctx.font = FONT_MONO_13B; ctx.fillStyle = '#ff7e5f';
+      ctx.fillText('swallow failed: tube held shut', W * 0.06, H * 0.78);
+      ctx.globalAlpha = 1;
+    }
+    // myth overlay
+    if (state.myth) {
+      ctx.setLineDash([4, 4]);
+      drawArrow(ctx, W * 0.62, 56, xd + 4, cy - 10, '#ff7e5f', 2, 9);
+      ctx.setLineDash([]);
+      ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(xd - 5, cy - 14); ctx.lineTo(xd + 4, cy - 4); ctx.lineTo(xd - 3, cy + 5); ctx.lineTo(xd + 5, cy + 14); ctx.stroke();
+      banner(ctx, W, 'Myth: air leaks out of your head, drum tears', 'Red = myth. No such path exists; the drum only flexes.', 10, FONT_DISPLAY, FONT_MONO_10);
+    }
+    // HUD
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = Math.abs(dp) < 500 ? '#7ee0a1' : (Math.abs(dp) < 2000 ? '#ffc24a' : '#ff7e5f');
+    ctx.fillText('Δp ' + (Math.abs(dp) < 0.5 ? '' : (dp > 0 ? '+' : '−')) + fmt(Math.abs(dp), 0) + ' Pa · drum ' + bulge(dp), 14, H - 16);
+    $('earMeta').textContent = phaseLabel(phaseOf(s.t)) + ' · not to scale';
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, s = state.ear;
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var L = 46, R = W - 14;
+    function X(t) { return L + t / FLIGHT.total * (R - L); }
+    // top: altitudes
+    var T1 = 26, B1 = H * 0.38;
+    function Ya(ft) { return B1 - ft / 37000 * (B1 - T1); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1;
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    [0, 10000, 20000, 30000].forEach(function (f) {
+      ctx.beginPath(); ctx.moveTo(L, Ya(f)); ctx.lineTo(R, Ya(f)); ctx.stroke();
+      ctx.fillText((f / 1000) + 'k', 8, Ya(f) + 3);
+    });
+    ctx.fillText('altitude (ft)', L, 16);
+    ctx.strokeStyle = 'rgba(215,222,242,0.45)'; ctx.setLineDash([4, 4]); ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for (var t = 0; t <= FLIGHT.total; t += 0.5) { var y = Ya(planeAltFt(t)); if (t === 0) ctx.moveTo(X(t), y); else ctx.lineTo(X(t), y); }
+    ctx.stroke(); ctx.setLineDash([]);
+    ctx.strokeStyle = '#ffc24a'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (t = 0; t <= FLIGHT.total; t += 0.5) { y = Ya(cabinAltFt(t, state.cruiseFt)); if (t === 0) ctx.moveTo(X(t), y); else ctx.lineTo(X(t), y); }
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(215,222,242,0.7)'; ctx.fillText('plane', X(40), Ya(35000) - 4);
+    ctx.fillStyle = '#ffc24a'; ctx.fillText('cabin', X(40), Ya(state.cruiseFt) - 4);
+    // bottom: pressures
+    var T2 = H * 0.5, B2 = H - 30;
+    var pMin = Math.min(ftToPa(8000), ftToPa(state.cruiseFt)) - 3000, pMax = P0 + 3000;
+    function Yp(p) { return B2 - (p - pMin) / (pMax - pMin) * (B2 - T2); }
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    ctx.fillStyle = '#8b93ad';
+    for (var pk = 75; pk <= 100; pk += 5) {
+      var yp = Yp(pk * 1000);
+      if (yp < T2 - 2 || yp > B2 + 2) continue;
+      ctx.beginPath(); ctx.moveTo(L, yp); ctx.lineTo(R, yp); ctx.stroke();
+      ctx.fillText(String(pk), 18, yp + 3);
+    }
+    ctx.fillText('pressure (kPa)', L, T2 - 8);
+    ctx.fillText('0', X(0) - 3, B2 + 14); ctx.fillText('45', X(45) - 6, B2 + 14); ctx.fillText('90 min', X(90) - 34, B2 + 14);
+    // middle-ear history with shaded difference
+    var hist = state.hist;
+    if (hist.length > 1) {
+      ctx.fillStyle = 'rgba(255,126,95,0.16)';
+      ctx.beginPath();
+      for (var i = 0; i < hist.length; i++) { var hx = X(hist[i].t), hy = Yp(hist[i].pm); if (i === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy); }
+      for (i = hist.length - 1; i >= 0; i--) ctx.lineTo(X(hist[i].t), Yp(cabinPressure(hist[i].t, state.cruiseFt)));
+      ctx.closePath(); ctx.fill();
+    }
+    ctx.strokeStyle = '#5ec8e5'; ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (t = 0; t <= FLIGHT.total; t += 0.5) { y = Yp(cabinPressure(t, state.cruiseFt)); if (t === 0) ctx.moveTo(X(t), y); else ctx.lineTo(X(t), y); }
+    ctx.stroke();
+    if (hist.length > 0) {
+      ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (i = 0; i < hist.length; i++) { hx = X(hist[i].t); hy = Yp(hist[i].pm); if (i === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy); }
+      ctx.lineTo(X(s.t), Yp(s.pm));
+      ctx.stroke();
+    }
+    ctx.fillStyle = '#5ec8e5'; ctx.fillText('cabin', R - 40, Yp(P0) - 6);
+    ctx.fillStyle = '#ff7e5f'; ctx.fillText('middle ear', L + 4, B2 - 6);
+    // now marker
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(X(s.t), T1); ctx.lineTo(X(s.t), B2); ctx.stroke();
+    ctx.fillStyle = '#d7def2';
+    ctx.beginPath(); ctx.arc(X(s.t), Yp(s.pm), 3.5, 0, Math.PI * 2); ctx.fill();
+    $('chartMeta').textContent = 'pops so far: ' + s.pops;
+  }
+
+  function renderReadout() {
+    var s = state.ear, pc = cabinPressure(s.t, state.cruiseFt), dp = s.pm - pc;
+    var html = '';
+    function kv(k, v, sub, cls) { html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + sub + '</div></div>'; }
+    kv('Cabin pressure', fmt(pc / 1000, 1) + ' kPa', 'cabin altitude ' + Math.round(cabinAltFt(s.t, state.cruiseFt)).toLocaleString('en-US') + ' ft · plane ' + Math.round(planeAltFt(s.t)).toLocaleString('en-US') + ' ft');
+    kv('Middle-ear pressure', fmt(s.pm / 1000, 1) + ' kPa', 'trapped air · changes only when the tube opens', 'sun');
+    var locked = dp < -state.tube.lock;
+    kv('Difference (ear − cabin)', (Math.abs(dp) < 0.5 ? '' : (dp > 0 ? '+' : '−')) + fmt(Math.abs(dp), 0) + ' Pa', feel(dp) + (locked ? ' · tube locked' : ''), Math.abs(dp) < 500 ? 'ok' : (Math.abs(dp) < 2000 ? 'sun' : 'warm'));
+    kv('Eardrum', bulge(dp) === 'flat' ? 'flat' : 'bulging ' + bulge(dp), dp > 50 ? 'ear air higher: tube can vent by itself' : (dp < -50 ? 'cabin higher: tube squeezed shut, swallow!' : 'pressures equal'), bulge(dp) === 'flat' ? 'ok' : '');
+    if (state.myth) kv('Myth predicts', 'air from your head', 'Reality: only path is the tube to your throat; rupture needs ≳ 35 kPa, you have ' + fmt(Math.abs(dp) / 1000, 1), 'warm');
+    else kv('Force on eardrum', fmt(Math.abs(dp) * 6.5e-5 * 1000, 0) + ' mN', '≈ Δp × 65 mm² drum area · pops: ' + s.pops);
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    var s = state.ear;
+    elTL.textContent = fmt(s.t, 0) + ' min · ' + phaseLabel(phaseOf(s.t));
+    elT.value = String(Math.round(s.t * 4) / 4);
+    elCAL.textContent = state.cruiseFt.toLocaleString('en-US') + ' ft · ' + fmt(ftToPa(state.cruiseFt) / 1000, 1) + ' kPa';
+    elPlay.textContent = state.playing ? '❚❚ Pause' : (s.t >= FLIGHT.total ? '↺ Fly again' : '▶ Fly');
+    elPlay.setAttribute('aria-pressed', state.playing ? 'true' : 'false');
+    for (var k in tChips) setChip(tChips[k], state.tube.key === k);
+    setChip(chipMyth, state.myth); setChip(chipAuto, state.auto);
+    var dp = s.pm - cabinPressure(s.t, state.cruiseFt);
+    if (state.myth) elHint.textContent = 'Myth mode · red path from the brain doesn’t exist. The pop is the tube opening.';
+    else if (dp < -state.tube.lock) elHint.textContent = 'Tube locked shut. In real life: decongestant, a gentle Valsalva, or see a doctor. Try Fly again and swallow earlier.';
+    else if (dp < -2000) elHint.textContent = 'Cabin pressure is higher than your middle ear. Swallow!';
+    else elHint.textContent = 'Scrubbing the timeline replays the flight without your manual swallows.';
+  }
+
+  function render() { renderReadout(); drawEar(); drawChart(); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    var pmBefore = state.ear.pm;
+    if (state.playing) stepLive(dt * 120);
+    if (Math.abs(state.ear.pm - pmBefore) > 300) state.openT = 0.35;
+    state.popT = Math.max(0, state.popT - dt);
+    state.failT = Math.max(0, state.failT - dt);
+    state.openT = Math.max(0, (state.openT || 0) - dt);
+    if (state.swFlash > 0) { state.swFlash -= dt; if (state.swFlash <= 0) elSw.classList.remove('flash'); }
+    updateLabels();
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  elPlay.addEventListener('click', function () {
+    if (state.ear.t >= FLIGHT.total) replayTo(0);
+    state.playing = !state.playing; updateLabels();
+  });
+  elSw.addEventListener('click', function () { var b = state.ear.pm; doSwallow(); if (Math.abs(state.ear.pm - b) > 300) state.openT = 0.35; updateLabels(); });
+  Object.keys(phChips).forEach(function (id) {
+    $(id).addEventListener('click', function () { replayTo(phChips[id]); updateLabels(); });
+  });
+  elT.addEventListener('input', function () { replayTo(parseFloat(elT.value)); updateLabels(); });
+  elCA.addEventListener('input', function () { state.cruiseFt = parseFloat(elCA.value); replayTo(state.ear.t); updateLabels(); });
+  Object.keys(tChips).forEach(function (k) {
+    tChips[k].addEventListener('click', function () { state.tube = TUBES[k]; replayTo(state.ear.t); updateLabels(); });
+  });
+  chipAuto.addEventListener('click', function () { state.auto = !state.auto; replayTo(state.ear.t); updateLabels(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && !(e.target && /INPUT|BUTTON/.test(e.target.tagName || ''))) { e.preventDefault(); doSwallow(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  replayTo(0);
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__earPhysics = {
+    isaPressure: isaPressure, ftToPa: ftToPa, cabinAltFt: cabinAltFt, planeAltFt: planeAltFt, cabinPressure: cabinPressure,
+    phaseOf: phaseOf, passiveVent: passiveVent, swallow: swallow, stepEar: stepEar, newEar: newEar, simulate: simulate,
+    feel: feel, bulge: bulge, TUBES: TUBES, FLIGHT: FLIGHT, P0: P0
+  };
+  window.__earState = state;
+})();
+</script>
+</body>
+</html>
