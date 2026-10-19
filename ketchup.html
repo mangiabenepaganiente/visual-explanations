@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Ketchup Won’t Come Out, Then Suddenly Does — Yield Stress &amp; Shear Thinning | Classroom</title>
+<meta name="description" content="Classroom ketchup sim: ketchup is a yield-stress fluid. Below ~30 Pa it acts solid; a tap pushes past yield and its viscosity collapses. Not just thick.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why ketchup won't come out, shear thinning, yield stress fluid, non-newtonian fluid, herschel-bulkley, apparent viscosity, ketchup bottle tap, rheology, classroom physics">
+<link rel="canonical" href="ketchup.html">
+<meta property="og:title" content="Why Ketchup Won’t Come Out, Then Suddenly Does">
+<meta property="og:description" content="Ketchup isn’t just thick like honey. It refuses to flow until the stress passes its yield point, then its viscosity drops a thousandfold. Tap the bottle and see.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 440px; }
+.btn.tap { background: rgba(255, 126, 95, 0.12); color: var(--warm); border-color: rgba(255, 126, 95, 0.45); }
+@media (max-width: 720px) { .card canvas { height: 350px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · kitchen physics</a></p>
+  <h1>Why ketchup won’t come out, then suddenly does</h1>
+  <p class="lede">Honey is thick, but tip it and it always flows, just slowly. Ketchup is different. It has a <strong>yield stress</strong>: below a certain push (very roughly <strong>15–35 Pa</strong>) it holds its shape like a soft solid and doesn’t flow at all. Push past that point and it becomes <strong>shear-thinning</strong>: the faster it flows, the runnier it gets, so its viscosity can drop a thousandfold. That’s why nothing comes out, and then everything does.</p>
+
+  <p class="try"><b>Try this</b>Leave the bottle upside down and press <strong>Tap</strong> once. Notice gravity alone moves nothing. The tap briefly pushes the wall stress over the yellow yield line, and a splat comes out all at once.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <button type="button" class="btn tap" id="btnTap">Tap the bottle</button>
+      <button type="button" class="chip sun" id="chipShake" aria-pressed="false">Keep shaking</button>
+      <button type="button" class="btn" id="btnRefill">Refill bottle</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: it’s just thick, like honey</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Bottle tilt <em id="tiltLabel">180° · upside down</em></span>
+        <input type="range" id="tilt" min="0" max="180" step="1" value="180" aria-label="Bottle tilt from upright, in degrees">
+      </label>
+      <label class="sl grow">
+        <span>Tap / shake strength <em id="tapLabel">3.0 g</em></span>
+        <input type="range" id="tapG" min="0" max="5" step="0.1" value="3" aria-label="Peak extra acceleration of a tap or shake, in multiples of g">
+      </label>
+      <label class="sl grow">
+        <span>Ketchup in bottle <em id="fullLabel">300 mL · 86%</em></span>
+        <input type="range" id="full" min="0" max="100" step="1" value="86" aria-label="How full the bottle is, percent">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint" id="modeHint">Gravity alone pushes on the neck plug with about 28 Pa, just under the 30 Pa yield stress.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>The bottle</b><span id="sceneMeta">glass bottle · 1 cm neck</span></div>
+      <canvas id="cvBottle" width="760" height="440" aria-label="A tilted ketchup bottle over a plate; ketchup flows out only when the stress exceeds the yield stress"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>How runny is it?</b><span id="chartMeta">log scales</span></div>
+      <canvas id="cvChart" width="480" height="440" aria-label="Log-log graph of apparent viscosity against shear rate for ketchup, water and honey, and a strip chart of wall stress against the yield stress"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Below the yield stress, it’s a soft solid</h2>
+      <p>Ketchup is a mesh of tomato particles and fibers in liquid. That loose network can carry a small stress without flowing, about <code>τ<sub>y</sub> ≈ 30 Pa</code> here. In a narrow neck, the ketchup’s own weight only pushes on the walls with <code>τ<sub>w</sub> = ρ·a·R/2 ≈ 28 Pa</code>, so it just sits there.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>A tap briefly multiplies gravity</h2>
+      <p>Smacking the bottle’s base stops the glass suddenly while the ketchup keeps going, so for a split second it feels several g. The wall stress jumps past yield, the network breaks, and the ketchup in the neck starts to slide.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Then it gets runnier the faster it moves</h2>
+      <p>Once it flows, stress follows <code>τ = τ<sub>y</sub> + K·γ̇<sup>n</sup></code> with <code>n ≈ 0.25</code>. The apparent viscosity <code>τ/γ̇</code> falls steeply as the shear rate γ̇ rises, from “solid” to only about ten times water. A little more push gives far more flow, so it comes out all at once.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Ketchup is just thick, like honey”</h2>
+      <p>A honey-thick liquid (≈ 10 Pa·s) would ooze out steadily the moment you tip the bottle past sideways, and a tap would only speed it up a little. Ketchup does nothing, then gushes. Toggle the myth to see the honey prediction. Trapped air matters too, but air can’t get in partly <em>because</em> of the yield stress.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Ketchup numbers">
+    <div class="stat">
+      <div class="k">Yield stress τ<sub>y</sub></div>
+      <div class="v">≈ 15–35 Pa</div>
+      <div class="s">approx · brand & method vary</div>
+    </div>
+    <div class="stat">
+      <div class="k">Flow index n</div>
+      <div class="v">≈ 0.2–0.3</div>
+      <div class="s">n &lt; 1 = shear-thinning</div>
+    </div>
+    <div class="stat">
+      <div class="k">Water · honey</div>
+      <div class="v">0.001 · ~10 Pa·s</div>
+      <div class="s">Newtonian: constant viscosity</div>
+    </div>
+    <div class="stat">
+      <div class="k">Gravity on neck plug</div>
+      <div class="v">≈ 28 Pa</div>
+      <div class="s">1 cm neck · just under yield</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Herschel–Bulkley fluid.</strong> <code>τ = τ<sub>y</sub> + K·γ̇<sup>n</sup></code> when <code>τ &gt; τ<sub>y</sub></code>, otherwise no flow. We use representative ketchup values <code>τ<sub>y</sub> = 30 Pa</code>, <code>K = 10 Pa·s<sup>n</sup></code>, <code>n = 0.25</code>, density 1140 kg/m³. Published measurements span roughly τ<sub>y</sub> 15–35 Pa (some methods give more), K 5–20 Pa·s<sup>n</sup>, n 0.2–0.3. They depend on brand, temperature and how the test is done, so treat these as approximate. Apparent viscosity is <code>η = τ/γ̇ = τ<sub>y</sub>/γ̇ + K·γ̇<sup>n−1</sup></code>, which falls as γ̇ rises.</li>
+      <li><strong>Neck plug.</strong> A force balance on a cylinder of ketchup of radius R in the neck, driven by acceleration a along the bottle axis, gives wall stress <code>τ<sub>w</sub> = ρ·a·R/2</code>, independent of the plug’s length. We use a narrow neck, R = 5 mm, so gravity alone (28 Pa upside down) sits just below yield. Real bottles live near this edge, which is why the outcome feels so unpredictable. Tilt counts only the component of g along the bottle (<code>a = −g·cos(tilt)</code>). With the neck pointing up or sideways (tilt ≤ 90°) we assume the ketchup has settled away from the opening, so nothing pours even if you tap. We assume the ketchup above the neck is held up by the trapped air at the base of the bottle, so only the plug matters for starting.</li>
+      <li><strong>Flow rate</strong> is the exact Herschel–Bulkley pipe-flow integral, <code>Q = π·R³/τ<sub>w</sub>³ ∫ τ²·γ̇(τ) dτ</code> from τ<sub>y</sub> to τ<sub>w</sub>, evaluated with Simpson’s rule. With τ<sub>y</sub> = 0 and n = 1 it reduces to Poiseuille’s law, and the validator checks this. Taps are 60 ms half-sine pulses. Shaking is a 3 Hz sine. Both are idealized.</li>
+      <li><strong>Left out.</strong> Real ketchup is also <em>thixotropic</em> (shaking weakens its structure for a while, so it flows more easily right after), slips on a thin watery layer at the glass wall, and lets air in through glugs. All of these make real pours even more sudden. When nearly empty (under 15%), we treat the ketchup as a thinner layer clinging to the walls, so the effective R shrinks and it’s harder to get out.</li>
+      <li><strong>The “57” tap.</strong> Heinz has promoted tapping the raised “57” on the neck of its glass bottle. Treat that as folklore with a grain of sense: a firm tap near the neck shakes the ketchup that has to yield, but any sharp tap that pushes the stress past yield works.</li>
+      <li><strong>Plastic squeeze bottles</strong> sidestep the problem: squeezing adds pressure far above yield, and a slit valve keeps the neck full of ketchup.</li>
+      <li><strong>For teachers.</strong> Forces and stress (HS-PS2-1), properties of matter (MS-PS1). Contrast Newtonian fluids (water, honey, oil) with non-Newtonian ones: ketchup and toothpaste are shear-thinning with a yield stress, while cornstarch slime is shear-thickening.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-ketchup.js =====
+  var G = 9.80665;
+  var KETCHUP = { rho: 1140, tauY: 30, K: 10, n: 0.25 };
+  var HONEY_MU = 10, WATER_MU = 0.001;
+  var NECK_R = 0.005, CAPACITY = 350e-6, LOW_FRAC = 0.15;
+  var TAP_MS = 60, SHAKE_HZ = 3;
+
+  // Herschel–Bulkley: stress at shear rate; shear rate at stress (0 below yield); apparent viscosity
+  function hbStress(gd, f) { f = f || KETCHUP; return f.tauY + f.K * Math.pow(gd, f.n); }
+  function hbShearRate(tau, f) { f = f || KETCHUP; return tau <= f.tauY ? 0 : Math.pow((tau - f.tauY) / f.K, 1 / f.n); }
+  function apparentViscosity(gd, f) { f = f || KETCHUP; return gd > 0 ? hbStress(gd, f) / gd : Infinity; }
+  // Pipe flow (m³/s) for wall stress tauW: Q = πR³/τw³ ∫_{τy}^{τw} τ² γ̇(τ) dτ  (Simpson)
+  function pipeFlow(tauW, R, f) {
+    f = f || KETCHUP;
+    if (tauW <= f.tauY) return 0;
+    var N = 200, h = (tauW - f.tauY) / N, s = 0;
+    for (var i = 0; i <= N; i++) {
+      var t = f.tauY + i * h;
+      var v = t * t * hbShearRate(t, f);
+      s += v * (i === 0 || i === N ? 1 : (i % 2 ? 4 : 2));
+    }
+    return Math.PI * R * R * R / (tauW * tauW * tauW) * s * h / 3;
+  }
+  function poiseuille(R, gradP, mu) { return Math.PI * Math.pow(R, 4) * gradP / (8 * mu); }
+  function axialAccel(tiltDeg, extraG) { return -G * Math.cos(tiltDeg * Math.PI / 180) + (extraG || 0) * G; }
+  // Effective radius: nearly empty → thinner clinging layer
+  function effectiveR(volFrac) { return volFrac <= 0 ? 0 : NECK_R * Math.min(1, volFrac / LOW_FRAC); }
+  function wallStress(a, R) { return Math.max(0, KETCHUP.rho * a * R / 2); }
+  function tapPulse(tSec, peakG) { var tp = TAP_MS / 1000; return tSec >= 0 && tSec <= tp ? peakG * Math.sin(Math.PI * tSec / tp) : 0; }
+  // Flow state for given conditions
+  function flowState(tiltDeg, extraG, volFrac) {
+    var a = axialAccel(tiltDeg, extraG), R = tiltDeg > 90 ? effectiveR(volFrac) : 0;
+    var tw = wallStress(a, R);
+    var gw = hbShearRate(tw);
+    return { a: a, R: R, tauW: tw, gammaW: gw, eta: gw > 0 ? tw / gw : Infinity, Q: pipeFlow(tw, R), flowing: tw > KETCHUP.tauY,
+      Qmyth: a > 0 && R > 0 ? poiseuille(R, KETCHUP.rho * a, HONEY_MU) : 0 };
+  }
+  // Volume delivered by one tap (m³), integrated over the pulse in 1 ms steps
+  function tapVolume(tiltDeg, peakG, volFrac) {
+    var dt = 0.001, v = 0;
+    for (var t = 0; t <= TAP_MS / 1000 + 1e-9; t += dt) v += flowState(tiltDeg, tapPulse(t, peakG), volFrac).Q * dt;
+    return v;
+  }
+
+  // ===== UI =====
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function clamp(x, a, b) { return x < a ? a : (x > b ? b : x); }
+  function fmt(x, d) {
+    if (!isFinite(x)) return '—';
+    var s = x.toFixed(d);
+    if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+    return s;
+  }
+  function fmtSig(x, s) {
+    if (!isFinite(x)) return '∞';
+    if (x === 0) return '0';
+    var a = Math.abs(x);
+    if (a >= 1e5 || a < 1e-3) {
+      var e = Math.floor(Math.log(a) / Math.LN10), m = x / Math.pow(10, e);
+      if (Math.abs(m) >= 9.995) { m /= 10; e += 1; }
+      return m.toFixed(Math.max(0, s - 1)) + '×10' + supNum(e);
+    }
+    var dec = Math.max(0, s - 1 - Math.floor(Math.log(a) / Math.LN10));
+    return x.toFixed(Math.min(dec, 6));
+  }
+  function supNum(e) {
+    var map = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+    return String(e).split('').map(function (c) { return map[c] || c; }).join('');
+  }
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len, ah = Math.min(head || 9, len);
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.5, y2 - uy * ah + ux * ah * 0.5);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.5, y2 - uy * ah - ux * ah * 0.5);
+    ctx.closePath(); ctx.fill();
+  }
+  function rrect(ctx, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r); ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h); ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r); ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+  function banner(ctx, W, title, sub, y, fTitle, fSub) {
+    var bw = Math.min(W - 20, 430);
+    ctx.fillStyle = 'rgba(8,11,28,0.84)';
+    rrect(ctx, 10, y, bw, sub ? 42 : 26, 8); ctx.fill();
+    ctx.font = fTitle; ctx.fillStyle = '#ff7e5f';
+    ctx.fillText(title, 20, y + 19);
+    if (sub) { ctx.font = fSub; ctx.fillStyle = '#d7def2'; ctx.fillText(sub, 20, y + 35); }
+  }
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var state = {
+    tilt: 180, tapG: 3, vol: 0.86 * CAPACITY, plate: 0, plateMyth: 0, shake: false, myth: false,
+    tapT: -1, simT: 0, lastTs: 0, anim: 0, lastTap: 0, tapAcc: 0, trace: [], cur: null, drops: []
+  };
+  var elTilt = $('tilt'), elTap = $('tapG'), elFull = $('full');
+  var elTiltL = $('tiltLabel'), elTapL = $('tapLabel'), elFullL = $('fullLabel');
+  var elHint = $('modeHint'), elReadout = $('readout');
+  var chipShake = $('chipShake'), chipMyth = $('chipMyth');
+  var surfaces = {
+    bottle: { canvas: $('cvBottle'), ctx: null, w: 0, h: 0, cssH: 440 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 440 }
+  };
+
+  function extraNow() {
+    var e = 0;
+    if (state.tapT >= 0) e += tapPulse(state.tapT, state.tapG);
+    if (state.shake) e += state.tapG * Math.max(0, Math.sin(2 * Math.PI * SHAKE_HZ * state.simT));
+    return e;
+  }
+  function physStep(dt) {
+    var steps = Math.max(1, Math.ceil(dt / 0.002)), h = dt / steps;
+    var peak = null;
+    for (var i = 0; i < steps; i++) {
+      var fs = flowState(state.tilt, extraNow(), state.vol / CAPACITY);
+      var dv = Math.min(state.vol, fs.Q * h);
+      state.vol -= dv; state.plate += dv;
+      if (state.tapT >= 0) state.tapAcc += dv;
+      if (state.myth) state.plateMyth += fs.Qmyth * h;
+      if (!peak || fs.tauW > peak.tauW) peak = fs;
+      state.simT += h;
+      if (state.tapT >= 0) { state.tapT += h; if (state.tapT > TAP_MS / 1000) { state.tapT = -1; state.lastTap = state.tapAcc; } }
+    }
+    state.cur = peak;
+    state.trace.push({ tau: peak.tauW, q: peak.Q });
+    if (state.trace.length > 240) state.trace.shift();
+  }
+
+  function drawBottle() {
+    var surf = surfaces.bottle;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var fs = state.cur || flowState(state.tilt, 0, state.vol / CAPACITY);
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0b1432'); bg.addColorStop(1, '#0d1a3a');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    var small = W < 520;
+    var plateY = H - 44;
+    var sc = clamp((plateY - 80) / 370, 0.45, 1);
+    var bodyW = 92 * sc, bodyH = 170 * sc, shoulder = 46 * sc, neckW = Math.max(14, 26 * sc), neckL = 54 * sc;
+    var cx = small ? W * 0.56 : W * 0.5, cy = (50 + plateY - 30) / 2;
+    var th = state.tilt * Math.PI / 180;
+    // plate
+    ctx.fillStyle = 'rgba(215,222,242,0.12)';
+    ctx.beginPath(); ctx.ellipse(cx, plateY, Math.min(W * 0.4, 190), 16, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(215,222,242,0.35)'; ctx.lineWidth = 1.5; ctx.stroke();
+    // mouth position in world coords (local neck tip at (0, -(bodyH/2 + shoulder + neckL)))
+    var tipL = bodyH / 2 + shoulder + neckL;
+    var mx = cx + Math.sin(th) * tipL, my = cy - Math.cos(th) * tipL;
+    // blobs on plate
+    function blob(vol, x, col, alpha) {
+      if (vol <= 0) return;
+      var r = Math.min(110, 9 * Math.cbrt(vol * 1e6));
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = col;
+      ctx.beginPath(); ctx.ellipse(x, plateY - 2, r, Math.max(3, r * 0.28), 0, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+    var landX = clamp(mx, W * 0.15, W * 0.85);
+    if (state.myth) blob(state.plateMyth, landX + 18, '#ff7e5f', 0.35);
+    blob(state.plate, landX, '#c8202e', 1);
+    // stream
+    var qml = fs.Q * 1e6;
+    if (qml > 0.01 && my < plateY) {
+      var sw = clamp(2 + Math.log(1 + qml) * 2.2, 2, neckW * 0.9);
+      ctx.strokeStyle = '#c8202e'; ctx.lineWidth = sw; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(mx, my); ctx.lineTo(landX, plateY - 4); ctx.stroke(); ctx.lineCap = 'butt';
+    }
+    if (state.myth && fs.Qmyth > 0 && my < plateY) {
+      ctx.setLineDash([3, 4]); ctx.strokeStyle = 'rgba(255,126,95,0.8)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(mx + 6, my); ctx.lineTo(landX + 18, plateY - 4); ctx.stroke(); ctx.setLineDash([]);
+    }
+    // bottle in local coords
+    ctx.save();
+    ctx.translate(cx, cy); ctx.rotate(th);
+    function outline() {
+      ctx.beginPath();
+      ctx.moveTo(-bodyW / 2, bodyH / 2);
+      ctx.lineTo(-bodyW / 2, -bodyH / 2);
+      ctx.quadraticCurveTo(-bodyW / 2, -bodyH / 2 - shoulder * 0.7, -neckW / 2, -bodyH / 2 - shoulder);
+      ctx.lineTo(-neckW / 2, -tipL);
+      ctx.lineTo(neckW / 2, -tipL);
+      ctx.lineTo(neckW / 2, -bodyH / 2 - shoulder);
+      ctx.quadraticCurveTo(bodyW / 2, -bodyH / 2 - shoulder * 0.7, bodyW / 2, -bodyH / 2);
+      ctx.lineTo(bodyW / 2, bodyH / 2);
+      ctx.closePath();
+    }
+    // ketchup fill (clip to bottle)
+    outline(); ctx.save(); ctx.clip();
+    var frac = state.vol / CAPACITY;
+    var totalL = bodyH + shoulder + neckL;
+    ctx.fillStyle = '#b3141f';
+    if (state.tilt > 90) {
+      // slumped toward neck: filled from the tip down
+      var len = totalL * Math.pow(frac, 0.8);
+      if (frac < LOW_FRAC) {
+        // thin clinging layer on walls
+        var tt = Math.max(2, 10 * sc * frac / LOW_FRAC);
+        ctx.fillRect(-bodyW / 2, -bodyH / 2, tt, bodyH); ctx.fillRect(bodyW / 2 - tt, -bodyH / 2, tt, bodyH);
+        if (frac > 0.02) ctx.fillRect(-neckW / 2, -tipL, neckW, neckL * frac / LOW_FRAC);
+      } else ctx.fillRect(-bodyW, -tipL, bodyW * 2, len);
+    } else {
+      var lenB = bodyH * Math.min(1, frac * 1.15);
+      ctx.fillRect(-bodyW, bodyH / 2 - lenB, bodyW * 2, lenB);
+    }
+    ctx.restore();
+    outline();
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = 'rgba(215,222,242,0.06)'; ctx.fill();
+    // label + 57
+    ctx.fillStyle = 'rgba(255,194,74,0.18)';
+    ctx.fillRect(-bodyW / 2 + 6, -12 * sc, bodyW - 12, 40 * sc);
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#ffc24a'; ctx.textAlign = 'center';
+    ctx.fillText('KETCHUP', 0, 6 * sc);
+    ctx.fillStyle = 'rgba(215,222,242,0.6)';
+    ctx.fillText('57', 0, -bodyH / 2 - shoulder - neckL * 0.45);
+    ctx.textAlign = 'left';
+    // wall stress arrows in neck
+    var ratio = fs.tauW / KETCHUP.tauY;
+    var col = ratio > 1 ? '#7ee0a1' : '#ffc24a';
+    if (fs.R > 0 && fs.tauW > 0) {
+      var al = clamp(6 + ratio * 8, 6, 34);
+      drawArrow(ctx, -neckW / 2 - 4, -bodyH / 2 - shoulder - 6, -neckW / 2 - 4, -bodyH / 2 - shoulder - 6 - al, col, 2, 6);
+      drawArrow(ctx, neckW / 2 + 4, -bodyH / 2 - shoulder - 6, neckW / 2 + 4, -bodyH / 2 - shoulder - 6 - al, col, 2, 6);
+    }
+    ctx.restore();
+    // myth banner
+    if (state.myth) {
+      banner(ctx, W, 'Myth: ketchup is just thick, like honey', 'Red dashes = honey prediction: ' + fmt(fs.Qmyth * 1e6, 2) + ' mL/s', 66, FONT_DISPLAY, FONT_MONO_10);
+    }
+    // HUD
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = fs.flowing ? '#7ee0a1' : '#ffc24a';
+    var verdict = state.vol <= 1e-9 ? 'empty' : (fs.flowing ? 'flowing · ' + fmt(fs.Q * 1e6, fs.Q * 1e6 < 10 ? 2 : 0) + ' mL/s' : (state.tilt <= 90 ? 'neck points up · nothing to pour' : 'stuck · stress below yield'));
+    ctx.fillText(verdict, 14, 24);
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#d7def2';
+    ctx.fillText('on plate ' + fmt(state.plate * 1e6, 1) + ' mL', 14, 42);
+    if (state.lastTap > 0 || state.tapT >= 0) { ctx.fillStyle = '#8b93ad'; ctx.fillText('last tap: ' + fmt((state.tapT >= 0 ? state.tapAcc : state.lastTap) * 1e6, 1) + ' mL', 14, 58); }
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h;
+    var fs = state.cur || flowState(state.tilt, 0, state.vol / CAPACITY);
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var L = 48, R = W - 14, T = 24, B = H * 0.56;
+    var gx0 = -2, gx1 = 5, ey0 = -3.5, ey1 = 4.5;
+    function X(gd) { return L + (Math.log(gd) / Math.LN10 - gx0) / (gx1 - gx0) * (R - L); }
+    function Y(eta) { return B - (Math.log(eta) / Math.LN10 - ey0) / (ey1 - ey0) * (B - T); }
+    ctx.font = FONT_MONO_10;
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1; ctx.fillStyle = '#8b93ad';
+    for (var e = gx0; e <= gx1; e++) { ctx.beginPath(); ctx.moveTo(X(Math.pow(10, e)), T); ctx.lineTo(X(Math.pow(10, e)), B); ctx.stroke(); if ((e - gx0) % 2 === 0 || W > 420) ctx.fillText('10' + supNum(e), X(Math.pow(10, e)) - 8, B + 13); }
+    for (e = -3; e <= 4; e++) { ctx.beginPath(); ctx.moveTo(L, Y(Math.pow(10, e))); ctx.lineTo(R, Y(Math.pow(10, e))); ctx.stroke(); ctx.fillText('10' + supNum(e), 12, Y(Math.pow(10, e)) + 3); }
+    ctx.fillText('apparent viscosity (Pa·s) vs shear rate (1/s)', L, T - 8);
+    // water, honey
+    ctx.strokeStyle = 'rgba(94,200,229,0.7)'; ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(L, Y(WATER_MU)); ctx.lineTo(R, Y(WATER_MU)); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,194,74,0.7)';
+    ctx.beginPath(); ctx.moveTo(L, Y(HONEY_MU)); ctx.lineTo(R, Y(HONEY_MU)); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#5ec8e5'; ctx.fillText('water', R - 40, Y(WATER_MU) - 4);
+    ctx.fillStyle = '#ffc24a'; ctx.fillText(state.myth ? 'honey = myth ketchup' : 'honey', R - (state.myth ? 130 : 40), Y(HONEY_MU) - 4);
+    // ketchup curve
+    ctx.save(); ctx.beginPath(); ctx.rect(L, T, R - L, B - T); ctx.clip();
+    ctx.strokeStyle = '#ff5a5a'; ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    for (var lg = gx0; lg <= gx1 + 1e-9; lg += 0.05) { var gd = Math.pow(10, lg), y = Y(apparentViscosity(gd)); if (lg === gx0) ctx.moveTo(X(gd), y); else ctx.lineTo(X(gd), y); }
+    ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle = '#ff5a5a'; ctx.fillText('ketchup', X(0.05), Y(apparentViscosity(0.05)) + 14);
+    // current point
+    if (fs.gammaW > Math.pow(10, gx0)) {
+      var px = X(Math.min(fs.gammaW, Math.pow(10, gx1))), py = Y(fs.eta);
+      ctx.fillStyle = '#7ee0a1'; ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill();
+    } else {
+      ctx.fillStyle = '#ffc24a'; ctx.fillText('↑ not flowing: viscosity “infinite”', L + 6, T + 12);
+    }
+    // strip chart: wall stress vs yield
+    var T2 = H * 0.68, B2 = H - 22;
+    var tmax = 150;
+    function Ys(t) { return B2 - Math.min(t, tmax) / tmax * (B2 - T2); }
+    ctx.fillStyle = '#8b93ad'; ctx.fillText('wall stress in the neck (Pa), last 4 s', L, T2 - 8);
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    [0, 50, 100, 150].forEach(function (v) { ctx.beginPath(); ctx.moveTo(L, Ys(v)); ctx.lineTo(R, Ys(v)); ctx.stroke(); ctx.fillText(String(v), 14, Ys(v) + 3); });
+    ctx.strokeStyle = '#ffc24a'; ctx.setLineDash([5, 4]);
+    ctx.beginPath(); ctx.moveTo(L, Ys(KETCHUP.tauY)); ctx.lineTo(R, Ys(KETCHUP.tauY)); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = '#ffc24a'; ctx.fillText('yield 30', R - 56, Ys(KETCHUP.tauY) - 4);
+    var tr = state.trace;
+    if (tr.length > 1) {
+      ctx.strokeStyle = '#7ee0a1'; ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (var i = 0; i < tr.length; i++) { var xx = L + i / 239 * (R - L), yy = Ys(tr[i].tau); if (i === 0) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy); }
+      ctx.stroke();
+    }
+  }
+
+  function renderReadout() {
+    var fs = state.cur || flowState(state.tilt, 0, state.vol / CAPACITY);
+    var html = '';
+    function kv(k, v, s, cls) { html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>'; }
+    kv('Wall stress vs yield', fmt(fs.tauW, 1) + ' / ' + KETCHUP.tauY + ' Pa', fs.flowing ? 'above yield: it flows' : 'below yield: acts solid', fs.flowing ? 'ok' : 'sun');
+    kv('Shear rate at wall', fs.gammaW > 0 ? fmtSig(fs.gammaW, 3) + ' s⁻¹' : '0 s⁻¹', 'γ̇ = ((τ − τ_y)/K)^(1/n)');
+    var etaTxt = isFinite(fs.eta) ? fmtSig(fs.eta, 3) + ' Pa·s' : '∞ (solid)';
+    var cmp = isFinite(fs.eta) ? '×' + fmtSig(fs.eta / WATER_MU, 2) + ' water · ' + (fs.eta < HONEY_MU ? 'runnier than honey' : 'thicker than honey') : 'won’t flow at any speed below yield';
+    kv('Apparent viscosity', etaTxt, cmp, isFinite(fs.eta) ? '' : 'warm');
+    kv('Flow rate', fmt(fs.Q * 1e6, fs.Q * 1e6 < 10 ? 2 : 0) + ' mL/s', 'on plate ' + fmt(state.plate * 1e6, 1) + ' mL · left ' + fmt(state.vol * 1e6, 0) + ' mL', fs.flowing ? 'ok' : '');
+    if (state.myth) kv('Honey-like myth', fmt(fs.Qmyth * 1e6, 2) + ' mL/s', 'would ooze whenever tipped past sideways · ' + fmt(state.plateMyth * 1e6, 1) + ' mL so far', 'warm');
+    else kv('Push along the bottle', fmt(fs.a / G, 2) + ' g', 'gravity component' + (fs.a / G > Math.max(0, -Math.cos(state.tilt * Math.PI / 180)) + 0.01 ? ' + tap/shake' : '') + ' · neck R ' + fmt(fs.R * 1000, 1) + ' mm');
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    var t = state.tilt;
+    elTiltL.textContent = t + '° · ' + (t === 0 ? 'upright' : (t < 90 ? 'tipped' : (t === 90 ? 'sideways' : (t === 180 ? 'upside down' : 'neck down'))));
+    elTapL.textContent = fmt(state.tapG, 1) + ' g';
+    var pct = Math.round(state.vol / CAPACITY * 100);
+    elFullL.textContent = fmt(state.vol * 1e6, 0) + ' mL · ' + pct + '%';
+    elFull.value = String(pct);
+    setChip(chipShake, state.shake); setChip(chipMyth, state.myth);
+    var g0 = flowState(state.tilt, 0, state.vol / CAPACITY);
+    if (state.myth) elHint.textContent = 'Myth mode · honey-thick ketchup would ooze ' + fmt(g0.Qmyth * 1e6, 2) + ' mL/s from gravity alone. Real ketchup: ' + fmt(g0.Q * 1e6, 2) + '.';
+    else if (state.vol <= 1e-9) elHint.textContent = 'Empty. Press Refill.';
+    else if (state.vol / CAPACITY < LOW_FRAC) elHint.textContent = 'Nearly empty: the last ketchup clings to the walls as a thin layer, so even hard taps barely move it.';
+    else if (state.tilt <= 90) elHint.textContent = 'Neck is pointing up or sideways. Gravity pushes the ketchup away from the opening.';
+    else elHint.textContent = 'Gravity alone pushes on the neck plug with ' + fmt(g0.tauW, 1) + ' Pa, against a 30 Pa yield stress.';
+  }
+
+  function render() { renderReadout(); drawBottle(); drawChart(); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    physStep(dt);
+    updateLabels();
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function tap() { state.tapT = 0; state.tapAcc = 0; }
+  $('btnTap').addEventListener('click', tap);
+  $('btnRefill').addEventListener('click', function () { state.vol = 0.86 * CAPACITY; state.plate = 0; state.plateMyth = 0; state.lastTap = 0; updateLabels(); });
+  chipShake.addEventListener('click', function () { state.shake = !state.shake; updateLabels(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; state.plateMyth = 0; updateLabels(); });
+  elTilt.addEventListener('input', function () { state.tilt = parseFloat(elTilt.value); updateLabels(); });
+  elTap.addEventListener('input', function () { state.tapG = parseFloat(elTap.value); updateLabels(); });
+  elFull.addEventListener('input', function () { state.vol = parseFloat(elFull.value) / 100 * CAPACITY; updateLabels(); });
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && !(e.target && /INPUT|BUTTON/.test(e.target.tagName || ''))) { e.preventDefault(); tap(); }
+  });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__ketchupPhysics = {
+    hbStress: hbStress, hbShearRate: hbShearRate, apparentViscosity: apparentViscosity, pipeFlow: pipeFlow, poiseuille: poiseuille,
+    axialAccel: axialAccel, effectiveR: effectiveR, wallStress: wallStress, tapPulse: tapPulse, flowState: flowState, tapVolume: tapVolume,
+    KETCHUP: KETCHUP, HONEY_MU: HONEY_MU, WATER_MU: WATER_MU, NECK_R: NECK_R, CAPACITY: CAPACITY, LOW_FRAC: LOW_FRAC, G: G
+  };
+  window.__ketchupState = state;
+})();
+</script>
+</body>
+</html>
