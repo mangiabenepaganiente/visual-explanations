@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Bridges Need Gaps — Thermal Expansion &amp; Expansion Joints | Classroom</title>
+<meta name="description" content="Classroom bridge sim: a 100 m steel span grows 6 cm over a 50 °C swing. Block it and stress hits 120 MPa, so expansion joints let the deck move.">
+<meta name="robots" content="index,follow">
+<meta name="keywords" content="why do bridges have gaps, expansion joint, thermal expansion, coefficient of linear expansion, thermal stress, finger joint, bridge buckling, steel expansion, concrete expansion, classroom physics">
+<link rel="canonical" href="bridge-gap.html">
+<meta property="og:title" content="Why Bridges Need Gaps">
+<meta property="og:description" content="Those metal teeth on a bridge aren’t sloppy building. Steel and concrete grow when hot and shrink when cold. Take away the gap and the deck pushes back with 100+ MPa.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080b1c;
+  --bg2: #0a0e22;
+  --card: #0d1228;
+  --sun2: #ffc24a;
+  --warm: #ff7e5f;
+  --cool: #5ec8e5;
+  --text: #d7def2;
+  --muted: #8b93ad;
+  --line: rgba(94, 200, 229, 0.16);
+  --line2: rgba(255, 194, 74, 0.22);
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --sans: Inter, system-ui, sans-serif;
+  --serif: Fraunces, Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--sans);
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 700px at 14% -10%, rgba(94, 200, 229, 0.08), transparent 55%),
+    radial-gradient(900px 600px at 108% 8%, rgba(255, 126, 95, 0.07), transparent 50%),
+    var(--bg);
+}
+.page { max-width: 1240px; margin: 0 auto; padding: 28px 22px 64px; }
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cool);
+  margin: 0 0 10px;
+}
+.kicker a { color: inherit; text-decoration: none; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.lede { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+.lede strong { color: var(--text); font-weight: 500; }
+
+.try {
+  max-width: 720px;
+  margin: 0 0 18px;
+  padding: 11px 14px 12px;
+  border-left: 3px solid var(--cool);
+  background: rgba(94, 200, 229, 0.06);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.try b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(16, 22, 48, 0.92), rgba(10, 14, 32, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.controls { display: flex; flex-direction: column; gap: 12px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.grow { flex: 1 1 220px; min-width: 180px; }
+label.sl {
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em;
+}
+label.sl span em { font-style: normal; color: var(--cool); }
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 22px; background: transparent; margin: 0;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--cool); margin-top: -5.5px; cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.12);
+}
+input[type="range"]::-moz-range-track {
+  height: 3px; background: rgba(94, 200, 229, 0.28); border-radius: 2px; border: none;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cool);
+  border: none; cursor: pointer;
+}
+
+.btn, .chip {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  border-radius: 999px; border: 1px solid var(--line); background: #10162e;
+  color: var(--text); cursor: pointer; padding: 7px 12px;
+}
+.btn:hover, .chip:hover { border-color: rgba(94, 200, 229, 0.45); }
+.btn:focus-visible, .chip:focus-visible { outline: 2px solid var(--cool); outline-offset: 2px; }
+.btn.play { min-width: 86px; background: rgba(94, 200, 229, 0.1); color: var(--cool); }
+.chip.on { background: rgba(94, 200, 229, 0.16); border-color: rgba(94, 200, 229, 0.5); color: var(--cool); }
+.chip.sun.on { background: rgba(255, 194, 74, 0.14); border-color: rgba(255, 194, 74, 0.5); color: var(--sun2); }
+.chip.myth { border-color: rgba(255, 126, 95, 0.35); }
+.chip.myth.on {
+  background: rgba(255, 126, 95, 0.16);
+  border-color: rgba(255, 126, 95, 0.5);
+  color: var(--warm);
+}
+.sep { width: 1px; height: 22px; background: var(--line); }
+.hint {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+
+.viz {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 0;
+}
+.card-h {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 10px 14px 0;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.card-h b { color: var(--text); font-weight: 500; letter-spacing: 0.06em; }
+.card canvas { display: block; width: 100%; height: 400px; }
+.cycle-card canvas { height: 400px; }
+
+.readout {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+  min-height: 92px;
+}
+.kv .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.kv .v { font-family: var(--mono); font-size: 15px; color: var(--cool); line-height: 1.35; overflow-wrap: anywhere; }
+.kv .v.warm { color: var(--warm); }
+.kv .v.sun { color: var(--sun2); }
+.kv .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; line-height: 1.4; }
+
+.causes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.cause { padding: 16px 16px 18px; }
+.cause .n {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 8px;
+}
+.cause.myth .n { color: var(--warm); }
+.cause h2 { font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 0 0 8px; line-height: 1.25; }
+.cause p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.cause.myth { border-color: rgba(255, 126, 95, 0.28); background: linear-gradient(180deg, rgba(255, 126, 95, 0.06), var(--card)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+.stat .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.stat .v { font-family: var(--mono); font-size: 18px; color: var(--sun2); }
+.stat .s { font-family: var(--mono); font-size: 11px; color: #a8b0c8; margin-top: 4px; }
+
+.notes {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.notes h3 {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text); font-weight: 500; margin: 0 0 10px;
+}
+.notes ol { margin: 0; padding-left: 18px; }
+.notes li { margin: 0 0 8px; overflow-wrap: break-word; }
+.notes code {
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--cool); background: rgba(94, 200, 229, 0.08);
+  padding: 1px 5px; border-radius: 4px;
+}
+.notes strong { color: var(--text); font-weight: 600; }
+.cause code { font-family: var(--mono); font-size: 12px; color: #8fd4e8; }
+.kv .v.ok { color: #7ee0a1; }
+
+@media (max-width: 1100px) {
+  .readout { grid-template-columns: repeat(3, 1fr); }
+  .causes, .stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 980px) {
+  .viz { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .causes, .readout, .stats { grid-template-columns: 1fr 1fr; }
+  .card canvas { height: 320px; }
+  .page { padding: 18px 14px 48px; }
+}
+@media (max-width: 480px) {
+  .causes, .stats { grid-template-columns: 1fr; }
+}
+.card canvas { height: 430px; }
+@media (max-width: 720px) { .card canvas { height: 340px; } }
+</style>
+</head>
+<body data-build="1">
+<div class="page">
+  <p class="kicker"><a href="index.html">Visual explanations · thermal expansion</a></p>
+  <h1>Why bridges need gaps</h1>
+  <p class="lede">Steel and concrete <strong>grow when they warm up and shrink when they cool</strong>. The change is small per meter, but bridges are long: <strong>ΔL = α·L·ΔT</strong>, so a 100 m steel span gets about <strong>6 cm</strong> longer from a winter night to a summer afternoon. Those toothed metal plates you drive over are <strong>expansion joints</strong>, the room the deck needs to move. Take them away and the deck pushes on its supports with <strong>σ = E·α·ΔT</strong>, about 120 MPa for steel. That’s enough to buckle it.</p>
+
+  <p class="try"><b>Try this</b>Switch to <strong>No joint</strong> and drag the temperature up. Notice the length can’t change, so the stress climbs instead, until near 50 °C the deck bows up.</p>
+
+  <div class="panel controls">
+    <div class="row">
+      <span class="hint">Deck</span>
+      <button type="button" class="chip on" id="mSteel" aria-pressed="true">Steel</button>
+      <button type="button" class="chip" id="mConcrete" aria-pressed="false">Concrete</button>
+      <button type="button" class="chip" id="mAlu" aria-pressed="false">Aluminum footbridge</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip on" id="jOn" aria-pressed="true">Expansion joint</button>
+      <button type="button" class="chip" id="jOff" aria-pressed="false">No joint (locked in)</button>
+      <div class="sep" aria-hidden="true"></div>
+      <button type="button" class="chip myth" id="chipMyth" aria-pressed="false">Myth: bridges are rigid; gaps are sloppy</button>
+    </div>
+    <div class="row">
+      <label class="sl grow">
+        <span>Deck temperature <em id="tLabel">15 °C · as built</em></span>
+        <input type="range" id="temp" min="-30" max="60" step="1" value="15" aria-label="Bridge deck temperature in degrees Celsius">
+      </label>
+      <label class="sl grow">
+        <span>Span length <em id="lLabel">100 m</em></span>
+        <input type="range" id="span" min="10" max="400" step="5" value="100" aria-label="Length of the bridge deck between joints, in meters">
+      </label>
+    </div>
+    <div class="row">
+      <span class="hint">Weather</span>
+      <button type="button" class="chip" id="wWinter" aria-pressed="false">Winter night −20 °C</button>
+      <button type="button" class="chip" id="wSpring" aria-pressed="false">Spring day 15 °C</button>
+      <button type="button" class="chip" id="wSummer" aria-pressed="false">Summer deck in sun 45 °C</button>
+      <button type="button" class="chip" id="wHeat" aria-pressed="false">Record heat wave 60 °C</button>
+      <span class="hint" id="modeHint">Built at 15 °C. The joint was set for −20 to +50 °C.</span>
+    </div>
+  </div>
+
+  <div class="viz">
+    <div class="card">
+      <div class="card-h"><b>The bridge</b><span id="sceneMeta">movement exaggerated</span></div>
+      <canvas id="cvBridge" width="760" height="430" aria-label="Side view of a bridge deck between two abutments with a finger expansion joint at one end that opens and closes with temperature; without the joint the deck buckles"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-h"><b>Length & stress vs temperature</b><span id="chartMeta">this span</span></div>
+      <canvas id="cvChart" width="480" height="430" aria-label="Graph of length change and joint gap against temperature, and the stress a locked-in deck would carry"></canvas>
+    </div>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="causes">
+    <article class="panel cause">
+      <div class="n">Cause 01</div>
+      <h2>Warm atoms take up more room</h2>
+      <p>Heating makes atoms vibrate harder and sit slightly farther apart, so a whole beam grows in proportion to its length: <code>ΔL = α·L·ΔT</code>. For steel <code>α ≈ 12×10⁻⁶ /°C</code>, just 0.012 mm per meter per degree. Over 100 m and 50 °C that adds up to 60 mm.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 02</div>
+      <h2>Blocked growth becomes force</h2>
+      <p>If the ends can’t move, the deck is squeezed back by exactly the strain it wanted: <code>σ = E·α·ΔT</code>. For steel that’s <code>2.4 MPa</code> per degree, independent of length. A 50 °C rise means 120 MPa pushing on the abutments, and a long, slender deck buckles well before the steel itself fails.</p>
+    </article>
+    <article class="panel cause">
+      <div class="n">Cause 03</div>
+      <h2>Joints and bearings let it breathe</h2>
+      <p>One end of a span is usually pinned. The other sits on sliding or rocking bearings and meets the next span at an expansion joint: interlocking steel fingers or a modular strip seal. The gap opens in winter and closes in summer, and traffic rolls across.</p>
+    </article>
+    <article class="panel cause myth">
+      <div class="n">Myth, busted</div>
+      <h2>“Bridges are rigid” · “those gaps are sloppy building”</h2>
+      <p>Nothing that size is rigid against temperature. The gap is engineered, sized from the local temperature range, the material and the span. Leaving it out is the mistake: locked-in decks, and rails without enough allowance, buckle in heat waves. Toggle the myth to see the rigid-bridge prediction.</p>
+    </article>
+  </div>
+
+  <div class="stats" aria-label="Bridge numbers">
+    <div class="stat">
+      <div class="k">Steel α</div>
+      <div class="v">12×10⁻⁶ /°C</div>
+      <div class="s">concrete ≈ 10–12 · aluminum ≈ 23</div>
+    </div>
+    <div class="stat">
+      <div class="k">100 m steel, 50 °C swing</div>
+      <div class="v">60 mm</div>
+      <div class="s">α·L·ΔT</div>
+    </div>
+    <div class="stat">
+      <div class="k">Locked steel</div>
+      <div class="v">2.4 MPa/°C</div>
+      <div class="s">E 200 GPa × α · 120 MPa @ 50 °C</div>
+    </div>
+    <div class="stat">
+      <div class="k">Big-bridge joints</div>
+      <div class="v">up to ~1–2 m</div>
+      <div class="s">long suspension spans · approx</div>
+    </div>
+  </div>
+
+  <footer class="notes">
+    <h3>Model, constants, caveats</h3>
+    <ol>
+      <li><strong>Free expansion.</strong> <code>ΔL = α·L·(T − T<sub>0</sub>)</code>, linear in temperature, with the deck built (joint set) at <code>T<sub>0</sub> = 15 °C</code>. Coefficients: structural steel 12×10⁻⁶ /°C, concrete 10×10⁻⁶ /°C (typical range 10–12×10⁻⁶, depending on the aggregate), aluminum alloy 23×10⁻⁶ /°C. “Deck temperature” is the effective average temperature of the deck. In sun a deck runs hotter than the air, and on clear nights colder.</li>
+      <li><strong>Restrained stress.</strong> If both ends are fixed, <code>σ = E·α·ΔT</code> (uniaxial, fully restrained, uniform temperature). E: steel 200 GPa, concrete 30 GPa, aluminum 69 GPa. Hot gives compression, cold gives tension. The force on the supports is σ times the deck’s cross-section, so we report it per square meter of section.</li>
+      <li><strong>Verdict thresholds</strong> (indicative, not a design check): steel yields at 250 MPa (common structural grade) and aluminum at 240 MPa (6061-T6). The “buckling risk” lines (80 MPa steel, 60 MPa aluminum) are illustrative. Real buckling depends on slenderness, restraint and imperfections. For scale, continuous welded rail is prone to heat kinks roughly 30–40 °C above its stress-free temperature, about 70–100 MPa. Concrete: we use 45% of a 30 MPa compressive strength (13.5 MPa) as a crushing and spalling warning, and about 3 MPa tension for cracking.</li>
+      <li><strong>Joint sizing.</strong> The joint is set at 15 °C to accommodate an illustrative design range of −20 to +50 °C plus 10 mm minimum clearance: <code>gap = α·L·(50 − 15) + 10 mm − ΔL</code>. Real design ranges come from local climate data and codes, such as AASHTO LRFD in the U.S. and Eurocode EN 1991-1-5. Above the design range the joint closes and the deck becomes restrained from that point on. That’s the edge case the heat-wave chip shows.</li>
+      <li><strong>Left out.</strong> Bearing friction, temperature gradients through the deck depth (which make decks curl), creep and shrinkage of concrete, and the fact that multi-span bridges split the movement among several joints. The drawing exaggerates the movement so you can see it. The joint inset shows the true gap in millimeters.</li>
+      <li><strong>Not the same as thermal shock.</strong> A cracking glass (see the hot-water explainer) fails because one part heats faster than another. A bridge has a different problem: the whole deck heats evenly but its ends are held in place.</li>
+      <li><strong>For teachers.</strong> Thermal energy and particle motion (MS-PS1-4, MS-PS3), engineering design under constraints (MS-ETS1, HS-ETS1). Lab idea: measure a long aluminum rod’s growth in hot water with a dial gauge, then scale it up to your local bridge.</li>
+    </ol>
+  </footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Physics constants — mirrored in validate-bridge-gap.js =====
+  var T0 = 15, T_DESIGN_MIN = -20, T_DESIGN_MAX = 50, CLEAR_MM = 10;
+  var MATS = {
+    steel: { key: 'steel', label: 'Steel', alpha: 12e-6, E: 200e9, yieldC: 250e6, yieldT: 250e6, buckle: 80e6, crack: null },
+    concrete: { key: 'concrete', label: 'Concrete', alpha: 10e-6, E: 30e9, yieldC: 30e6, yieldT: null, buckle: 13.5e6, crack: 3e6 },
+    alu: { key: 'alu', label: 'Aluminum', alpha: 23e-6, E: 69e9, yieldC: 240e6, yieldT: 240e6, buckle: 60e6, crack: null }
+  };
+  function dL(mat, L, T) { return mat.alpha * L * (T - T0); }                         // m
+  function restrainedStress(mat, dT) { return mat.E * mat.alpha * dT; }                // Pa, + = compression (hot)
+  function stressPerDegree(mat) { return mat.E * mat.alpha; }
+  function jointSetGap(mat, L) { return mat.alpha * L * (T_DESIGN_MAX - T0) + CLEAR_MM / 1000; }   // m at T0
+  function jointGap(mat, L, T) { return jointSetGap(mat, L) - dL(mat, L, T); }        // m (can be < 0 → closed)
+  function closeTemp(mat, L) { return T0 + jointSetGap(mat, L) / (mat.alpha * L); }
+  // Deck state: with joint, free until the gap closes; without, fully restrained from T0
+  function deckState(mat, L, T, joint) {
+    var free = dL(mat, L, T), sigma, gap = null, closed = false, actual;
+    if (joint) {
+      gap = jointGap(mat, L, T);
+      if (gap < 0) { closed = true; sigma = restrainedStress(mat, T - closeTemp(mat, L)); actual = jointSetGap(mat, L); gap = 0; }
+      else { sigma = 0; actual = free; }
+    } else { sigma = restrainedStress(mat, T - T0); actual = 0; }
+    return { free: free, actual: actual, sigma: sigma, gap: gap, closed: closed, verdict: verdict(mat, sigma) };
+  }
+  function verdict(mat, sigma) {
+    var a = Math.abs(sigma);
+    if (a < 1e3) return { key: 'free', text: 'moves freely · no stress', level: 0 };
+    if (sigma > 0) {
+      if (a >= mat.yieldC) return { key: 'yield', text: mat.key === 'concrete' ? 'concrete crushes' : 'steel-like yielding', level: 3 };
+      if (a >= mat.buckle) return { key: 'buckle', text: mat.key === 'concrete' ? 'crushing / spalling risk' : 'buckling risk · deck bows', level: 2 };
+      return { key: 'comp', text: 'squeezed · pushing on supports', level: 1 };
+    }
+    if (mat.crack && a >= mat.crack) return { key: 'crack', text: 'cracks in tension', level: 2 };
+    if (mat.yieldT && a >= mat.yieldT) return { key: 'yieldT', text: 'yields in tension', level: 3 };
+    return { key: 'tens', text: 'stretched · pulling on supports', level: 1 };
+  }
+
+  // ===== UI =====
+  function fitCanvas(surf) {
+    var canvas = surf.canvas;
+    var rect = canvas.getBoundingClientRect();
+    var cssW = Math.max(200, Math.round(rect.width));
+    var cssH = Math.max(120, Math.round(rect.height) || surf.cssH);
+    var dpr = window.devicePixelRatio || 1;
+    if (dpr > 2) dpr = 2;
+    var bw = Math.round(cssW * dpr), bh = Math.round(cssH * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) { canvas.width = bw; canvas.height = bh; }
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    surf.ctx = ctx; surf.w = cssW; surf.h = cssH;
+  }
+  function setChip(el, on) {
+    if (on) el.classList.add('on'); else el.classList.remove('on');
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  function clamp(x, a, b) { return x < a ? a : (x > b ? b : x); }
+  function fmt(x, d) {
+    if (!isFinite(x)) return '—';
+    var s = x.toFixed(d);
+    if (/^-0(\.0*)?$/.test(s)) s = s.slice(1);
+    return s;
+  }
+  function fmtSig(x, s) {
+    if (!isFinite(x)) return '∞';
+    if (x === 0) return '0';
+    var a = Math.abs(x);
+    if (a >= 1e5 || a < 1e-3) {
+      var e = Math.floor(Math.log(a) / Math.LN10), m = x / Math.pow(10, e);
+      if (Math.abs(m) >= 9.995) { m /= 10; e += 1; }
+      return m.toFixed(Math.max(0, s - 1)) + '×10' + supNum(e);
+    }
+    var dec = Math.max(0, s - 1 - Math.floor(Math.log(a) / Math.LN10));
+    return x.toFixed(Math.min(dec, 6));
+  }
+  function supNum(e) {
+    var map = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+    return String(e).split('').map(function (c) { return map[c] || c; }).join('');
+  }
+  function drawArrow(ctx, x1, y1, x2, y2, color, lw, head) {
+    var dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
+    if (len < 1) return;
+    var ux = dx / len, uy = dy / len, ah = Math.min(head || 9, len);
+    ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = lw || 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - ux * ah * 0.6, y2 - uy * ah * 0.6); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - ux * ah - uy * ah * 0.5, y2 - uy * ah + ux * ah * 0.5);
+    ctx.lineTo(x2 - ux * ah + uy * ah * 0.5, y2 - uy * ah - ux * ah * 0.5);
+    ctx.closePath(); ctx.fill();
+  }
+  function rrect(ctx, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.arcTo(x + w, y, x + w, y + r, r);
+    ctx.lineTo(x + w, y + h - r); ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+    ctx.lineTo(x + r, y + h); ctx.arcTo(x, y + h, x, y + h - r, r);
+    ctx.lineTo(x, y + r); ctx.arcTo(x, y, x + r, y, r);
+    ctx.closePath();
+  }
+  function banner(ctx, W, title, sub, y, fTitle, fSub) {
+    var bw = Math.min(W - 20, 430);
+    ctx.fillStyle = 'rgba(8,11,28,0.84)';
+    rrect(ctx, 10, y, bw, sub ? 42 : 26, 8); ctx.fill();
+    ctx.font = fTitle; ctx.fillStyle = '#ff7e5f';
+    ctx.fillText(title, 20, y + 19);
+    if (sub) { ctx.font = fSub; ctx.fillStyle = '#d7def2'; ctx.fillText(sub, 20, y + 35); }
+  }
+  var FONT_MONO_10 = '10px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_11 = '11px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_MONO_13B = '500 13px "IBM Plex Mono", ui-monospace, monospace';
+  var FONT_DISPLAY = '600 15px Fraunces, Georgia, serif';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { mat: MATS.steel, L: 100, T: 15, joint: true, myth: false, lastTs: 0, anim: 0, bow: 0 };
+  var elT = $('temp'), elTL = $('tLabel'), elL = $('span'), elLL = $('lLabel'), elHint = $('modeHint'), elReadout = $('readout'), chipMyth = $('chipMyth');
+  var mChips = { steel: $('mSteel'), concrete: $('mConcrete'), alu: $('mAlu') };
+  var wChips = { wWinter: -20, wSpring: 15, wSummer: 45, wHeat: 60 };
+  var surfaces = {
+    bridge: { canvas: $('cvBridge'), ctx: null, w: 0, h: 0, cssH: 430 },
+    chart: { canvas: $('cvChart'), ctx: null, w: 0, h: 0, cssH: 430 }
+  };
+
+  function tempColor(T) {
+    var f = clamp((T + 30) / 90, 0, 1);
+    var r = Math.round(94 + (255 - 94) * f), g = Math.round(200 + (126 - 200) * f), b = Math.round(229 + (95 - 229) * f);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+  }
+
+  function drawBridge() {
+    var surf = surfaces.bridge;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, m = state.mat;
+    var ds = deckState(m, state.L, state.T, state.joint);
+    var small = W < 520;
+    // sky by temperature
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    var hot = clamp((state.T + 20) / 80, 0, 1);
+    bg.addColorStop(0, 'rgba(' + Math.round(11 + 30 * hot) + ',' + Math.round(20 + 10 * hot) + ',' + Math.round(50 - 10 * hot) + ',1)');
+    bg.addColorStop(1, '#0d1a3a');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    // geometry
+    var deckY = H * 0.42, deckH = small ? 14 : 18;
+    var aw = small ? 34 : 54;
+    var xL = aw + 8, xR = W - aw - 8;            // abutment faces
+    var maxMove = m.alpha * Math.max(state.L, 10) * 45;   // m, for exaggeration scale
+    var ex = (small ? 26 : 40) / maxMove;          // px per m of movement
+    var exFactor = ex / ((xR - xL) / state.L);
+    var gapPx0 = jointSetGap(m, state.L) * ex;     // set gap in px
+    var deckLen0 = state.joint ? xR - xL - gapPx0 : xR - xL;
+    var move = ds.actual * ex;
+    // river/ground
+    ctx.fillStyle = 'rgba(94,200,229,0.10)'; ctx.fillRect(0, H * 0.72, W, H * 0.28);
+    // abutments
+    ctx.fillStyle = '#3a4060';
+    ctx.fillRect(0, deckY + deckH, aw + 8, H * 0.72 - deckY - deckH + 6);
+    ctx.fillRect(W - aw - 8, deckY + deckH, aw + 8, H * 0.72 - deckY - deckH + 6);
+    ctx.fillRect(0, deckY - 4, xL, deckH + 4);
+    ctx.fillRect(xR, deckY - 4, W - xR, deckH + 4);
+    // pier
+    ctx.fillStyle = '#2c3250'; ctx.fillRect(W / 2 - 10, deckY + deckH, 20, H * 0.72 - deckY - deckH + 6);
+    // deck
+    var deckEnd = xL + deckLen0 + move;
+    var bowTarget = (!state.joint || ds.closed) && ds.verdict.level >= 2 && ds.sigma > 0 ? clamp((Math.abs(ds.sigma) - m.buckle) / m.buckle, 0.15, 1) : 0;
+    state.bowTarget = bowTarget;
+    var bow = state.bow * (small ? 36 : 60);
+    ctx.fillStyle = tempColor(state.T);
+    ctx.globalAlpha = 0.85;
+    ctx.beginPath();
+    var n = 40;
+    for (var i = 0; i <= n; i++) { var x = xL + (deckEnd - xL) * i / n, y = deckY - bow * Math.sin(Math.PI * i / n); if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); }
+    for (i = n; i >= 0; i--) { x = xL + (deckEnd - xL) * i / n; y = deckY + deckH - bow * Math.sin(Math.PI * i / n); ctx.lineTo(x, y); }
+    ctx.closePath(); ctx.fill();
+    ctx.globalAlpha = 1;
+    // cracks for tension failure
+    if ((!state.joint || ds.closed) && ds.verdict.key === 'crack') {
+      ctx.strokeStyle = '#0a1028'; ctx.lineWidth = 2;
+      for (var c = 1; c <= 4; c++) { var cx = xL + (deckEnd - xL) * c / 5; ctx.beginPath(); ctx.moveTo(cx, deckY); ctx.lineTo(cx + 3, deckY + deckH * 0.5); ctx.lineTo(cx - 2, deckY + deckH); ctx.stroke(); }
+    }
+    // stress arrows when restrained
+    if (Math.abs(ds.sigma) > 1e3) {
+      var al = clamp(Math.abs(ds.sigma) / 4e6, 6, 40);
+      var comp = ds.sigma > 0, col = comp ? '#ff7e5f' : '#5ec8e5';
+      var ay = deckY - 16 - bow;
+      if (comp) { drawArrow(ctx, xL + 6 + al, ay, xL + 6, ay, col, 2.4, 8); drawArrow(ctx, deckEnd - 6 - al, ay, deckEnd - 6, ay, col, 2.4, 8); }
+      else { drawArrow(ctx, xL + 6, ay, xL + 6 + al, ay, col, 2.4, 8); drawArrow(ctx, deckEnd - 6, ay, deckEnd - 6 - al, ay, col, 2.4, 8); }
+    }
+    // joint marker
+    if (state.joint) {
+      ctx.strokeStyle = '#ffc24a'; ctx.lineWidth = 1.5; ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(deckEnd, deckY - 22); ctx.lineTo(deckEnd, deckY + deckH + 8); ctx.stroke(); ctx.setLineDash([]);
+    }
+    // myth ghost: rigid deck
+    if (state.myth) {
+      ctx.strokeStyle = '#ff7e5f'; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.5;
+      ctx.strokeRect(xL, deckY - 1, deckLen0, deckH + 2); ctx.setLineDash([]);
+    }
+    // labels
+    ctx.font = FONT_MONO_10; ctx.fillStyle = '#8b93ad';
+    ctx.fillText('pinned end', 6, deckY - 12);
+    ctx.textAlign = 'right';
+    ctx.fillText(state.joint ? 'joint end' : 'locked end', W - 6, deckY - 12);
+    ctx.textAlign = 'left';
+    ctx.fillText(fmt(state.L, 0) + ' m span · movement ×' + fmtSig(exFactor, 2), 10, H * 0.72 - 8);
+    // joint inset: finger joint top view at true mm scale
+    var ix = small ? 12 : W - 262, iy = H * 0.74 + 6, iw = small ? W - 24 : 250, ih = H - iy - 10;
+    ctx.fillStyle = 'rgba(8,11,28,0.85)'; rrect(ctx, ix, iy, iw, ih, 8); ctx.fill();
+    ctx.strokeStyle = 'rgba(94,200,229,0.25)'; ctx.stroke();
+    ctx.fillStyle = '#8b93ad';
+    ctx.fillText(state.joint ? 'finger joint · top view' : 'no joint · deck locked to abutment', ix + 8, iy + 14);
+    if (state.joint) {
+      var gapMm = ds.gap * 1000, maxGap = jointGap(m, state.L, -30) * 1000;
+      var pxPerMm = (iw * 0.33) / Math.max(maxGap, 20);
+      var fl = maxGap * pxPerMm + 12, gp = gapMm * pxPerMm;
+      var xA = ix + iw - 24, xD = xA - fl - gp, fy0 = iy + 22, fy1 = iy + ih - 6;
+      var nr = Math.max(4, Math.floor((fy1 - fy0) / 9)), rh = (fy1 - fy0) / nr;
+      ctx.fillStyle = tempColor(state.T); ctx.globalAlpha = 0.8;
+      ctx.fillRect(ix + 8, fy0, xD - ix - 8, fy1 - fy0);            // deck plate
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#9aa1bb';
+      ctx.fillRect(xA, fy0, ix + iw - 8 - xA, fy1 - fy0);            // abutment plate
+      for (var k = 0; k < nr; k++) {
+        var yk = fy0 + k * rh + 1;
+        if (k % 2 === 0) { ctx.fillStyle = tempColor(state.T); ctx.globalAlpha = 0.8; ctx.fillRect(xD, yk, fl, rh - 2); ctx.globalAlpha = 1; }
+        else { ctx.fillStyle = '#9aa1bb'; ctx.fillRect(xA - fl, yk, fl, rh - 2); }
+      }
+      ctx.textAlign = 'right';
+      ctx.fillStyle = ds.closed ? '#ff7e5f' : '#ffc24a';
+      ctx.fillText('gap ' + fmt(gapMm, 0) + ' mm' + (ds.closed ? ' · CLOSED' : ''), ix + iw - 8, iy + 14);
+      ctx.textAlign = 'left';
+    } else {
+      ctx.fillStyle = 'rgba(154,161,187,0.22)'; ctx.fillRect(ix + 20, iy + 26, iw - 40, Math.max(6, ih - 40));
+      ctx.fillStyle = '#ff7e5f'; ctx.fillText('σ = E·α·ΔT = ' + fmt(ds.sigma / 1e6, 1) + ' MPa', ix + 28, iy + 26 + Math.max(6, ih - 40) / 2 + 4);
+    }
+    if (state.myth) banner(ctx, W, 'Myth: the bridge is rigid', 'Dashed = myth (no change). Real: ' + fmt(ds.free * 1000, 0) + ' mm.', 46, FONT_DISPLAY, FONT_MONO_10);
+    // HUD
+    ctx.font = FONT_MONO_13B;
+    ctx.fillStyle = ['#7ee0a1', '#ffc24a', '#ff7e5f', '#ff5a5a'][ds.verdict.level];
+    ctx.fillText(ds.closed ? 'joint closed · ' + ds.verdict.text : ds.verdict.text, 14, 24);
+    ctx.font = FONT_MONO_11; ctx.fillStyle = '#d7def2';
+    ctx.fillText('deck ' + fmt(state.T, 0) + ' °C · wants ' + (ds.free >= 0 ? '+' : '−') + fmt(Math.abs(ds.free) * 1000, 1) + ' mm', 14, 40);
+    $('sceneMeta').textContent = 'movement ×' + fmtSig(exFactor, 2);
+  }
+
+  function drawChart() {
+    var surf = surfaces.chart;
+    fitCanvas(surf);
+    var ctx = surf.ctx, W = surf.w, H = surf.h, m = state.mat;
+    ctx.fillStyle = '#0a1028'; ctx.fillRect(0, 0, W, H);
+    var L = 50, R = W - 14, T = 26, B = H * 0.46;
+    var tLo = -30, tHi = 60;
+    function X(t) { return L + (t - tLo) / (tHi - tLo) * (R - L); }
+    var dmin = dL(m, state.L, tLo) * 1000, gmax = jointGap(m, state.L, tLo) * 1000, dmax = dL(m, state.L, tHi) * 1000;
+    var yLo = Math.min(dmin, 0) * 1.1, yHi = Math.max(gmax, dmax) * 1.1;
+    function Y(v) { return B - (v - yLo) / (yHi - yLo) * (B - T); }
+    ctx.font = FONT_MONO_10; ctx.strokeStyle = 'rgba(94,200,229,0.12)'; ctx.lineWidth = 1; ctx.fillStyle = '#8b93ad';
+    var step = niceStep((yHi - yLo) / 4);
+    for (var v = Math.ceil(yLo / step) * step; v <= yHi; v += step) { ctx.beginPath(); ctx.moveTo(L, Y(v)); ctx.lineTo(R, Y(v)); ctx.stroke(); ctx.fillText(fmt(v, step < 1 ? 1 : 0), 6, Y(v) + 3); }
+    for (var t = -30; t <= 60; t += 30) { ctx.fillText(t + '°', X(t) - 8, B + 13); }
+    ctx.fillText('mm vs deck temperature (°C)', L, T - 10);
+    // design range shading
+    ctx.fillStyle = 'rgba(126,224,161,0.06)'; ctx.fillRect(X(T_DESIGN_MIN), T, X(T_DESIGN_MAX) - X(T_DESIGN_MIN), B - T);
+    ctx.strokeStyle = '#ff7e5f'; ctx.lineWidth = 2.2;
+    ctx.beginPath(); ctx.moveTo(X(tLo), Y(dmin)); ctx.lineTo(X(tHi), Y(dmax)); ctx.stroke();
+    ctx.fillStyle = '#ff7e5f'; ctx.fillText('length change ΔL', X(-28), Y(dmin) - 8);
+    ctx.strokeStyle = '#ffc24a'; ctx.beginPath();
+    var tc = Math.min(tHi, closeTemp(m, state.L));
+    ctx.moveTo(X(tLo), Y(gmax)); ctx.lineTo(X(tc), Y(0)); ctx.lineTo(X(tHi), Y(0)); ctx.stroke();
+    ctx.fillStyle = '#ffc24a'; ctx.fillText('joint gap', X(-28), Y(gmax) + 14);
+    if (state.myth) { ctx.strokeStyle = 'rgba(255,126,95,0.7)'; ctx.setLineDash([5, 4]); ctx.beginPath(); ctx.moveTo(X(tLo), Y(0)); ctx.lineTo(X(tHi), Y(0)); ctx.stroke(); ctx.setLineDash([]); }
+    // stress (locked)
+    var T2 = H * 0.6, B2 = H - 24;
+    var sMax = Math.max(stressPerDegree(m) * 45, m.buckle * 1.3);
+    var sStep = niceStep(sMax / 2); sMax = Math.ceil(sMax / sStep) * sStep;
+    function Y2(s) { return (T2 + B2) / 2 - s / sMax * (B2 - T2) / 2; }
+    ctx.fillStyle = '#8b93ad'; ctx.fillText('locked-in deck stress (MPa) · + compression', L, T2 - 10);
+    ctx.strokeStyle = 'rgba(94,200,229,0.12)';
+    [-1, -0.5, 0, 0.5, 1].forEach(function (f) { var s = f * sMax; ctx.beginPath(); ctx.moveTo(L, Y2(s)); ctx.lineTo(R, Y2(s)); ctx.stroke(); ctx.fillText(fmt(s / 1e6, 0), 6, Y2(s) + 3); });
+    ctx.strokeStyle = 'rgba(255,90,90,0.7)'; ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(L, Y2(m.buckle)); ctx.lineTo(R, Y2(m.buckle)); ctx.stroke();
+    if (m.crack) { ctx.beginPath(); ctx.moveTo(L, Y2(-m.crack)); ctx.lineTo(R, Y2(-m.crack)); ctx.stroke(); }
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#ff5a5a'; ctx.fillText(m.key === 'concrete' ? 'crush warning' : 'buckling risk', L + 4, Y2(m.buckle) - 4);
+    if (m.crack) ctx.fillText('cracks', L + 4, Y2(-m.crack) + 12);
+    ctx.save(); ctx.beginPath(); ctx.rect(L, T2, R - L, B2 - T2); ctx.clip();
+    ctx.strokeStyle = '#5ec8e5'; ctx.lineWidth = 2.2;
+    ctx.beginPath(); ctx.moveTo(X(tLo), Y2(restrainedStress(m, tLo - T0))); ctx.lineTo(X(tHi), Y2(restrainedStress(m, tHi - T0))); ctx.stroke();
+    ctx.restore();
+    // markers
+    var ds = deckState(m, state.L, state.T, state.joint);
+    ctx.strokeStyle = 'rgba(215,222,242,0.6)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(X(state.T), T); ctx.lineTo(X(state.T), B2); ctx.stroke();
+    ctx.fillStyle = '#d7def2';
+    ctx.beginPath(); ctx.arc(X(state.T), Y(ds.free * 1000), 4, 0, Math.PI * 2); ctx.fill();
+    var sNow = restrainedStress(m, state.T - T0);
+    ctx.beginPath(); ctx.arc(X(state.T), Y2(clamp(sNow, -sMax, sMax)), 4, 0, Math.PI * 2); ctx.fill();
+    $('chartMeta').textContent = fmt(state.L, 0) + ' m ' + m.label.toLowerCase();
+  }
+  function niceStep(raw) { var mag = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10)), f = raw / mag; return (f < 2 ? 1 : (f < 5 ? 2 : 5)) * mag; }
+
+  function renderReadout() {
+    var m = state.mat, ds = deckState(m, state.L, state.T, state.joint);
+    var html = '';
+    function kv(k, v, s, cls) { html += '<div class="kv"><div class="k">' + k + '</div><div class="v' + (cls ? ' ' + cls : '') + '">' + v + '</div><div class="s">' + s + '</div></div>'; }
+    kv('Free length change', (ds.free >= 0 ? '+' : '−') + fmt(Math.abs(ds.free) * 1000, 1) + ' mm', 'α·L·ΔT · ΔT = ' + (state.T - T0 >= 0 ? '+' : '−') + Math.abs(state.T - T0) + ' °C from 15 °C');
+    kv('Joint gap', state.joint ? fmt(ds.gap * 1000, 0) + ' mm' + (ds.closed ? ' (closed)' : '') : 'none', state.joint ? 'set at ' + fmt(jointSetGap(m, state.L) * 1000, 0) + ' mm at 15 °C · closes at ' + fmt(closeTemp(m, state.L), 0) + ' °C' : 'deck locked between abutments', state.joint ? (ds.closed ? 'warm' : 'sun') : 'warm');
+    kv('Deck stress', fmt(Math.abs(ds.sigma) / 1e6, 1) + ' MPa', Math.abs(ds.sigma) < 1e3 ? 'free to move' : (ds.sigma > 0 ? 'compression' : 'tension') + ' · ' + fmt(stressPerDegree(m) / 1e6, 2) + ' MPa per °C if locked', ds.verdict.level >= 2 ? 'warm' : (ds.verdict.level === 1 ? 'sun' : 'ok'));
+    kv('Push on supports', fmt(Math.abs(ds.sigma) / 1e6, 1) + ' MN', 'per m² of deck cross-section (σ × A)');
+    if (state.myth) kv('Rigid-bridge myth', '0 mm', 'predicts no movement; real ' + fmt(Math.abs(ds.free) * 1000, 0) + ' mm', 'warm');
+    else kv('Verdict', ds.verdict.text, (ds.closed ? 'beyond the joint’s design range · ' : '') + m.label + ' · limit ' + fmt((ds.sigma >= 0 ? m.buckle : (m.crack || m.yieldT)) / 1e6, 1) + ' MPa', ['ok', 'sun', 'warm', 'warm'][ds.verdict.level]);
+    elReadout.innerHTML = html;
+  }
+
+  function updateLabels() {
+    var T = state.T;
+    elTL.textContent = T + ' °C' + (T === 15 ? ' · as built' : (T < 0 ? ' · freezing' : (T >= 50 ? ' · extreme' : '')));
+    elT.value = String(T);
+    elLL.textContent = state.L + ' m';
+    elL.value = String(state.L);
+    for (var k in mChips) setChip(mChips[k], state.mat.key === k);
+    for (var w in wChips) setChip($(w), state.T === wChips[w]);
+    setChip($('jOn'), state.joint); setChip($('jOff'), !state.joint); setChip(chipMyth, state.myth);
+    var ds = deckState(state.mat, state.L, state.T, state.joint);
+    if (state.myth) elHint.textContent = 'Myth mode · dashed outline = the rigid deck the myth imagines. Real steel and concrete always move.';
+    else if (ds.closed) elHint.textContent = 'Hotter than the joint was designed for: the gap has closed and the deck is now being squeezed.';
+    else if (!state.joint && ds.verdict.level >= 2) elHint.textContent = 'Locked in: the length can’t change, so the stress does. ' + ds.verdict.text + '.';
+    else if (!state.joint) elHint.textContent = 'Locked in: stress = E·α·ΔT, the same for any span length.';
+    else elHint.textContent = 'Built at 15 °C. The joint was set for −20 to +50 °C.';
+  }
+
+  function render() { renderReadout(); drawBridge(); drawChart(); }
+
+  function tick(ts) {
+    if (!state.lastTs) state.lastTs = ts;
+    var dt = Math.min(0.05, (ts - state.lastTs) / 1000);
+    state.lastTs = ts;
+    state.anim += dt;
+    state.bow += ((state.bowTarget || 0) - state.bow) * Math.min(1, dt * 4);
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  Object.keys(mChips).forEach(function (k) { mChips[k].addEventListener('click', function () { state.mat = MATS[k]; updateLabels(); }); });
+  Object.keys(wChips).forEach(function (id) { $(id).addEventListener('click', function () { state.T = wChips[id]; updateLabels(); }); });
+  $('jOn').addEventListener('click', function () { state.joint = true; updateLabels(); });
+  $('jOff').addEventListener('click', function () { state.joint = false; updateLabels(); });
+  chipMyth.addEventListener('click', function () { state.myth = !state.myth; updateLabels(); });
+  elT.addEventListener('input', function () { state.T = parseInt(elT.value, 10); updateLabels(); });
+  elL.addEventListener('input', function () { state.L = parseFloat(elL.value); updateLabels(); });
+  window.addEventListener('resize', function () { render(); });
+
+  updateLabels();
+  requestAnimationFrame(tick);
+
+  window.__bridgePhysics = {
+    dL: dL, restrainedStress: restrainedStress, stressPerDegree: stressPerDegree, jointSetGap: jointSetGap, jointGap: jointGap,
+    closeTemp: closeTemp, deckState: deckState, verdict: verdict, MATS: MATS, T0: T0, T_DESIGN_MIN: T_DESIGN_MIN, T_DESIGN_MAX: T_DESIGN_MAX
+  };
+  window.__bridgeState = state;
+})();
+</script>
+</body>
+</html>
